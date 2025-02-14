@@ -72,6 +72,12 @@
         background: #1e1e1e;
         color: #e0e0e0;
       }
+      /* Dark mode override for items with explicit backgrounds */
+      body.dark-mode .experience-item,
+      body.dark-mode .project-item {
+        background: #2f2f2f;
+        color: #e0e0e0;
+      }
 
       /* Skip Link for Accessibility */
       .skip-link {
@@ -145,7 +151,6 @@
         text-align: center;
         padding: 150px 0 100px;
         margin-top: 80px; /* Offset for fixed header */
-        /* Hero fade/slide-in on page load */
       }
       .hero-content {
         opacity: 0;
@@ -188,7 +193,6 @@
         cursor: pointer;
         position: relative;
         overflow: hidden;
-        /* We'll do a custom hover animation via keyframes */
       }
       .icon-button:hover {
         animation: iconHover 0.4s ease forwards;
@@ -485,7 +489,7 @@
       </div>
     </footer>
 
-    <!-- Back to Top Button -->
+    <!-- Back-to-Top Button -->
     <a href="#" class="back-to-top" id="backToTop" aria-label="Scroll to top">▲</a>
 
     <script>
@@ -525,7 +529,6 @@
           },
           { threshold: 0.1 }
         );
-
         items.forEach((item) => observer.observe(item));
       });
 
