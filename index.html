@@ -46,7 +46,7 @@
       /* Light Mode Override: Use a deeper goldenrod scheme for readability */
       body:not(.dark-mode) {
         --primary-color: #daa520; /* GoldenRod */
-        --accent-color: #b8860b;  /* DarkGoldenRod */
+        --accent-color: #b8860b; /* DarkGoldenRod */
       }
       /* Global Styles */
       *,
@@ -56,7 +56,7 @@
       }
       body {
         margin: 0;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background: var(--light-bg);
         color: var(--light-text);
         transition: background var(--transition), color var(--transition);
@@ -237,7 +237,8 @@
         border-radius: 50%;
         color: var(--primary-color);
         font-size: 1.4em;
-        transition: transform var(--transition), background var(--transition), color var(--transition);
+        transition: transform var(--transition), background var(--transition),
+          color var(--transition);
       }
       .social-icons .icon:hover {
         transform: scale(1.2) rotate(10deg);
@@ -396,11 +397,13 @@
           <li><a href="#projects">Projects</a></li>
         </ul>
         <!-- Hamburger & Theme Toggle -->
-        <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px">
           <button id="hamburger" aria-label="Toggle Mobile Menu">
             <i class="fas fa-bars"></i>
           </button>
-          <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">🌙</button>
+          <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+            🌙
+          </button>
         </div>
       </div>
       <!-- Mobile Nav -->
@@ -422,20 +425,35 @@
           <p>Software Developer | Innovator | Problem Solver</p>
           <!-- Social Icons -->
           <div class="social-icons">
-            <a href="https://github.com/yourprofile" target="_blank" class="icon" aria-label="GitHub">
+            <a
+              href="https://github.com/souravas"
+              target="_blank"
+              class="icon"
+              aria-label="GitHub"
+            >
               <i class="fab fa-github"></i>
             </a>
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" class="icon" aria-label="LinkedIn">
+            <a
+              href="https://www.linkedin.com/in/souravas/"
+              target="_blank"
+              class="icon"
+              aria-label="LinkedIn"
+            >
               <i class="fab fa-linkedin-in"></i>
             </a>
-            <a href="https://twitter.com/yourprofile" target="_blank" class="icon" aria-label="Twitter">
+            <a
+              href="https://x.com/souravas007"
+              target="_blank"
+              class="icon"
+              aria-label="Twitter"
+            >
               <i class="fab fa-twitter"></i>
             </a>
           </div>
           <!-- Contact Details -->
           <div class="contact-details">
-            <p>Email: <strong>example@example.com</strong></p>
-            <p>Phone: <strong>+1 123 456 7890</strong></p>
+            <p>Email: <strong>souravas007@gmail.com</strong></p>
+            <p>Phone: <strong>+91-9526-444-907</strong></p>
           </div>
           <!-- Buttons -->
           <a href="#about" class="btn">Learn More</a>
@@ -448,7 +466,10 @@
         <div class="container">
           <h2>About Me</h2>
           <p>
-            I am a passionate software developer with a knack for building efficient, scalable, and innovative web applications. My journey is driven by creativity, continuous learning, and an uncompromising commitment to excellence.
+            I am a passionate software developer with a knack for building
+            efficient, scalable, and innovative web applications. My journey is
+            driven by creativity, continuous learning, and an uncompromising
+            commitment to excellence.
           </p>
         </div>
       </section>
@@ -459,24 +480,34 @@
           <h2>Experience</h2>
           <div class="card-grid">
             <div class="card">
+              <h3>Tata 1mg</h3>
+              <span class="company"
+                >Software Engineer · Oct 2022 - Present · 2 yrs 5 mos ·
+                Hybrid</span
+              >
+              <p>
+                Building scalable healthcare applications and refining user
+                experiences in a hybrid environment.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>Tata Health</h3>
+              <span class="company"
+                >Software Engineer · Dec 2021 - Sep 2022 · 10 mos · Remote</span
+              >
+              <p>
+                Developed innovative health solutions and optimized system
+                efficiency while working remotely.
+              </p>
+            </div>
+
+            <div class="card">
               <h3>Pelatro</h3>
               <span class="company">Full-time · 2 yrs 6 mos · On-site</span>
               <p>
-                Delivered robust solutions across diverse projects and enhanced product performance.
-              </p>
-            </div>
-            <div class="card">
-              <h3>Tata Health</h3>
-              <span class="company">Software Engineer · Dec 2021 - Sep 2022 · 10 mos · Remote</span>
-              <p>
-                Developed innovative health solutions and optimized system efficiency while working remotely.
-              </p>
-            </div>
-            <div class="card">
-              <h3>Tata 1mg</h3>
-              <span class="company">Software Engineer · Oct 2022 - Present · 2 yrs 5 mos · Hybrid</span>
-              <p>
-                Building scalable healthcare applications and refining user experiences in a hybrid environment.
+                Delivered robust solutions across diverse projects and enhanced
+                product performance.
               </p>
             </div>
           </div>
@@ -492,20 +523,13 @@
               <h3>NSS College of Engineering, Palakkad</h3>
               <div class="degree">BTech, Computer Science</div>
               <div class="duration">Aug 2015 - Mar 2019</div>
-              <p>Skills: Microsoft Excel · C (Programming Language) · Problem Solving</p>
             </div>
             <div class="card">
               <h3>Jawahar Navodaya Vidyalaya (JNV)</h3>
-              <div class="degree">12th Grade, Science (PCMB)</div>
-              <div class="duration">2015</div>
-              <p>Grade: 91.6%</p>
+              <div class="degree">High School</div>
+              <div class="duration">2008-2015</div>
             </div>
-            <div class="card">
-              <h3>Jawahar Navodaya Vidyalaya (JNV)</h3>
-              <div class="degree">10th Grade (CBSE)</div>
-              <div class="duration">2013</div>
-              <p>Grade: 10 CGPA</p>
-            </div>
+
           </div>
         </div>
       </section>
@@ -518,13 +542,15 @@
             <div class="card">
               <h3>Project One</h3>
               <p>
-                A dynamic web application using Python, Flask, and MySQL, showcasing a full-stack development approach.
+                A dynamic web application using Python, Flask, and MySQL,
+                showcasing a full-stack development approach.
               </p>
             </div>
             <div class="card">
               <h3>Project Two</h3>
               <p>
-                An interactive web app built with JavaScript, Node.js, and MongoDB, designed to deliver engaging user experiences.
+                An interactive web app built with JavaScript, Node.js, and
+                MongoDB, designed to deliver engaging user experiences.
               </p>
             </div>
           </div>
@@ -540,7 +566,9 @@
     </footer>
 
     <!-- Back-to-Top Button -->
-    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">↑</a>
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top"
+      >↑</a
+    >
 
     <script>
       // Theme Toggle
@@ -552,7 +580,9 @@
       }
       toggleButton.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
-        const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+        const theme = document.body.classList.contains("dark-mode")
+          ? "dark"
+          : "light";
         toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
         localStorage.setItem("theme", theme);
       });
@@ -570,13 +600,15 @@
       // Dynamic Nav Link Highlighting
       document.addEventListener("DOMContentLoaded", () => {
         const sections = document.querySelectorAll("section[id]");
-        const desktopLinks = document.querySelectorAll(".nav-links:not(.mobile-nav) a");
+        const desktopLinks = document.querySelectorAll(
+          ".nav-links:not(.mobile-nav) a"
+        );
         const mobileLinks = document.querySelectorAll(".mobile-nav a");
 
         const options = {
           root: null,
           rootMargin: "0px",
-          threshold: 0.5
+          threshold: 0.5,
         };
 
         const observer = new IntersectionObserver((entries) => {
