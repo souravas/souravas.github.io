@@ -4,24 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sourav | Software Developer</title>
-    <meta name="description" content="Sourav - A passionate Software Developer crafting scalable and efficient web applications." />
+    <meta
+      name="description"
+      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
+    />
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Sourav | Software Developer" />
-    <meta property="og:description" content="Sourav - A passionate Software Developer crafting scalable and efficient web applications." />
+    <meta
+      property="og:description"
+      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yourdomain.com" />
     <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Font Awesome Icons (CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <style>
-      /* Variables */
+      /* Base Variables */
       :root {
-        --primary-color: #ffcc00;
-        --accent-color: #e0a800;
         --light-bg: #f5f5f5;
         --light-text: #333;
         --dark-bg: #121212;
@@ -29,10 +42,22 @@
         --header-bg-light: #ffffff;
         --header-bg-dark: #1a1a1a;
         --transition: 0.3s ease;
+
+        /* Default (Dark Mode) primary colors */
+        --primary-color: #ffcc00;
+        --accent-color: #e0a800;
+      }
+
+      /* Light Mode Override: Use a deeper goldenrod scheme for readability */
+      body:not(.dark-mode) {
+        --primary-color: #daa520; /* GoldenRod */
+        --accent-color: #b8860b;  /* DarkGoldenRod */
       }
 
       /* Global Styles */
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
       }
       body {
@@ -111,9 +136,13 @@
         font-weight: 500;
         transition: color var(--transition);
       }
-      .nav-links li a:hover,
+      .nav-links li a:hover {
+        color: var(--primary-color);
+      }
+      /* "active" class styling */
       .nav-links li a.active {
         color: var(--primary-color);
+        font-weight: 600;
       }
       #theme-toggle {
         background: none;
@@ -232,7 +261,7 @@
         font-size: 1.1em;
       }
 
-      /* Card Grid for Experience & Projects */
+      /* Card Grid for Experience, Projects & Education */
       .card-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -265,6 +294,16 @@
       }
       .card p {
         font-size: 1em;
+      }
+      /* Education Specific Styling */
+      #education .card .degree {
+        font-weight: 500;
+        margin: 5px 0;
+        font-size: 1em;
+      }
+      #education .card .duration {
+        font-size: 0.9em;
+        color: var(--primary-color);
       }
 
       /* Back-to-Top Button */
@@ -322,9 +361,10 @@
         <div class="logo">Sourav</div>
         <nav>
           <ul class="nav-links">
-            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="#hero">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
             <li><a href="#projects">Projects</a></li>
           </ul>
         </nav>
@@ -400,6 +440,33 @@
         </div>
       </section>
 
+      <!-- Education Section -->
+      <section id="education" class="section-container">
+        <div class="container">
+          <h2>Education</h2>
+          <div class="card-grid">
+            <div class="card">
+              <h3>NSS College of Engineering, Palakkad</h3>
+              <div class="degree">BTech, Computer Science</div>
+              <div class="duration">Aug 2015 - Mar 2019</div>
+              <p>Skills: Microsoft Excel · C (Programming Language) · Problem Solving</p>
+            </div>
+            <div class="card">
+              <h3>Jawahar Navodaya Vidyalaya (JNV)</h3>
+              <div class="degree">12th Grade, Science (PCMB)</div>
+              <div class="duration">2015</div>
+              <p>Grade: 91.6%</p>
+            </div>
+            <div class="card">
+              <h3>Jawahar Navodaya Vidyalaya (JNV)</h3>
+              <div class="degree">10th Grade (CBSE)</div>
+              <div class="duration">2013</div>
+              <p>Grade: 10 CGPA</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Projects Section -->
       <section id="projects" class="section-container">
         <div class="container">
@@ -455,6 +522,36 @@
       backToTop.addEventListener("click", (e) => {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Dynamic Nav Link Highlighting
+      document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        const options = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.5 // Adjust if needed to change when highlight occurs
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Remove 'active' from all nav links
+              navLinks.forEach((link) => link.classList.remove("active"));
+              // Highlight the nav link that matches this section
+              const activeLink = document.querySelector(
+                `.nav-links a[href="#${entry.target.id}"]`
+              );
+              if (activeLink) {
+                activeLink.classList.add("active");
+              }
+            }
+          });
+        }, options);
+
+        sections.forEach((section) => observer.observe(section));
       });
     </script>
   </body>
