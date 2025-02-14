@@ -4,33 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sourav | Software Developer</title>
-    <meta
-      name="description"
-      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
-    />
+    <meta name="description" content="Sourav - A passionate Software Developer crafting scalable and efficient web applications." />
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Sourav | Software Developer" />
-    <meta
-      property="og:description"
-      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
-    />
+    <meta property="og:description" content="Sourav - A passionate Software Developer crafting scalable and efficient web applications." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yourdomain.com" />
     <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
 
     <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
     <!-- Font Awesome Icons (CDN) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
       /* CSS Variables for easy theming */
@@ -51,7 +39,6 @@
       *::after {
         box-sizing: border-box;
       }
-
       body {
         margin: 0;
         font-family: 'Poppins', Arial, sans-serif;
@@ -61,7 +48,6 @@
         line-height: 1.6;
         transition: background var(--transition-speed), color var(--transition-speed);
       }
-
       /* Dark Mode Styles */
       body.dark-mode {
         background: var(--dark-bg);
@@ -72,7 +58,7 @@
         background: #1e1e1e;
         color: #e0e0e0;
       }
-      /* Dark mode override for items with explicit backgrounds */
+      /* Dark mode override for cards */
       body.dark-mode .experience-item,
       body.dark-mode .project-item {
         background: #2f2f2f;
@@ -144,15 +130,20 @@
         cursor: pointer;
       }
 
-      /* Hero Section */
+      /* Hero Section with Glassmorphism */
       #hero {
         background: var(--hero-bg);
         color: #fff;
         text-align: center;
         padding: 150px 0 100px;
-        margin-top: 80px; /* Offset for fixed header */
+        margin-top: 80px;
       }
       .hero-content {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 10px;
+        display: inline-block;
         opacity: 0;
         transform: translateY(30px);
         animation: fadeInHero 0.8s forwards ease-in-out;
@@ -173,7 +164,7 @@
         margin-bottom: 20px;
       }
 
-      /* Social Icons */
+      /* Social Icons with Hover Animation */
       .social-icons {
         margin: 20px 0;
         display: flex;
@@ -255,7 +246,7 @@
         border-radius: 2px;
       }
 
-      /* Experience & Project Items */
+      /* Experience & Project Items with Scroll Reveal */
       .experience-item,
       .project-item {
         background: #f4f4f4;
@@ -269,7 +260,6 @@
         opacity: 0;
         transform: translateY(30px);
       }
-      /* When item is visible in viewport */
       .experience-item.visible,
       .project-item.visible {
         opacity: 1;
@@ -279,7 +269,6 @@
       .project-item:hover {
         transform: translateY(-5px);
       }
-
       .project-grid {
         display: flex;
         gap: 20px;
@@ -358,9 +347,7 @@
             <li><a href="#projects">Projects</a></li>
           </ul>
         </nav>
-        <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
-          🌙
-        </button>
+        <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">🌙</button>
       </div>
     </header>
 
@@ -370,41 +357,23 @@
         <div class="container hero-content">
           <h2>Hi, I'm Sourav</h2>
           <p>Software Developer | Problem Solver | Tech Enthusiast</p>
-
           <!-- Social Icons -->
           <div class="social-icons">
-            <a
-              href="https://github.com/yourprofile"
-              target="_blank"
-              class="icon-button"
-              aria-label="GitHub"
-            >
+            <a href="https://github.com/yourprofile" target="_blank" class="icon-button" aria-label="GitHub">
               <i class="fab fa-github"></i>
             </a>
-            <a
-              href="https://linkedin.com/in/yourprofile"
-              target="_blank"
-              class="icon-button"
-              aria-label="LinkedIn"
-            >
+            <a href="https://linkedin.com/in/yourprofile" target="_blank" class="icon-button" aria-label="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
             </a>
-            <a
-              href="https://twitter.com/yourprofile"
-              target="_blank"
-              class="icon-button"
-              aria-label="Twitter"
-            >
+            <a href="https://twitter.com/yourprofile" target="_blank" class="icon-button" aria-label="Twitter">
               <i class="fab fa-twitter"></i>
             </a>
           </div>
-
           <!-- Contact Details -->
           <div class="contact-details">
             <p>Email: <strong>example@example.com</strong></p>
             <p>Phone: <strong>+1 123 456 7890</strong></p>
           </div>
-
           <a href="#about" class="btn">Hire Me</a>
         </div>
       </section>
@@ -414,10 +383,7 @@
         <div class="container">
           <h2>About Me</h2>
           <p>
-            I am a passionate software developer with extensive experience in
-            creating high-quality applications using modern technologies. I
-            thrive on solving complex challenges and writing clean, efficient
-            code.
+            I am a passionate software developer with extensive experience in creating high-quality applications using modern technologies. I thrive on solving complex challenges and writing clean, efficient code.
           </p>
         </div>
       </section>
@@ -430,8 +396,7 @@
             <h3>Pelatro</h3>
             <p class="company">Full-time · 2 yrs 6 mos · On-site</p>
             <p>
-              Contributed to diverse projects at Pelatro, delivering robust
-              solutions and enhancing overall product performance.
+              Contributed to diverse projects at Pelatro, delivering robust solutions and enhancing overall product performance.
             </p>
           </article>
           <article class="experience-item">
@@ -440,19 +405,16 @@
               Dec 2021 - Sep 2022 · 10 mos · Bengaluru, Karnataka, India · Remote
             </p>
             <p>
-              Developed innovative health solutions and improved system
-              efficiency while working remotely.
+              Developed innovative health solutions and improved system efficiency while working remotely.
             </p>
           </article>
           <article class="experience-item">
             <h3>Software Engineer at Tata 1mg</h3>
             <p class="company">
-              Oct 2022 - Present · 2 yrs 5 mos · Bengaluru, Karnataka, India ·
-              Hybrid
+              Oct 2022 - Present · 2 yrs 5 mos · Bengaluru, Karnataka, India · Hybrid
             </p>
             <p>
-              Building scalable healthcare applications and enhancing user
-              experiences in a hybrid work environment.
+              Building scalable healthcare applications and enhancing user experiences in a hybrid work environment.
             </p>
           </article>
         </div>
@@ -466,15 +428,13 @@
             <article class="project-item">
               <h3>Project One</h3>
               <p>
-                A dynamic web application built using Python, Flask, and MySQL,
-                showcasing a full-stack development approach.
+                A dynamic web application built using Python, Flask, and MySQL, showcasing a full-stack development approach.
               </p>
             </article>
             <article class="project-item">
               <h3>Project Two</h3>
               <p>
-                A modern web app utilizing JavaScript, Node.js, and MongoDB to
-                deliver interactive user experiences.
+                A modern web app utilizing JavaScript, Node.js, and MongoDB to deliver interactive user experiences.
               </p>
             </article>
           </div>
@@ -496,22 +456,14 @@
       // Theme toggle functionality
       const toggleButton = document.getElementById("theme-toggle");
       const currentTheme = localStorage.getItem("theme");
-
       if (currentTheme === "dark") {
         document.body.classList.add("dark-mode");
         toggleButton.textContent = "☀️";
       }
-
       toggleButton.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
-        let theme = "light";
-        if (document.body.classList.contains("dark-mode")) {
-          theme = "dark";
-          toggleButton.textContent = "☀️";
-        } else {
-          theme = "light";
-          toggleButton.textContent = "🌙";
-        }
+        let theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+        toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
         localStorage.setItem("theme", theme);
       });
 
@@ -535,11 +487,7 @@
       // Back-to-Top Button
       const backToTop = document.getElementById("backToTop");
       window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-          backToTop.style.display = "block";
-        } else {
-          backToTop.style.display = "none";
-        }
+        backToTop.style.display = window.scrollY > 300 ? "block" : "none";
       });
     </script>
   </body>
