@@ -129,6 +129,40 @@
     margin-bottom: 20px;
   }
 
+  /* Social Icons */
+  .social-icons {
+    margin: 20px 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .icon-button {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 47px;
+    color: #fff;
+    font-size: 1.2em;
+    transition: background var(--transition-speed), color var(--transition-speed);
+  }
+
+  .icon-button:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  /* Contact Details */
+  .contact-details {
+    margin: 10px 0 20px;
+    font-size: 1em;
+    line-height: 1.4;
+  }
+
+  /* Button */
   .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -200,121 +234,6 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  /* Contact Section */
-  .contact-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    align-items: flex-start;
-    justify-content: center;
-    text-align: left;
-    margin-top: 40px;
-  }
-
-  .contact-info {
-    flex: 1 1 300px;
-  }
-
-  .contact-info h2 {
-    margin-bottom: 20px;
-  }
-
-  .contact-info p {
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-
-  .contact-info ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .contact-info li {
-    margin-bottom: 10px;
-  }
-
-  .contact-info a {
-    color: var(--primary-color);
-    text-decoration: none;
-  }
-
-  .contact-info a:hover {
-    text-decoration: underline;
-  }
-
-  /* Contact Form Box */
-  .contact-form {
-    flex: 1 1 400px;
-    background: #f4f4f4;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Form Styling */
-  .contact-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .form-group label {
-    margin-bottom: 5px;
-    font-weight: 600;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: inherit;
-    transition: border-color var(--transition-speed);
-  }
-
-  input:focus,
-  textarea:focus {
-    border-color: var(--primary-color);
-    outline: none;
-  }
-
-  button[type="submit"] {
-    padding: 12px;
-    background: var(--primary-color);
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background var(--transition-speed);
-  }
-
-  button[type="submit"]:hover {
-    background: #e6b800;
-  }
-
-  /* Dark Mode Overrides for Experience & Project Items */
-  body.dark-mode .experience-item,
-  body.dark-mode .project-item {
-    background: #2f2f2f;
-    color: #e0e0e0;
-  }
-
-  /* Dark Mode Overrides for Contact Section */
-  body.dark-mode .contact-form {
-    background: #2f2f2f;
-    box-shadow: none;
-  }
-
-  body.dark-mode .contact-form .btn {
-    color: #000;
-  }
-
   /* Footer */
   footer {
     background: var(--header-bg);
@@ -336,9 +255,6 @@
       margin-top: 10px;
     }
     .project-grid {
-      flex-direction: column;
-    }
-    .contact-section {
       flex-direction: column;
     }
   }

@@ -1,3 +1,4 @@
+// Theme toggle functionality
 const toggleButton = document.getElementById("theme-toggle");
 const currentTheme = localStorage.getItem("theme");
 
@@ -13,6 +14,7 @@ toggleButton.addEventListener("click", () => {
     theme = "dark";
     toggleButton.textContent = "☀️";
   } else {
+    theme = "light";
     toggleButton.textContent = "🌙";
   }
   localStorage.setItem("theme", theme);
