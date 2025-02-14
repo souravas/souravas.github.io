@@ -26,13 +26,317 @@
       rel="stylesheet"
     />
 
-    <!-- Font Awesome Icons CDN -->
+    <!-- Font Awesome Icons (CDN) -->
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-/>
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* CSS Variables for easy theming */
+      :root {
+        --primary-color: #ffcc00;
+        --header-bg: #000;
+        --header-text: #fff;
+        --hero-bg: linear-gradient(135deg, #2b5876, #4e4376);
+        --light-bg: #fff;
+        --dark-bg: #121212;
+        --text-color: #333;
+        --transition-speed: 0.3s;
+      }
+
+      /* Global Styles */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Poppins', Arial, sans-serif;
+        background: var(--light-bg);
+        color: var(--text-color);
+        scroll-behavior: smooth;
+        line-height: 1.6;
+        transition: background var(--transition-speed), color var(--transition-speed);
+      }
+
+      /* Dark Mode Styles */
+      body.dark-mode {
+        background: var(--dark-bg);
+        color: #e0e0e0;
+      }
+      body.dark-mode header,
+      body.dark-mode footer {
+        background: #1e1e1e;
+        color: #e0e0e0;
+      }
+
+      /* Skip Link for Accessibility */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--primary-color);
+        color: #000;
+        padding: 8px 16px;
+        z-index: 100;
+        transition: top var(--transition-speed);
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* Container */
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 10px;
+      }
+
+      /* Navigation Bar */
+      header {
+        background: var(--header-bg);
+        color: var(--header-text);
+        padding: 20px 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        transition: background var(--transition-speed);
+      }
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-links li a {
+        text-decoration: none;
+        color: var(--header-text);
+        transition: color var(--transition-speed);
+      }
+      .nav-links li a:hover,
+      .nav-links li a.active {
+        color: var(--primary-color);
+      }
+      #theme-toggle {
+        background: none;
+        border: none;
+        color: var(--header-text);
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      #hero {
+        background: var(--hero-bg);
+        color: #fff;
+        text-align: center;
+        padding: 150px 0 100px;
+        margin-top: 80px; /* Offset for fixed header */
+        /* Hero fade/slide-in on page load */
+      }
+      .hero-content {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInHero 0.8s forwards ease-in-out;
+        animation-delay: 0.2s;
+      }
+      @keyframes fadeInHero {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-content h2 {
+        font-size: 2.8em;
+        margin-bottom: 10px;
+      }
+      .hero-content p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+      }
+
+      /* Social Icons */
+      .social-icons {
+        margin: 20px 0;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      .icon-button {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 47px;
+        color: #fff;
+        font-size: 1.2em;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        /* We'll do a custom hover animation via keyframes */
+      }
+      .icon-button:hover {
+        animation: iconHover 0.4s ease forwards;
+      }
+      @keyframes iconHover {
+        0% {
+          transform: scale(1) rotate(0deg);
+          background: transparent;
+        }
+        50% {
+          transform: scale(1.2) rotate(15deg);
+          background: #fff;
+          color: #000;
+        }
+        100% {
+          transform: scale(1) rotate(0deg);
+          background: #fff;
+          color: #000;
+        }
+      }
+
+      /* Contact Details */
+      .contact-details {
+        margin: 10px 0 20px;
+        font-size: 1em;
+        line-height: 1.4;
+      }
+
+      /* Button */
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: var(--primary-color);
+        color: #000;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background var(--transition-speed);
+      }
+      .btn:hover {
+        background: #e6b800;
+      }
+
+      /* Sections */
+      section {
+        padding: 80px 0;
+        text-align: center;
+      }
+      section h2 {
+        font-size: 2.2em;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      section h2::after {
+        content: "";
+        width: 50px;
+        height: 4px;
+        background: var(--primary-color);
+        display: block;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+
+      /* Experience & Project Items */
+      .experience-item,
+      .project-item {
+        background: #f4f4f4;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 8px;
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        transition: transform var(--transition-speed), opacity var(--transition-speed);
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      /* When item is visible in viewport */
+      .experience-item.visible,
+      .project-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .experience-item:hover,
+      .project-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .project-grid {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .project-item {
+        flex: 1;
+        background: #e8e8e8;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: left;
+        max-width: 400px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Back-to-Top Button */
+      .back-to-top {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        display: none;
+        background: var(--primary-color);
+        color: #000;
+        padding: 10px 15px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.2em;
+        transition: background var(--transition-speed);
+        z-index: 2000;
+        cursor: pointer;
+      }
+      .back-to-top:hover {
+        background: #e6b800;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--header-bg);
+        color: var(--header-text);
+        text-align: center;
+        padding: 20px 0;
+        font-size: 0.9em;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .header-container {
+          flex-direction: column;
+          text-align: center;
+        }
+        .nav-links {
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 10px;
+        }
+        .project-grid {
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Skip to Content Link for Accessibility -->
@@ -181,6 +485,59 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Scroll to top">▲</a>
+
+    <script>
+      // Theme toggle functionality
+      const toggleButton = document.getElementById("theme-toggle");
+      const currentTheme = localStorage.getItem("theme");
+
+      if (currentTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        toggleButton.textContent = "☀️";
+      }
+
+      toggleButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        let theme = "light";
+        if (document.body.classList.contains("dark-mode")) {
+          theme = "dark";
+          toggleButton.textContent = "☀️";
+        } else {
+          theme = "light";
+          toggleButton.textContent = "🌙";
+        }
+        localStorage.setItem("theme", theme);
+      });
+
+      // Reveal on scroll (Experience & Project Items)
+      document.addEventListener("DOMContentLoaded", () => {
+        const items = document.querySelectorAll(".experience-item, .project-item");
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        items.forEach((item) => observer.observe(item));
+      });
+
+      // Back-to-Top Button
+      const backToTop = document.getElementById("backToTop");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          backToTop.style.display = "block";
+        } else {
+          backToTop.style.display = "none";
+        }
+      });
+    </script>
   </body>
 </html>
