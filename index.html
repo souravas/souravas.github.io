@@ -13,59 +13,50 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yourdomain.com" />
     <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-
     <!-- Font Awesome Icons (CDN) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
     <style>
-      /* CSS Variables for easy theming */
+      /* Variables */
       :root {
         --primary-color: #ffcc00;
-        --header-bg: #000;
-        --header-text: #fff;
-        --hero-bg: linear-gradient(135deg, #2b5876, #4e4376);
-        --light-bg: #fff;
+        --accent-color: #e0a800;
+        --light-bg: #f5f5f5;
+        --light-text: #333;
         --dark-bg: #121212;
-        --text-color: #333;
-        --transition-speed: 0.3s;
+        --dark-text: #e0e0e0;
+        --header-bg-light: #ffffff;
+        --header-bg-dark: #1a1a1a;
+        --transition: 0.3s ease;
       }
 
       /* Global Styles */
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         box-sizing: border-box;
       }
       body {
         margin: 0;
-        font-family: 'Poppins', Arial, sans-serif;
+        font-family: 'Poppins', sans-serif;
         background: var(--light-bg);
-        color: var(--text-color);
+        color: var(--light-text);
+        transition: background var(--transition), color var(--transition);
         scroll-behavior: smooth;
-        line-height: 1.6;
-        transition: background var(--transition-speed), color var(--transition-speed);
       }
-      /* Dark Mode Styles */
+      /* Dark Mode */
       body.dark-mode {
         background: var(--dark-bg);
-        color: #e0e0e0;
+        color: var(--dark-text);
       }
-      body.dark-mode header,
+      body.dark-mode header {
+        background: var(--header-bg-dark);
+      }
       body.dark-mode footer {
-        background: #1e1e1e;
-        color: #e0e0e0;
-      }
-      /* Dark mode override for cards */
-      body.dark-mode .experience-item,
-      body.dark-mode .project-item {
-        background: #2f2f2f;
-        color: #e0e0e0;
+        background: var(--header-bg-dark);
+        color: var(--dark-text);
       }
 
-      /* Skip Link for Accessibility */
+      /* Skip Link */
       .skip-link {
         position: absolute;
         top: -40px;
@@ -74,7 +65,7 @@
         color: #000;
         padding: 8px 16px;
         z-index: 100;
-        transition: top var(--transition-speed);
+        transition: top var(--transition);
       }
       .skip-link:focus {
         top: 0;
@@ -88,23 +79,24 @@
         padding: 0 10px;
       }
 
-      /* Navigation Bar */
+      /* Header & Navigation */
       header {
-        background: var(--header-bg);
-        color: var(--header-text);
+        background: var(--header-bg-light);
         padding: 20px 0;
         position: fixed;
         width: 100%;
         top: 0;
-        left: 0;
         z-index: 1000;
-        transition: background var(--transition-speed);
+        transition: background var(--transition);
       }
-      .header-container {
+      .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
+      }
+      .logo {
+        font-size: 1.8em;
+        font-weight: 600;
       }
       .nav-links {
         list-style: none;
@@ -115,8 +107,9 @@
       }
       .nav-links li a {
         text-decoration: none;
-        color: var(--header-text);
-        transition: color var(--transition-speed);
+        color: var(--light-text);
+        font-weight: 500;
+        transition: color var(--transition);
       }
       .nav-links li a:hover,
       .nav-links li a.active {
@@ -125,89 +118,76 @@
       #theme-toggle {
         background: none;
         border: none;
-        color: var(--header-text);
-        font-size: 1.2em;
+        font-size: 1.4em;
         cursor: pointer;
+        color: var(--light-text);
+        transition: color var(--transition);
+      }
+      body.dark-mode #theme-toggle {
+        color: var(--dark-text);
       }
 
       /* Hero Section with Glassmorphism */
       #hero {
-        background: var(--hero-bg);
-        color: #fff;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #ece9e6, #ffffff);
+        position: relative;
+        padding-top: 80px;
+      }
+      body.dark-mode #hero {
+        background: linear-gradient(135deg, #181818, #121212);
+      }
+      .hero-container {
         text-align: center;
-        padding: 150px 0 100px;
-        margin-top: 80px;
-      }
-      .hero-content {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
         padding: 40px;
-        border-radius: 10px;
-        display: inline-block;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInHero 0.8s forwards ease-in-out;
-        animation-delay: 0.2s;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        transition: background var(--transition);
       }
-      @keyframes fadeInHero {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      body.dark-mode .hero-container {
+        background: rgba(26, 26, 26, 0.8);
       }
-      .hero-content h2 {
-        font-size: 2.8em;
-        margin-bottom: 10px;
-      }
-      .hero-content p {
-        font-size: 1.2em;
+      .hero-container h1 {
+        font-size: 3em;
         margin-bottom: 20px;
       }
-
-      /* Social Icons with Hover Animation */
-      .social-icons {
-        margin: 20px 0;
-        display: flex;
-        gap: 15px;
-        justify-content: center;
+      .hero-container p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
       }
-      .icon-button {
-        display: inline-block;
+
+      /* Social Icons */
+      .social-icons {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+      .social-icons .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 50px;
         height: 50px;
-        border: 2px solid #fff;
+        border: 2px solid var(--primary-color);
         border-radius: 50%;
-        text-align: center;
-        line-height: 47px;
-        color: #fff;
-        font-size: 1.2em;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
+        color: var(--primary-color);
+        font-size: 1.4em;
+        transition: transform var(--transition), background var(--transition), color var(--transition);
       }
-      .icon-button:hover {
-        animation: iconHover 0.4s ease forwards;
-      }
-      @keyframes iconHover {
-        0% {
-          transform: scale(1) rotate(0deg);
-          background: transparent;
-        }
-        50% {
-          transform: scale(1.2) rotate(15deg);
-          background: #fff;
-          color: #000;
-        }
-        100% {
-          transform: scale(1) rotate(0deg);
-          background: #fff;
-          color: #000;
-        }
+      .social-icons .icon:hover {
+        transform: scale(1.2) rotate(10deg);
+        background: var(--primary-color);
+        color: #000;
       }
 
       /* Contact Details */
       .contact-details {
-        margin: 10px 0 20px;
+        margin-bottom: 20px;
         font-size: 1em;
         line-height: 1.4;
       }
@@ -215,74 +195,76 @@
       /* Button */
       .btn {
         display: inline-block;
-        padding: 12px 24px;
+        text-decoration: none;
         background: var(--primary-color);
         color: #000;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background var(--transition-speed);
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: background var(--transition);
       }
       .btn:hover {
-        background: #e6b800;
+        background: var(--accent-color);
       }
 
-      /* Sections */
-      section {
-        padding: 80px 0;
+      /* Section Containers */
+      .section-container {
+        padding: 60px 0;
         text-align: center;
       }
-      section h2 {
-        font-size: 2.2em;
+      .section-container h2 {
+        font-size: 2.5em;
         margin-bottom: 20px;
         position: relative;
       }
-      section h2::after {
+      .section-container h2::after {
         content: "";
+        display: block;
         width: 50px;
         height: 4px;
         background: var(--primary-color);
-        display: block;
         margin: 10px auto 0;
         border-radius: 2px;
       }
-
-      /* Experience & Project Items with Scroll Reveal */
-      .experience-item,
-      .project-item {
-        background: #f4f4f4;
-        padding: 20px;
-        margin: 20px auto;
-        border-radius: 8px;
-        text-align: left;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      .section-container p {
         max-width: 800px;
-        transition: transform var(--transition-speed), opacity var(--transition-speed);
-        opacity: 0;
-        transform: translateY(30px);
+        margin: 0 auto;
+        font-size: 1.1em;
       }
-      .experience-item.visible,
-      .project-item.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .experience-item:hover,
-      .project-item:hover {
-        transform: translateY(-5px);
-      }
-      .project-grid {
-        display: flex;
+
+      /* Card Grid for Experience & Projects */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
+        margin-top: 40px;
       }
-      .project-item {
-        flex: 1;
-        background: #e8e8e8;
+      .card {
+        background: var(--light-bg);
         padding: 20px;
-        border-radius: 8px;
-        text-align: left;
-        max-width: 400px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        transition: transform var(--transition), box-shadow var(--transition);
+      }
+      body.dark-mode .card {
+        background: #1e1e1e;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      }
+      .card h3 {
+        margin-top: 0;
+        font-size: 1.8em;
+        margin-bottom: 10px;
+      }
+      .card .company {
+        font-size: 0.9em;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+      .card p {
+        font-size: 1em;
       }
 
       /* Back-to-Top Button */
@@ -290,56 +272,55 @@
         position: fixed;
         bottom: 40px;
         right: 40px;
-        display: none;
         background: var(--primary-color);
         color: #000;
         padding: 10px 15px;
         border-radius: 50%;
-        text-align: center;
-        font-size: 1.2em;
-        transition: background var(--transition-speed);
-        z-index: 2000;
+        font-size: 1.4em;
+        display: none;
+        transition: background var(--transition);
         cursor: pointer;
+        z-index: 2000;
       }
       .back-to-top:hover {
-        background: #e6b800;
+        background: var(--accent-color);
       }
 
       /* Footer */
       footer {
-        background: var(--header-bg);
-        color: var(--header-text);
-        text-align: center;
+        background: var(--header-bg-light);
         padding: 20px 0;
-        font-size: 0.9em;
+        text-align: center;
+        color: var(--light-text);
+        transition: background var(--transition);
+      }
+      body.dark-mode footer {
+        background: var(--header-bg-dark);
+        color: var(--dark-text);
       }
 
       /* Responsive Adjustments */
       @media (max-width: 768px) {
-        .header-container {
+        .nav-container {
           flex-direction: column;
-          text-align: center;
+          gap: 10px;
         }
         .nav-links {
           flex-direction: column;
           gap: 10px;
-          margin-top: 10px;
-        }
-        .project-grid {
-          flex-direction: column;
         }
       }
     </style>
   </head>
   <body>
-    <!-- Skip to Content Link for Accessibility -->
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <!-- Skip Link -->
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Navigation Bar -->
+    <!-- Header & Navigation -->
     <header>
-      <div class="container header-container">
-        <h1 class="logo">Sourav</h1>
-        <nav aria-label="Main Navigation">
+      <div class="container nav-container">
+        <div class="logo">Sourav</div>
+        <nav>
           <ul class="nav-links">
             <li><a href="#hero" class="active">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -351,21 +332,22 @@
       </div>
     </header>
 
-    <main id="main-content">
+    <!-- Main Content -->
+    <main id="main">
       <!-- Hero Section -->
       <section id="hero">
-        <div class="container hero-content">
-          <h2>Hi, I'm Sourav</h2>
-          <p>Software Developer | Problem Solver | Tech Enthusiast</p>
+        <div class="container hero-container">
+          <h1>Hi, I'm Sourav</h1>
+          <p>Software Developer | Innovator | Problem Solver</p>
           <!-- Social Icons -->
           <div class="social-icons">
-            <a href="https://github.com/yourprofile" target="_blank" class="icon-button" aria-label="GitHub">
+            <a href="https://github.com/yourprofile" target="_blank" class="icon" aria-label="GitHub">
               <i class="fab fa-github"></i>
             </a>
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" class="icon-button" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/yourprofile" target="_blank" class="icon" aria-label="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
             </a>
-            <a href="https://twitter.com/yourprofile" target="_blank" class="icon-button" aria-label="Twitter">
+            <a href="https://twitter.com/yourprofile" target="_blank" class="icon" aria-label="Twitter">
               <i class="fab fa-twitter"></i>
             </a>
           </div>
@@ -374,69 +356,67 @@
             <p>Email: <strong>example@example.com</strong></p>
             <p>Phone: <strong>+1 123 456 7890</strong></p>
           </div>
-          <a href="#about" class="btn">Hire Me</a>
+          <a href="#about" class="btn">Learn More</a>
         </div>
       </section>
 
       <!-- About Section -->
-      <section id="about">
+      <section id="about" class="section-container">
         <div class="container">
           <h2>About Me</h2>
           <p>
-            I am a passionate software developer with extensive experience in creating high-quality applications using modern technologies. I thrive on solving complex challenges and writing clean, efficient code.
+            I am a passionate software developer with a knack for building efficient, scalable, and innovative web applications. My journey is driven by creativity, continuous learning, and an uncompromising commitment to excellence.
           </p>
         </div>
       </section>
 
       <!-- Experience Section -->
-      <section id="experience">
+      <section id="experience" class="section-container">
         <div class="container">
-          <h2>Work Experience</h2>
-          <article class="experience-item">
-            <h3>Pelatro</h3>
-            <p class="company">Full-time · 2 yrs 6 mos · On-site</p>
-            <p>
-              Contributed to diverse projects at Pelatro, delivering robust solutions and enhancing overall product performance.
-            </p>
-          </article>
-          <article class="experience-item">
-            <h3>Software Engineer at Tata Health</h3>
-            <p class="company">
-              Dec 2021 - Sep 2022 · 10 mos · Bengaluru, Karnataka, India · Remote
-            </p>
-            <p>
-              Developed innovative health solutions and improved system efficiency while working remotely.
-            </p>
-          </article>
-          <article class="experience-item">
-            <h3>Software Engineer at Tata 1mg</h3>
-            <p class="company">
-              Oct 2022 - Present · 2 yrs 5 mos · Bengaluru, Karnataka, India · Hybrid
-            </p>
-            <p>
-              Building scalable healthcare applications and enhancing user experiences in a hybrid work environment.
-            </p>
-          </article>
+          <h2>Experience</h2>
+          <div class="card-grid">
+            <div class="card">
+              <h3>Pelatro</h3>
+              <span class="company">Full-time · 2 yrs 6 mos · On-site</span>
+              <p>
+                Delivered robust solutions across diverse projects and enhanced product performance.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Tata Health</h3>
+              <span class="company">Software Engineer · Dec 2021 - Sep 2022 · 10 mos · Remote</span>
+              <p>
+                Developed innovative health solutions and optimized system efficiency while working remotely.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Tata 1mg</h3>
+              <span class="company">Software Engineer · Oct 2022 - Present · 2 yrs 5 mos · Hybrid</span>
+              <p>
+                Building scalable healthcare applications and refining user experiences in a hybrid environment.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Projects Section -->
-      <section id="projects">
+      <section id="projects" class="section-container">
         <div class="container">
           <h2>Projects</h2>
-          <div class="project-grid">
-            <article class="project-item">
+          <div class="card-grid">
+            <div class="card">
               <h3>Project One</h3>
               <p>
-                A dynamic web application built using Python, Flask, and MySQL, showcasing a full-stack development approach.
+                A dynamic web application using Python, Flask, and MySQL, showcasing a full-stack development approach.
               </p>
-            </article>
-            <article class="project-item">
+            </div>
+            <div class="card">
               <h3>Project Two</h3>
               <p>
-                A modern web app utilizing JavaScript, Node.js, and MongoDB to deliver interactive user experiences.
+                An interactive web app built with JavaScript, Node.js, and MongoDB, designed to deliver engaging user experiences.
               </p>
-            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -444,16 +424,16 @@
 
     <!-- Footer -->
     <footer>
-      <div class="container">
+      <div class="container footer-container">
         <p>&copy; 2024 Sourav. All rights reserved.</p>
       </div>
     </footer>
 
     <!-- Back-to-Top Button -->
-    <a href="#" class="back-to-top" id="backToTop" aria-label="Scroll to top">▲</a>
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">↑</a>
 
     <script>
-      // Theme toggle functionality
+      // Theme Toggle
       const toggleButton = document.getElementById("theme-toggle");
       const currentTheme = localStorage.getItem("theme");
       if (currentTheme === "dark") {
@@ -462,32 +442,19 @@
       }
       toggleButton.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
-        let theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+        const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
         toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
         localStorage.setItem("theme", theme);
       });
 
-      // Reveal on scroll (Experience & Project Items)
-      document.addEventListener("DOMContentLoaded", () => {
-        const items = document.querySelectorAll(".experience-item, .project-item");
-        const observer = new IntersectionObserver(
-          (entries, obs) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                obs.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.1 }
-        );
-        items.forEach((item) => observer.observe(item));
-      });
-
       // Back-to-Top Button
-      const backToTop = document.getElementById("backToTop");
+      const backToTop = document.getElementById("back-to-top");
       window.addEventListener("scroll", () => {
         backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+      });
+      backToTop.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>
   </body>
