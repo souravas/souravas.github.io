@@ -8,6 +8,17 @@
       name="description"
       content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
     />
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Sourav | Software Developer" />
+    <meta
+      property="og:description"
+      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yourdomain.com" />
+    <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
       rel="stylesheet"
@@ -15,13 +26,16 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Skip to Content Link for Accessibility -->
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
     <!-- Navigation Bar -->
     <header>
       <div class="container header-container">
         <h1 class="logo">Sourav</h1>
         <nav aria-label="Main Navigation">
           <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
+            <li><a href="#hero" class="active">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
@@ -34,7 +48,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <!-- Hero Section -->
       <section id="hero">
         <div class="container hero-content">
@@ -105,23 +119,59 @@
 
       <!-- Contact Section -->
       <section id="contact">
-        <div class="container">
-          <h2>Contact Me</h2>
-          <form action="#" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              required
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              required
-            ></textarea>
-            <button type="submit" class="btn">Send Message</button>
-          </form>
+        <div class="container contact-section">
+          <!-- Contact Info Column -->
+          <div class="contact-info">
+            <h2>Contact Me</h2>
+            <p>
+              If you have any questions or would like to discuss potential
+              collaboration opportunities, feel free to reach out!
+            </p>
+            <ul>
+              <li>
+                <strong>Email:</strong>
+                <a href="mailto:example@example.com">example@example.com</a>
+              </li>
+              <li><strong>Phone:</strong> +1 123 456 7890</li>
+              <li><strong>Location:</strong> City, Country</li>
+            </ul>
+          </div>
+
+          <!-- Contact Form Column -->
+          <div class="contact-form">
+            <form action="#" method="POST" novalidate>
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Your Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Your Message"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn">Send Message</button>
+            </form>
+          </div>
         </div>
       </section>
     </main>
@@ -133,15 +183,6 @@
       </div>
     </footer>
 
-    <!-- JavaScript for Theme Toggle -->
-    <script>
-      const toggleButton = document.getElementById("theme-toggle");
-      toggleButton.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        toggleButton.textContent = document.body.classList.contains("dark-mode")
-          ? "☀️"
-          : "🌙";
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
