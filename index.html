@@ -440,8 +440,7 @@
             </a>
             <a
               href="https://www.linkedin.com/in/souravas/"
-              target="_blank"
-              class="icon"
+              target="_blank" class="icon"
               aria-label="LinkedIn"
             >
               <i class="fab fa-linkedin-in"></i>
@@ -495,7 +494,6 @@
                 experiences in a hybrid environment.
               </p>
             </div>
-
             <div class="card">
               <h3>Tata Health</h3>
               <span class="company"
@@ -506,7 +504,6 @@
                 efficiency while working remotely.
               </p>
             </div>
-
             <div class="card">
               <h3>Pelatro</h3>
               <span class="company">Full-time · 2 yrs 6 mos · On-site</span>
@@ -570,9 +567,7 @@
     </footer>
 
     <!-- Back-to-Top Button -->
-    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top"
-      >↑</a
-    >
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">↑</a>
 
     <script>
       // Theme Toggle
@@ -601,46 +596,40 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
-      // Dynamic Nav Link Highlighting
+      // Fixed Navigation Highlighting
       document.addEventListener("DOMContentLoaded", () => {
         const sections = document.querySelectorAll("section[id]");
-        const desktopLinks = document.querySelectorAll(
-          ".nav-links:not(.mobile-nav) a"
-        );
+        const navLinks = document.querySelectorAll(".nav-links a");
         const mobileLinks = document.querySelectorAll(".mobile-nav a");
 
-        const options = {
-          root: null,
-          rootMargin: "0px",
-          threshold: 0.5,
-        };
+        // Function to update active link
+        const updateActiveLink = () => {
+          let currentSection = '';
+          const headerOffset = 100; // Adjust based on your header height
 
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              // Remove 'active' from all nav links
-              desktopLinks.forEach((link) => link.classList.remove("active"));
-              mobileLinks.forEach((link) => link.classList.remove("active"));
-
-              // Highlight the nav link that matches this section
-              const activeLinkDesktop = document.querySelector(
-                `.nav-links:not(.mobile-nav) a[href="#${entry.target.id}"]`
-              );
-              const activeLinkMobile = document.querySelector(
-                `.mobile-nav a[href="#${entry.target.id}"]`
-              );
-
-              if (activeLinkDesktop) {
-                activeLinkDesktop.classList.add("active");
-              }
-              if (activeLinkMobile) {
-                activeLinkMobile.classList.add("active");
-              }
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop - headerOffset;
+            const sectionHeight = section.offsetHeight;
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+              currentSection = section.getAttribute('id');
             }
           });
-        }, options);
 
-        sections.forEach((section) => observer.observe(section));
+          // Remove all active classes first
+          navLinks.forEach(link => link.classList.remove('active'));
+          mobileLinks.forEach(link => link.classList.remove('active'));
+
+          // Add active class to current section links
+          if (currentSection) {
+            document.querySelector(`.nav-links a[href="#${currentSection}"]`)?.classList.add('active');
+            document.querySelector(`.mobile-nav a[href="#${currentSection}"]`)?.classList.add('active');
+          }
+        };
+
+        // Add scroll event listener
+        window.addEventListener('scroll', updateActiveLink);
+        // Initial call to set active link on page load
+        updateActiveLink();
       });
 
       // Mobile Menu Toggle
