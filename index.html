@@ -322,7 +322,7 @@
         font-size: 1.1em;
       }
 
-      /* Card Grid for Experience, Projects & Education */
+      /* Card Grid for Experience, Projects, Education, Skills */
       .card-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -348,7 +348,8 @@
         font-size: 1.8em;
         margin-bottom: 10px;
       }
-      .card .company {
+      .card .company,
+      .card .skill-level {
         font-size: 0.9em;
         color: var(--primary-color);
         margin-bottom: 10px;
@@ -366,6 +367,41 @@
       #education .card .duration {
         font-size: 0.9em;
         color: var(--primary-color);
+      }
+
+      /* Contact Section Form */
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .contact-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        font-family: inherit;
+        font-size: 1em;
+      }
+      .contact-form button {
+        background: var(--primary-color);
+        color: #000;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background var(--transition);
+      }
+      .contact-form button:hover {
+        background: var(--accent-color);
       }
 
       /* Back-to-Top Button */
@@ -445,9 +481,11 @@
         <ul class="nav-links">
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#education">Education</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
         <!-- Hamburger & Theme Toggle -->
         <div style="display: flex; align-items: center; gap: 10px">
@@ -463,9 +501,11 @@
       <ul class="mobile-nav" id="mobileNav">
         <li><a href="#hero">Home</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </header>
 
@@ -475,7 +515,7 @@
       <section id="hero">
         <div class="container hero-container">
           <h1>Hi, I'm Sourav</h1>
-          <p>Software Developer | Innovator | Problem Solver</p>
+          <p>Software Engineer | 5+ Years Experience | Innovator | Problem Solver</p>
           <!-- Social Icons -->
           <div class="social-icons">
             <a
@@ -524,11 +564,57 @@
         <div class="container">
           <h2>About Me</h2>
           <p>
-            I am a passionate software developer with a knack for building
-            efficient, scalable, and innovative web applications. My journey is
-            driven by creativity, continuous learning, and an uncompromising
-            commitment to excellence.
+            I'm a passionate software developer with 5+ years of experience
+            building efficient, scalable, and innovative web applications.
+            <br />
+            My journey is driven by creativity, continuous learning, and an
+            uncompromising commitment to excellence.
           </p>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="section-container">
+        <div class="container">
+          <h2>Skills</h2>
+          <p>
+            Here are some core technologies and tools I frequently use. Feel
+            free to add or remove as you see fit!
+          </p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>Python</h3>
+              <div class="skill-level">Expert</div>
+              <p>
+                Building back-end systems, data analysis, scripting, and general-purpose
+                programming.
+              </p>
+            </div>
+            <div class="card">
+              <h3>JavaScript</h3>
+              <div class="skill-level">Advanced</div>
+              <p>
+                Crafting dynamic web experiences and interactive interfaces with
+                modern frameworks.
+              </p>
+            </div>
+            <div class="card">
+              <h3>DevOps</h3>
+              <div class="skill-level">Intermediate</div>
+              <p>
+                Familiar with CI/CD pipelines, Docker, and cloud platforms for
+                streamlined deployments.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Databases</h3>
+              <div class="skill-level">Intermediate</div>
+              <p>
+                Experience in both SQL (MySQL, PostgreSQL) and NoSQL (MongoDB)
+                for data management.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -540,8 +626,7 @@
             <div class="card">
               <h3>Tata 1mg</h3>
               <span class="company"
-                >Software Engineer · Oct 2022 - Present · 2 yrs 5 mos ·
-                Hybrid</span
+                >Software Engineer · Oct 2022 - Present · 2 yrs 5 mos · Hybrid</span
               >
               <p>
                 Building scalable healthcare applications and refining user
@@ -579,11 +664,19 @@
               <h3>NSS College of Engineering, Palakkad</h3>
               <div class="degree">BTech, Computer Science</div>
               <div class="duration">Aug 2015 - Mar 2019</div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+                fermentum malesuada massa, eget elementum orci euismod et.
+              </p>
             </div>
             <div class="card">
               <h3>Jawahar Navodaya Vidyalaya (JNV)</h3>
               <div class="degree">High School</div>
               <div class="duration">2008-2015</div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+                fermentum malesuada massa, eget elementum orci euismod et.
+              </p>
             </div>
           </div>
         </div>
@@ -608,6 +701,27 @@
                 MongoDB, designed to deliver engaging user experiences.
               </p>
             </div>
+            <!-- Add more project cards if needed -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="section-container">
+        <div class="container">
+          <h2>Contact</h2>
+          <p>Have a question or want to get in touch? Drop a message below.</p>
+          <div class="contact-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Your Name" />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Your Email" />
+
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Your Message"></textarea>
+
+            <button type="submit">Send Message</button>
           </div>
         </div>
       </section>
@@ -661,7 +775,7 @@
         // Function to update active link
         const updateActiveLink = () => {
           let currentSection = '';
-          const headerOffset = 100; // Adjust based on your header height
+          const headerOffset = 100; // Adjust if your header height differs
 
           sections.forEach(section => {
             const sectionTop = section.offsetTop - headerOffset;
@@ -689,10 +803,8 @@
           }
         };
 
-        // Add scroll event listener
         window.addEventListener('scroll', updateActiveLink);
-        // Initial call to set active link on page load
-        updateActiveLink();
+        updateActiveLink(); // Initial call
       });
 
       // Mobile Menu Toggle
@@ -703,7 +815,7 @@
           mobileNav.classList.toggle("open");
         });
       }
-      // Close mobile menu on link click
+      // Close mobile menu when a link is clicked
       document.querySelectorAll(".mobile-nav a").forEach((link) => {
         link.addEventListener("click", () => {
           mobileNav.classList.remove("open");
