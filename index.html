@@ -710,19 +710,41 @@
       <section id="contact" class="section-container">
         <div class="container">
           <h2>Contact</h2>
-          <p>Have a question or want to get in touch? Drop a message below.</p>
-          <div class="contact-form">
+          <p>Have a question or want to get in touch? Fill in the details below!</p>
+          <!--
+            1) This form uses mailto:, so it will prompt the user to open their email client.
+            2) The 'enctype="text/plain"' is often recommended for mailto forms.
+            3) Real-world usage can be hit-or-miss; a backend or form service is more reliable.
+          -->
+          <form
+            class="contact-form"
+            action="mailto:souravas007@gmail.com"
+            method="POST"
+            enctype="text/plain"
+          >
             <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your Name" />
+            <input type="text" id="name" name="name" placeholder="Your Name" required />
 
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Your Email" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
 
             <label for="message">Message</label>
-            <textarea id="message" rows="5" placeholder="Your Message"></textarea>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Your Message"
+              required
+            ></textarea>
 
             <button type="submit">Send Message</button>
-          </div>
+          </form>
         </div>
       </section>
     </main>
@@ -730,7 +752,7 @@
     <!-- Footer -->
     <footer>
       <div class="container footer-container">
-        <p>&copy; 2024 Sourav. All rights reserved.</p>
+        <p>&copy; 2025 Sourav. All rights reserved.</p>
       </div>
     </footer>
 
