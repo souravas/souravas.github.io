@@ -4,13 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sourav | Software Developer</title>
+
+    <!-- Meta Description & Open Graph -->
     <meta
       name="description"
       content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
     />
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Sourav | Software Developer" />
     <meta
       property="og:description"
@@ -19,464 +18,32 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yourdomain.com" />
     <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
-    <!-- Google Fonts -->
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+    <!-- Google Fonts & Font Awesome -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
-    <!-- Font Awesome Icons (CDN) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <style>
-      /* Base Variables */
-      :root {
-        --light-bg: #f5f5f5;
-        --light-text: #333;
-        --dark-bg: #121212;
-        --dark-text: #e0e0e0;
-        --header-bg-light: #ffffff;
-        --header-bg-dark: #1a1a1a;
-        --transition: 0.3s ease;
-        /* Default (Dark Mode) primary colors */
-        --primary-color: #ffcc00;
-        --accent-color: #e0a800;
-      }
 
-      /* Light Mode Override: Use a deeper goldenrod scheme for readability */
-      body:not(.dark-mode) {
-        --primary-color: #daa520; /* GoldenRod */
-        --accent-color: #b8860b;  /* DarkGoldenRod */
-      }
-
-      /* Global Styles */
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: "Poppins", sans-serif;
-        background: var(--light-bg);
-        color: var(--light-text);
-        transition: background var(--transition), color var(--transition);
-        scroll-behavior: smooth;
-      }
-
-      /* Dark Mode */
-      body.dark-mode {
-        background: var(--dark-bg);
-        color: var(--dark-text);
-      }
-      body.dark-mode header {
-        background: var(--header-bg-dark);
-      }
-      body.dark-mode footer {
-        background: var(--header-bg-dark);
-        color: var(--dark-text);
-      }
-
-      /* Skip Link */
-      .skip-link {
-        position: absolute;
-        top: -40px;
-        left: 0;
-        background: var(--primary-color);
-        color: #000;
-        padding: 8px 16px;
-        z-index: 100;
-        transition: top var(--transition);
-      }
-      .skip-link:focus {
-        top: 0;
-      }
-
-      /* Container */
-      .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 10px;
-      }
-
-      /* Header & Navigation */
-      header {
-        background: var(--header-bg-light);
-        padding: 20px 0;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        transition: background var(--transition);
-      }
-      .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .logo {
-        font-size: 1.8em;
-        font-weight: 600;
-      }
-
-      /* Nav Links (Desktop) */
-      .nav-links {
-        list-style: none;
-        display: flex;
-        gap: 20px;
-        margin: 0;
-        padding: 0;
-      }
-      .nav-links li a {
-        text-decoration: none;
-        color: var(--light-text);
-        font-weight: 500;
-        transition: color var(--transition);
-      }
-      .nav-links li a:hover {
-        color: var(--primary-color);
-      }
-      /* Active Nav Link */
-      .nav-links li a.active {
-        color: var(--primary-color);
-        font-weight: 600;
-      }
-
-      /* Hamburger Icon for Mobile */
-      #hamburger {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.4em;
-        cursor: pointer;
-        color: var(--light-text);
-        transition: color var(--transition);
-      }
-      body.dark-mode #hamburger {
-        color: var(--dark-text);
-      }
-
-      /* Theme Toggle */
-      #theme-toggle {
-        background: none;
-        border: none;
-        font-size: 1.4em;
-        cursor: pointer;
-        color: var(--light-text);
-        transition: color var(--transition);
-        margin-left: 15px;
-      }
-      body.dark-mode #theme-toggle {
-        color: var(--dark-text);
-      }
-
-      /* Mobile Nav (Hidden by Default) */
-      .mobile-nav {
-        display: none;
-        position: absolute;
-        top: 70px; /* Adjusted top for better spacing */
-        right: 10px;
-        background: var(--header-bg-light);
-        border-radius: 8px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px;
-        z-index: 9999;
-      }
-      body.dark-mode .mobile-nav {
-        background: var(--header-bg-dark);
-      }
-      .mobile-nav li {
-        list-style: none;
-      }
-      .mobile-nav li a {
-        color: var(--light-text);
-        text-decoration: none;
-        display: block;
-        padding: 10px 15px;
-        border-radius: 4px;
-        transition: background var(--transition);
-      }
-      .mobile-nav li a:hover {
-        background: var(--primary-color);
-        color: #000;
-      }
-      body.dark-mode .mobile-nav li a {
-        color: var(--dark-text);
-      }
-      .mobile-nav.open {
-        display: flex;
-      }
-
-      /* Hero Section with Glassmorphism */
-      #hero {
-        min-height: 90vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #ece9e6, #ffffff);
-        position: relative;
-        padding-top: 80px;
-      }
-      body.dark-mode #hero {
-        background: linear-gradient(135deg, #181818, #121212);
-      }
-      .hero-container {
-        text-align: center;
-        padding: 40px;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 12px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        transition: background var(--transition);
-      }
-      body.dark-mode .hero-container {
-        background: rgba(26, 26, 26, 0.8);
-      }
-      .hero-container h1 {
-        font-size: 3em;
-        margin-bottom: 20px;
-      }
-      .hero-container p {
-        font-size: 1.2em;
-        margin-bottom: 30px;
-      }
-
-      /* Social Icons */
-      .social-icons {
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-      }
-      .social-icons .icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        border: 2px solid var(--primary-color);
-        border-radius: 50%;
-        color: var(--primary-color);
-        font-size: 1.4em;
-        transition: transform var(--transition), background var(--transition),
-          color var(--transition);
-      }
-      .social-icons .icon:hover {
-        transform: scale(1.2) rotate(10deg);
-        background: var(--primary-color);
-        color: #000;
-      }
-
-      /* Contact Details */
-      .contact-details {
-        margin-bottom: 20px;
-        font-size: 1em;
-        line-height: 1.4;
-      }
-      .contact-details a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      /* Button */
-      .btn {
-        display: inline-block;
-        text-decoration: none;
-        background: var(--primary-color);
-        color: #000;
-        padding: 12px 24px;
-        border-radius: 6px;
-        font-weight: 600;
-        transition: background var(--transition);
-        margin: 5px;
-      }
-      .btn:hover {
-        background: var(--accent-color);
-      }
-
-      /* Section Containers */
-      .section-container {
-        padding: 60px 0;
-        text-align: center;
-      }
-      .section-container h2 {
-        font-size: 2.5em;
-        margin-bottom: 20px;
-        position: relative;
-      }
-      .section-container h2::after {
-        content: "";
-        display: block;
-        width: 50px;
-        height: 4px;
-        background: var(--primary-color);
-        margin: 10px auto 0;
-        border-radius: 2px;
-      }
-      .section-container p {
-        max-width: 800px;
-        margin: 0 auto;
-        font-size: 1.1em;
-      }
-
-      /* Card Grid for Experience, Projects, Education, Skills */
-      .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-        margin-top: 40px;
-      }
-      .card {
-        background: var(--light-bg);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        transition: transform var(--transition), box-shadow var(--transition);
-      }
-      body.dark-mode .card {
-        background: #1e1e1e;
-      }
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-      }
-      .card h3 {
-        margin-top: 0;
-        font-size: 1.8em;
-        margin-bottom: 10px;
-      }
-      .card .company,
-      .card .skill-level {
-        font-size: 0.9em;
-        color: var(--primary-color);
-        margin-bottom: 10px;
-      }
-      .card p {
-        font-size: 1em;
-      }
-
-      /* Education Specific Styling */
-      #education .card .degree {
-        font-weight: 500;
-        margin: 5px 0;
-        font-size: 1em;
-      }
-      #education .card .duration {
-        font-size: 0.9em;
-        color: var(--primary-color);
-      }
-
-      /* Contact Section Form */
-      .contact-form {
-        max-width: 600px;
-        margin: 0 auto;
-        text-align: left;
-      }
-      .contact-form label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 500;
-      }
-      .contact-form input,
-      .contact-form textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-bottom: 15px;
-        font-family: inherit;
-        font-size: 1em;
-      }
-      .contact-form button {
-        background: var(--primary-color);
-        color: #000;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background var(--transition);
-      }
-      .contact-form button:hover {
-        background: var(--accent-color);
-      }
-
-      /* Back-to-Top Button */
-      .back-to-top {
-        position: fixed;
-        bottom: 40px;
-        right: 40px;
-        background: var(--primary-color);
-        color: #000;
-        padding: 10px 15px;
-        border-radius: 50%;
-        font-size: 1.4em;
-        display: none;
-        transition: background var(--transition);
-        cursor: pointer;
-        z-index: 2000;
-      }
-      .back-to-top:hover {
-        background: var(--accent-color);
-      }
-
-      /* Footer */
-      footer {
-        background: var(--header-bg-light);
-        padding: 20px 0;
-        text-align: center;
-        color: var(--light-text);
-        transition: background var(--transition);
-      }
-      body.dark-mode footer {
-        background: var(--header-bg-dark);
-        color: var(--dark-text);
-      }
-
-      /* Responsive Adjustments */
-      @media (max-width: 768px) {
-        /* Make header more compact and improve spacing on mobile */
-        header {
-          padding: 10px 0;
-        }
-
-        .nav-container {
-          padding: 0 15px;
-        }
-
-        .logo {
-          font-size: 1.5em; /* Slightly smaller for mobile */
-        }
-
-        /* Hide desktop nav and show hamburger on mobile */
-        .nav-links {
-          display: none;
-        }
-        #hamburger {
-          display: block;
-        }
-
-        /* Adjust hero section text for smaller screens */
-        .hero-container h1 {
-          font-size: 2.4em;
-        }
-        .hero-container p {
-          font-size: 1.1em;
-        }
-      }
-    </style>
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Skip Link -->
+    <!-- Skip Link (Accessibility) -->
     <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Header & Navigation -->
     <header>
       <div class="container nav-container">
         <div class="logo">Sourav</div>
+
         <!-- Desktop Nav -->
         <ul class="nav-links">
           <li><a href="#hero">Home</a></li>
@@ -484,10 +51,12 @@
           <li><a href="#skills">Skills</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#education">Education</a></li>
+          <li><a href="#certifications">Certifications</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <!-- Hamburger & Theme Toggle -->
+
+        <!-- Mobile & Theme Buttons -->
         <div style="display: flex; align-items: center; gap: 10px">
           <button id="hamburger" aria-label="Toggle Mobile Menu">
             <i class="fas fa-bars"></i>
@@ -497,6 +66,7 @@
           </button>
         </div>
       </div>
+
       <!-- Mobile Nav -->
       <ul class="mobile-nav" id="mobileNav">
         <li><a href="#hero">Home</a></li>
@@ -504,6 +74,7 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -516,6 +87,7 @@
         <div class="container hero-container">
           <h1>Hi, I'm Sourav</h1>
           <p>Software Engineer | 5+ Years Experience | Innovator | Problem Solver</p>
+
           <!-- Social Icons -->
           <div class="social-icons">
             <a
@@ -543,6 +115,7 @@
               <i class="fab fa-twitter"></i>
             </a>
           </div>
+
           <!-- Contact Details -->
           <div class="contact-details">
             <p>
@@ -553,6 +126,7 @@
             </p>
             <p>Phone: <strong>+91-9526-444-907</strong></p>
           </div>
+
           <!-- Buttons -->
           <a href="#about" class="btn">Learn More</a>
           <a href="resume.pdf" download class="btn">Download Resume</a>
@@ -586,32 +160,30 @@
               <h3>Python</h3>
               <div class="skill-level">Expert</div>
               <p>
-                Building back-end systems, data analysis, scripting, and general-purpose
-                programming.
+                Building back-end systems, data analysis, scripting, and more.
               </p>
             </div>
             <div class="card">
               <h3>JavaScript</h3>
               <div class="skill-level">Advanced</div>
               <p>
-                Crafting dynamic web experiences and interactive interfaces with
-                modern frameworks.
+                Crafting dynamic web experiences and interactive interfaces
+                with modern frameworks.
               </p>
             </div>
             <div class="card">
               <h3>DevOps</h3>
               <div class="skill-level">Intermediate</div>
               <p>
-                Familiar with CI/CD pipelines, Docker, and cloud platforms for
-                streamlined deployments.
+                CI/CD pipelines, Docker, and cloud platforms for smooth
+                deployments.
               </p>
             </div>
             <div class="card">
               <h3>Databases</h3>
               <div class="skill-level">Intermediate</div>
               <p>
-                Experience in both SQL (MySQL, PostgreSQL) and NoSQL (MongoDB)
-                for data management.
+                Experience with SQL (MySQL, PostgreSQL) and NoSQL (MongoDB).
               </p>
             </div>
           </div>
@@ -666,7 +238,7 @@
               <div class="duration">Aug 2015 - Mar 2019</div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                fermentum malesuada massa, eget elementum orci euismod et.
+                fermentum malesuada massa.
               </p>
             </div>
             <div class="card">
@@ -675,7 +247,68 @@
               <div class="duration">2008-2015</div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                fermentum malesuada massa, eget elementum orci euismod et.
+                fermentum malesuada massa.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications Section -->
+      <section id="certifications" class="section-container">
+        <div class="container">
+          <h2>Certifications</h2>
+          <p>
+            Industry-recognized credentials showcasing my continuous learning
+            and expertise.
+          </p>
+          <div class="card-grid">
+            <!-- AWS -->
+            <div class="card">
+              <h3>AWS Certified Solutions Architect</h3>
+              <div class="skill-level">Issued: 2023</div>
+              <p>
+                Demonstrates comprehensive knowledge of AWS architecture design,
+                deployment, and operational best practices.
+              </p>
+              <p>
+                <a
+                  href="https://www.credly.com/badges/362b5b69-0043-4d71-a50d-0f904d90a381/linked_in_profile"
+                  target="_blank"
+                  >View Credential</a
+                >
+              </p>
+            </div>
+            <!-- Coursera -->
+            <div class="card">
+              <h3>Algorithmic Toolbox</h3>
+              <div class="skill-level">Issuing Org: Coursera</div>
+              <p>
+                Covers algorithm design, analysis, and problem-solving
+                fundamentals.
+              </p>
+              <p>
+                <a
+                  href="https://www.coursera.org/account/accomplishments/verify/YI0FLK5Q1BNZc"
+                  target="_blank"
+                  >View Credential</a
+                >
+              </p>
+            </div>
+            <!-- HackerRank -->
+            <div class="card">
+              <h3>Problem Solving (Intermediate)</h3>
+              <div class="skill-level">Issuing Org: HackerRank</div>
+              <p>
+                Intermediate-level problem solving using data structures and
+                algorithms.
+              </p>
+              <p>
+                <a
+                  href="https://www.hackerrank.com/certificates/daa8afc85ee8"
+                  target="_blank"
+                  >View Credential</a
+                >
               </p>
             </div>
           </div>
@@ -698,10 +331,9 @@
               <h3>Project Two</h3>
               <p>
                 An interactive web app built with JavaScript, Node.js, and
-                MongoDB, designed to deliver engaging user experiences.
+                MongoDB, delivering engaging user experiences.
               </p>
             </div>
-            <!-- Add more project cards if needed -->
           </div>
         </div>
       </section>
@@ -711,11 +343,6 @@
         <div class="container">
           <h2>Contact</h2>
           <p>Have a question or want to get in touch? Fill in the details below!</p>
-          <!--
-            1) This form uses mailto:, so it will prompt the user to open their email client.
-            2) The 'enctype="text/plain"' is often recommended for mailto forms.
-            3) Real-world usage can be hit-or-miss; a backend or form service is more reliable.
-          -->
           <form
             class="contact-form"
             action="mailto:souravas007@gmail.com"
@@ -723,7 +350,13 @@
             enctype="text/plain"
           >
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your Name" required />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your Name"
+              required
+            />
 
             <label for="email">Email</label>
             <input
@@ -757,92 +390,11 @@
     </footer>
 
     <!-- Back-to-Top Button -->
-    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top"
-      >↑</a
-    >
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">
+      ↑
+    </a>
 
-    <script>
-      // Theme Toggle
-      const toggleButton = document.getElementById("theme-toggle");
-      const currentTheme = localStorage.getItem("theme");
-      if (currentTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        toggleButton.textContent = "☀️";
-      }
-      toggleButton.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        const theme = document.body.classList.contains("dark-mode")
-          ? "dark"
-          : "light";
-        toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
-        localStorage.setItem("theme", theme);
-      });
-
-      // Back-to-Top Button
-      const backToTop = document.getElementById("back-to-top");
-      window.addEventListener("scroll", () => {
-        backToTop.style.display = window.scrollY > 300 ? "block" : "none";
-      });
-      backToTop.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      // Fixed Navigation Highlighting
-      document.addEventListener("DOMContentLoaded", () => {
-        const sections = document.querySelectorAll("section[id]");
-        const navLinks = document.querySelectorAll(".nav-links a");
-        const mobileLinks = document.querySelectorAll(".mobile-nav a");
-
-        // Function to update active link
-        const updateActiveLink = () => {
-          let currentSection = '';
-          const headerOffset = 100; // Adjust if your header height differs
-
-          sections.forEach(section => {
-            const sectionTop = section.offsetTop - headerOffset;
-            const sectionHeight = section.offsetHeight;
-            if (
-              window.scrollY >= sectionTop &&
-              window.scrollY < sectionTop + sectionHeight
-            ) {
-              currentSection = section.getAttribute('id');
-            }
-          });
-
-          // Remove all active classes first
-          navLinks.forEach(link => link.classList.remove('active'));
-          mobileLinks.forEach(link => link.classList.remove('active'));
-
-          // Add active class to current section links
-          if (currentSection) {
-            document
-              .querySelector(`.nav-links a[href="#${currentSection}"]`)
-              ?.classList.add('active');
-            document
-              .querySelector(`.mobile-nav a[href="#${currentSection}"]`)
-              ?.classList.add('active');
-          }
-        };
-
-        window.addEventListener('scroll', updateActiveLink);
-        updateActiveLink(); // Initial call
-      });
-
-      // Mobile Menu Toggle
-      const hamburger = document.getElementById("hamburger");
-      const mobileNav = document.getElementById("mobileNav");
-      if (hamburger) {
-        hamburger.addEventListener("click", () => {
-          mobileNav.classList.toggle("open");
-        });
-      }
-      // Close mobile menu when a link is clicked
-      document.querySelectorAll(".mobile-nav a").forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileNav.classList.remove("open");
-        });
-      });
-    </script>
+    <!-- Main Script -->
+    <script src="script.js"></script>
   </body>
 </html>
