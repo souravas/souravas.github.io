@@ -43,11 +43,13 @@
         --primary-color: #ffcc00;
         --accent-color: #e0a800;
       }
+
       /* Light Mode Override: Use a deeper goldenrod scheme for readability */
       body:not(.dark-mode) {
         --primary-color: #daa520; /* GoldenRod */
-        --accent-color: #b8860b; /* DarkGoldenRod */
+        --accent-color: #b8860b;  /* DarkGoldenRod */
       }
+
       /* Global Styles */
       *,
       *::before,
@@ -62,6 +64,7 @@
         transition: background var(--transition), color var(--transition);
         scroll-behavior: smooth;
       }
+
       /* Dark Mode */
       body.dark-mode {
         background: var(--dark-bg);
@@ -74,6 +77,7 @@
         background: var(--header-bg-dark);
         color: var(--dark-text);
       }
+
       /* Skip Link */
       .skip-link {
         position: absolute;
@@ -88,6 +92,7 @@
       .skip-link:focus {
         top: 0;
       }
+
       /* Container */
       .container {
         width: 90%;
@@ -95,6 +100,7 @@
         margin: 0 auto;
         padding: 0 10px;
       }
+
       /* Header & Navigation */
       header {
         background: var(--header-bg-light);
@@ -114,7 +120,8 @@
         font-size: 1.8em;
         font-weight: 600;
       }
-      /* Nav Links */
+
+      /* Nav Links (Desktop) */
       .nav-links {
         list-style: none;
         display: flex;
@@ -136,6 +143,7 @@
         color: var(--primary-color);
         font-weight: 600;
       }
+
       /* Hamburger Icon for Mobile */
       #hamburger {
         display: none;
@@ -149,6 +157,7 @@
       body.dark-mode #hamburger {
         color: var(--dark-text);
       }
+
       /* Theme Toggle */
       #theme-toggle {
         background: none;
@@ -162,11 +171,12 @@
       body.dark-mode #theme-toggle {
         color: var(--dark-text);
       }
+
       /* Mobile Nav (Hidden by Default) */
       .mobile-nav {
         display: none;
         position: absolute;
-        top: 60px;
+        top: 70px; /* Adjusted top for better spacing */
         right: 10px;
         background: var(--header-bg-light);
         border-radius: 8px;
@@ -179,8 +189,20 @@
       body.dark-mode .mobile-nav {
         background: var(--header-bg-dark);
       }
+      .mobile-nav li {
+        list-style: none;
+      }
       .mobile-nav li a {
         color: var(--light-text);
+        text-decoration: none;
+        display: block;
+        padding: 10px 15px;
+        border-radius: 4px;
+        transition: background var(--transition);
+      }
+      .mobile-nav li a:hover {
+        background: var(--primary-color);
+        color: #000;
       }
       body.dark-mode .mobile-nav li a {
         color: var(--dark-text);
@@ -188,6 +210,7 @@
       .mobile-nav.open {
         display: flex;
       }
+
       /* Hero Section with Glassmorphism */
       #hero {
         min-height: 90vh;
@@ -220,6 +243,7 @@
         font-size: 1.2em;
         margin-bottom: 30px;
       }
+
       /* Social Icons */
       .social-icons {
         margin-bottom: 20px;
@@ -245,17 +269,18 @@
         background: var(--primary-color);
         color: #000;
       }
+
       /* Contact Details */
       .contact-details {
         margin-bottom: 20px;
         font-size: 1em;
         line-height: 1.4;
       }
-      /* Fix for Email Link Appearance */
       .contact-details a {
         color: inherit;
         text-decoration: none;
       }
+
       /* Button */
       .btn {
         display: inline-block;
@@ -266,10 +291,12 @@
         border-radius: 6px;
         font-weight: 600;
         transition: background var(--transition);
+        margin: 5px;
       }
       .btn:hover {
         background: var(--accent-color);
       }
+
       /* Section Containers */
       .section-container {
         padding: 60px 0;
@@ -294,6 +321,7 @@
         margin: 0 auto;
         font-size: 1.1em;
       }
+
       /* Card Grid for Experience, Projects & Education */
       .card-grid {
         display: grid;
@@ -328,6 +356,7 @@
       .card p {
         font-size: 1em;
       }
+
       /* Education Specific Styling */
       #education .card .degree {
         font-weight: 500;
@@ -338,6 +367,7 @@
         font-size: 0.9em;
         color: var(--primary-color);
       }
+
       /* Back-to-Top Button */
       .back-to-top {
         position: fixed;
@@ -356,6 +386,7 @@
       .back-to-top:hover {
         background: var(--accent-color);
       }
+
       /* Footer */
       footer {
         background: var(--header-bg-light);
@@ -368,19 +399,36 @@
         background: var(--header-bg-dark);
         color: var(--dark-text);
       }
+
       /* Responsive Adjustments */
       @media (max-width: 768px) {
-        .nav-container {
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
+        /* Make header more compact and improve spacing on mobile */
+        header {
+          padding: 10px 0;
         }
-        /* Hide desktop nav and show hamburger */
+
+        .nav-container {
+          padding: 0 15px;
+        }
+
+        .logo {
+          font-size: 1.5em; /* Slightly smaller for mobile */
+        }
+
+        /* Hide desktop nav and show hamburger on mobile */
         .nav-links {
           display: none;
         }
         #hamburger {
           display: block;
+        }
+
+        /* Adjust hero section text for smaller screens */
+        .hero-container h1 {
+          font-size: 2.4em;
+        }
+        .hero-container p {
+          font-size: 1.1em;
         }
       }
     </style>
@@ -440,7 +488,8 @@
             </a>
             <a
               href="https://www.linkedin.com/in/souravas/"
-              target="_blank" class="icon"
+              target="_blank"
+              class="icon"
               aria-label="LinkedIn"
             >
               <i class="fab fa-linkedin-in"></i>
@@ -456,7 +505,12 @@
           </div>
           <!-- Contact Details -->
           <div class="contact-details">
-            <p>Email: <a href="mailto:souravas007@gmail.com"><strong>souravas007@gmail.com</strong></a></p>
+            <p>
+              Email:
+              <a href="mailto:souravas007@gmail.com"
+                ><strong>souravas007@gmail.com</strong></a
+              >
+            </p>
             <p>Phone: <strong>+91-9526-444-907</strong></p>
           </div>
           <!-- Buttons -->
@@ -567,7 +621,9 @@
     </footer>
 
     <!-- Back-to-Top Button -->
-    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">↑</a>
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top"
+      >↑</a
+    >
 
     <script>
       // Theme Toggle
@@ -610,7 +666,10 @@
           sections.forEach(section => {
             const sectionTop = section.offsetTop - headerOffset;
             const sectionHeight = section.offsetHeight;
-            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+            if (
+              window.scrollY >= sectionTop &&
+              window.scrollY < sectionTop + sectionHeight
+            ) {
               currentSection = section.getAttribute('id');
             }
           });
@@ -621,8 +680,12 @@
 
           // Add active class to current section links
           if (currentSection) {
-            document.querySelector(`.nav-links a[href="#${currentSection}"]`)?.classList.add('active');
-            document.querySelector(`.mobile-nav a[href="#${currentSection}"]`)?.classList.add('active');
+            document
+              .querySelector(`.nav-links a[href="#${currentSection}"]`)
+              ?.classList.add('active');
+            document
+              .querySelector(`.mobile-nav a[href="#${currentSection}"]`)
+              ?.classList.add('active');
           }
         };
 
