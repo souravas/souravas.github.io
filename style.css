@@ -330,19 +330,29 @@ body.dark-mode .card {
   font-size: 1em;
 }
 
-/* Experience Company (logo + heading side by side) */
+/* Experience: company logo + heading side by side */
 .experience-company {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
-
-/* Logo Sizing */
 .company-logo {
   max-width: 50px;
   height: auto;
   border-radius: 4px;
+}
+
+/* Certifications: icon + heading side by side */
+.certification-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.certification-icon {
+  font-size: 1.6em;
+  color: var(--primary-color);
 }
 
 /* --------------- Contact Form --------------- */
