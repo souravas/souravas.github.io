@@ -271,11 +271,12 @@ body.dark-mode .hero-container {
   padding: 12px 24px;
   border-radius: 6px;
   font-weight: 600;
-  transition: background var(--transition);
+  transition: background var(--transition), color var(--transition);
   margin: 5px;
 }
 .btn:hover {
   background: var(--accent-color);
+  color: #000; /* keep text visible on hover */
 }
 
 /* --------------- Section Containers --------------- */
@@ -383,7 +384,6 @@ body.dark-mode .card {
 
 /* Company Title Links */
 .experience-list li a {
-  /* text-decoration already removed globally */
   color: var(--light-text);
   font-weight: 600;
   font-size: 1.1em;
@@ -395,7 +395,7 @@ body.dark-mode .card {
 body.dark-mode .experience-list li a {
   color: var(--dark-text);
 }
-/* Nice hover effect */
+/* Hover effect for company links */
 .experience-list li a:hover {
   background: var(--primary-color);
   color: #000; /* ensures good contrast with golden background */
@@ -420,6 +420,12 @@ body.dark-mode .experience-list li a {
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+}
+.education-header h3,
+.education-header a {
+  /* prevent overflow on small screens */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* --------------- Certifications --------------- */
@@ -467,6 +473,7 @@ body.dark-mode .experience-list li a {
 }
 .contact-form button:hover {
   background: var(--accent-color);
+  color: #000;
 }
 
 /* --------------- Back-to-Top Button --------------- */
