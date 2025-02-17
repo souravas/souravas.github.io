@@ -343,6 +343,22 @@ body.dark-mode .card {
   border-radius: 4px;
 }
 
+/* Education: logo + heading side by side */
+.education-card {
+  text-align: left; /* So the text aligns nicely under each institution's heading */
+}
+.education-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.education-logo {
+  max-width: 50px;
+  height: auto;
+  border-radius: 4px;
+}
+
 /* Certifications: icon + heading side by side */
 .certification-header {
   display: flex;
