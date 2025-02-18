@@ -12,20 +12,19 @@
   --accent-color: #e0a800;
 }
 
-/* Light Mode Override: deeper goldenrod scheme */
+/* Light Mode Override (Goldenrod) */
 body:not(.dark-mode) {
-  --primary-color: #daa520; /* GoldenRod */
-  --accent-color: #b8860b; /* DarkGoldenRod */
+  --primary-color: #daa520;
+  --accent-color: #b8860b;
 }
 
-/* ------------------- Global Styles ------------------- */
+/* ------------------- Global ------------------- */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
@@ -38,12 +37,10 @@ body {
   transition: background var(--transition), color var(--transition);
 }
 
-/* Ensure fixed header doesn't hide anchored sections */
 section[id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 80px; /* offset for fixed header */
 }
 
-/* Remove underlines globally, allow color inheritance */
 a {
   text-decoration: none;
   color: inherit;
@@ -58,9 +55,7 @@ body.dark-mode {
   background: var(--dark-bg);
   color: var(--dark-text);
 }
-body.dark-mode header {
-  background: var(--header-bg-dark);
-}
+body.dark-mode header,
 body.dark-mode footer {
   background: var(--header-bg-dark);
 }
@@ -73,7 +68,6 @@ body.dark-mode footer {
   background: var(--primary-color);
   color: #000;
   padding: 8px 16px;
-  z-index: 100;
   transition: top var(--transition);
 }
 .skip-link:focus {
@@ -88,22 +82,13 @@ body.dark-mode footer {
   padding: 0 10px;
 }
 
-/* ------------------- Profile Photo ------------------- */
-.profile-photo {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
 /* ------------------- Header & Nav ------------------- */
 header {
-  background: var(--header-bg-light);
-  padding: 20px 0;
   position: fixed;
-  width: 100%;
   top: 0;
+  width: 100%;
+  padding: 20px 0;
+  background: var(--header-bg-light);
   z-index: 1000;
   transition: background var(--transition);
 }
@@ -119,14 +104,6 @@ header {
   font-weight: 600;
 }
 
-/* Action buttons container */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Desktop Nav */
 .nav-links {
   list-style: none;
   display: flex;
@@ -146,7 +123,13 @@ header {
   font-weight: 600;
 }
 
-/* Hamburger Icon */
+/* Mobile & Theme Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 #hamburger {
   display: none;
   background: none;
@@ -160,7 +143,6 @@ body.dark-mode #hamburger {
   color: var(--dark-text);
 }
 
-/* Theme Toggle */
 #theme-toggle {
   background: none;
   border: none;
@@ -169,32 +151,25 @@ body.dark-mode #hamburger {
   color: var(--light-text);
   transition: color var(--transition);
 }
-body.dark-mode #theme-toggle {
-  color: var(--dark-text);
-}
 
-/* ------------------- Mobile Nav ------------------- */
+/* Mobile Nav */
 .mobile-nav {
   display: none;
   position: absolute;
   top: 70px;
   right: 10px;
-  background: var(--header-bg-light);
+  padding: 10px;
   border-radius: 8px;
+  background: var(--header-bg-light);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   gap: 10px;
-  padding: 10px;
   z-index: 9999;
-}
-body.dark-mode .mobile-nav {
-  background: var(--header-bg-dark);
 }
 .mobile-nav li {
   list-style: none;
 }
 .mobile-nav li a {
-  color: var(--light-text);
   display: block;
   padding: 10px 15px;
   border-radius: 4px;
@@ -202,6 +177,9 @@ body.dark-mode .mobile-nav {
 .mobile-nav li a:hover {
   background: var(--primary-color);
   color: #000;
+}
+body.dark-mode .mobile-nav {
+  background: var(--header-bg-dark);
 }
 body.dark-mode .mobile-nav li a {
   color: var(--dark-text);
@@ -212,13 +190,12 @@ body.dark-mode .mobile-nav li a {
 
 /* ------------------- Hero ------------------- */
 #hero {
-  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 90vh;
   background: linear-gradient(135deg, #ece9e6, #ffffff);
-  position: relative;
-  padding-top: 80px; /* offset for fixed header */
+  padding-top: 80px;
 }
 body.dark-mode #hero {
   background: linear-gradient(135deg, #181818, #121212);
@@ -243,23 +220,23 @@ body.dark-mode .hero-container {
   margin-bottom: 30px;
 }
 
-/* Social Icons */
+/* Hero Social Icons */
 .social-icons {
-  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin-bottom: 20px;
 }
 .social-icons .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 50px;
   height: 50px;
   border: 2px solid var(--primary-color);
   border-radius: 50%;
   color: var(--primary-color);
   font-size: 1.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform var(--transition), background var(--transition);
 }
 .social-icons .icon:hover {
@@ -283,15 +260,15 @@ body.dark-mode .hero-container {
   padding: 12px 24px;
   border-radius: 6px;
   font-weight: 600;
-  transition: background var(--transition), color var(--transition);
   margin: 5px;
+  transition: background var(--transition), color var(--transition);
 }
 .btn:hover {
   background: var(--accent-color);
-  color: #fff; /* ensure contrast on hover */
+  color: #fff;
 }
 
-/* ------------------- Section Containers ------------------- */
+/* ------------------- Sections ------------------- */
 .section-container {
   padding: 60px 0;
   text-align: center;
@@ -319,8 +296,8 @@ body.dark-mode .hero-container {
 /* ------------------- Card Grid ------------------- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   margin-top: 40px;
 }
 
@@ -340,30 +317,24 @@ body.dark-mode .card {
 }
 .card h3 {
   margin-top: 0;
+  margin-bottom: 10px;
   font-size: 1.8em;
-  margin-bottom: 10px;
-}
-.card .skill-level {
-  font-size: 0.9em;
-  color: var(--primary-color);
-  margin-bottom: 10px;
 }
 .card p {
   font-size: 1em;
 }
 
-/* Skill Items (for Skills Section) */
+/* Skills */
 .skill-items {
-  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  justify-content: center; /* Center the skill badges horizontally */
+  justify-content: center;
+  margin-top: 10px;
 }
-
 .skill-item {
-  background: #f0f0f0; /* or var(--light-bg) if you prefer */
-  color: #333; /* or var(--light-text) */
+  background: #f0f0f0;
+  color: #333;
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 0.85em;
@@ -372,13 +343,13 @@ body.dark-mode .card {
 }
 .skill-item:hover {
   background: var(--accent-color);
-  color: #000; /* ensures text is visible on hover */
+  color: #000;
   cursor: pointer;
 }
 
-/* ------------------- Experience Cards ------------------- */
+/* Experience */
 .experience-card-grid {
-  margin-top: 40px; /* extra spacing if needed */
+  margin-top: 40px;
 }
 .experience-card .experience-header {
   display: flex;
@@ -387,7 +358,7 @@ body.dark-mode .card {
   gap: 10px;
   margin-bottom: 6px;
 }
-.experience-card .experience-logo {
+.experience-logo {
   width: 40px;
   border-radius: 4px;
 }
@@ -407,94 +378,55 @@ body.dark-mode .card {
   margin-bottom: 6px;
 }
 
-/* ------------------- Education Cards ------------------- */
-
-.education-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.education-header img {
-  width: 40px;
-  border-radius: 4px;
-}
-
+/* Education */
 .education-card {
-  text-align: center; /* Center all text */
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
-
 .education-logo {
-  width: 60px; /* Adjust size as you prefer */
+  width: 60px;
   margin-bottom: 10px;
   border-radius: 4px;
 }
-
 .education-card h3 {
   margin: 5px 0;
   font-size: 1.2em;
 }
-
 .degree {
   font-size: 0.95em;
   font-weight: 500;
-  color: var(--primary-color); /* or your accent color */
+  color: var(--primary-color);
   margin-bottom: 3px;
 }
-
 .duration {
   font-size: 0.85em;
-  color: var(--light-text); /* subtle text color */
+  color: var(--light-text);
 }
-
 body.dark-mode .duration {
-  color: #ccc; /* or #fff, or any lighter color */
+  color: #ccc;
 }
 
-/* ------------------- Certifications ------------------- */
-.certification-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.certification-icon {
-  font-size: 1.6em;
-  color: var(--primary-color);
-}
-
-.cert-details {
-  margin-top: 5px;
-}
-.cert-details small {
-  font-size: 0.9em;
-  color: var(--primary-color);
-}
-/* ------------------- Certifications (Centered Cards) ------------------- */
+/* Certifications */
 .cert-card {
   text-align: center;
 }
-
 .cert-icon {
   font-size: 2em;
   margin-bottom: 10px;
   color: var(--primary-color);
 }
-
 .cert-card h3 {
   margin: 0 0 6px;
   font-size: 1.2em;
 }
-
 .cert-info {
   font-size: 0.9em;
   color: var(--accent-color);
 }
 
-/* ------------------- Back-to-Top Button ------------------- */
+/* Back-to-Top */
 .back-to-top {
   position: fixed;
   bottom: 40px;
@@ -505,7 +437,7 @@ body.dark-mode .duration {
   color: #000;
   border-radius: 50%;
   font-size: 1.4em;
-  line-height: 50px; /* vertically center the arrow */
+  line-height: 50px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -514,22 +446,21 @@ body.dark-mode .duration {
 }
 .back-to-top:hover {
   background: var(--accent-color);
-  color: #000;
 }
 
-/* ------------------- Footer ------------------- */
+/* Footer */
 footer {
   background: var(--header-bg-light);
-  padding: 20px 0;
   text-align: center;
   color: var(--light-text);
+  padding: 20px 0;
   transition: background var(--transition);
 }
 body.dark-mode footer {
   color: var(--dark-text);
 }
 
-/* ------------------- Responsive ------------------- */
+/* Responsive */
 @media (max-width: 768px) {
   header {
     padding: 10px 0;
@@ -541,7 +472,6 @@ body.dark-mode footer {
     font-size: 1.5em;
   }
 
-  /* Hide desktop nav on mobile */
   .nav-links {
     display: none;
   }
