@@ -351,6 +351,8 @@ body.dark-mode .card {
 .card p {
   font-size: 1em;
 }
+
+/* Skill Items (for Skills Section) */
 .skill-items {
   margin-top: 10px;
   display: flex;
@@ -360,7 +362,7 @@ body.dark-mode .card {
 }
 
 .skill-item {
-  background: #f0f0f0; /* or use var(--light-bg) if you prefer */
+  background: #f0f0f0; /* or var(--light-bg) if you prefer */
   color: #333; /* or var(--light-text) */
   padding: 5px 10px;
   border-radius: 15px;
@@ -368,73 +370,41 @@ body.dark-mode .card {
   font-weight: 500;
   transition: background 0.3s ease, color 0.3s ease;
 }
-
 .skill-item:hover {
-  /* Use your theme's accent color for a cohesive look */
   background: var(--accent-color);
   color: #000; /* ensures text is visible on hover */
-  cursor: pointer; /* optional, but helps indicate interactivity */
+  cursor: pointer;
 }
 
-/* ------------------- Experience Timeline ------------------- */
-.experience-list {
-  margin-top: 40px;
-  margin-left: 0;
-  padding-left: 0;
-  list-style-type: none;
-  text-align: center;
+/* ------------------- Experience Cards ------------------- */
+.experience-card-grid {
+  margin-top: 40px; /* extra spacing if needed */
 }
-.experience-list li {
-  position: relative;
-  margin-bottom: 30px;
-  padding-left: 30px;
-  border-left: 3px solid var(--primary-color);
-}
-.experience-header {
+.experience-card .experience-header {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
-.experience-logo {
+.experience-card .experience-logo {
   width: 40px;
   border-radius: 4px;
 }
-.experience-list li::before {
-  content: "";
-  position: absolute;
-  left: -7px;
-  top: 0;
-  width: 15px;
-  height: 15px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-}
-.experience-list li a {
-  color: var(--light-text);
-  font-weight: 600;
-  font-size: 1.1em;
-  padding: 4px 6px;
-  border-radius: 4px;
-  transition: background var(--transition), color var(--transition),
-    transform var(--transition);
-}
-/* Force white in dark mode for better contrast */
-body.dark-mode .experience-list li a {
-  color: #fff;
-}
-.experience-list li a:hover {
-  background: var(--primary-color);
-  color: #000;
-  transform: scale(1.03);
-}
-.experience-list li em {
+.experience-card em {
   display: block;
-  margin: 4px 0 8px;
-  font-style: normal;
+  margin: 4px 0 10px;
   color: var(--primary-color);
   font-weight: 500;
+}
+.experience-details {
+  list-style: disc inside;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.experience-details li {
+  margin-bottom: 6px;
 }
 
 /* ------------------- Education Cards ------------------- */
@@ -468,8 +438,8 @@ body.dark-mode .experience-list li a {
   margin-top: 5px;
 }
 .cert-details small {
-  font-size: 0.9em; /* slightly smaller text */
-  color: var(--primary-color); /* or pick any subtle color you like */
+  font-size: 0.9em;
+  color: var(--primary-color);
 }
 
 /* ------------------- Projects ------------------- */
