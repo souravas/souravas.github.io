@@ -448,7 +448,7 @@ body.dark-mode .experience-list li a {
   color: #000;
   border-radius: 50%;
   font-size: 1.4em;
-  line-height: 50px;  /* Ensures the arrow is vertically centered */
+  line-height: 50px; /* Ensures the arrow is vertically centered */
   text-align: center; /* Centers horizontally */
   text-decoration: none;
   cursor: pointer;
@@ -460,7 +460,6 @@ body.dark-mode .experience-list li a {
   background: var(--accent-color);
   color: #000;
 }
-
 
 /* ------------------- Footer ------------------- */
 footer {
