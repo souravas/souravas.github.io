@@ -87,6 +87,15 @@ body.dark-mode footer {
   padding: 0 10px;
 }
 
+/* ------------------- Profile Photo ------------------- */
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
 /* ------------------- Header & Nav ------------------- */
 header {
   background: var(--header-bg-light);
@@ -272,6 +281,7 @@ body.dark-mode .hero-container {
 }
 .btn:hover {
   background: var(--accent-color);
+  color: #fff;
 }
 
 /* ------------------- Section Containers ------------------- */
@@ -380,7 +390,7 @@ body.dark-mode .card {
     transform var(--transition);
 }
 body.dark-mode .experience-list li a {
-  color: var(--dark-text);
+  color: #fff;
 }
 .experience-list li a:hover {
   background: var(--primary-color);
@@ -424,7 +434,7 @@ body.dark-mode .experience-list li a {
 
 /* ------------------- Projects ------------------- */
 #projects.section-container {
-  padding-bottom: 200px;
+  padding-bottom: 120px;
 }
 
 /* ------------------- Back-to-Top Button ------------------- */
@@ -448,6 +458,7 @@ body.dark-mode .experience-list li a {
 
 .back-to-top:hover {
   background: var(--accent-color);
+  color: #000;
 }
 
 
