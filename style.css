@@ -351,6 +351,30 @@ body.dark-mode .card {
 .card p {
   font-size: 1em;
 }
+.skill-items {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center; /* Center the skill badges horizontally */
+}
+
+.skill-item {
+  background: #f0f0f0; /* or use var(--light-bg) if you prefer */
+  color: #333; /* or var(--light-text) */
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.skill-item:hover {
+  /* Use your theme's accent color for a cohesive look */
+  background: var(--accent-color);
+  color: #000; /* ensures text is visible on hover */
+  cursor: pointer; /* optional, but helps indicate interactivity */
+}
 
 /* ------------------- Experience Timeline ------------------- */
 .experience-list {
