@@ -473,6 +473,26 @@ body.dark-mode .duration {
   font-size: 0.9em;
   color: var(--primary-color);
 }
+/* ------------------- Certifications (Centered Cards) ------------------- */
+.cert-card {
+  text-align: center;
+}
+
+.cert-icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.cert-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.2em;
+}
+
+.cert-info {
+  font-size: 0.9em;
+  color: var(--accent-color);
+}
 
 /* ------------------- Back-to-Top Button ------------------- */
 .back-to-top {
