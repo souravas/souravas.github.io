@@ -408,9 +408,7 @@ body.dark-mode .card {
 }
 
 /* ------------------- Education Cards ------------------- */
-.education-card {
-  text-align: left;
-}
+
 .education-header {
   display: flex;
   align-items: center;
@@ -420,6 +418,40 @@ body.dark-mode .card {
 .education-header img {
   width: 40px;
   border-radius: 4px;
+}
+
+.education-card {
+  text-align: center; /* Center all text */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.education-logo {
+  width: 60px; /* Adjust size as you prefer */
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.education-card h3 {
+  margin: 5px 0;
+  font-size: 1.2em;
+}
+
+.degree {
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--primary-color); /* or your accent color */
+  margin-bottom: 3px;
+}
+
+.duration {
+  font-size: 0.85em;
+  color: var(--light-text); /* subtle text color */
+}
+
+body.dark-mode .duration {
+  color: #ccc; /* or #fff, or any lighter color */
 }
 
 /* ------------------- Certifications ------------------- */
@@ -440,11 +472,6 @@ body.dark-mode .card {
 .cert-details small {
   font-size: 0.9em;
   color: var(--primary-color);
-}
-
-/* ------------------- Projects ------------------- */
-#projects.section-container {
-  padding-bottom: 120px; /* extra space before footer */
 }
 
 /* ------------------- Back-to-Top Button ------------------- */
