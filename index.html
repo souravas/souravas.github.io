@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sourav | Software Developer</title>
 
     <!-- Meta Description & Open Graph -->
@@ -30,9 +30,12 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
 
     <!-- Main Styles -->
+    <!-- Separate your styles into an external stylesheet -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -86,7 +89,10 @@
       <section id="hero">
         <div class="container hero-container">
           <h1>Hi, I'm Sourav</h1>
-          <p>Senior Software Engineer in Bangalore, India | 5+ Years Experience | Innovator | Problem Solver</p>
+          <p>
+            Senior Software Engineer in Bangalore, India | 5+ Years Experience |
+            Innovator | Problem Solver
+          </p>
 
           <!-- Social Icons -->
           <div class="social-icons">
@@ -96,7 +102,7 @@
               class="icon"
               aria-label="GitHub"
             >
-              <i class="fab fa-github"></i>
+              <i class="fa-brands fa-github"></i>
             </a>
             <a
               href="https://www.linkedin.com/in/souravas/"
@@ -104,7 +110,7 @@
               class="icon"
               aria-label="LinkedIn"
             >
-              <i class="fab fa-linkedin-in"></i>
+              <i class="fa-brands fa-linkedin-in"></i>
             </a>
             <!-- Replaced Twitter with Email link -->
             <a
@@ -113,7 +119,7 @@
               class="icon"
               aria-label="Email"
             >
-              <i class="fas fa-envelope"></i>
+              <i class="fa-solid fa-envelope"></i>
             </a>
           </div>
 
@@ -135,9 +141,8 @@
             class="btn"
             target="_blank"
             rel="noopener"
+            >View CV</a
           >
-            View CV
-          </a>
         </div>
       </section>
 
@@ -167,7 +172,7 @@
             <!-- Python -->
             <div class="card">
               <h3>
-                <i class="fab fa-python" style="margin-right: 8px;"></i>
+                <i class="fab fa-python" style="margin-right: 8px"></i>
                 Python
               </h3>
               <div class="skill-level">Expert</div>
@@ -178,19 +183,19 @@
             <!-- JavaScript -->
             <div class="card">
               <h3>
-                <i class="fab fa-js-square" style="margin-right: 8px;"></i>
+                <i class="fab fa-js-square" style="margin-right: 8px"></i>
                 JavaScript
               </h3>
               <div class="skill-level">Advanced</div>
               <p>
-                Crafting dynamic web experiences and interactive interfaces
-                with modern frameworks.
+                Crafting dynamic web experiences and interactive interfaces with
+                modern frameworks.
               </p>
             </div>
             <!-- DevOps -->
             <div class="card">
               <h3>
-                <i class="fas fa-cogs" style="margin-right: 8px;"></i>
+                <i class="fas fa-cogs" style="margin-right: 8px"></i>
                 DevOps
               </h3>
               <div class="skill-level">Intermediate</div>
@@ -202,7 +207,7 @@
             <!-- Databases -->
             <div class="card">
               <h3>
-                <i class="fas fa-database" style="margin-right: 8px;"></i>
+                <i class="fas fa-database" style="margin-right: 8px"></i>
                 Databases
               </h3>
               <div class="skill-level">Intermediate</div>
@@ -246,7 +251,11 @@
                   alt="Tata Health Logo"
                   class="experience-logo"
                 />
-                <a href="https://www.tatahealth.com" target="_blank" rel="noopener">
+                <a
+                  href="https://www.tatahealth.com"
+                  target="_blank"
+                  rel="noopener"
+                >
                   <strong>Tata Health</strong>
                 </a>
               </div>
@@ -293,11 +302,7 @@
                   class="education-logo"
                 />
                 <h3>
-                  <a
-                    href="https://nssce.ac.in/"
-                    target="_blank"
-                    rel="noopener"
-                  >
+                  <a href="https://nssce.ac.in/" target="_blank" rel="noopener">
                     NSS College of Engineering, Palakkad
                   </a>
                 </h3>
@@ -367,7 +372,6 @@
                 deployment, and operational best practices.
               </p>
             </div>
-
             <!-- Coursera -->
             <div class="card">
               <div class="certification-header">
@@ -387,7 +391,6 @@
                 fundamentals.
               </p>
             </div>
-
             <!-- HackerRank -->
             <div class="card">
               <div class="certification-header">
@@ -438,7 +441,9 @@
       <section id="contact" class="section-container">
         <div class="container">
           <h2>Contact</h2>
-          <p>Have a question or want to get in touch? Fill in the details below!</p>
+          <p>
+            Have a question or want to get in touch? Fill in the details below!
+          </p>
           <form
             class="contact-form"
             action="mailto:souravas007@gmail.com"
@@ -491,6 +496,7 @@
     </a>
 
     <!-- Main Script -->
-    <script src="script.js"></script>
+    <!-- Defer or load external JS at the end for better performance -->
+    <script src="script.js" defer></script>
   </body>
 </html>

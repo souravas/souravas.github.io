@@ -1,6 +1,7 @@
 // Theme Toggle
 const toggleButton = document.getElementById("theme-toggle");
 const currentTheme = localStorage.getItem("theme");
+
 if (currentTheme === "dark") {
   document.body.classList.add("dark-mode");
   toggleButton.textContent = "☀️";
@@ -8,7 +9,9 @@ if (currentTheme === "dark") {
 
 toggleButton.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
-  const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+  const theme = document.body.classList.contains("dark-mode")
+    ? "dark"
+    : "light";
   toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
   localStorage.setItem("theme", theme);
 });
@@ -28,10 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".nav-links a");
   const mobileLinks = document.querySelectorAll(".mobile-nav a");
+  const headerOffset = 100; // Adjust if needed
 
   function updateActiveLink() {
     let currentSection = "";
-    const headerOffset = 100; // Adjust if needed
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop - headerOffset;
@@ -58,12 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("scroll", updateActiveLink);
-  updateActiveLink(); // Initial call
+  updateActiveLink();
 });
 
 // Mobile Menu Toggle
 const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
+
 if (hamburger) {
   hamburger.addEventListener("click", () => {
     mobileNav.classList.toggle("open");

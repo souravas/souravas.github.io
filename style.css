@@ -1,4 +1,4 @@
-/* --------------- Base Variables --------------- */
+/* ------------------- Base Variables ------------------- */
 :root {
   --light-bg: #f5f5f5;
   --light-text: #333;
@@ -15,14 +15,18 @@
 /* Light Mode Override: deeper goldenrod scheme */
 body:not(.dark-mode) {
   --primary-color: #daa520; /* GoldenRod */
-  --accent-color: #b8860b;  /* DarkGoldenRod */
+  --accent-color: #b8860b; /* DarkGoldenRod */
 }
 
-/* --------------- Global Styles --------------- */
+/* ------------------- Global Styles ------------------- */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -34,6 +38,10 @@ body {
   scroll-behavior: smooth;
 }
 
+section[id] {
+  scroll-margin-top: 80px;
+}
+
 /* Remove underlines globally, allow color inheritance, and add hover transition */
 a {
   text-decoration: none;
@@ -41,8 +49,7 @@ a {
   transition: color var(--transition);
 }
 a:hover {
-  text-decoration: none; /* ensure no underline on hover */
-  color: var(--accent-color); /* subtle color shift */
+  color: var(--accent-color);
 }
 
 /* Dark Mode */
@@ -55,7 +62,6 @@ body.dark-mode header {
 }
 body.dark-mode footer {
   background: var(--header-bg-dark);
-  color: var(--dark-text);
 }
 
 /* Skip Link */
@@ -73,7 +79,7 @@ body.dark-mode footer {
   top: 0;
 }
 
-/* --------------- Container --------------- */
+/* ------------------- Container ------------------- */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -81,7 +87,7 @@ body.dark-mode footer {
   padding: 0 10px;
 }
 
-/* --------------- Header & Nav --------------- */
+/* ------------------- Header & Nav ------------------- */
 header {
   background: var(--header-bg-light);
   padding: 20px 0;
@@ -111,12 +117,9 @@ header {
   margin: 0;
   padding: 0;
 }
-
 .nav-links li a {
-  /* Still no underline (from global), but define color & weight */
   color: var(--light-text);
   font-weight: 500;
-  transition: color var(--transition);
 }
 .nav-links li a:hover {
   color: var(--primary-color);
@@ -154,7 +157,7 @@ body.dark-mode #theme-toggle {
   color: var(--dark-text);
 }
 
-/* --------------- Mobile Nav --------------- */
+/* ------------------- Mobile Nav ------------------- */
 .mobile-nav {
   display: none;
   position: absolute;
@@ -175,12 +178,10 @@ body.dark-mode .mobile-nav {
   list-style: none;
 }
 .mobile-nav li a {
-  /* inherits no underline; define color & hover here */
   color: var(--light-text);
   display: block;
   padding: 10px 15px;
   border-radius: 4px;
-  transition: background var(--transition);
 }
 .mobile-nav li a:hover {
   background: var(--primary-color);
@@ -193,7 +194,7 @@ body.dark-mode .mobile-nav li a {
   display: flex;
 }
 
-/* --------------- Hero --------------- */
+/* ------------------- Hero ------------------- */
 #hero {
   min-height: 90vh;
   display: flex;
@@ -201,7 +202,7 @@ body.dark-mode .mobile-nav li a {
   justify-content: center;
   background: linear-gradient(135deg, #ece9e6, #ffffff);
   position: relative;
-  padding-top: 80px;
+  padding-top: 80px; /* offset for fixed header */
 }
 body.dark-mode #hero {
   background: linear-gradient(135deg, #181818, #121212);
@@ -243,8 +244,7 @@ body.dark-mode .hero-container {
   border-radius: 50%;
   color: var(--primary-color);
   font-size: 1.4em;
-  transition: transform var(--transition), background var(--transition),
-    color var(--transition);
+  transition: transform var(--transition), background var(--transition);
 }
 .social-icons .icon:hover {
   transform: scale(1.2) rotate(10deg);
@@ -258,12 +258,8 @@ body.dark-mode .hero-container {
   font-size: 1em;
   line-height: 1.4;
 }
-.contact-details a {
-  /* inherits no underline from global */
-  color: inherit;
-}
 
-/* --------------- Button --------------- */
+/* ------------------- Button ------------------- */
 .btn {
   display: inline-block;
   background: var(--primary-color);
@@ -276,10 +272,9 @@ body.dark-mode .hero-container {
 }
 .btn:hover {
   background: var(--accent-color);
-  color: #000; /* keep text visible on hover */
 }
 
-/* --------------- Section Containers --------------- */
+/* ------------------- Section Containers ------------------- */
 .section-container {
   padding: 60px 0;
   text-align: center;
@@ -304,7 +299,7 @@ body.dark-mode .hero-container {
   font-size: 1.1em;
 }
 
-/* --------------- Card Grid --------------- */
+/* ------------------- Card Grid ------------------- */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -331,7 +326,6 @@ body.dark-mode .card {
   font-size: 1.8em;
   margin-bottom: 10px;
 }
-.card .company,
 .card .skill-level {
   font-size: 0.9em;
   color: var(--primary-color);
@@ -341,21 +335,20 @@ body.dark-mode .card {
   font-size: 1em;
 }
 
-/* --------------- Experience Timeline --------------- */
+/* ------------------- Experience Timeline ------------------- */
 .experience-list {
   margin-top: 40px;
   margin-left: 0;
-  padding-left: 0; /* Remove default list padding */
-  list-style-type: none; /* Remove default bullets */
-  text-align: center;    /* Center all text in each list item */
+  padding-left: 0;
+  list-style-type: none;
+  text-align: center;
 }
 .experience-list li {
   position: relative;
   margin-bottom: 30px;
-  padding-left: 30px; /* space for timeline line & marker */
+  padding-left: 30px;
   border-left: 3px solid var(--primary-color);
 }
-
 .experience-header {
   display: flex;
   align-items: center;
@@ -363,14 +356,10 @@ body.dark-mode .card {
   gap: 10px;
   margin-bottom: 5px;
 }
-
 .experience-logo {
   width: 40px;
-  height: auto;
   border-radius: 4px;
 }
-
-/* Timeline Circle Marker */
 .experience-list li::before {
   content: "";
   position: absolute;
@@ -381,8 +370,6 @@ body.dark-mode .card {
   background-color: var(--primary-color);
   border-radius: 50%;
 }
-
-/* Company Title Links */
 .experience-list li a {
   color: var(--light-text);
   font-weight: 600;
@@ -395,23 +382,20 @@ body.dark-mode .card {
 body.dark-mode .experience-list li a {
   color: var(--dark-text);
 }
-/* Hover effect for company links */
 .experience-list li a:hover {
   background: var(--primary-color);
-  color: #000; /* ensures good contrast with golden background */
+  color: #000;
   transform: scale(1.03);
 }
-
-/* Job Title & Duration */
 .experience-list li em {
   display: block;
   margin: 4px 0 8px;
-  font-style: normal; /* keeps it from slanting if preferred */
+  font-style: normal;
   color: var(--primary-color);
   font-weight: 500;
 }
 
-/* --------------- Education Cards --------------- */
+/* ------------------- Education Cards ------------------- */
 .education-card {
   text-align: left;
 }
@@ -421,14 +405,12 @@ body.dark-mode .experience-list li a {
   gap: 10px;
   margin-bottom: 10px;
 }
-.education-header h3,
-.education-header a {
-  /* prevent overflow on small screens */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+.education-header img {
+  width: 40px;
+  border-radius: 4px;
 }
 
-/* --------------- Certifications --------------- */
+/* ------------------- Certifications ------------------- */
 .certification-header {
   display: flex;
   align-items: center;
@@ -440,7 +422,7 @@ body.dark-mode .experience-list li a {
   color: var(--primary-color);
 }
 
-/* --------------- Contact Form --------------- */
+/* ------------------- Contact Form ------------------- */
 .contact-form {
   max-width: 600px;
   margin: 0 auto;
@@ -473,10 +455,9 @@ body.dark-mode .experience-list li a {
 }
 .contact-form button:hover {
   background: var(--accent-color);
-  color: #000;
 }
 
-/* --------------- Back-to-Top Button --------------- */
+/* ------------------- Back-to-Top Button ------------------- */
 .back-to-top {
   position: fixed;
   bottom: 40px;
@@ -486,16 +467,16 @@ body.dark-mode .experience-list li a {
   padding: 10px 15px;
   border-radius: 50%;
   font-size: 1.4em;
-  display: none; /* hidden by default; show via JS on scroll */
-  transition: background var(--transition);
+  display: none;
   cursor: pointer;
   z-index: 2000;
+  transition: background var(--transition);
 }
 .back-to-top:hover {
   background: var(--accent-color);
 }
 
-/* --------------- Footer --------------- */
+/* ------------------- Footer ------------------- */
 footer {
   background: var(--header-bg-light);
   padding: 20px 0;
@@ -504,11 +485,10 @@ footer {
   transition: background var(--transition);
 }
 body.dark-mode footer {
-  background: var(--header-bg-dark);
   color: var(--dark-text);
 }
 
-/* --------------- Responsive --------------- */
+/* ------------------- Responsive ------------------- */
 @media (max-width: 768px) {
   header {
     padding: 10px 0;
@@ -528,7 +508,6 @@ body.dark-mode footer {
     display: block;
   }
 
-  /* Adjust hero font sizes on mobile */
   .hero-container h1 {
     font-size: 2.4em;
   }
