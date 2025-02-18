@@ -15,7 +15,7 @@
 /* Light Mode Override: deeper goldenrod scheme */
 body:not(.dark-mode) {
   --primary-color: #daa520; /* GoldenRod */
-  --accent-color: #b8860b; /* DarkGoldenRod */
+  --accent-color: #b8860b;  /* DarkGoldenRod */
 }
 
 /* ------------------- Global Styles ------------------- */
@@ -25,6 +25,7 @@ body:not(.dark-mode) {
   box-sizing: border-box;
 }
 
+/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
@@ -35,14 +36,14 @@ body {
   background: var(--light-bg);
   color: var(--light-text);
   transition: background var(--transition), color var(--transition);
-  scroll-behavior: smooth;
 }
 
+/* Ensure fixed header doesn't hide anchored sections */
 section[id] {
   scroll-margin-top: 80px;
 }
 
-/* Remove underlines globally, allow color inheritance, and add hover transition */
+/* Remove underlines globally, allow color inheritance */
 a {
   text-decoration: none;
   color: inherit;
@@ -118,6 +119,13 @@ header {
   font-weight: 600;
 }
 
+/* Action buttons container */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Desktop Nav */
 .nav-links {
   list-style: none;
@@ -160,7 +168,6 @@ body.dark-mode #hamburger {
   cursor: pointer;
   color: var(--light-text);
   transition: color var(--transition);
-  margin-left: 15px;
 }
 body.dark-mode #theme-toggle {
   color: var(--dark-text);
@@ -281,7 +288,7 @@ body.dark-mode .hero-container {
 }
 .btn:hover {
   background: var(--accent-color);
-  color: #fff;
+  color: #fff; /* ensure contrast on hover */
 }
 
 /* ------------------- Section Containers ------------------- */
@@ -389,6 +396,7 @@ body.dark-mode .card {
   transition: background var(--transition), color var(--transition),
     transform var(--transition);
 }
+/* Force white in dark mode for better contrast */
 body.dark-mode .experience-list li a {
   color: #fff;
 }
@@ -434,7 +442,7 @@ body.dark-mode .experience-list li a {
 
 /* ------------------- Projects ------------------- */
 #projects.section-container {
-  padding-bottom: 120px;
+  padding-bottom: 120px; /* extra space before footer */
 }
 
 /* ------------------- Back-to-Top Button ------------------- */
@@ -448,14 +456,13 @@ body.dark-mode .experience-list li a {
   color: #000;
   border-radius: 50%;
   font-size: 1.4em;
-  line-height: 50px; /* Ensures the arrow is vertically centered */
-  text-align: center; /* Centers horizontally */
+  line-height: 50px; /* vertically center the arrow */
+  text-align: center;
   text-decoration: none;
   cursor: pointer;
   z-index: 2000;
   transition: background var(--transition);
 }
-
 .back-to-top:hover {
   background: var(--accent-color);
   color: #000;

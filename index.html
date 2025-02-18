@@ -35,7 +35,6 @@
     />
 
     <!-- Main Styles -->
-    <!-- Separate your styles into an external stylesheet -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -60,7 +59,7 @@
         </ul>
 
         <!-- Mobile & Theme Buttons -->
-        <div style="display: flex; align-items: center; gap: 10px">
+        <div class="header-actions">
           <button id="hamburger" aria-label="Toggle Mobile Menu">
             <i class="fas fa-bars"></i>
           </button>
@@ -88,7 +87,11 @@
       <!-- Hero Section -->
       <section id="hero">
         <div class="container hero-container">
-        <img src="assets/profile.webp" alt="Sourav's Photo" class="profile-photo" />
+          <img
+            src="assets/profile.webp"
+            alt="Sourav's Photo"
+            class="profile-photo"
+          />
           <h1>Hi, I'm Sourav</h1>
           <p>
             Senior Software Engineer in Bangalore, India | 5+ Years Experience |
@@ -113,7 +116,6 @@
             >
               <i class="fa-brands fa-linkedin-in"></i>
             </a>
-            <!-- Replaced Twitter with Email link -->
             <a
               href="mailto:souravas007@gmail.com"
               target="_blank"
@@ -145,7 +147,6 @@
             >View CV</a
           >
         </div>
-
       </section>
 
       <!-- About Section -->
@@ -178,9 +179,7 @@
                 Python
               </h3>
               <div class="skill-level">Expert</div>
-              <p>
-                Building back-end systems, data analysis, scripting, and more.
-              </p>
+              <p>Building back-end systems, data analysis, scripting, and more.</p>
             </div>
             <!-- JavaScript -->
             <div class="card">
@@ -304,7 +303,11 @@
                   class="education-logo"
                 />
                 <h3>
-                  <a href="https://www.nssce.ac.in/" target="_blank" rel="noopener">
+                  <a
+                    href="https://www.nssce.ac.in/"
+                    target="_blank"
+                    rel="noopener"
+                  >
                     NSS College of Engineering, Palakkad
                   </a>
                 </h3>
@@ -438,6 +441,7 @@
           </div>
         </div>
       </section>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -452,7 +456,6 @@
     </a>
 
     <!-- Main Script -->
-    <!-- Defer or load external JS at the end for better performance -->
     <script src="script.js" defer></script>
   </body>
 </html>

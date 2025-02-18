@@ -9,9 +9,7 @@ if (currentTheme === "dark") {
 
 toggleButton.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
-  const theme = document.body.classList.contains("dark-mode")
-    ? "dark"
-    : "light";
+  const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
   toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
   localStorage.setItem("theme", theme);
 });
