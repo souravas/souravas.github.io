@@ -15,7 +15,7 @@
 /* Light Mode Override: deeper goldenrod scheme */
 body:not(.dark-mode) {
   --primary-color: #daa520; /* GoldenRod */
-  --accent-color: #b8860b;  /* DarkGoldenRod */
+  --accent-color: #b8860b; /* DarkGoldenRod */
 }
 
 /* ------------------- Global Styles ------------------- */
@@ -438,6 +438,14 @@ body.dark-mode .experience-list li a {
 .certification-icon {
   font-size: 1.6em;
   color: var(--primary-color);
+}
+
+.cert-details {
+  margin-top: 5px;
+}
+.cert-details small {
+  font-size: 0.9em; /* slightly smaller text */
+  color: var(--primary-color); /* or pick any subtle color you like */
 }
 
 /* ------------------- Projects ------------------- */
