@@ -436,16 +436,29 @@ body.dark-mode .duration {
   background: var(--primary-color);
   color: #000;
   border-radius: 50%;
-  font-size: 1.4em;
-  line-height: 50px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6em;  /* increased size for better visibility */
   text-decoration: none;
   cursor: pointer;
   z-index: 2000;
-  transition: background var(--transition);
+  transition: background var(--transition), color var(--transition);
 }
-.back-to-top:hover {
+
+.back-to-top:hover,
+.back-to-top:active {
   background: var(--accent-color);
+  color: #000;
+}
+
+.back-to-top i {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  line-height: 50px; /* match the container height */
+  /* remove transform: translateY(2px); */
 }
 
 /* Footer */
