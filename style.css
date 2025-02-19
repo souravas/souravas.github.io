@@ -447,7 +447,6 @@ body.dark-mode .duration {
   transition: background var(--transition), color var(--transition);
 }
 
-
 .back-to-top:hover,
 .back-to-top:active {
   background: var(--accent-color);
@@ -460,7 +459,6 @@ body.dark-mode .duration {
   text-align: center;
   margin: 0;
   line-height: 50px; /* match the container height */
-  /* remove transform: translateY(2px); */
 }
 
 /* Footer */
