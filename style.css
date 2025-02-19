@@ -428,6 +428,7 @@ body.dark-mode .duration {
 
 /* Back-to-Top */
 .back-to-top {
+  display: none; /* initially hidden */
   position: fixed;
   bottom: 40px;
   right: 40px;
@@ -439,12 +440,13 @@ body.dark-mode .duration {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6em;  /* increased size for better visibility */
+  font-size: 1.6em;
   text-decoration: none;
   cursor: pointer;
   z-index: 2000;
   transition: background var(--transition), color var(--transition);
 }
+
 
 .back-to-top:hover,
 .back-to-top:active {
