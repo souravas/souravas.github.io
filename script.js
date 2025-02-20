@@ -48,6 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // If at the bottom of the page, explicitly set currentSection to the last section
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 5) {
+      currentSection = sections[sections.length - 1].getAttribute("id");
+    }
+
     navLinks.forEach((link) => link.classList.remove("active"));
     mobileLinks.forEach((link) => link.classList.remove("active"));
 

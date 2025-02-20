@@ -407,11 +407,16 @@ body.dark-mode .card {
 body.dark-mode .duration {
   color: #ccc;
 }
+/* Extra gap after Certifications section */
+#education {
+  padding-bottom: 150px;
+}
 
 /* Certifications */
 .cert-card {
   text-align: center;
 }
+
 .cert-icon {
   font-size: 2em;
   margin-bottom: 10px;
@@ -503,5 +508,8 @@ body.dark-mode footer {
   }
   .hero-container p {
     font-size: 1.1em;
+  }
+  #education {
+    padding-bottom: 75px;
   }
 }
