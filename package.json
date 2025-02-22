@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "clean": "rm -rf .parcel-cache dist",
     "build": "parcel build src/index.html --public-url ./",
     "postbuild": "copyfiles -u 1 \"dist/**/*\" ."
   },
@@ -19,6 +20,8 @@
   "homepage": "https://github.com/souravas/souravas.github.io#readme",
   "devDependencies": {
     "copyfiles": "^2.4.1",
-    "parcel": "^2.13.3"
+    "parcel": "^2.13.3",
+    "@parcel/transformer-jsonld": "2.13.3",
+    "@parcel/packager-raw-url": "2.13.3"
   }
 }
