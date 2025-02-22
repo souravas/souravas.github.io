@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Add this to ensure write permissions
     steps:
       - uses: actions/checkout@v4
 
@@ -18,9 +20,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Clean cache # Add this step to ensure clean build
-        run: npm run clean || true # The || true ensures the workflow continues even if clean fails
 
       - name: Build
         run: npm run build
