@@ -498,6 +498,34 @@ header {
   transform: translate(-50%, -50%);
 }
 
+/* General SVG icon sizing for inline icons */
+.icon svg,
+.cert-icon,
+.social-icons svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* Adjust back-to-top icon sizing */
+.back-to-top svg {
+  width: 1em;
+  height: 1em;
+}
+
+.skill-icon {
+  width: 1.5em; /* Adjust to desired size */
+  height: auto;
+  vertical-align: middle;
+}
+
+.skill-icon {
+  width: 1.5em; /* Adjust as needed */
+  height: auto;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
 /* ===================== */
 /*  Footer              */
 /* ===================== */

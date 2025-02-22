@@ -6,7 +6,10 @@ const toggleButton = document.getElementById("theme-toggle");
 // Check if a theme is stored; if not, use the user's preferred color scheme.
 let storedTheme = localStorage.getItem("theme");
 if (!storedTheme) {
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
     storedTheme = "dark";
   } else {
     storedTheme = "light";
