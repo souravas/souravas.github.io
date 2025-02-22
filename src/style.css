@@ -548,4 +548,10 @@ footer {
   #education {
     padding-bottom: 4.6875rem; /* 75px */
   }
+  /* Fix for profile photo in hero section only on mobile */
+  #hero .profile-photo {
+    max-width: 80%;
+    display: block;
+    margin: 0 auto 1rem;
+  }
 }
