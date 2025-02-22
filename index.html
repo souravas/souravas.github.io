@@ -41,7 +41,38 @@
     <header>
       <div class="container nav-container">
         <a href="https://souravas.github.io" class="logo">Sourav</a>
-        <ul class="nav-links">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#education">Education</a></li>
+            <li>
+              <a
+                href="mailto:souravas007@gmail.com"
+                target="_blank"
+                rel="noopener"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <button id="hamburger" aria-label="Toggle Mobile Menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+            🌙
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav>
+        <ul class="mobile-nav" id="mobileNav">
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
@@ -57,31 +88,7 @@
             >
           </li>
         </ul>
-
-        <div class="header-actions">
-          <button id="hamburger" aria-label="Toggle Mobile Menu">
-            <i class="fas fa-bars"></i>
-          </button>
-          <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
-            🌙
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile Nav -->
-      <ul class="mobile-nav" id="mobileNav">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#certifications">Certifications</a></li>
-        <li><a href="#education">Education</a></li>
-        <li>
-          <a href="mailto:souravas007@gmail.com" target="_blank" rel="noopener"
-            >Contact</a
-          >
-        </li>
-      </ul>
+      </nav>
     </header>
 
     <!-- Main Content -->
@@ -89,7 +96,6 @@
       <!-- Hero Section -->
       <section id="hero">
         <div class="container hero-container">
-          <!-- Using lazy loading for the profile image -->
           <img
             src="assets/profile.webp"
             alt="Sourav's Photo"

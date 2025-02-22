@@ -511,8 +511,15 @@ footer {
     padding: 10px 0;
   }
   .nav-container {
+    /* Change grid to two columns: logo and header-actions */
     grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 15px;
+  }
+  /* Hide the desktop navigation */
+  .nav-container nav {
+    display: none;
   }
   section[id] {
     scroll-margin-top: 10px;
@@ -522,9 +529,6 @@ footer {
   }
   .logo {
     font-size: 1.5em;
-  }
-  .nav-links {
-    display: none;
   }
   #hamburger {
     display: block;
