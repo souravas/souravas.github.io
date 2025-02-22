@@ -95,6 +95,9 @@ const mobileNav = document.getElementById("mobileNav");
 if (hamburger) {
   hamburger.addEventListener("click", () => {
     mobileNav.classList.toggle("open");
+    const expanded =
+      hamburger.getAttribute("aria-expanded") === "true" ? true : false;
+    hamburger.setAttribute("aria-expanded", (!expanded).toString());
   });
 }
 
@@ -102,5 +105,6 @@ if (hamburger) {
 document.querySelectorAll(".mobile-nav a").forEach((link) => {
   link.addEventListener("click", () => {
     mobileNav.classList.remove("open");
+    hamburger.setAttribute("aria-expanded", "false");
   });
 });
