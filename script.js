@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================
-// Mobile Menu Toggle with aria-expanded
+// Mobile Menu Toggle with aria-expanded and Event Delegation
 // ========================
 const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
@@ -112,10 +112,11 @@ if (hamburger) {
   });
 }
 
-// Close mobile menu on link click
-document.querySelectorAll(".mobile-nav a").forEach((link) => {
-  link.addEventListener("click", () => {
+// Using event delegation to close mobile menu when any link is clicked.
+mobileNav.addEventListener("click", (event) => {
+  const link = event.target.closest("a");
+  if (link) {
     mobileNav.classList.remove("open");
     hamburger.setAttribute("aria-expanded", "false");
-  });
+  }
 });
