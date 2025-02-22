@@ -1,41 +1,30 @@
-/* ------------------- Base Variables ------------------- */
+/* ===================== */
+/*  Theme Variables     */
+/* ===================== */
+/* Default (Light) Theme */
 :root {
-  --light-bg: #f5f5f5;
-  --light-text: #333;
-  --dark-bg: #121212;
-  --dark-text: #e0e0e0;
-  --header-bg-light: #ffffff;
-  --header-bg-dark: #1a1a1a;
   --transition: 0.3s ease;
-
-  /* Default (Dark Mode) primary colors */
-  --primary-color: #ffcc00;
-  --accent-color: #e0a800;
-
-  /* Current theme colors */
-  --bg-color: var(--light-bg);
-  --text-color: var(--light-text);
-  --header-bg: var(--header-bg-light);
-
-  /* Card background for light mode */
-  --card-bg: #ffffff;
+  --color-bg: #f5f5f5;
+  --color-text: #333;
+  --color-header: #ffffff;
+  --color-card: #ffffff;
+  --color-primary: #daa520;
+  --color-accent: #b8860b;
 }
 
-/* Light Mode Override (Goldenrod) */
-body:not(.dark-mode) {
-  --primary-color: #daa520;
-  --accent-color: #b8860b;
+/* Dark Theme */
+[data-theme="dark"] {
+  --color-bg: #121212;
+  --color-text: #e0e0e0;
+  --color-header: #1a1a1a;
+  --color-card: #1e1e1e;
+  --color-primary: #ffcc00;
+  --color-accent: #e0a800;
 }
 
-/* Dark Mode */
-body.dark-mode {
-  --bg-color: var(--dark-bg);
-  --text-color: var(--dark-text);
-  --header-bg: var(--header-bg-dark);
-  --card-bg: #1e1e1e;
-}
-
-/* ------------------- Global ------------------- */
+/* ===================== */
+/*  Global Styles       */
+/* ===================== */
 *,
 *::before,
 *::after {
@@ -49,8 +38,8 @@ html {
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: var(--bg-color);
-  color: var(--text-color);
+  background: var(--color-bg);
+  color: var(--color-text);
   transition: background var(--transition), color var(--transition);
 }
 
@@ -65,7 +54,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent-color);
+  color: var(--color-accent);
 }
 
 /* Skip Link */
@@ -73,7 +62,7 @@ a:hover {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--primary-color);
+  background: var(--color-primary);
   color: #000;
   padding: 8px 16px;
   transition: top var(--transition);
@@ -83,7 +72,7 @@ a:hover {
   top: 0;
 }
 
-/* ------------------- Container ------------------- */
+/* Container */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -91,13 +80,15 @@ a:hover {
   padding: 0 10px;
 }
 
-/* ------------------- Header & Nav ------------------- */
+/* ===================== */
+/*  Header & Navigation */
+/* ===================== */
 header {
   position: fixed;
   top: 0;
   width: 100%;
   padding: 20px 0;
-  background: var(--header-bg);
+  background: var(--color-header);
   z-index: 1000;
   transition: background var(--transition);
 }
@@ -124,13 +115,13 @@ header {
 }
 
 .nav-links li a {
-  color: var(--text-color);
+  color: var(--color-text);
   font-weight: 500;
 }
 
 .nav-links li a:hover,
 .nav-links li a.active {
-  color: var(--primary-color);
+  color: var(--color-primary);
 }
 
 /* Mobile & Theme Buttons */
@@ -146,7 +137,7 @@ header {
   border: none;
   font-size: 1.4em;
   cursor: pointer;
-  color: var(--text-color);
+  color: var(--color-text);
   transition: color var(--transition);
 }
 
@@ -162,7 +153,7 @@ header {
   right: 10px;
   padding: 10px;
   border-radius: 8px;
-  background: var(--header-bg);
+  background: var(--color-header);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   gap: 10px;
@@ -180,7 +171,7 @@ header {
 }
 
 .mobile-nav li a:hover {
-  background: var(--primary-color);
+  background: var(--color-primary);
   color: #000;
 }
 
@@ -188,7 +179,9 @@ header {
   display: flex;
 }
 
-/* ------------------- Hero ------------------- */
+/* ===================== */
+/*  Hero Section        */
+/* ===================== */
 #hero {
   display: grid;
   place-items: center;
@@ -197,7 +190,7 @@ header {
   padding-top: 80px;
 }
 
-body.dark-mode #hero {
+[data-theme="dark"] #hero {
   background: linear-gradient(135deg, #181818, #121212);
 }
 
@@ -210,7 +203,7 @@ body.dark-mode #hero {
   transition: background var(--transition);
 }
 
-body.dark-mode .hero-container {
+[data-theme="dark"] .hero-container {
   background: rgba(26, 26, 26, 0.8);
 }
 
@@ -235,9 +228,9 @@ body.dark-mode .hero-container {
 .social-icons .icon {
   width: 50px;
   height: 50px;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-size: 1.4em;
   display: grid;
   place-items: center;
@@ -246,7 +239,7 @@ body.dark-mode .hero-container {
 
 .social-icons .icon:hover {
   transform: scale(1.2) rotate(10deg);
-  background: var(--primary-color);
+  background: var(--color-primary);
   color: #000;
 }
 
@@ -257,10 +250,12 @@ body.dark-mode .hero-container {
   line-height: 1.4;
 }
 
-/* ------------------- Button ------------------- */
+/* ===================== */
+/*  Button Styles       */
+/* ===================== */
 .btn {
   display: inline-block;
-  background: var(--primary-color);
+  background: var(--color-primary);
   color: #000;
   padding: 12px 24px;
   border-radius: 6px;
@@ -270,11 +265,13 @@ body.dark-mode .hero-container {
 }
 
 .btn:hover {
-  background: var(--accent-color);
+  background: var(--color-accent);
   color: #fff;
 }
 
-/* ------------------- Sections ------------------- */
+/* ===================== */
+/*  Section Styles      */
+/* ===================== */
 .section-container {
   padding: 60px 0;
   text-align: center;
@@ -291,7 +288,7 @@ body.dark-mode .hero-container {
   display: block;
   width: 50px;
   height: 4px;
-  background: var(--primary-color);
+  background: var(--color-primary);
   margin: 10px auto 0;
   border-radius: 2px;
 }
@@ -302,7 +299,9 @@ body.dark-mode .hero-container {
   font-size: 1.1em;
 }
 
-/* ------------------- Card Grid ------------------- */
+/* ===================== */
+/*  Card Grid           */
+/* ===================== */
 .card-grid {
   display: grid;
   gap: 20px;
@@ -311,7 +310,7 @@ body.dark-mode .hero-container {
 }
 
 .card {
-  background: var(--card-bg);
+  background: var(--color-card);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
@@ -348,17 +347,19 @@ body.dark-mode .hero-container {
   border-radius: 15px;
   font-size: 0.85em;
   font-weight: 500;
-  white-space: nowrap; /* Prevents text from wrapping */
+  white-space: nowrap;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .skill-item:hover {
-  background: var(--accent-color);
+  background: var(--color-accent);
   color: #000;
   cursor: pointer;
 }
 
-/* Experience */
+/* ===================== */
+/*  Experience          */
+/* ===================== */
 .experience-card-grid {
   margin-top: 40px;
 }
@@ -379,7 +380,7 @@ body.dark-mode .hero-container {
 .experience-card em {
   display: block;
   margin: 4px 0 10px;
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-weight: 500;
 }
 
@@ -394,7 +395,9 @@ body.dark-mode .hero-container {
   margin-bottom: 6px;
 }
 
-/* Education */
+/* ===================== */
+/*  Education           */
+/* ===================== */
 .education-card {
   display: grid;
   grid-template-rows: auto auto 1fr;
@@ -417,13 +420,13 @@ body.dark-mode .hero-container {
 .degree {
   font-size: 0.95em;
   font-weight: 500;
-  color: var(--primary-color);
+  color: var(--color-primary);
   margin-bottom: 3px;
 }
 
 .duration {
   font-size: 0.85em;
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 /* Extra gap after Certifications section */
@@ -431,7 +434,9 @@ body.dark-mode .hero-container {
   padding-bottom: 150px;
 }
 
-/* Certifications */
+/* ===================== */
+/*  Certifications      */
+/* ===================== */
 .cert-card {
   text-align: center;
   display: grid;
@@ -441,7 +446,7 @@ body.dark-mode .hero-container {
 .cert-icon {
   font-size: 2em;
   margin-bottom: 10px;
-  color: var(--primary-color);
+  color: var(--color-primary);
 }
 
 .cert-card h3 {
@@ -451,10 +456,12 @@ body.dark-mode .hero-container {
 
 .cert-info {
   font-size: 0.9em;
-  color: var(--accent-color);
+  color: var(--color-accent);
 }
 
-/* Back-to-Top */
+/* ===================== */
+/*  Back-to-Top Button  */
+/* ===================== */
 .back-to-top {
   display: none;
   position: fixed;
@@ -462,7 +469,7 @@ body.dark-mode .hero-container {
   right: 40px;
   width: 50px;
   height: 50px;
-  background: var(--primary-color);
+  background: var(--color-primary);
   color: #000;
   border-radius: 50%;
   font-size: 1.6em;
@@ -474,7 +481,7 @@ body.dark-mode .hero-container {
 
 .back-to-top:hover,
 .back-to-top:active {
-  background: var(--accent-color);
+  background: var(--color-accent);
   color: #000;
 }
 
@@ -485,54 +492,49 @@ body.dark-mode .hero-container {
   transform: translate(-50%, -50%);
 }
 
-/* Footer */
+/* ===================== */
+/*  Footer              */
+/* ===================== */
 footer {
-  background: var(--header-bg);
+  background: var(--color-header);
   text-align: center;
-  color: var(--text-color);
+  color: var(--color-text);
   padding: 20px 0;
   transition: background var(--transition);
 }
 
-/* Responsive */
+/* ===================== */
+/*  Responsive          */
+/* ===================== */
 @media (max-width: 768px) {
   header {
     padding: 10px 0;
   }
-
   .nav-container {
     grid-template-columns: auto auto;
     padding: 0 15px;
   }
-
   section[id] {
     scroll-margin-top: 10px;
   }
-
   .section-container {
     padding: 25px 0;
   }
-
   .logo {
     font-size: 1.5em;
   }
-
   .nav-links {
     display: none;
   }
-
   #hamburger {
     display: block;
   }
-
   .hero-container h1 {
     font-size: 2.4em;
   }
-
   .hero-container p {
     font-size: 1.1em;
   }
-
   #education {
     padding-bottom: 75px;
   }

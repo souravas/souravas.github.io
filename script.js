@@ -1,33 +1,49 @@
-// Theme Toggle
+// ========================
+// Theme Toggle using data attribute
+// ========================
 const toggleButton = document.getElementById("theme-toggle");
 const currentTheme = localStorage.getItem("theme");
 
 if (currentTheme === "dark") {
-  document.body.classList.add("dark-mode");
+  document.documentElement.setAttribute("data-theme", "dark");
   toggleButton.textContent = "☀️";
+} else {
+  document.documentElement.removeAttribute("data-theme");
+  toggleButton.textContent = "🌙";
 }
 
 toggleButton.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  const theme = document.body.classList.contains("dark-mode")
-    ? "dark"
-    : "light";
-  toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
-  localStorage.setItem("theme", theme);
+  if (document.documentElement.getAttribute("data-theme") === "dark") {
+    document.documentElement.removeAttribute("data-theme");
+    toggleButton.textContent = "🌙";
+    localStorage.setItem("theme", "light");
+  } else {
+    document.documentElement.setAttribute("data-theme", "dark");
+    toggleButton.textContent = "☀️";
+    localStorage.setItem("theme", "dark");
+  }
 });
 
+// ========================
 // Back-to-Top Button
+// ========================
 const backToTop = document.getElementById("back-to-top");
+
 window.addEventListener("scroll", () => {
   backToTop.style.display = window.scrollY > 300 ? "block" : "none";
 });
+
 backToTop.addEventListener("click", (e) => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+// Ensure correct initial display
 backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
 
+// ========================
 // Fixed Navigation Highlighting
+// ========================
 document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".nav-links a");
@@ -70,7 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
   updateActiveLink();
 });
 
+// ========================
 // Mobile Menu Toggle
+// ========================
 const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
 
