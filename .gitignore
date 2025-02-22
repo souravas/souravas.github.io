@@ -5,7 +5,7 @@ node_modules/
 .parcel-cache/
 
 # Build output folder
-# dist/
+dist/
 
 # System files
 .DS_Store
