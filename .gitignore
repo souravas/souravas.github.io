@@ -4,6 +4,9 @@ node_modules/
 # Parcel cache (do not commit)
 .parcel-cache/
 
+# Build output folder
+# dist/
+
 # System files
 .DS_Store
 Thumbs.db
