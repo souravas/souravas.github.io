@@ -513,6 +513,14 @@ header {
   height: 1em;
 }
 
+.back-to-top svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
 .skill-icon {
   width: 1.5em; /* Adjust to desired size */
   height: auto;
