@@ -1,10 +1,20 @@
 // ========================
-// Theme Toggle using data attribute
+// Theme Toggle using data attribute with preferred color scheme detection
 // ========================
 const toggleButton = document.getElementById("theme-toggle");
-const currentTheme = localStorage.getItem("theme");
 
-if (currentTheme === "dark") {
+// Check if a theme is stored; if not, use the user's preferred color scheme.
+let storedTheme = localStorage.getItem("theme");
+if (!storedTheme) {
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    storedTheme = "dark";
+  } else {
+    storedTheme = "light";
+  }
+  localStorage.setItem("theme", storedTheme);
+}
+
+if (storedTheme === "dark") {
   document.documentElement.setAttribute("data-theme", "dark");
   toggleButton.textContent = "☀️";
 } else {
@@ -67,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
       currentSection = sections[sections.length - 1].getAttribute("id");
     }
 
-    // Update navLinks based on the cached arrays
     navLinks.forEach((link) => {
       if (link.getAttribute("href") === `#${currentSection}`) {
         link.classList.add("active");
