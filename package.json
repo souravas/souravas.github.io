@@ -1,0 +1,24 @@
+{
+  "name": "souravas.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "parcel build src/index.html --public-url ./",
+    "postbuild": "copyfiles -u 1 \"dist/**/*\" ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/souravas/souravas.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/souravas/souravas.github.io/issues"
+  },
+  "homepage": "https://github.com/souravas/souravas.github.io#readme",
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "parcel": "^2.13.3"
+  }
+}

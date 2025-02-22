@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sourav | Software Developer</title>
+
+    <!-- Meta Info & Favicon -->
+    <meta
+      name="description"
+      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
+    />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+    <!-- Open Graph (Optional) -->
+    <meta property="og:title" content="Sourav | Software Developer" />
+    <meta
+      property="og:description"
+      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://souravas.github.io" />
+
+    <!-- Google Fonts & Font Awesome -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/b3202fd536.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sourav",
+        "url": "https://souravas.github.io",
+        "email": "mailto:souravas007@gmail.com",
+        "jobTitle": "Software Developer",
+        "worksFor": [
+          {
+            "@type": "Organization",
+            "name": "Tata 1mg",
+            "url": "https://www.1mg.com",
+            "roleName": "SDE II"
+          },
+          {
+            "@type": "Organization",
+            "name": "Tata Health",
+            "url": "https://www.linkedin.com/company/tatahealth",
+            "roleName": "Software Engineer"
+          },
+          {
+            "@type": "Organization",
+            "name": "Pelatro",
+            "url": "https://www.pelatro.com",
+            "roleName": "Software Engineer"
+          }
+        ],
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "NSS College of Engineering, Palakkad",
+            "url": "https://www.nssce.ac.in/"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "Jawahar Navodaya Vidyalaya (JNV)",
+            "url": "http://www.navodaya.gov.in/"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "Bethany St.John's EHSS",
+            "url": "https://bethanystjohns.edu.in/"
+          }
+        ]
+      }
+    </script>
+
+    <!-- Visually Hidden Class for Accessibility -->
+    <style>
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Skip Link (Accessibility) -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Header & Navigation -->
+    <header>
+      <div class="container nav-container">
+        <a href="https://souravas.github.io" class="logo">Sourav</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#education">Education</a></li>
+            <li>
+              <a
+                href="mailto:souravas007@gmail.com"
+                target="_blank"
+                rel="noopener"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <button
+            id="hamburger"
+            aria-label="Toggle Mobile Menu"
+            aria-expanded="false"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+            🌙
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav>
+        <ul class="mobile-nav" id="mobileNav">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#education">Education</a></li>
+          <li>
+            <a
+              href="mailto:souravas007@gmail.com"
+              target="_blank"
+              rel="noopener"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main">
+      <!-- Hero Section -->
+      <section id="hero">
+        <div class="container hero-container">
+          <figure>
+            <img
+              src="assets/profile.webp"
+              alt="Portrait of Sourav, a software developer"
+              class="profile-photo"
+              loading="lazy"
+            />
+            <figcaption class="visually-hidden">
+              Sourav's Profile Photo
+            </figcaption>
+          </figure>
+          <h1>Hi, I'm Sourav</h1>
+          <p>
+            Senior Software Engineer | 5+ Years Experience | Innovator | Problem
+            Solver
+          </p>
+
+          <!-- Social Icons -->
+          <div class="social-icons">
+            <a
+              href="https://github.com/souravas"
+              target="_blank"
+              class="icon"
+              aria-label="GitHub"
+            >
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/souravas/"
+              target="_blank"
+              class="icon"
+              aria-label="LinkedIn"
+            >
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a
+              href="mailto:souravas007@gmail.com"
+              target="_blank"
+              class="icon"
+              aria-label="Email"
+            >
+              <i class="fa-solid fa-envelope"></i>
+            </a>
+          </div>
+
+          <!-- Contact Details -->
+          <div class="contact-details">
+            <p>
+              Email:
+              <a href="mailto:souravas007@gmail.com"
+                ><strong>souravas007@gmail.com</strong></a
+              >
+            </p>
+            <p>
+              Phone:
+              <a href="tel:+919526444907"><strong>+91-9526-444-907</strong></a>
+            </p>
+          </div>
+
+          <!-- Buttons -->
+          <a href="#about" class="btn">Learn More</a>
+          <a href="assets/resume.pdf" class="btn" target="_blank" rel="noopener"
+            >View CV</a
+          >
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="section-container">
+        <div class="container">
+          <h2>About Me</h2>
+          <p>
+            I’m a backend developer with 5+ years of experience building
+            scalable, high-performance systems. Specializing in REST API
+            development, database optimization, and backend automation, I work
+            across monolithic and microservices architectures, leveraging the
+            best tools and technologies to deliver clean, maintainable, and
+            scalable solutions.
+            <br />
+            Driven by a passion for solving complex problems, I thrive on
+            designing efficient systems, optimizing workflows, and delivering
+            impactful results.
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="section-container">
+        <div class="container">
+          <h2>Skills</h2>
+          <p>Technologies and tools I frequently use.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>
+                <i class="fas fa-code" style="margin-right: 8px"></i>
+                Programming &amp; Web Development
+              </h3>
+              <div class="skill-items">
+                <span class="skill-item">Python</span>
+                <span class="skill-item">Ruby on Rails</span>
+                <span class="skill-item">REST API</span>
+                <span class="skill-item">Java</span>
+                <span class="skill-item">Spring Boot</span>
+                <span class="skill-item">JavaScript</span>
+                <span class="skill-item">HTML &amp; CSS</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>
+                <i class="fas fa-cloud" style="margin-right: 8px"></i>
+                Cloud &amp; Infrastructure
+              </h3>
+              <div class="skill-items">
+                <span class="skill-item">AWS</span>
+                <span class="skill-item">Docker</span>
+                <span class="skill-item">Kubernetes</span>
+                <span class="skill-item">Kafka</span>
+                <span class="skill-item">Linux</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>
+                <i class="fas fa-database" style="margin-right: 8px"></i>
+                Databases
+              </h3>
+              <div class="skill-items">
+                <span class="skill-item">PostgreSQL</span>
+                <span class="skill-item">MySQL</span>
+                <span class="skill-item">MongoDB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience Section -->
+      <section id="experience" class="section-container">
+        <div class="container">
+          <h2>Experience</h2>
+          <div class="card-grid experience-card-grid">
+            <!-- Tata 1mg -->
+            <div class="card experience-card">
+              <div class="experience-header">
+                <a href="https://www.1mg.com" target="_blank" rel="noopener">
+                  <img
+                    src="assets/1mg.webp"
+                    alt="Tata 1mg Logo"
+                    class="experience-logo"
+                    loading="lazy"
+                  />
+                </a>
+                <a href="https://www.1mg.com" target="_blank" rel="noopener">
+                  <strong>Tata 1mg</strong>
+                </a>
+              </div>
+              <em>SDE II · Oct 2022 – Present · Hybrid</em>
+              <ul class="experience-details">
+                <li>
+                  Built a QR code-based SKU tracking system, reducing order
+                  turnaround time by <strong>1.3 hours</strong> and cutting QC
+                  manpower by <strong>53%</strong>, saving
+                  <strong>Rs. 5 lakhs/month</strong>.
+                </li>
+                <li>
+                  Developed real-time backend validation for QR codes, reducing
+                  errors by <strong>25%</strong> and eliminating manual
+                  interventions.
+                </li>
+                <li>
+                  Automated order assignments using
+                  <strong>Server-Sent Events (SSE)</strong>, reducing picker
+                  idle time by <strong>40%</strong>.
+                </li>
+                <li>
+                  Engineered scalable REST APIs with
+                  <strong>Ruby on Rails</strong> and
+                  <strong>Python (Sanic)</strong>, optimizing database
+                  performance.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Tata Health -->
+            <div class="card experience-card">
+              <div class="experience-header">
+                <a
+                  href="https://www.linkedin.com/company/tatahealth"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/tata_health.webp"
+                    alt="Tata Health Logo"
+                    class="experience-logo"
+                    loading="lazy"
+                  />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/tatahealth"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <strong>Tata Health</strong>
+                </a>
+              </div>
+              <em>Software Engineer · Dec 2021 – Sep 2022 · Remote</em>
+              <ul class="experience-details">
+                <li>
+                  Created an idempotent database migration tool, reducing DevOps
+                  tickets by <strong>70%</strong>.
+                </li>
+                <li>
+                  Automated author tracking using Git commits, improving
+                  deployment reliability.
+                </li>
+                <li>
+                  Developed a mental health module with rule-based flows,
+                  increasing user visits by <strong>10%</strong>.
+                </li>
+                <li>
+                  Optimized microservices and API performance for consumer and
+                  provider platforms.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Pelatro -->
+            <div class="card experience-card">
+              <div class="experience-header">
+                <a
+                  href="https://www.pelatro.com"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/pelatro.webp"
+                    alt="Pelatro Logo"
+                    class="experience-logo"
+                    loading="lazy"
+                  />
+                </a>
+                <a
+                  href="https://www.pelatro.com"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <strong>Pelatro</strong>
+                </a>
+              </div>
+              <em>Software Engineer · Jun 2019 – Nov 2021 · On-site</em>
+              <ul class="experience-details">
+                <li>
+                  Built an internal profile configuration tool, reducing manual
+                  setup time by <strong>80%</strong>.
+                </li>
+                <li>
+                  Designed REST APIs with <strong>TDD</strong>, improving code
+                  reliability and workflow efficiency.
+                </li>
+                <li>
+                  Developed a configuration-driven ETL tool, cutting development
+                  time by <strong>60%</strong>.
+                </li>
+                <li>
+                  Integrated <strong>Apache Kafka</strong> for real-time data
+                  processing, enhancing system scalability.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications Section -->
+      <section id="certifications" class="section-container">
+        <div class="container">
+          <h2>Certifications</h2>
+          <div class="card-grid">
+            <div class="card cert-card">
+              <a
+                href="https://www.credly.com/badges/362b5b69-0043-4d71-a50d-0f904d90a381/linked_in_profile"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="fab fa-aws cert-icon"></i>
+              </a>
+              <h3>
+                <a
+                  href="https://www.credly.com/badges/362b5b69-0043-4d71-a50d-0f904d90a381/linked_in_profile"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  AWS Certified Solutions Architect – Associate
+                </a>
+              </h3>
+              <div class="cert-info">
+                Nov 2024 – Nov 2027 | Amazon Web Services
+              </div>
+            </div>
+
+            <div class="card cert-card">
+              <a
+                href="https://www.hackerrank.com/certificates/b68104bff25e"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="fab fa-hackerrank cert-icon"></i>
+              </a>
+              <h3>
+                <a
+                  href="https://www.hackerrank.com/certificates/b68104bff25e"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Software Engineer
+                </a>
+              </h3>
+              <div class="cert-info">Jan 2025 | HackerRank</div>
+            </div>
+
+            <div class="card cert-card">
+              <a
+                href="https://www.hackerrank.com/certificates/daa8afc85ee8"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="fab fa-hackerrank cert-icon"></i>
+              </a>
+              <h3>
+                <a
+                  href="https://www.hackerrank.com/certificates/daa8afc85ee8"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Problem Solving (Intermediate)
+                </a>
+              </h3>
+              <div class="cert-info">Jan 2025 | HackerRank</div>
+            </div>
+
+            <div class="card cert-card">
+              <a
+                href="https://www.coursera.org/account/accomplishments/verify/YI0FLK5Q1BNZ"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="fa-solid fa-graduation-cap cert-icon"></i>
+              </a>
+              <h3>
+                <a
+                  href="https://www.coursera.org/account/accomplishments/verify/YI0FLK5Q1BNZ"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Algorithmic Toolbox
+                </a>
+              </h3>
+              <div class="cert-info">Feb 2025 | Coursera</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section id="education" class="section-container">
+        <div class="container">
+          <h2>Education</h2>
+          <div class="card-grid">
+            <div class="card education-card">
+              <a href="https://www.nssce.ac.in/" target="_blank" rel="noopener">
+                <img
+                  src="assets/nss.webp"
+                  alt="Logo of NSS College of Engineering, Palakkad"
+                  class="education-logo"
+                  loading="lazy"
+                />
+              </a>
+              <h3>
+                <a
+                  href="https://www.nssce.ac.in/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  NSS College of Engineering, Palakkad
+                </a>
+              </h3>
+              <div class="degree">BTech, Computer Science</div>
+              <div class="duration">Aug 2015 – Mar 2019</div>
+            </div>
+
+            <div class="card education-card">
+              <a
+                href="http://www.navodaya.gov.in/"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  src="assets/jnv.webp"
+                  alt="Logo of Jawahar Navodaya Vidyalaya (JNV)"
+                  class="education-logo"
+                  loading="lazy"
+                />
+              </a>
+              <h3>
+                <a
+                  href="http://www.navodaya.gov.in/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Jawahar Navodaya Vidyalaya (JNV)
+                </a>
+              </h3>
+              <div class="degree">High School</div>
+              <div class="duration">2008 – 2015</div>
+            </div>
+
+            <div class="card education-card">
+              <a
+                href="https://bethanystjohns.edu.in/"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  src="assets/bethany.webp"
+                  alt="Logo of Bethany St.John's EHSS"
+                  class="education-logo"
+                  loading="lazy"
+                />
+              </a>
+              <h3>
+                <a
+                  href="https://bethanystjohns.edu.in/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Bethany St.John's EHSS
+                </a>
+              </h3>
+              <div class="degree">Primary School</div>
+              <div class="duration">2003 – 2008</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container footer-container">
+        <p>&copy; 2025 Sourav. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Back-to-Top Button -->
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Main Script -->
+    <script src="script.js" defer></script>
+  </body>
+</html>

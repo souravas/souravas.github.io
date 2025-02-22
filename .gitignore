@@ -1,0 +1,14 @@
+# Node modules (do not commit)
+node_modules/
+
+# Parcel cache (do not commit)
+.parcel-cache/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
