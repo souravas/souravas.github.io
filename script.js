@@ -42,44 +42,47 @@ backToTop.addEventListener("click", (e) => {
 backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
 
 // ========================
-// Fixed Navigation Highlighting
+// Fixed Navigation Highlighting (with caching)
 // ========================
 document.addEventListener("DOMContentLoaded", () => {
-  const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".nav-links a");
-  const mobileLinks = document.querySelectorAll(".mobile-nav a");
+  const sections = Array.from(document.querySelectorAll("section[id]"));
+  const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+  const mobileLinks = Array.from(document.querySelectorAll(".mobile-nav a"));
   const headerOffset = 100; // Adjust if needed
 
   function updateActiveLink() {
     let currentSection = "";
+    const scrollY = window.scrollY;
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop - headerOffset;
       const sectionHeight = section.offsetHeight;
-      if (
-        window.scrollY >= sectionTop &&
-        window.scrollY < sectionTop + sectionHeight
-      ) {
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
         currentSection = section.getAttribute("id");
       }
     });
 
-    // If at the bottom of the page, explicitly set currentSection to the last section
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 5) {
+    // If at the bottom of the page, set currentSection to the last section
+    if (window.innerHeight + scrollY >= document.body.offsetHeight - 5) {
       currentSection = sections[sections.length - 1].getAttribute("id");
     }
 
-    navLinks.forEach((link) => link.classList.remove("active"));
-    mobileLinks.forEach((link) => link.classList.remove("active"));
+    // Update navLinks based on the cached arrays
+    navLinks.forEach((link) => {
+      if (link.getAttribute("href") === `#${currentSection}`) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
 
-    if (currentSection) {
-      document
-        .querySelector(`.nav-links a[href="#${currentSection}"]`)
-        ?.classList.add("active");
-      document
-        .querySelector(`.mobile-nav a[href="#${currentSection}"]`)
-        ?.classList.add("active");
-    }
+    mobileLinks.forEach((link) => {
+      if (link.getAttribute("href") === `#${currentSection}`) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
   }
 
   window.addEventListener("scroll", updateActiveLink);
@@ -87,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================
-// Mobile Menu Toggle
+// Mobile Menu Toggle with aria-expanded
 // ========================
 const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
@@ -95,8 +98,7 @@ const mobileNav = document.getElementById("mobileNav");
 if (hamburger) {
   hamburger.addEventListener("click", () => {
     mobileNav.classList.toggle("open");
-    const expanded =
-      hamburger.getAttribute("aria-expanded") === "true" ? true : false;
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
     hamburger.setAttribute("aria-expanded", (!expanded).toString());
   });
 }
