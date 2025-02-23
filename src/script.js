@@ -1,40 +1,35 @@
 // ========================
-// Theme Toggle using data attribute with preferred color scheme detection
+// Theme Toggle
 // ========================
 const toggleButton = document.getElementById("theme-toggle");
 
-// Check if a theme is stored; if not, use the user's preferred color scheme.
-let storedTheme = localStorage.getItem("theme");
-if (!storedTheme) {
-  if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
-    storedTheme = "dark";
-  } else {
-    storedTheme = "light";
-  }
-  localStorage.setItem("theme", storedTheme);
-}
-
-if (storedTheme === "dark") {
-  document.documentElement.setAttribute("data-theme", "dark");
-  toggleButton.textContent = "☀️";
-} else {
-  document.documentElement.removeAttribute("data-theme");
-  toggleButton.textContent = "🌙";
-}
-
-toggleButton.addEventListener("click", () => {
-  if (document.documentElement.getAttribute("data-theme") === "dark") {
-    document.documentElement.removeAttribute("data-theme");
-    toggleButton.textContent = "🌙";
-    localStorage.setItem("theme", "light");
-  } else {
+function setTheme(theme) {
+  if (theme === "dark") {
     document.documentElement.setAttribute("data-theme", "dark");
     toggleButton.textContent = "☀️";
     localStorage.setItem("theme", "dark");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    toggleButton.textContent = "🌙";
+    localStorage.setItem("theme", "light");
   }
+}
+
+// Check stored theme or system preference
+(function initializeTheme() {
+  let storedTheme = localStorage.getItem("theme");
+  if (!storedTheme) {
+    storedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+  setTheme(storedTheme);
+})();
+
+// Toggle theme on button click
+toggleButton.addEventListener("click", () => {
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  setTheme(isDark ? "light" : "dark");
 });
 
 // ========================
@@ -43,7 +38,7 @@ toggleButton.addEventListener("click", () => {
 const backToTop = document.getElementById("back-to-top");
 
 window.addEventListener("scroll", () => {
-  backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+  backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
 });
 
 backToTop.addEventListener("click", (e) => {
@@ -55,7 +50,7 @@ backToTop.addEventListener("click", (e) => {
 backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
 
 // ========================
-// Fixed Navigation Highlighting (with caching)
+// Fixed Navigation Highlighting
 // ========================
 document.addEventListener("DOMContentLoaded", () => {
   const sections = Array.from(document.querySelectorAll("section[id]"));
@@ -75,25 +70,27 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // If at the bottom of the page, set currentSection to the last section
-    if (window.innerHeight + scrollY >= document.body.offsetHeight - 5) {
+    // If near bottom, treat last section as current
+    if (
+      window.innerHeight + scrollY >= document.body.offsetHeight - 5 &&
+      sections.length
+    ) {
       currentSection = sections[sections.length - 1].getAttribute("id");
     }
 
+    // Toggle 'active' class for nav links
     navLinks.forEach((link) => {
-      if (link.getAttribute("href") === `#${currentSection}`) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
+      link.classList.toggle(
+        "active",
+        link.getAttribute("href") === `#${currentSection}`
+      );
     });
 
     mobileLinks.forEach((link) => {
-      if (link.getAttribute("href") === `#${currentSection}`) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
+      link.classList.toggle(
+        "active",
+        link.getAttribute("href") === `#${currentSection}`
+      );
     });
   }
 
@@ -102,24 +99,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================
-// Mobile Menu Toggle with aria-expanded and Event Delegation
+// Mobile Menu Toggle
 // ========================
 const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
 
-if (hamburger) {
+if (hamburger && mobileNav) {
   hamburger.addEventListener("click", () => {
     mobileNav.classList.toggle("open");
     const expanded = hamburger.getAttribute("aria-expanded") === "true";
     hamburger.setAttribute("aria-expanded", (!expanded).toString());
   });
-}
 
-// Using event delegation to close mobile menu when any link is clicked.
-mobileNav.addEventListener("click", (event) => {
-  const link = event.target.closest("a");
-  if (link) {
-    mobileNav.classList.remove("open");
-    hamburger.setAttribute("aria-expanded", "false");
-  }
-});
+  // Close mobile menu when any link is clicked
+  mobileNav.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+    if (link) {
+      mobileNav.classList.remove("open");
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+  });
+}
