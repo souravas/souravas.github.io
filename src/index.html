@@ -21,10 +21,23 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://souravas.com" />
 
-    <!-- Google Fonts -->
+    <!--
+      Preconnect to Google Fonts to speed up handshake.
+      The crossorigin attribute is important for fonts.gstatic.com.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload your chosen Google Fonts CSS, then load the stylesheet -->
+    <!-- This pattern ensures faster font loading without blocking rendering -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    />
+    <link
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
     />
 
     <!-- Main CSS -->
@@ -159,7 +172,9 @@
               class="profile-photo"
               loading="lazy"
             />
-            <figcaption class="visually-hidden">Sourav's Profile Photo</figcaption>
+            <figcaption class="visually-hidden">
+              Sourav's Profile Photo
+            </figcaption>
           </figure>
           <h1>Hi, I'm Sourav</h1>
           <p>
@@ -428,7 +443,11 @@
             <!-- Pelatro -->
             <div class="card experience-card">
               <div class="experience-header">
-                <a href="https://www.pelatro.com" target="_blank" rel="noopener">
+                <a
+                  href="https://www.pelatro.com"
+                  target="_blank"
+                  rel="noopener"
+                >
                   <img
                     src="assets/pelatro.webp"
                     alt="Pelatro Logo"
@@ -436,7 +455,11 @@
                     loading="lazy"
                   />
                 </a>
-                <a href="https://www.pelatro.com" target="_blank" rel="noopener">
+                <a
+                  href="https://www.pelatro.com"
+                  target="_blank"
+                  rel="noopener"
+                >
                   <strong>Pelatro</strong>
                 </a>
               </div>
