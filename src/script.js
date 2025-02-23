@@ -1,7 +1,20 @@
+//
 // ========================
-// Theme Toggle
+// Theme Toggle (Runs Immediately)
 // ========================
 const toggleButton = document.getElementById("theme-toggle");
+
+(function initializeTheme() {
+  let storedTheme = localStorage.getItem("theme");
+
+  // If no stored theme, default based on system preference
+  if (!storedTheme) {
+    storedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+  setTheme(storedTheme);
+})();
 
 function setTheme(theme) {
   if (theme === "dark") {
@@ -15,44 +28,35 @@ function setTheme(theme) {
   }
 }
 
-// Check stored theme or system preference
-(function initializeTheme() {
-  let storedTheme = localStorage.getItem("theme");
-  if (!storedTheme) {
-    storedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  }
-  setTheme(storedTheme);
-})();
-
-// Toggle theme on button click
 toggleButton.addEventListener("click", () => {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   setTheme(isDark ? "light" : "dark");
 });
 
+//
 // ========================
-// Back-to-Top Button
-// ========================
-const backToTop = document.getElementById("back-to-top");
-
-window.addEventListener("scroll", () => {
-  backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
-});
-
-backToTop.addEventListener("click", (e) => {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-// Ensure correct initial display
-backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
-
-// ========================
-// Fixed Navigation Highlighting
+// Main DOMContentLoaded
 // ========================
 document.addEventListener("DOMContentLoaded", () => {
+  //
+  // Back-to-Top Button
+  //
+  const backToTop = document.getElementById("back-to-top");
+  function toggleBackToTopVisibility() {
+    backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
+  }
+
+  window.addEventListener("scroll", toggleBackToTopVisibility);
+  backToTop.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  // Initialize its display once
+  toggleBackToTopVisibility();
+
+  //
+  // Navigation Highlighting
+  //
   const sections = Array.from(document.querySelectorAll("section[id]"));
   const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
   const mobileLinks = Array.from(document.querySelectorAll(".mobile-nav a"));
@@ -78,15 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
       currentSection = sections[sections.length - 1].getAttribute("id");
     }
 
-    // Toggle 'active' class for nav links
-    navLinks.forEach((link) => {
-      link.classList.toggle(
-        "active",
-        link.getAttribute("href") === `#${currentSection}`
-      );
-    });
-
-    mobileLinks.forEach((link) => {
+    // Toggle 'active' class for nav and mobile links
+    [...navLinks, ...mobileLinks].forEach((link) => {
       link.classList.toggle(
         "active",
         link.getAttribute("href") === `#${currentSection}`
@@ -95,33 +92,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("scroll", updateActiveLink);
-  updateActiveLink();
-});
+  updateActiveLink(); // Run on load
 
-// ========================
-// Mobile Menu Toggle
-// ========================
-const hamburger = document.getElementById("hamburger");
-const mobileNav = document.getElementById("mobileNav");
+  //
+  // Mobile Menu Toggle
+  //
+  const hamburger = document.getElementById("hamburger");
+  const mobileNav = document.getElementById("mobileNav");
 
-if (hamburger && mobileNav) {
-  hamburger.addEventListener("click", () => {
-    mobileNav.classList.toggle("open");
-    const expanded = hamburger.getAttribute("aria-expanded") === "true";
-    hamburger.setAttribute("aria-expanded", (!expanded).toString());
-  });
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener("click", () => {
+      mobileNav.classList.toggle("open");
+      const expanded = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", String(!expanded));
+    });
 
-  // Close mobile menu when any link is clicked
-  mobileNav.addEventListener("click", (event) => {
-    const link = event.target.closest("a");
-    if (link) {
-      mobileNav.classList.remove("open");
-      hamburger.setAttribute("aria-expanded", "false");
-    }
-  });
-}
+    // Close mobile menu when a link is clicked
+    mobileNav.addEventListener("click", (event) => {
+      const link = event.target.closest("a");
+      if (link) {
+        mobileNav.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
+  //
+  // Contact Form Submission
+  //
   const contactForm = document.getElementById("contact-form");
   const resultElement = document.getElementById("contact-result");
 
@@ -138,16 +136,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
 
       if (data.success) {
-        // Success message
         resultElement.textContent = "Message sent successfully!";
-        // Clear the form
         contactForm.reset();
       } else {
-        // Error message from Web3Forms
         resultElement.textContent = data.message || "Something went wrong!";
       }
     } catch (error) {
-      // Network or server error
       resultElement.textContent = "Unable to send. Please try again later.";
       console.error(error);
     }

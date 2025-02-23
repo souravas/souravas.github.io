@@ -81,7 +81,6 @@ a:hover {
   padding: 0.5rem 1rem;
   transition: top var(--transition);
 }
-
 .skip-link:focus {
   top: 0;
 }
@@ -92,6 +91,33 @@ a:hover {
   max-width: 75rem; /* 1200px */
   margin: 0 auto;
   padding: 0 0.625rem;
+}
+
+/* ===================== */
+/*  Reusable Utilities  */
+/* ===================== */
+
+/* A "card-like" container with background, shadow, border-radius, and transitions */
+.boxy {
+  background: var(--color-card);
+  border-radius: 0.625rem;
+  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.1);
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+.boxy:hover {
+  transform: translateY(-0.3125rem);
+  box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.15);
+}
+/* Standard padding for "card" areas */
+.boxy-padding {
+  padding: 1.25rem;
+}
+/* If you need extra padding, e.g. in the contact section */
+.boxy-padding-large {
+  padding: 2rem;
 }
 
 /* ===================== */
@@ -180,22 +206,18 @@ header {
   gap: 0.625rem;
   z-index: 9999;
 }
-
 .mobile-nav li {
   list-style: none;
 }
-
 .mobile-nav li a {
   display: block;
   padding: 0.625rem 0.9375rem;
   border-radius: 0.25rem;
 }
-
 .mobile-nav li a:hover {
   background: var(--color-primary);
   color: #000;
 }
-
 .mobile-nav.open {
   display: flex;
 }
@@ -211,6 +233,7 @@ header {
   padding-top: 5rem;
 }
 
+/* Dark mode override for hero background */
 [data-theme="dark"] #hero {
   background: linear-gradient(135deg, #181818, #121212);
 }
@@ -223,7 +246,6 @@ header {
   box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.1);
   transition: background var(--transition);
 }
-
 [data-theme="dark"] .hero-container {
   background: rgba(26, 26, 26, 0.8);
 }
@@ -232,7 +254,6 @@ header {
   font-size: 3em;
   margin-bottom: 1.25rem;
 }
-
 .hero-container p {
   font-size: 1.2em;
   margin-bottom: 1.875rem;
@@ -245,7 +266,6 @@ header {
   gap: 0.9375rem;
   margin-bottom: 1.25rem;
 }
-
 /* Circle container for icons */
 .social-icons .icon {
   width: 3.125rem; /* 50px */
@@ -258,14 +278,11 @@ header {
   place-items: center;
   transition: transform var(--transition), background var(--transition);
 }
-
-/* Make the SVG inside .icon scale nicely */
 .social-icons .icon svg {
   width: 1.4em;
   height: 1.4em;
   fill: currentColor;
 }
-
 .social-icons .icon:hover {
   transform: scale(1.2) rotate(10deg);
   background: var(--color-primary);
@@ -290,7 +307,6 @@ header {
   margin: 0.3125rem;
   transition: background var(--transition), color var(--transition);
 }
-
 .btn:hover {
   background: var(--color-accent);
   color: #fff;
@@ -303,13 +319,11 @@ header {
   padding: 3.75rem 0;
   text-align: center;
 }
-
 .section-container h2 {
   font-size: 2.5em;
   margin-bottom: 1.25rem;
   position: relative;
 }
-
 .section-container h2::after {
   content: "";
   display: block;
@@ -319,7 +333,6 @@ header {
   margin: 0.625rem auto 0;
   border-radius: 0.125rem;
 }
-
 .section-container p {
   max-width: 50rem; /* 800px */
   margin: 0 auto;
@@ -336,27 +349,9 @@ header {
   margin-top: 2.5rem; /* 40px */
 }
 
+/* .card by itself is minimal; .boxy boxy-padding provide the visual styles */
 .card {
-  background: var(--color-card);
-  padding: 1.25rem;
-  border-radius: 0.625rem;
-  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.1);
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.card:hover {
-  transform: translateY(-0.3125rem); /* 5px */
-  box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.15);
-}
-
-.card h3 {
-  margin-top: 0;
-  margin-bottom: 0.625rem;
-  font-size: 1.8em;
-}
-
-.card p {
-  font-size: 1em;
+  /* Keep only unique .card-specific properties, if any. */
 }
 
 /* Skill Icon */
@@ -374,7 +369,6 @@ header {
   gap: 0.5rem;
   margin-top: 0.625rem;
 }
-
 .skill-item {
   background: #f0f0f0;
   color: #333;
@@ -385,7 +379,6 @@ header {
   white-space: nowrap;
   transition: background 0.3s ease, color 0.3s ease;
 }
-
 .skill-item:hover {
   background: var(--color-accent);
   color: #000;
@@ -398,7 +391,6 @@ header {
 .experience-card-grid {
   margin-top: 2.5rem;
 }
-
 .experience-card .experience-header {
   display: flex;
   align-items: center;
@@ -406,28 +398,47 @@ header {
   gap: 0.625rem;
   margin-bottom: 0.375rem;
 }
-
 .experience-logo {
   width: 2.5rem;
   border-radius: 0.25rem;
 }
-
 .experience-card em {
   display: block;
   margin: 0.25rem 0 0.625rem;
   color: var(--color-primary);
   font-weight: 500;
 }
-
 .experience-details {
   list-style: disc inside;
   text-align: left;
   margin: 0;
   padding: 0;
 }
-
 .experience-details li {
   margin-bottom: 0.375rem;
+}
+
+/* ===================== */
+/*  Certifications      */
+/* ===================== */
+.cert-card {
+  text-align: center;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+}
+.cert-icon {
+  width: 2em;
+  height: 2em;
+  fill: var(--color-primary);
+  margin-bottom: 0.625rem;
+}
+.cert-card h3 {
+  margin: 0 0 0.375rem;
+  font-size: 1.2em;
+}
+.cert-info {
+  font-size: 0.9em;
+  color: var(--color-accent);
 }
 
 /* ===================== */
@@ -439,116 +450,71 @@ header {
   align-items: center;
   text-align: center;
 }
-
 .education-logo {
   width: 3.75rem;
   margin-bottom: 0.625rem;
   border-radius: 0.25rem;
   justify-self: center;
 }
-
 .education-card h3 {
   margin: 0.3125rem 0;
   font-size: 1.2em;
 }
-
 .degree {
   font-size: 0.95em;
   font-weight: 500;
   color: var(--color-primary);
   margin-bottom: 0.1875rem;
 }
-
 .duration {
   font-size: 0.85em;
   color: var(--color-text);
 }
-
 /* Extra gap after Certifications section */
 #education {
   padding-bottom: 9.375rem; /* 150px */
 }
 
 /* ===================== */
-/*  Certifications      */
+/*  Contact Section     */
 /* ===================== */
-.cert-card {
-  text-align: center;
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-}
-
-/* The icons in the certifications */
-.cert-icon {
-  width: 2em;
-  height: 2em;
-  fill: var(--color-primary);
-  margin-bottom: 0.625rem;
-}
-
-.cert-card h3 {
-  margin: 0 0 0.375rem;
-  font-size: 1.2em;
-}
-
-.cert-info {
-  font-size: 0.9em;
-  color: var(--color-accent);
-}
-
-/* ===================== */
-/*  Contact Section      */
-/* ===================== */
-#contact .section-box {
-  background: var(--color-card);
-  padding: 2rem;
-  border-radius: 0.625rem;
-  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.1);
-  transition: background var(--transition);
-}
-
+/* If you need extra styling, add it here.
+   In HTML, we've used "boxy boxy-padding-large" on .section-box. */
 #contact form {
   max-width: 600px;
   margin: 0 auto;
   text-align: left;
 }
-
 #contact .form-group {
   margin-bottom: 1rem;
 }
-
 #contact .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
-
 #contact .form-group input,
 #contact .form-group textarea {
   width: 100%;
   padding: 0.625rem;
   border: 1px solid #ccc;
   border-radius: 0.3125rem;
-  background: var(--color-bg); /* works fine in light mode */
+  background: var(--color-bg);
   color: var(--color-text);
-  transition: border var(--transition), background var(--transition),
-    color var(--transition);
+  transition: border var(--transition), background var(--transition), color var(--transition);
 }
-
 /* Dark Mode Fix: Make inputs/textarea slightly lighter, not extra dark */
 [data-theme="dark"] #contact .form-group input,
 [data-theme="dark"] #contact .form-group textarea {
-  background: #222; /* Slightly lighter background for dark mode */
+  background: #222;
   border-color: #444;
   color: #eee;
 }
-
 #contact .form-group input:focus,
 #contact .form-group textarea:focus {
   outline: none;
   border-color: var(--color-primary);
 }
-
 #contact button[type="submit"] {
   display: inline-block;
   background: var(--color-primary);
@@ -559,12 +525,10 @@ header {
   margin-top: 0.625rem;
   transition: background var(--transition), color var(--transition);
 }
-
 #contact button[type="submit"]:hover {
   background: var(--color-accent);
   color: #fff;
 }
-
 #contact #contact-result {
   margin-top: 0.625rem;
   font-size: 0.95em;
@@ -591,13 +555,11 @@ header {
   justify-content: center;
   align-items: center;
 }
-
 .back-to-top:hover,
 .back-to-top:active {
   background: var(--color-accent);
   color: #000;
 }
-
 .back-to-top svg {
   width: 1em;
   height: 1em;
@@ -659,7 +621,7 @@ footer {
   }
 
   #education {
-    padding-bottom: 4.6875rem;
+    padding-bottom: 4.6875rem; /* 75px */
   }
 
   /* Fix for profile photo in hero section only on mobile */

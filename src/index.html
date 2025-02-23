@@ -152,15 +152,10 @@
               class="profile-photo"
               loading="lazy"
             />
-            <figcaption class="visually-hidden">
-              Sourav's Profile Photo
-            </figcaption>
+            <figcaption class="visually-hidden">Sourav's Profile Photo</figcaption>
           </figure>
           <h1>Hi, I'm Sourav</h1>
-          <p>
-            Senior Software Engineer | 5+ Years Experience | Innovator | Problem
-            Solver
-          </p>
+          <p>Senior Software Engineer | 5+ Years Experience | Innovator | Problem Solver</p>
 
           <!-- Social Icons -->
           <div class="social-icons">
@@ -254,7 +249,8 @@
           <h2>Skills</h2>
           <p>Technologies and tools I frequently use.</p>
           <div class="card-grid">
-            <div class="card">
+            <!-- Each card includes the utility classes 'boxy boxy-padding' -->
+            <div class="card boxy boxy-padding">
               <h3>
                 <!-- Code SVG -->
                 <svg
@@ -280,7 +276,7 @@
               </div>
             </div>
 
-            <div class="card">
+            <div class="card boxy boxy-padding">
               <h3>
                 <!-- Cloud SVG -->
                 <svg
@@ -304,7 +300,7 @@
               </div>
             </div>
 
-            <div class="card">
+            <div class="card boxy boxy-padding">
               <h3>
                 <!-- Database SVG -->
                 <svg
@@ -334,8 +330,8 @@
         <div class="container">
           <h2>Experience</h2>
           <div class="card-grid experience-card-grid">
-            <!-- Tata 1mg -->
-            <div class="card experience-card">
+            <!-- Example of "card boxy boxy-padding" -->
+            <div class="card boxy boxy-padding experience-card">
               <div class="experience-header">
                 <a href="https://www.1mg.com" target="_blank" rel="noopener">
                   <img
@@ -376,8 +372,7 @@
               </ul>
             </div>
 
-            <!-- Tata Health -->
-            <div class="card experience-card">
+            <div class="card boxy boxy-padding experience-card">
               <div class="experience-header">
                 <a
                   href="https://www.linkedin.com/company/tatahealth"
@@ -420,14 +415,9 @@
               </ul>
             </div>
 
-            <!-- Pelatro -->
-            <div class="card experience-card">
+            <div class="card boxy boxy-padding experience-card">
               <div class="experience-header">
-                <a
-                  href="https://www.pelatro.com"
-                  target="_blank"
-                  rel="noopener"
-                >
+                <a href="https://www.pelatro.com" target="_blank" rel="noopener">
                   <img
                     src="assets/pelatro.webp"
                     alt="Pelatro Logo"
@@ -435,11 +425,7 @@
                     loading="lazy"
                   />
                 </a>
-                <a
-                  href="https://www.pelatro.com"
-                  target="_blank"
-                  rel="noopener"
-                >
+                <a href="https://www.pelatro.com" target="_blank" rel="noopener">
                   <strong>Pelatro</strong>
                 </a>
               </div>
@@ -472,7 +458,8 @@
         <div class="container">
           <h2>Certifications</h2>
           <div class="card-grid">
-            <div class="card cert-card">
+            <!-- Each certification card uses 'boxy boxy-padding' -->
+            <div class="card cert-card boxy boxy-padding">
               <a
                 href="https://www.credly.com/badges/362b5b69-0043-4d71-a50d-0f904d90a381/linked_in_profile"
                 target="_blank"
@@ -503,7 +490,7 @@
               </div>
             </div>
 
-            <div class="card cert-card">
+            <div class="card cert-card boxy boxy-padding">
               <a
                 href="https://www.hackerrank.com/certificates/b68104bff25e"
                 target="_blank"
@@ -532,7 +519,7 @@
               <div class="cert-info">Jan 2025 | HackerRank</div>
             </div>
 
-            <div class="card cert-card">
+            <div class="card cert-card boxy boxy-padding">
               <a
                 href="https://www.hackerrank.com/certificates/daa8afc85ee8"
                 target="_blank"
@@ -561,7 +548,7 @@
               <div class="cert-info">Jan 2025 | HackerRank</div>
             </div>
 
-            <div class="card cert-card">
+            <div class="card cert-card boxy boxy-padding">
               <a
                 href="https://www.coursera.org/account/accomplishments/verify/YI0FLK5Q1BNZ"
                 target="_blank"
@@ -598,8 +585,12 @@
         <div class="container">
           <h2>Education</h2>
           <div class="card-grid">
-            <div class="card education-card">
-              <a href="https://www.nssce.ac.in/" target="_blank" rel="noopener">
+            <div class="card education-card boxy boxy-padding">
+              <a
+                href="https://www.nssce.ac.in/"
+                target="_blank"
+                rel="noopener"
+              >
                 <img
                   src="assets/nss.webp"
                   alt="Logo of NSS College of Engineering, Palakkad"
@@ -620,7 +611,7 @@
               <div class="duration">Aug 2015 – Mar 2019</div>
             </div>
 
-            <div class="card education-card">
+            <div class="card education-card boxy boxy-padding">
               <a
                 href="http://www.navodaya.gov.in/"
                 target="_blank"
@@ -646,7 +637,7 @@
               <div class="duration">2008 – 2015</div>
             </div>
 
-            <div class="card education-card">
+            <div class="card education-card boxy boxy-padding">
               <a
                 href="https://bethanystjohns.edu.in/"
                 target="_blank"
@@ -675,8 +666,10 @@
         </div>
       </section>
 
+      <!-- Contact Section -->
       <section id="contact" class="section-container">
-        <div class="container section-box">
+        <!-- Using the 'boxy' + 'boxy-padding-large' for a bigger padded box -->
+        <div class="container section-box boxy boxy-padding-large">
           <h2>Contact Me</h2>
           <p>Got a question? Let's talk.</p>
 
@@ -739,7 +732,7 @@
       </svg>
     </a>
 
-    <!-- Main JS -->
+    <!-- Main JS (Make sure to include your script with 'defer' or at end of body) -->
     <script src="script.js" defer></script>
   </body>
 </html>
