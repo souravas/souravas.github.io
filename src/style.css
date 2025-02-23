@@ -141,8 +141,16 @@ header {
   transition: color var(--transition);
 }
 
+/* Initially hide hamburger on desktop */
 #hamburger {
   display: none;
+}
+
+/* NEW: Hamburger SVG Styling */
+#hamburger svg {
+  width: 0.65em;
+  height: auto;
+  fill: currentColor;
 }
 
 /* Mobile Nav */
@@ -520,15 +528,8 @@ header {
   transform: translate(-50%, -50%);
 }
 
-
 .skill-icon {
   width: 1.5em; /* Adjust to desired size */
-  height: auto;
-  vertical-align: middle;
-}
-
-.skill-icon {
-  width: 1.5em; /* Adjust as needed */
   height: auto;
   vertical-align: middle;
   fill: currentColor;
