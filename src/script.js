@@ -120,3 +120,36 @@ if (hamburger && mobileNav) {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const contactForm = document.getElementById("contact-form");
+  const resultElement = document.getElementById("contact-result");
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); // Prevent normal form submission
+
+    const formData = new FormData(contactForm);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        // Success message
+        resultElement.textContent = "Message sent successfully!";
+        // Clear the form
+        contactForm.reset();
+      } else {
+        // Error message from Web3Forms
+        resultElement.textContent = data.message || "Something went wrong!";
+      }
+    } catch (error) {
+      // Network or server error
+      resultElement.textContent = "Unable to send. Please try again later.";
+      console.error(error);
+    }
+  });
+});
