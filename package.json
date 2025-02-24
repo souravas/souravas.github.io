@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf .parcel-cache dist",
     "build": "parcel build src/index.html --public-url ./",
-    "postbuild": "copyfiles robots.txt sitemap.xml dist && copyfiles src/assets/profile.webp dist/assets && copyfiles -u 1 \"dist/**/*\" ."
+    "postbuild": "copyfiles robots.txt sitemap.xml src/assets/profile.webp dist && copyfiles -u 1 \"dist/**/*\" ."
 
   },
   "repository": {
