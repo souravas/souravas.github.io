@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "clean": "rm -rf .parcel-cache dist",
-    "build": "parcel build src/index.html src/robots.txt src/sitemap.xml --public-url ./",
+    "build": "parcel build src/index.html robots.txt sitemap.xml --public-url ./",
     "postbuild": "copyfiles -u 1 \"dist/**/*\" ."
   },
   "repository": {
