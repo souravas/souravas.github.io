@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "rm -rf .parcel-cache dist",
     "build": "parcel build src/index.html --public-url ./",
+    "dev": "rm -rf dist && parcel build src/index.html --public-url ./ && zen-browser dist/index.html",
     "postbuild": "copyfiles robots.txt sitemap.xml dist && copyfiles -u 1 src/assets/profile.webp dist && copyfiles -u 2 src/assets/favicon.ico dist && copyfiles -u 1 \"dist/**/*\" ."
   },
   "repository": {
