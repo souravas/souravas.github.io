@@ -589,6 +589,14 @@ footer {
   object-fit: contain;
 }
 
+.education-logo {
+  width: 100%;
+  max-width: 50px; /* adjust based on design */
+  aspect-ratio: 1 / 1; /* assuming the logos are square */
+  object-fit: contain;
+}
+
+
 /* ===================== */
 /*  Responsive          */
 /* ===================== */
