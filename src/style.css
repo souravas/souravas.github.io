@@ -1,5 +1,5 @@
 /* ===================== */
-/*  Theme Variables     */
+/*  Theme Variables      */
 /* ===================== */
 
 /* Default (Light) Theme */
@@ -24,7 +24,7 @@
 }
 
 /* ===================== */
-/*  Global Styles       */
+/*  Global Styles        */
 /* ===================== */
 *,
 *::before,
@@ -94,10 +94,8 @@ a:hover {
 }
 
 /* ===================== */
-/*  Reusable Utilities  */
+/*  Reusable Utilities   */
 /* ===================== */
-
-/* A "card-like" container with background, shadow, border-radius, and transitions */
 .boxy {
   background: var(--color-card);
   border-radius: 0.625rem;
@@ -109,17 +107,15 @@ a:hover {
   transform: translateY(-0.3125rem);
   box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.15);
 }
-/* Standard padding for "card" areas */
 .boxy-padding {
   padding: 1.25rem;
 }
-/* If you need extra padding, e.g. in the contact section */
 .boxy-padding-large {
   padding: 2rem;
 }
 
 /* ===================== */
-/*  Header & Navigation */
+/*  Header & Navigation  */
 /* ===================== */
 header {
   position: fixed;
@@ -179,13 +175,12 @@ header {
   transition: color var(--transition);
 }
 
-/* Hamburger Icon */
 #hamburger svg {
   width: 0.65em;
   fill: currentColor;
 }
 
-/* Initially hide hamburger on desktop */
+/* Hide hamburger on desktop by default */
 #hamburger {
   display: none;
 }
@@ -194,7 +189,7 @@ header {
 .mobile-nav {
   display: none;
   position: absolute;
-  top: 4.375rem; /* 70px from top */
+  top: 4.375rem; /* 70px */
   right: 0.625rem;
   padding: 0.625rem;
   border-radius: 0.5rem;
@@ -221,7 +216,7 @@ header {
 }
 
 /* ===================== */
-/*  Hero Section        */
+/*  Hero Section         */
 /* ===================== */
 #hero {
   display: grid;
@@ -230,8 +225,6 @@ header {
   background: linear-gradient(135deg, #ece9e6, #ffffff);
   padding-top: 5rem;
 }
-
-/* Dark mode override for hero background */
 [data-theme="dark"] #hero {
   background: linear-gradient(135deg, #181818, #121212);
 }
@@ -252,6 +245,7 @@ header {
   font-size: 3em;
   margin-bottom: 1.25rem;
 }
+
 .hero-container p {
   font-size: 1.2em;
   margin-bottom: 1.875rem;
@@ -264,7 +258,6 @@ header {
   gap: 0.9375rem;
   margin-bottom: 1.25rem;
 }
-/* Circle container for icons */
 .social-icons .icon {
   width: 3.125rem; /* 50px */
   height: 3.125rem;
@@ -311,7 +304,7 @@ header {
 }
 
 /* ===================== */
-/*  Section Styles      */
+/*  Section Styles       */
 /* ===================== */
 .section-container {
   padding: 3.75rem 0;
@@ -338,7 +331,7 @@ header {
 }
 
 /* ===================== */
-/*  Card Grid           */
+/*  Card Grid            */
 /* ===================== */
 .card-grid {
   display: grid;
@@ -347,20 +340,17 @@ header {
   margin-top: 2.5rem; /* 40px */
 }
 
-/* .card by itself is minimal; .boxy boxy-padding provide the visual styles */
 .card {
-  /* Keep only unique .card-specific properties, if any. */
+  /* Only card-specific properties; .boxy + .boxy-padding add the visual styles */
 }
 
-/* Skill Icon */
+/* Skills */
 .skill-icon {
   width: 1.5em;
   height: auto;
   fill: currentColor;
   vertical-align: middle;
 }
-
-/* Skills */
 .skill-items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(6.25rem, 1fr));
@@ -384,7 +374,7 @@ header {
 }
 
 /* ===================== */
-/*  Experience          */
+/*  Experience           */
 /* ===================== */
 .experience-card-grid {
   margin-top: 2.5rem;
@@ -417,7 +407,7 @@ header {
 }
 
 /* ===================== */
-/*  Certifications      */
+/*  Certifications       */
 /* ===================== */
 .cert-card {
   text-align: center;
@@ -440,7 +430,7 @@ header {
 }
 
 /* ===================== */
-/*  Education           */
+/*  Education            */
 /* ===================== */
 .education-card {
   display: grid;
@@ -449,7 +439,7 @@ header {
   text-align: center;
 }
 .education-logo {
-  width: 3.75rem;
+  width: 3.125rem;
   margin-bottom: 0.625rem;
   border-radius: 0.25rem;
   justify-self: center;
@@ -468,16 +458,13 @@ header {
   font-size: 0.85em;
   color: var(--color-text);
 }
-/* Extra gap after Certifications section */
 #education {
-  padding-bottom: 9.375rem; /* 150px */
+  padding-bottom: 9.375rem; /* 150px for spacing if needed */
 }
 
 /* ===================== */
-/*  Contact Section     */
+/*  Contact Section      */
 /* ===================== */
-/* If you need extra styling, add it here.
-   In HTML, we've used "boxy boxy-padding-large" on .section-box. */
 #contact form {
   max-width: 600px;
   margin: 0 auto;
@@ -502,7 +489,6 @@ header {
   transition: border var(--transition), background var(--transition),
     color var(--transition);
 }
-/* Dark Mode Fix: Make inputs/textarea slightly lighter, not extra dark */
 [data-theme="dark"] #contact .form-group input,
 [data-theme="dark"] #contact .form-group textarea {
   background: #222;
@@ -534,7 +520,7 @@ header {
 }
 
 /* ===================== */
-/*  Back-to-Top Button  */
+/*  Back-to-Top Button   */
 /* ===================== */
 .back-to-top {
   display: none;
@@ -565,7 +551,7 @@ header {
 }
 
 /* ===================== */
-/*  Footer              */
+/*  Footer               */
 /* ===================== */
 footer {
   background: var(--color-header);
@@ -575,30 +561,30 @@ footer {
   transition: background var(--transition);
 }
 
+/* Hero/Experience/Education images */
 .profile-photo {
   width: 100%;
-  max-width: 250px; /* Adjust as needed */
-  aspect-ratio: 1 / 1; /* If the image is square */
+  max-width: 250px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 }
 
 .experience-logo {
   width: 100%;
-  max-width: 40px; /* Adjust as needed */
-  aspect-ratio: 1 / 1; /* Assuming they are square logos */
+  max-width: 40px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
 }
 
 .education-logo {
   width: 100%;
-  max-width: 50px; /* adjust based on design */
-  aspect-ratio: 1 / 1; /* assuming the logos are square */
+  max-width: 50px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
 }
 
-
 /* ===================== */
-/*  Responsive          */
+/*  Responsive           */
 /* ===================== */
 @media (max-width: 768px) {
   header {
@@ -612,7 +598,7 @@ footer {
     padding: 0 0.9375rem;
   }
 
-  /* Hide the desktop navigation */
+  /* Hide the desktop nav on mobile */
   .nav-container nav {
     display: none;
   }
@@ -645,7 +631,6 @@ footer {
     padding-bottom: 4.6875rem; /* 75px */
   }
 
-  /* Fix for profile photo in hero section only on mobile */
   #hero .profile-photo {
     max-width: 80%;
     display: block;

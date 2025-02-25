@@ -45,13 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleBackToTopVisibility() {
     backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
   }
-
   window.addEventListener("scroll", toggleBackToTopVisibility);
   backToTop.addEventListener("click", (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-  // Initialize its display once
   toggleBackToTopVisibility();
 
   //
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sections = Array.from(document.querySelectorAll("section[id]"));
   const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
   const mobileLinks = Array.from(document.querySelectorAll(".mobile-nav a"));
-  const headerOffset = 100; // Adjust if needed
+  const headerOffset = 100;
 
   function updateActiveLink() {
     let currentSection = "";
@@ -82,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currentSection = sections[sections.length - 1].getAttribute("id");
     }
 
-    // Toggle 'active' class for nav and mobile links
+    // Toggle 'active' class for all nav & mobile links
     [...navLinks, ...mobileLinks].forEach((link) => {
       link.classList.toggle(
         "active",
@@ -92,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("scroll", updateActiveLink);
-  updateActiveLink(); // Run on load
+  updateActiveLink();
 
   //
   // Mobile Menu Toggle
@@ -107,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hamburger.setAttribute("aria-expanded", String(!expanded));
     });
 
-    // Close mobile menu when a link is clicked
+    // Close mobile menu when any link is clicked
     mobileNav.addEventListener("click", (event) => {
       const link = event.target.closest("a");
       if (link) {
