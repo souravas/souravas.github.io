@@ -102,9 +102,7 @@ a:hover {
   background: var(--color-card);
   border-radius: 0.625rem;
   box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.1);
-  transition:
-    background var(--transition),
-    transform var(--transition),
+  transition: background var(--transition), transform var(--transition),
     box-shadow var(--transition);
 }
 .boxy:hover {
@@ -501,7 +499,8 @@ header {
   border-radius: 0.3125rem;
   background: var(--color-bg);
   color: var(--color-text);
-  transition: border var(--transition), background var(--transition), color var(--transition);
+  transition: border var(--transition), background var(--transition),
+    color var(--transition);
 }
 /* Dark Mode Fix: Make inputs/textarea slightly lighter, not extra dark */
 [data-theme="dark"] #contact .form-group input,
@@ -575,6 +574,7 @@ footer {
   padding: 1.25rem 0;
   transition: background var(--transition);
 }
+
 .profile-photo {
   width: 100%;
   max-width: 250px; /* Adjust as needed */
