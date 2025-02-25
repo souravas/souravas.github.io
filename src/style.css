@@ -575,6 +575,19 @@ footer {
   padding: 1.25rem 0;
   transition: background var(--transition);
 }
+.profile-photo {
+  width: 100%;
+  max-width: 250px; /* Adjust as needed */
+  aspect-ratio: 1 / 1; /* If the image is square */
+  object-fit: cover;
+}
+
+.experience-logo {
+  width: 100%;
+  max-width: 40px; /* Adjust as needed */
+  aspect-ratio: 1 / 1; /* Assuming they are square logos */
+  object-fit: contain;
+}
 
 /* ===================== */
 /*  Responsive          */
