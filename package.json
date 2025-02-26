@@ -5,8 +5,8 @@
   "scripts": {
     "clean": "rm -rf .parcel-cache dist",
     "build": "parcel build src/index.html --public-url ./",
-    "dev": "rm -rf dist && parcel build src/index.html --public-url ./ && zen-browser dist/index.html",
-    "postbuild": "copyfiles robots.txt sitemap.xml dist && copyfiles -u 1 src/assets/profile.webp dist && copyfiles -u 2 src/assets/favicon.ico dist && copyfiles -u 1 \"dist/**/*\" ."
+    "postbuild": "copyfiles robots.txt sitemap.xml dist && copyfiles -u 2 src/assets/profile.webp dist && copyfiles -u 2 src/favicon/* dist && copyfiles -u 1 \"dist/**/*\" .",
+    "dev": "rm -rf dist && parcel build src/index.html --public-url ./ && zen-browser dist/index.html"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@parcel/packager-raw-url": "2.13.3",
     "@parcel/transformer-jsonld": "2.13.3",
+    "@parcel/transformer-webmanifest": "^2.13.3",
     "@parcel/transformer-xml": "^2.13.3",
     "copyfiles": "^2.4.1",
     "parcel": "^2.13.3"
