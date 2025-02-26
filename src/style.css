@@ -6,21 +6,46 @@
 :root {
   --transition: 0.3s ease;
   --color-bg: #f5f5f5;
-  --color-text: #333;
   --color-header: #ffffff;
   --color-card: #ffffff;
   --color-primary: #daa520;
   --color-accent: #b8860b;
+  --color-text: #2d2d2d; /* Increased contrast from #212529 */
+  --color-emph: #1a1a1a; /* Was #333 */
+  --color-degree: #404040; /* Was #333 */
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
   --color-bg: #121212;
-  --color-text: #e0e0e0;
   --color-header: #1a1a1a;
   --color-card: #1e1e1e;
   --color-primary: #ffcc00;
   --color-accent: #e0a800;
+  --color-text: #f0f0f0; /* Was #e0e0e0 */
+  --color-emph: #ffffff; /* Was #eee */
+  --color-degree: #cccccc;
+}
+
+/* ... rest of your CSS code ... */
+
+/* Style for emphasis text */
+em {
+  color: var(--color-emph); /* Use the emphasis color variable */
+  font-weight: 600;
+  display: block;
+  margin: 0.25rem 0 0.625rem;
+}
+
+/* Style for degree text */
+.degree {
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #404040; /* Use the degree color variable */
+  margin-bottom: 0.1875rem;
+}
+[data-theme="dark"] .degree {
+  color: #e5e5e5; /* Dark theme override */
 }
 
 /* ===================== */
@@ -358,8 +383,8 @@ header {
   margin-top: 0.625rem;
 }
 .skill-item {
-  background: #f0f0f0;
-  color: #333;
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--color-text);
   padding: 0.3125rem 0.625rem;
   border-radius: 0.9375rem;
   font-size: 0.85em;
@@ -367,6 +392,11 @@ header {
   white-space: nowrap;
   transition: background 0.3s ease, color 0.3s ease;
 }
+
+[data-theme="dark"] & {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .skill-item:hover {
   background: var(--color-accent);
   color: #000;
@@ -426,7 +456,9 @@ header {
 }
 .cert-info {
   font-size: 0.9em;
-  color: var(--color-accent);
+  color: var(--color-text);
+  opacity: 0.9;
+  font-weight: 500;
 }
 
 /* ===================== */
@@ -581,6 +613,92 @@ footer {
   max-width: 50px;
   aspect-ratio: 1 / 1;
   object-fit: contain;
+}
+.experience-card em,
+.cert-info {
+  color: var(--color-text) !important;
+  font-weight: 600;
+}
+:root {
+  --color-primary: #daa520; /* Gold */
+  --color-accent: #9a6b06; /* Darker gold */
+  --color-text: #2d2d2d; /* Near-black */
+  --color-emph: #1a1a1a; /* High contrast */
+}
+
+[data-theme="dark"] {
+  --color-primary: #ffd700; /* Brighter gold */
+  --color-accent: #ffaa00;
+  --color-text: #f0f0f0; /* Off-white */
+  --color-emph: #ffffff; /* Pure white */
+}
+/* ===================== */
+/*  Theme Variables      */
+/* ===================== */
+:root {
+  --color-degree: #404040; /* Light theme degree text */
+  --color-degree-contrast: #2d2d2d; /* Enhanced contrast color */
+}
+
+[data-theme="dark"] {
+  --color-degree: #e5e5e5; /* Dark theme degree text */
+  --color-degree-contrast: #f0f0f0; /* Enhanced contrast color */
+}
+
+/* ===================== */
+/*  Education Section     */
+/* ===================== */
+.degree {
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--color-degree-contrast); /* Updated to contrast variable */
+  margin-bottom: 0.1875rem;
+}
+
+/* Remove dark theme override since we're using variables */
+/* [data-theme="dark"] .degree { ... } */
+
+.duration {
+  font-size: 0.85em;
+  color: var(--color-degree); /* Using original degree variable */
+}
+/* ===================== */
+/*  Header Contrast Fix   */
+/* ===================== */
+.nav-links li a {
+  color: var(--color-text);
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color var(--transition);
+}
+
+.nav-links li a.active {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.nav-links li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.25rem;
+  left: 0;
+  width: 100%;
+  height: 0.1875rem;
+  background: var(--color-primary);
+  border-radius: 0.125rem;
+}
+
+/* Hover States */
+.nav-links li a:not(.active):hover {
+  color: var(--color-primary);
+}
+
+/* Mobile Menu Contrast */
+.mobile-nav li a {
+  color: var(--color-text);
+}
+.mobile-nav li a.active {
+  font-weight: 600;
 }
 
 /* ===================== */
