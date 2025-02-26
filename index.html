@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sourav | Software Developer</title>
+
+    <!-- Meta Info & Favicon -->
+    <meta
+      name="description"
+      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
+    />
+    <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Sourav" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <!-- Open Graph (Optional) -->
+    <meta property="og:title" content="Sourav | Software Developer" />
+    <meta
+      property="og:description"
+      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://souravas.com" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    />
+
+    <!-- Main CSS -->
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sourav",
+        "url": "https://www.souravas.com",
+        "image": "https://www.souravas.com/assets/profile.webp",
+        "sameAs": [
+          "https://github.com/souravas",
+          "https://www.linkedin.com/in/souravas/"
+        ],
+        "email": "mailto:souravas007@gmail.com",
+        "jobTitle": "Senior Software Engineer",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Personal",
+          "telephone": "+91-9526-444-907",
+          "email": "mailto:souravas007@gmail.com"
+        },
+        "worksFor": [
+          {
+            "@type": "Organization",
+            "name": "Tata 1mg",
+            "url": "https://www.1mg.com",
+            "roleName": "SDE II"
+          },
+          {
+            "@type": "Organization",
+            "name": "Tata Health",
+            "url": "https://www.linkedin.com/company/tatahealth",
+            "roleName": "Software Engineer"
+          },
+          {
+            "@type": "Organization",
+            "name": "Pelatro",
+            "url": "https://www.pelatro.com",
+            "roleName": "Software Engineer"
+          }
+        ],
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "NSS College of Engineering, Palakkad",
+            "url": "https://www.nssce.ac.in/"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "Jawahar Navodaya Vidyalaya (JNV)",
+            "url": "http://www.navodaya.gov.in/"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "Bethany St.John's EHSS",
+            "url": "https://bethanystjohns.edu.in/"
+          }
+        ]
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-DWIbvmJe.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CQL7Wuww.css">
+  </head>
+
+  <body>
+    <!-- Skip Link (Accessibility) -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Header & Navigation -->
+    <header>
+      <div class="container nav-container">
+        <a href="https://souravas.com" class="logo">Sourav</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <button
+            id="hamburger"
+            aria-label="Toggle Mobile Menu"
+            aria-expanded="false"
+          >
+            <!-- Bars SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path
+                d="M0 96C0 78.3 14.3 64 32 64h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zm0 160c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zm448 160c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z"
+              />
+            </svg>
+          </button>
+          <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+            🌙
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav>
+        <ul class="mobile-nav" id="mobileNav">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main">
+      <!-- Hero Section -->
+      <section id="hero">
+        <div class="container hero-container">
+          <figure>
+            <img
+              src="assets/profile.webp"
+              alt="Portrait of Sourav, a software developer"
+              class="profile-photo"
+            />
+            <figcaption class="visually-hidden">
+              Sourav's Profile Photo
+            </figcaption>
+          </figure>
+          <h1>Hi, I'm Sourav</h1>
+          <p>
+            Senior Software Engineer | 5+ Years Experience | Innovator | Problem
+            Solver
+          </p>
+
+          <!-- Social Icons -->
+          <div class="social-icons">
+            <a
+              href="https://github.com/souravas"
+              target="_blank"
+              class="icon"
+              aria-label="GitHub"
+            >
+              <!-- GitHub SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+                <path
+                  d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/souravas/"
+              target="_blank"
+              class="icon"
+              aria-label="LinkedIn"
+            >
+              <!-- LinkedIn SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path
+                  d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4c0 18 14.3 32.3 31.9 32.3H416c17.6 0 32-14.3 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                />
+              </svg>
+            </a>
+            <a
+              href="mailto:souravas007@gmail.com"
+              target="_blank"
+              class="icon"
+              aria-label="Email"
+            >
+              <!-- Email SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Contact Details -->
+          <div class="contact-details">
+            <p>
+              Email:
+              <a href="mailto:souravas007@gmail.com">
+                <strong>souravas007@gmail.com</strong>
+              </a>
+            </p>
+            <p>
+              Phone:
+              <a href="tel:+919526444907">
+                <strong>+91-9526-444-907</strong>
+              </a>
+            </p>
+          </div>
+
+          <!-- Buttons -->
+          <a href="#about" class="btn">Learn More</a>
+          <a href="assets/resume.pdf" class="btn" target="_blank" rel="noopener"
+            >View CV</a
+          >
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="section-container">
+        <div class="container">
+          <h2>About Me</h2>
+          <p>
+            I’m a backend developer with 5+ years of experience building
+            scalable, high-performance systems. Specializing in REST API
+            development, database optimization, and backend automation, I work
+            across monolithic and microservices architectures, leveraging the
+            best tools and technologies to deliver clean, maintainable, and
+            scalable solutions.
+            <br />
+            Driven by a passion for solving complex problems, I thrive on
+            designing efficient systems, optimizing workflows, and delivering
+            impactful results.
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="section-container">
+        <div class="container">
+          <h2>Skills</h2>
+          <p>Technologies and tools I frequently use.</p>
+          <div class="card-grid">
+            <!-- Card 1 -->
+            <div class="card boxy boxy-padding">
+              <h3>
+                <!-- Code SVG -->
+                <svg
+                  class="skill-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 512"
+                  style="margin-right: 8px"
+                >
+                  <path
+                    d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"
+                  />
+                </svg>
+                Programming &amp; Web Development
+              </h3>
+              <div class="skill-items">
+                <span class="skill-item">Python</span>
+                <span class="skill-item">Ruby on Rails</span>
+                <span class="skill-item">REST API</span>
+                <span class="skill-item">Java</span>
+                <span class="skill-item">Spring Boot</span>
+                <span class="skill-item">JavaScript</span>
+                <span class="skill-item">HTML &amp; CSS</span>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card boxy boxy-padding">
+              <h3>
+                <!-- Cloud SVG -->
+                <svg
+                  class="skill-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 512"
+                  style="margin-right: 8px"
+                >
+                  <path
+                    d="M0 336c0 79.5 64.5 144 144 144l368 0c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z"
+                  />
+                </svg>
+                Cloud &amp; Infrastructure
+              </h3>
+              <div class="skill-items">
+                <span class="skill-item">AWS</span>
+                <span class="skill-item">Docker</span>
+                <span class="skill-item">Kubernetes</span>
+                <span class="skill-item">Kafka</span>
+                <span class="skill-item">Linux</span>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card boxy boxy-padding">
+              <h3>
+                <!-- Database SVG -->
+                <svg
+                  class="skill-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                  style="margin-right: 8px"
+                >
+                  <path
+                    d="M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0s224 35.8 224 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1V432c0 44.2 100.3 80 224 80s224-35.8 224-80v-85.9c-14.9 11.8-34 21.2-54.8 28.6C348.3 390.7 288.5 400 224 400s-124.3-9.3-169.2-25.3c-20.8-7.4-39.9-16.9-54.8-28.6z"
+                  />
+                </svg>
+                Databases
+              </h3>
+              <div class="skill-items">
+                <span class="skill-item">PostgreSQL</span>
+                <span class="skill-item">MySQL</span>
+                <span class="skill-item">MongoDB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience Section -->
+      <section id="experience" class="section-container">
+        <div class="container">
+          <h2>Experience</h2>
+          <div class="card-grid experience-card-grid">
+            <!-- Tata 1mg -->
+            <div class="card boxy boxy-padding experience-card">
+              <div class="experience-header">
+                <a href="https://www.1mg.com" target="_blank" rel="noopener">
+                  <img
+                    src="assets/1mg.webp"
+                    alt="Tata 1mg Logo"
+                    class="experience-logo"
+                    loading="lazy"
+                    width="40"
+                    height="40"
+                  />
+                </a>
+                <a href="https://www.1mg.com" target="_blank" rel="noopener">
+                  <strong>Tata 1mg</strong>
+                </a>
+              </div>
+              <em>SDE II · Oct 2022 – Present · Hybrid</em>
+              <ul class="experience-details">
+                <li>
+                  Built a QR code-based SKU tracking system, reducing order
+                  turnaround time by <strong>1.3 hours</strong> and cutting QC
+                  manpower by <strong>53%</strong>, saving
+                  <strong>Rs. 5 lakhs/month</strong>.
+                </li>
+                <li>
+                  Developed real-time backend validation for QR codes, reducing
+                  errors by <strong>25%</strong> and eliminating manual
+                  interventions.
+                </li>
+                <li>
+                  Automated order assignments using
+                  <strong>Server-Sent Events (SSE)</strong>, reducing picker
+                  idle time by <strong>40%</strong>.
+                </li>
+                <li>
+                  Engineered scalable REST APIs with
+                  <strong>Ruby on Rails</strong> and
+                  <strong>Python (Sanic)</strong>, optimizing database
+                  performance.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Tata Health -->
+            <div class="card boxy boxy-padding experience-card">
+              <div class="experience-header">
+                <a
+                  href="https://www.linkedin.com/company/tatahealth"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/tata_health.webp"
+                    alt="Tata Health Logo"
+                    class="experience-logo"
+                    loading="lazy"
+                    width="40"
+                    height="40"
+                  />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/tatahealth"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <strong>Tata Health</strong>
+                </a>
+              </div>
+              <em>Software Engineer · Dec 2021 – Sep 2022 · Remote</em>
+              <ul class="experience-details">
+                <li>
+                  Created an idempotent database migration tool, reducing DevOps
+                  tickets by <strong>70%</strong>.
+                </li>
+                <li>
+                  Automated author tracking using Git commits, improving
+                  deployment reliability.
+                </li>
+                <li>
+                  Developed a mental health module with rule-based flows,
+                  increasing user visits by <strong>10%</strong>.
+                </li>
+                <li>
+                  Optimized microservices and API performance for consumer and
+                  provider platforms.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Pelatro -->
+            <div class="card boxy boxy-padding experience-card">
+              <div class="experience-header">
+                <a
+                  href="https://www.pelatro.com"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="assets/pelatro.webp"
+                    alt="Pelatro Logo"
+                    class="experience-logo"
+                    loading="lazy"
+                    width="40"
+                    height="40"
+                  />
+                </a>
+                <a
+                  href="https://www.pelatro.com"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <strong>Pelatro</strong>
+                </a>
+              </div>
+              <em>Software Engineer · Jun 2019 – Nov 2021 · On-site</em>
+              <ul class="experience-details">
+                <li>
+                  Built an internal profile configuration tool, reducing manual
+                  setup time by <strong>80%</strong>.
+                </li>
+                <li>
+                  Designed REST APIs with <strong>TDD</strong>, improving code
+                  reliability and workflow efficiency.
+                </li>
+                <li>
+                  Developed a configuration-driven ETL tool, cutting development
+                  time by <strong>60%</strong>.
+                </li>
+                <li>
+                  Integrated <strong>Apache Kafka</strong> for real-time data
+                  processing, enhancing system scalability.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="certifications" class="section-container">
+        <div class="container">
+          <h2>Certifications</h2>
+          <div class="card-grid">
+            <!-- Card #1: AWS -->
+            <div class="card cert-card boxy boxy-padding">
+              <!-- One anchor that contains both icon and text -->
+              <a
+                href="https://www.credly.com/badges/362b5b69-0043-4d71-a50d-0f904d90a381/linked_in_profile"
+                target="_blank"
+                rel="noopener"
+                aria-label="View the AWS Certified Solutions Architect – Associate badge on Credly"
+              >
+                <!-- AWS SVG Icon -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 512"
+                  class="cert-icon"
+                >
+                  <path
+                    d="M180.4 203c-.7 22.7 10.6 32.7 10.9 39.1a8.2 8.2 0 0 1 -4.1 6.3l-12.8 9a10.7 10.7 0 0 1 -5.6 1.9c-.4 0-8.2 1.8-20.5-25.6a78.6 78.6 0 0 1 -62.6 29.5c-16.3 .9-60.4-9.2-58.1-56.2-1.6-38.3 34.1-62.1 70.9-60.1 7.1 0 21.6 .4 47 6.3v-15.6c2.7-26.5-14.7-47-44.8-43.9-2.4 0-19.4-.5-45.8 10.1-7.4 3.4-8.3 2.8-10.8 2.8-7.4 0-4.4-21.5-2.9-24.2 5.2-6.4 35.9-18.4 65.9-18.2a76.9 76.9 0 0 1 55.7 17.3 70.3 70.3 0 0 1 17.7 52.4l0 69.3zM94 235.4c32.4-.5 46.2-20 49.3-30.5 2.5-10.1 2.1-16.4 2.1-27.4-9.7-2.3-23.6-4.9-39.6-4.9-15.2-1.1-42.8 5.6-41.7 32.3-1.2 16.8 11.1 31.4 30 30.5zm170.9 23.1c-7.9 .7-11.5-4.9-12.7-10.4l-49.8-164.7c-1-2.8-1.6-5.7-1.9-8.6a4.6 4.6 0 0 1 3.9-5.3c.2 0-2.1 0 22.3 0 8.8-.9 11.6 6 12.6 10.4l35.7 140.8 33.2-140.8c.5-3.2 2.9-11.1 12.8-10.2h17.2c2.2-.2 11.1-.5 12.7 10.4l33.4 142.6L421 80.1c.5-2.2 2.7-11.4 12.7-10.4h19.7c.9-.1 6.2-.8 5.3 8.6-.4 1.9 3.4-10.7-52.8 169.9-1.2 5.5-4.8 11.1-12.7 10.4h-18.7c-10.9 1.2-12.5-9.7-12.7-10.8L328.7 110.7l-32.8 137c-.2 1.1-1.7 11.9-12.7 10.8h-18.3zm273.5 5.6c-5.9 0-33.9-.3-57.4-12.3a12.8 12.8 0 0 1 -7.8-11.9v-10.8c0-8.5 6.2-6.9 8.8-5.9 10 4.1 16.5 7.1 28.8 9.6 36.7 7.5 52.8-2.3 56.7-4.5 13.2-7.8 14.2-25.7 5.3-35-10.5-8.8-15.5-9.1-53.1-21-4.6-1.3-43.7-13.6-43.8-52.4-.6-28.2 25.1-56.2 69.5-56 12.7 0 46.4 4.1 55.6 15.6 1.4 2.1 2 4.6 1.9 7v10.1c0 4.4-1.6 6.7-4.9 6.7-7.7-.9-21.4-11.2-49.2-10.8-6.9-.4-39.9 .9-38.4 25-.4 19 26.6 26.1 29.7 26.9 36.5 11 48.7 12.8 63.1 29.6 17.1 22.3 7.9 48.3 4.4 55.4-19.1 37.5-68.4 34.4-69.3 34.4zm40.2 104.9c-70 51.7-171.7 79.3-258.5 79.3A469.1 469.1 0 0 1 2.8 327.5c-6.5-5.9-.8-14 7.2-9.5a637.4 637.4 0 0 0 316.9 84.1 630.2 630.2 0 0 0 241.6-49.6c11.8-5 21.8 7.8 10.1 16.4zm29.2-33.3c-9-11.5-59.3-5.4-81.8-2.7-6.8 .8-7.9-5.1-1.8-9.5 40.1-28.2 105.9-20.1 113.4-10.6 7.6 9.5-2.1 75.4-39.6 106.9-5.8 4.9-11.3 2.3-8.7-4.1 8.4-21.3 27.4-68.5 18.4-80z"
+                  />
+                </svg>
+                <!-- Screen readers will also read the <h3> text as the link label -->
+                <h3>AWS Certified Solutions Architect – Associate</h3>
+              </a>
+              <div class="cert-info">
+                Nov 2024 – Nov 2027 | Amazon Web Services
+              </div>
+            </div>
+
+            <!-- Card #2: HackerRank SE -->
+            <div class="card cert-card boxy boxy-padding">
+              <a
+                href="https://www.hackerrank.com/certificates/b68104bff25e"
+                target="_blank"
+                rel="noopener"
+                aria-label="View the Software Engineer certificate on HackerRank"
+              >
+                <!-- HackerRank SVG -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  class="cert-icon"
+                >
+                  <path
+                    d="M477.5 128C463 103.1 285.1 0 256.2 0S49.3 102.8 34.8 128s-14.5 230.8 0 256 192.4 128 221.3 128S463 409.1 477.5 384s14.5-231 0-256zM316.1 414.2c-4 0-40.9-35.8-38-38.7 .9-.9 6.3-1.5 17.6-1.8 0-26.2 .6-68.6 .9-86.3 0-2-.4-3.4-.4-5.9h-79.9c0 7.1-.5 36.2 1.4 72.9 .2 4.5-1.6 6-5.7 5.9-10.1 0-20.3-.1-30.4-.1-4.1 0-5.9-1.5-5.7-6.1 .9-33.4 3-84-.2-212.7v-3.2c-9.7-.4-16.4-1-17.3-1.8-2.9-2.9 34.5-38.7 38.5-38.7s41.2 35.8 38.3 38.7c-.9 .9-7.9 1.5-16.8 1.8v3.2c-2.4 25.8-2 79.6-2.6 105.4h80.3c0-4.6 .4-34.7-1.2-83.6-.1-3.4 1-5.2 4.2-5.2 11.1-.1 22.2-.1 33.2-.1 3.5 0 4.6 1.7 4.5 5.4C333 354.6 336 341.3 336 373.7c8.9 .4 16.8 1 17.7 1.8 2.9 2.9-33.6 38.7-37.6 38.7z"
+                  />
+                </svg>
+                <h3>Software Engineer</h3>
+              </a>
+              <div class="cert-info">Jan 2025 | HackerRank</div>
+            </div>
+
+            <!-- Card #3: HackerRank Problem Solving -->
+            <div class="card cert-card boxy boxy-padding">
+              <a
+                href="https://www.hackerrank.com/certificates/daa8afc85ee8"
+                target="_blank"
+                rel="noopener"
+                aria-label="View the Intermediate Problem Solving certificate on HackerRank"
+              >
+                <!-- HackerRank Problem Solving SVG -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  class="cert-icon"
+                >
+                  <path
+                    d="M477.5 128C463 103.1 285.1 0 256.2 0S49.3 102.8 34.8 128s-14.5 230.8 0 256 192.4 128 221.3 128S463 409.1 477.5 384s14.5-231 0-256zM316.1 414.2c-4 0-40.9-35.8-38-38.7 .9-.9 6.3-1.5 17.6-1.8 0-26.2 .6-68.6 .9-86.3 0-2-.4-3.4-.4-5.9h-79.9c0 7.1-.5 36.2 1.4 72.9 .2 4.5-1.6 6-5.7 5.9-10.1 0-20.3-.1-30.4-.1-4.1 0-5.9-1.5-5.7-6.1 .9-33.4 3-84-.2-212.7v-3.2c-9.7-.4-16.4-1-17.3-1.8-2.9-2.9 34.5-38.7 38.5-38.7s41.2 35.8 38.3 38.7c-.9 .9-7.9 1.5-16.8 1.8v3.2c-2.4 25.8-2 79.6-2.6 105.4h80.3c0-4.6 .4-34.7-1.2-83.6-.1-3.4 1-5.2 4.2-5.2 11.1-.1 22.2-.1 33.2-.1 3.5 0 4.6 1.7 4.5 5.4C333 354.6 336 341.3 336 373.7c8.9 .4 16.8 1 17.7 1.8 2.9 2.9-33.6 38.7-37.6 38.7z"
+                  />
+                </svg>
+                <h3>Problem Solving (Intermediate)</h3>
+              </a>
+              <div class="cert-info">Jan 2025 | HackerRank</div>
+            </div>
+
+            <!-- Card #4: Coursera Algorithmic Toolbox -->
+            <div class="card cert-card boxy boxy-padding">
+              <a
+                href="https://www.coursera.org/account/accomplishments/verify/YI0FLK5Q1BNZ"
+                target="_blank"
+                rel="noopener"
+                aria-label="View the Algorithmic Toolbox certificate on Coursera"
+              >
+                <!-- Coursera SVG -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 512"
+                  class="cert-icon"
+                >
+                  <path
+                    d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160s6.3 19.1 15.8 22.6l57.9 20.9C57.3 229.3 48 259.8 48 291.9l0 28.1c0 28.4-10.8 57.7-22.3 80.8c-6.5 13-13.9 25.8-22.5 37.6C0 442.7-.9 448.3.9 453.4s6 8.9 11.2 10.2l64 16c4.2 1.1 8.7 .3 12.4-2s6.3-6.1 7.1-10.4c8.6-42.8 4.3-81.2-2.1-108.7C90.3 344.3 86 329.8 80 316.5l0-24.6c0-30.2 10.2-58.7 27.9-81.5c12.9-15.5 29.6-28 49.2-35.7l157-61.7c8.2-3.2 17.5 .8 20.7 9s-.8 17.5-9 20.7l-157 61.7c-12.4 4.9-23.3 12.4-32.2 21.6l159.6 57.6c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.5-3.4 15.8-12.5 15.8-22.6s-6.3-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zM128 408c0 35.3 86 72 192 72s192-36.7 192-72l.7-145.4-142.2 51.4c-11.1 4-22.8 6-34.5 6s-23.5-2-34.5-6L143.3 262.6 128 408z"
+                  />
+                </svg>
+                <h3>Algorithmic Toolbox</h3>
+              </a>
+              <div class="cert-info">Feb 2025 | Coursera</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section id="education" class="section-container">
+        <div class="container">
+          <h2>Education</h2>
+          <div class="card-grid">
+            <div class="card education-card boxy boxy-padding">
+              <a href="https://www.nssce.ac.in/" target="_blank" rel="noopener">
+                <img
+                  src="assets/nss.webp"
+                  alt="Logo of NSS College of Engineering, Palakkad"
+                  class="education-logo"
+                  loading="lazy"
+                  width="50"
+                  height="50"
+                />
+              </a>
+              <h3>
+                <a
+                  href="https://www.nssce.ac.in/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  NSS College of Engineering, Palakkad
+                </a>
+              </h3>
+              <div class="degree">BTech, Computer Science</div>
+              <div class="duration">Aug 2015 – Mar 2019</div>
+            </div>
+
+            <div class="card education-card boxy boxy-padding">
+              <a
+                href="http://www.navodaya.gov.in/"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  src="assets/jnv.webp"
+                  alt="Logo of Jawahar Navodaya Vidyalaya (JNV)"
+                  class="education-logo"
+                  loading="lazy"
+                  width="50"
+                  height="50"
+                />
+              </a>
+              <h3>
+                <a
+                  href="http://www.navodaya.gov.in/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Jawahar Navodaya Vidyalaya (JNV)
+                </a>
+              </h3>
+              <div class="degree">High School</div>
+              <div class="duration">2008 – 2015</div>
+            </div>
+
+            <div class="card education-card boxy boxy-padding">
+              <a
+                href="https://bethanystjohns.edu.in/"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  src="assets/bethany.webp"
+                  alt="Logo of Bethany St.John's EHSS"
+                  class="education-logo"
+                  loading="lazy"
+                  width="50"
+                  height="50"
+                />
+              </a>
+              <h3>
+                <a
+                  href="https://bethanystjohns.edu.in/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Bethany St.John's EHSS
+                </a>
+              </h3>
+              <div class="degree">Primary School</div>
+              <div class="duration">2003 – 2008</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="section-container">
+        <div class="container section-box boxy boxy-padding-large">
+          <h2>Contact Me</h2>
+          <p>Got a question? Let's talk.</p>
+
+          <form id="contact-form">
+            <input
+              type="hidden"
+              name="access_key"
+              value="1ecef37e-c61f-4c78-9403-054ca6dd89cb"
+            />
+            <div class="form-group">
+              <label for="contact-name">Name:</label>
+              <input
+                type="text"
+                id="contact-name"
+                name="name"
+                required
+                placeholder="Your Name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email:</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                required
+                placeholder="Your Email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Message:</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                required
+                placeholder="Your Message"
+              ></textarea>
+            </div>
+
+            <input
+              type="hidden"
+              name="subject"
+              value="New Mail from souravas.com"
+            />
+
+            <button type="submit" class="btn">Send Message</button>
+            <p id="contact-result"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container footer-container">
+        <p>&copy; 2025 Sourav. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Back-to-Top Button -->
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">
+      <!-- Up Arrow SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path
+          d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+        />
+      </svg>
+    </a>
+
+    <!-- Main JS -->
+  </body>
+</html>
