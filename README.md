@@ -1,6 +1,6 @@
-# Sourav’s Portfolio Site
+# Sourav's Portfolio Site
 
-This repository houses the source code for [souravas.com](https://souravas.com) — a personal portfolio website showcasing my profile, skills, experience, and contact information. The site is built with Parcel and includes best practices for SEO like `robots.txt` and `sitemap.xml`.
+This repository houses the source code for [souravas.com](https://souravas.com) — a personal portfolio website showcasing my profile, skills, experience, and contact information. The site is built with Vite and implements SEO best practices including `robots.txt` and `sitemap.xml`.
 
 ## Table of Contents
 
@@ -10,7 +10,6 @@ This repository houses the source code for [souravas.com](https://souravas.com) 
 - [Installation](#installation)
 - [Build & Deployment](#build--deployment)
 - [File Structure](#file-structure)
-- [Credits](#credits)
 - [License](#license)
 
 ---
@@ -19,8 +18,8 @@ This repository houses the source code for [souravas.com](https://souravas.com) 
 
 - **Live Site:** [souravas.com](https://souravas.com)
 - **Description:**
-  - Single-page portfolio: includes About, Skills, Experience, Certifications, Education, and Contact sections.
-  - Uses [Parcel](https://parceljs.org/) for bundling and asset optimization.
+  - Single-page portfolio: includes About, Skills, Experience, Certifications, Education, Projects, and Contact sections.
+  - Uses [Vite](https://vitejs.dev/) for fast development and optimized builds.
   - Provides `robots.txt` and `sitemap.xml` for search engine crawling and indexing.
   - JSON-LD structured data for improved SEO (`<script type="application/ld+json">...`).
 
@@ -29,13 +28,13 @@ This repository houses the source code for [souravas.com](https://souravas.com) 
 ## Features
 
 - **Responsive Layout**: Adapts to various screen sizes (mobile, tablet, desktop).
-- **Dark/Light Theme Toggle**: Allows users to switch between color modes.
-- **Accessible Navigation**: “Skip to content” link, accessible labels, and keyboard-friendly menu.
+- **Dark/Light Theme Toggle**: Allows users to switch between color modes with preference storage.
+- **Accessible Navigation**: "Skip to content" link, semantic HTML, and keyboard-friendly interface.
 - **Optimized SEO**:
   - `robots.txt` to allow all crawlers and link to sitemap.
   - `sitemap.xml` for better URL discovery.
-  - `application/ld+json` structured data for person/organization details.
-- **Form Handling**: Simple contact form (can be integrated with an external service or email endpoint).
+  - JSON-LD structured data for rich search results.
+- **Form Handling**: Contact form integrated with Web3Forms for email functionality.
 
 ---
 
@@ -43,11 +42,10 @@ This repository houses the source code for [souravas.com](https://souravas.com) 
 
 - **HTML5** & **CSS3** (Poppins font & responsive design)
 - **JavaScript (ES6+)**
-- **Parcel** (v2) for bundling
-  - [`@parcel/transformer-jsonld`](https://parceljs.org/languages/jsonld/) (handles JSON-LD files)
-  - [`@parcel/packager-raw-url`](https://parceljs.org/recipes/raw/) (raw-file packing if needed)
-- **copyfiles** for post-build file copying
+- **Vite** for front-end tooling and build optimization
+- **Web3Forms** for contact form handling
 - **GitHub Pages** for deployment
+- **Namecheap** for custom domain
 
 ---
 
@@ -64,59 +62,70 @@ This repository houses the source code for [souravas.com](https://souravas.com) 
    npm install
    ```
 
+3. **Start** the development server:
+   ```bash
+   npm run dev
+   ```
+
 ---
 
 ## Build & Deployment
+
+- **Development**:
+  ```bash
+  npm run dev
+  ```
+  This starts Vite's development server with hot module replacement.
 
 - **Production Build**:
   ```bash
   npm run build
   ```
-  This will:
-  1. Clean previous build artifacts (`.parcel-cache`, `dist`).
-  2. Run Parcel build on your entry files (e.g., `index.html`).
-  3. Copy the output files from `dist` back into the root for GitHub Pages.
+  This generates optimized assets in the `dist` directory.
+
+- **Preview Production Build**:
+  ```bash
+  npm run preview
+  ```
+  This serves the production build locally for testing.
 
 - **Deploy**:
-  - If you are hosting directly from the `main` branch on GitHub Pages, the updated site goes live automatically once the final files are pushed.
-  - Otherwise, if you use a separate `gh-pages` branch, push the `dist` contents there (the current configuration copies them to root, so your final approach may vary).
+  ```bash
+  npm run deploy
+  ```
+  This builds the site and deploys it to GitHub Pages using the gh-pages package.
 
 ---
 
 ## File Structure
 
-Below is a simplified look at the repo’s file layout:
-
 ```
 souravas.github.io/
 ├─ src/
-│  ├─ assets/           # images, icons, etc.
-│  ├─ index.html        # main HTML entry
-│  ├─ style.css         # main CSS
-│  └─ script.js         # main JS
-├─ robots.txt           # Basic robots instructions & sitemap link
-├─ sitemap.xml          # Sitemap for improved SEO
-├─ package.json
-├─ .parcel-cache/       # (created on build)
-├─ dist/                # (created on build)
-└─ README.md
+│  ├─ style.css       # Main stylesheet
+│  └─ main.js         # JavaScript functionality
+├─ public/
+│  ├─ assets/         # Images, resume PDF, etc.
+│  ├─ favicon.ico     # Site favicon
+│  ├─ robots.txt      # Instructions for web crawlers
+│  ├─ sitemap.xml     # Site structure for search engines
+│  ├─ resume.html     # Resume redirect page
+│  ├─ cv.html         # CV redirect page
+│  └─ site.webmanifest # Progressive Web App manifest
+├─ index.html         # Main HTML entry point
+├─ vite.config.js     # Vite configuration
+├─ package.json       # Project dependencies and scripts
+├─ CNAME              # Custom domain configuration
+└─ README.md          # Project documentation
 ```
 
-- **`src/`**: Contains the actual web app source files (HTML, CSS, JS).
-- **`robots.txt`** and **`sitemap.xml`**: Placed in root to be served at `https://souravas.com/robots.txt` and `https://souravas.com/sitemap.xml`.
-- **`package.json`**: Scripts, dependencies, and configurations for Parcel.
-- **`dist/`**: Generated build folder (copied into root via `postbuild`).
-
----
-
-## Credits
-
-- **Icons**: Potentially from [Font Awesome](https://fontawesome.com/) SVG icons.
-- **Fonts**: [Google Fonts](https://fonts.google.com/) (Poppins).
-- **Frameworks/Tools**: [Parcel](https://parceljs.org/), [copyfiles](https://www.npmjs.com/package/copyfiles).
+- **`src/`**: Contains JavaScript and CSS source files.
+- **`public/`**: Static files served at the root path.
+- **`index.html`**: Main HTML document with structured data.
+- **`vite.config.js`**: Configuration for the Vite build tool.
 
 ---
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for details (if added).
+This project is open source and available under the Apache License.
