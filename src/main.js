@@ -157,4 +157,22 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     console.log('❌ Service Worker not supported in this browser');
   }
+
+  //
+  // Resume/CV Lazy Loading
+  //
+  const cvButton = document.querySelector('a[href="assets/resume.pdf"]');
+  if (cvButton) {
+    cvButton.addEventListener('click', (e) => {
+      // Let the default behavior happen (open PDF)
+      // But also cache it for future offline use
+      if ('caches' in window) {
+        caches.open('sourav-portfolio-v1').then(cache => {
+          cache.add('/assets/resume.pdf').catch(err => {
+            console.log('Failed to cache resume:', err);
+          });
+        });
+      }
+    });
+  }
 });

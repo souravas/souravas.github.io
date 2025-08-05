@@ -4,7 +4,6 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/assets/profile.webp',
-  '/assets/resume.pdf',
   // Add other critical assets
 ];
 
