@@ -34,7 +34,6 @@ This repository houses the source code for [souravas.com](https://souravas.com) 
   - `robots.txt` to allow all crawlers and link to sitemap.
   - `sitemap.xml` for better URL discovery.
   - JSON-LD structured data for rich search results.
-- **Form Handling**: Contact form integrated with Web3Forms for email functionality.
 
 ---
 
@@ -43,7 +42,6 @@ This repository houses the source code for [souravas.com](https://souravas.com) 
 - **HTML5** & **CSS3** (Poppins font & responsive design)
 - **JavaScript (ES6+)**
 - **Vite** for front-end tooling and build optimization
-- **Web3Forms** for contact form handling
 - **GitHub Pages** for deployment
 - **Namecheap** for custom domain
 

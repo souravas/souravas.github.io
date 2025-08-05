@@ -114,34 +114,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-  //
-  // Contact Form Submission
-  //
-  const contactForm = document.getElementById("contact-form");
-  const resultElement = document.getElementById("contact-result");
-
-  contactForm.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Prevent normal form submission
-
-    const formData = new FormData(contactForm);
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await response.json();
-
-      if (data.success) {
-        resultElement.textContent = "Message sent successfully!";
-        contactForm.reset();
-      } else {
-        resultElement.textContent = data.message || "Something went wrong!";
-      }
-    } catch (error) {
-      resultElement.textContent = "Unable to send. Please try again later.";
-      console.error(error);
-    }
-  });
 });

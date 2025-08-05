@@ -53,14 +53,6 @@
     <changefreq>monthly</changefreq>
   </url>
 
-  <!-- Contact Section -->
-  <url>
-    <loc>https://www.souravas.com/#contact</loc>
-    <lastmod>2025-02-24</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
   <!-- Resume/CV Pages -->
   <url>
     <loc>https://www.souravas.com/assets/resume.pdf</loc>

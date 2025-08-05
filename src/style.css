@@ -506,64 +506,7 @@ header {
 }
 
 /* ============================================ */
-/* 12) CONTACT SECTION                         */
-/* ============================================ */
-
-#contact form {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: left;
-}
-#contact .form-group {
-  margin-bottom: 1rem;
-}
-#contact .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-#contact .form-group input,
-#contact .form-group textarea {
-  width: 100%;
-  padding: 0.625rem;
-  border: 1px solid #ccc;
-  border-radius: 0.3125rem;
-  background: var(--color-bg);
-  color: var(--color-text);
-  transition: border var(--transition), background var(--transition),
-    color var(--transition);
-}
-[data-theme="dark"] #contact .form-group input,
-[data-theme="dark"] #contact .form-group textarea {
-  background: #222;
-  border-color: #444;
-  color: #eee;
-}
-#contact .form-group input:focus,
-#contact .form-group textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
-}
-#contact button[type="submit"] {
-  background: var(--color-primary);
-  color: #000;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  margin-top: 0.625rem;
-  transition: background var(--transition), color var(--transition);
-}
-#contact button[type="submit"]:hover {
-  background: var(--color-accent);
-  color: #fff;
-}
-#contact #contact-result {
-  margin-top: 0.625rem;
-  font-size: 0.95em;
-}
-
-/* ============================================ */
-/* 13) BACK-TO-TOP BUTTON                      */
+/* 12) BACK-TO-TOP BUTTON                      */
 /* ============================================ */
 
 .back-to-top {
@@ -595,7 +538,7 @@ header {
 }
 
 /* ============================================ */
-/* 14) FOOTER                                  */
+/* 13) FOOTER                                  */
 /* ============================================ */
 
 footer {
@@ -607,7 +550,7 @@ footer {
 }
 
 /* ============================================ */
-/* 15) IMAGE STYLES (Hero/Experience/Edu)      */
+/* 14) IMAGE STYLES (Hero/Experience/Edu)      */
 /* ============================================ */
 
 .profile-photo {
@@ -635,7 +578,7 @@ footer {
 }
 
 /* ============================================ */
-/* 16) RESPONSIVE MEDIA QUERIES                */
+/* 15) RESPONSIVE MEDIA QUERIES                */
 /* ============================================ */
 
 @media (max-width: 768px) {
