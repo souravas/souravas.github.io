@@ -1,9 +1,11 @@
 {
-  "name": "Sourav",
+  "name": "Sourav - Software Developer",
   "short_name": "Sourav",
-  "description": "Sourav - Software Developer Portfolio",
+  "description": "Sourav - Senior Software Engineer Portfolio showcasing 5+ years of experience in backend development",
   "start_url": "/",
   "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,10 +18,26 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "theme_color": "#daa520",
   "background_color": "#f5f5f5",
   "display": "standalone",
-  "orientation": "portrait-primary"
+  "orientation": "portrait-primary",
+  "categories": ["portfolio", "developer", "software"],
+  "shortcuts": [
+    {
+      "name": "View Resume",
+      "short_name": "Resume",
+      "description": "View Sourav's resume",
+      "url": "/assets/resume.pdf",
+      "icons": [{ "src": "/favicon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
 }
