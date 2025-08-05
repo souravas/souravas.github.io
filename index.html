@@ -22,6 +22,14 @@
     <meta name="apple-mobile-web-app-title" content="Sourav" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- Resource hints for external domains -->
+    <link rel="dns-prefetch" href="//github.com" />
+    <link rel="dns-prefetch" href="//linkedin.com" />
+    <link rel="dns-prefetch" href="//1mg.com" />
+    <link rel="dns-prefetch" href="//credly.com" />
+    <link rel="dns-prefetch" href="//hackerrank.com" />
+    <link rel="dns-prefetch" href="//coursera.org" />
+
     <!-- Open Graph (Optional) -->
     <meta property="og:title" content="Sourav | Software Developer" />
     <meta
@@ -34,8 +42,6 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link
       rel="preload"
       as="style"
@@ -44,11 +50,18 @@
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      />
+    </noscript>
 
     <!-- Main CSS -->
-    <link rel="preload" href="./src/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="./src/style.css"></noscript>
+    <link rel="stylesheet" href="./src/style.css" />
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
