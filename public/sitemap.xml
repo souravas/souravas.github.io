@@ -8,7 +8,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://www.souravas.com/</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>1.00</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -16,7 +16,7 @@
   <!-- About Section -->
   <url>
     <loc>https://www.souravas.com/#about</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -24,7 +24,7 @@
   <!-- Skills Section -->
   <url>
     <loc>https://www.souravas.com/#skills</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -32,7 +32,7 @@
   <!-- Experience Section -->
   <url>
     <loc>https://www.souravas.com/#experience</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -40,7 +40,7 @@
   <!-- Certifications Section -->
   <url>
     <loc>https://www.souravas.com/#certifications</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -48,7 +48,7 @@
   <!-- Education Section -->
   <url>
     <loc>https://www.souravas.com/#education</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -56,19 +56,19 @@
   <!-- Resume/CV Pages -->
   <url>
     <loc>https://www.souravas.com/assets/resume.pdf</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://www.souravas.com/resume</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://www.souravas.com/cv</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <priority>0.80</priority>
     <changefreq>monthly</changefreq>
   </url>

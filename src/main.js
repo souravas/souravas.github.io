@@ -39,13 +39,13 @@ toggleButton.addEventListener("click", () => {
 // ========================
 document.addEventListener("DOMContentLoaded", () => {
   //
-  // Back-to-Top Button
+  // Back-to-Top Button (Throttled)
   //
   const backToTop = document.getElementById("back-to-top");
   function toggleBackToTopVisibility() {
     backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
   }
-  window.addEventListener("scroll", toggleBackToTopVisibility);
+  window.addEventListener("scroll", throttle(toggleBackToTopVisibility, 100));
   backToTop.addEventListener("click", (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -53,12 +53,32 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleBackToTopVisibility();
 
   //
-  // Navigation Highlighting
+  // Navigation Highlighting (Throttled)
   //
   const sections = Array.from(document.querySelectorAll("section[id]"));
   const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
   const mobileLinks = Array.from(document.querySelectorAll(".mobile-nav a"));
   const headerOffset = 100;
+
+  // Throttle function for performance
+  function throttle(func, delay) {
+    let timeoutId;
+    let lastExecTime = 0;
+    return function (...args) {
+      const currentTime = Date.now();
+
+      if (currentTime - lastExecTime > delay) {
+        func.apply(this, args);
+        lastExecTime = currentTime;
+      } else {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(this, args);
+          lastExecTime = Date.now();
+        }, delay - (currentTime - lastExecTime));
+      }
+    };
+  }
 
   function updateActiveLink() {
     let currentSection = "";
@@ -89,7 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  window.addEventListener("scroll", updateActiveLink);
+  // Throttle scroll events for better performance
+  window.addEventListener("scroll", throttle(updateActiveLink, 100));
   updateActiveLink();
 
   //
