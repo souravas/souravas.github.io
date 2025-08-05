@@ -179,6 +179,28 @@ The site implements several performance optimizations:
 ### **Monitoring**
 Use `npm run optimize` to analyze bundle sizes and performance metrics.
 
+### **Service Worker Debugging**
+To check if the service worker is running:
+
+1. **Browser DevTools** (Recommended):
+   - Open your site → Press `F12` → **Application** tab → **Service Workers**
+   - Look for "Activated and is running" status
+
+2. **Browser Internals**:
+   - Chrome: `chrome://serviceworker-internals/`
+   - Firefox: `about:serviceworkers`
+   - Edge: `edge://serviceworker-internals/`
+
+3. **Console Messages**:
+   - Look for `✅ SW registered successfully` in browser console
+   - Check for service worker activity logs
+
+4. **Debug Script**:
+   ```bash
+   ./check-sw.sh
+   ```
+   This script verifies service worker files and provides debugging guidance.
+
 ---
 
 ## License
