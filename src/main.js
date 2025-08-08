@@ -38,29 +38,7 @@ toggleButton.addEventListener("click", () => {
 // Main DOMContentLoaded
 // ========================
 document.addEventListener("DOMContentLoaded", () => {
-  //
-  // Back-to-Top Button (Throttled)
-  //
-  const backToTop = document.getElementById("back-to-top");
-  function toggleBackToTopVisibility() {
-    backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
-  }
-  window.addEventListener("scroll", throttle(toggleBackToTopVisibility, 100));
-  backToTop.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-  toggleBackToTopVisibility();
-
-  //
-  // Navigation Highlighting (Throttled)
-  //
-  const sections = Array.from(document.querySelectorAll("section[id]"));
-  const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
-  const mobileLinks = Array.from(document.querySelectorAll(".mobile-nav a"));
-  const headerOffset = 100;
-
-  // Throttle function for performance
+  // Reusable throttle (moved up for other features)
   function throttle(func, delay) {
     let timeoutId;
     let lastExecTime = 0;
@@ -80,36 +58,38 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  //
+  // Back-to-Top Button (Throttled)
+  //
+  const backToTop = document.getElementById("back-to-top");
+  function toggleBackToTopVisibility() {
+    if (window.scrollY > 300) backToTop.classList.add('is-visible'); else backToTop.classList.remove('is-visible');
+  }
+  window.addEventListener("scroll", throttle(toggleBackToTopVisibility, 100));
+  backToTop.addEventListener("click", (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+  toggleBackToTopVisibility();
+
+  //
+  // Navigation Highlighting (Throttled)
+  //
+  const sections = Array.from(document.querySelectorAll("section[id]"));
+  const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+  const mobileLinks = Array.from(document.querySelectorAll(".mobile-nav a"));
+  const headerOffset = 100;
+
   function updateActiveLink() {
-    let currentSection = "";
-    const scrollY = window.scrollY;
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - headerOffset;
-      const sectionHeight = section.offsetHeight;
-      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        currentSection = section.getAttribute("id");
-      }
+    let currentSection = ""; const scrollY = window.scrollY;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - headerOffset; const sectionHeight = section.offsetHeight;
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) currentSection = section.getAttribute("id");
     });
-
-    // If near bottom, treat last section as current
-    if (
-      window.innerHeight + scrollY >= document.body.offsetHeight - 5 &&
-      sections.length
-    ) {
-      currentSection = sections[sections.length - 1].getAttribute("id");
-    }
-
-    // Toggle 'active' class for all nav & mobile links
-    [...navLinks, ...mobileLinks].forEach((link) => {
-      link.classList.toggle(
-        "active",
-        link.getAttribute("href") === `#${currentSection}`
-      );
+    if (window.innerHeight + scrollY >= document.body.offsetHeight - 5 && sections.length) currentSection = sections[sections.length - 1].getAttribute("id");
+    [...navLinks, ...mobileLinks].forEach(link => {
+      const isActive = link.getAttribute("href") === `#${currentSection}`;
+      link.classList.toggle("active", isActive);
+      if (isActive) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
     });
   }
-
-  // Throttle scroll events for better performance
   window.addEventListener("scroll", throttle(updateActiveLink, 100));
   updateActiveLink();
 

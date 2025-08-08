@@ -58,6 +58,12 @@ body {
   transition: background var(--transition), color var(--transition);
 }
 
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -381,9 +387,6 @@ header {
   grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
   margin-top: 2.5rem; /* 40px */
 }
-.card {
-  /* Basic container; .boxy + .boxy-padding add styling */
-}
 
 /* ============================================ */
 /*  8) SKILLS SECTION                          */
@@ -510,7 +513,7 @@ header {
 /* ============================================ */
 
 .back-to-top {
-  display: none;
+  display: flex; /* keep layout stable */
   position: fixed;
   bottom: 2.5rem;
   right: 2.5rem;
@@ -526,7 +529,10 @@ header {
   transition: background var(--transition), color var(--transition);
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  visibility: hidden;
 }
+.back-to-top.is-visible { opacity: 1; visibility: visible; }
 .back-to-top:hover,
 .back-to-top:active {
   background: var(--color-accent);
@@ -631,4 +637,22 @@ footer {
     display: block;
     margin: 0 auto 1rem;
   }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .boxy, .social-icons .icon, .back-to-top { transition: none !important; }
+}
+
+.nav-links li a[aria-current="page"], .mobile-nav li a[aria-current="page"] {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Print styles */
+@media print {
+  header, .back-to-top, #hamburger, #theme-toggle { display: none !important; }
+  a::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+  body { background: #fff; color: #000; }
 }
