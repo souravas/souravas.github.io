@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Early theme apply to prevent flash -->
+    <script>
+      try {
+        const t = localStorage.getItem('theme');
+        if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    </script>
+
+    <!-- Meta Info & Favicon -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sourav | Software Developer</title>
-
-    <!-- Meta Info & Favicon -->
-    <meta
-      name="description"
-      content="Sourav - A passionate Software Developer crafting scalable and efficient web applications."
-    />
-    <meta name="keywords" content="Sourav, Software Developer, Web Developer, Full Stack Developer, Python, Ruby on Rails, Java, Javascript" />
-    <meta name="author" content="Sourav" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.souravas.com/" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="icon" type="image/png" href="./favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Sourav" />
-    <link rel="manifest" href="./site.webmanifest" />
+    <!-- Added theme-color for PWA / UI coloring -->
+    <meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+    <!-- Preload hero/profile image -->
+    <link rel="preload" as="image" href="assets/profile.webp" imagesrcset="assets/profile.webp" fetchpriority="high" />
+    <!-- Added Open Graph & Twitter image -->
+    <meta property="og:image" content="https://www.souravas.com/assets/profile.webp" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sourav | Software Developer" />
+    <meta name="twitter:description" content="Sourav - A passionate Software Developer crafting scalable and efficient web applications." />
+    <meta name="twitter:image" content="https://www.souravas.com/assets/profile.webp" />
+    <!-- Added CSP (adjust if tightening later) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;" />
 
     <!-- Resource hints for external domains -->
     <link rel="dns-prefetch" href="//github.com" />
@@ -120,8 +128,8 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="./assets/index-DzLH-OZN.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/style-B0-K4Rle.css">
+    <script type="module" crossorigin src="./assets/index-CipJlhtH.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/style-B2nJhX8s.css">
   </head>
 
   <body>
@@ -132,7 +140,7 @@
     <header>
       <div class="container nav-container">
         <a href="https://souravas.com" class="logo">Sourav</a>
-        <nav>
+        <nav role="navigation" aria-label="Primary">
           <ul class="nav-links">
             <li><a href="#hero">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -163,7 +171,7 @@
       </div>
 
       <!-- Mobile Nav -->
-      <nav>
+      <nav role="navigation" aria-label="Mobile Primary">
         <ul class="mobile-nav" id="mobileNav">
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
@@ -513,6 +521,7 @@
         </div>
       </section>
 
+      <!-- Certifications Section -->
       <section id="certifications" class="section-container">
         <div class="container">
           <h2>Certifications</h2>
@@ -617,88 +626,39 @@
       </section>
 
       <!-- Education Section -->
-      <section id="education" class="section-container">
+      <section id="education" class="section-container" aria-labelledby="education-heading">
         <div class="container">
-          <h2>Education</h2>
-          <div class="card-grid">
-            <div class="card education-card boxy boxy-padding">
-              <a href="https://www.nssce.ac.in/" target="_blank" rel="noopener">
-                <img
-                  src="assets/nss.webp"
-                  alt="Logo of NSS College of Engineering, Palakkad"
-                  class="education-logo"
-                  loading="lazy"
-                  width="50"
-                  height="50"
-                />
+          <h2 id="education-heading">Education</h2>
+          <div class="card-grid" role="list">
+            <div class="card education-card boxy boxy-padding" role="listitem">
+              <a href="https://www.nssce.ac.in/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/nss.webp" alt="Logo of NSS College of Engineering, Palakkad" class="education-logo" loading="lazy" width="50" height="50" />
               </a>
               <h3>
-                <a
-                  href="https://www.nssce.ac.in/"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  NSS College of Engineering, Palakkad
-                </a>
+                <a href="https://www.nssce.ac.in/" target="_blank" rel="noopener noreferrer">NSS College of Engineering, Palakkad</a>
               </h3>
               <div class="degree">BTech, Computer Science</div>
-              <div class="duration">Aug 2015 – Mar 2019</div>
+              <div class="duration"><time datetime="2015-08">Aug 2015</time> – <time datetime="2019-03">Mar 2019</time></div>
             </div>
-
-            <div class="card education-card boxy boxy-padding">
-              <a
-                href="http://www.navodaya.gov.in/"
-                target="_blank"
-                rel="noopener"
-              >
-                <img
-                  src="assets/jnv.webp"
-                  alt="Logo of Jawahar Navodaya Vidyalaya (JNV)"
-                  class="education-logo"
-                  loading="lazy"
-                  width="50"
-                  height="50"
-                />
+            <div class="card education-card boxy boxy-padding" role="listitem">
+              <a href="http://www.navodaya.gov.in/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/jnv.webp" alt="Logo of Jawahar Navodaya Vidyalaya (JNV)" class="education-logo" loading="lazy" width="50" height="50" />
               </a>
               <h3>
-                <a
-                  href="http://www.navodaya.gov.in/"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Jawahar Navodaya Vidyalaya (JNV)
-                </a>
+                <a href="http://www.navodaya.gov.in/" target="_blank" rel="noopener noreferrer">Jawahar Navodaya Vidyalaya (JNV)</a>
               </h3>
               <div class="degree">High School</div>
-              <div class="duration">2008 – 2015</div>
+              <div class="duration"><time datetime="2008">2008</time> – <time datetime="2015">2015</time></div>
             </div>
-
-            <div class="card education-card boxy boxy-padding">
-              <a
-                href="https://bethanystjohns.edu.in/"
-                target="_blank"
-                rel="noopener"
-              >
-                <img
-                  src="assets/bethany.webp"
-                  alt="Logo of Bethany St.John's EHSS"
-                  class="education-logo"
-                  loading="lazy"
-                  width="50"
-                  height="50"
-                />
+            <div class="card education-card boxy boxy-padding" role="listitem">
+              <a href="https://bethanystjohns.edu.in/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/bethany.webp" alt="Logo of Bethany St.John's EHSS" class="education-logo" loading="lazy" width="50" height="50" />
               </a>
               <h3>
-                <a
-                  href="https://bethanystjohns.edu.in/"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Bethany St.John's EHSS
-                </a>
+                <a href="https://bethanystjohns.edu.in/" target="_blank" rel="noopener noreferrer">Bethany St.John's EHSS</a>
               </h3>
               <div class="degree">Primary School</div>
-              <div class="duration">2003 – 2008</div>
+              <div class="duration"><time datetime="2003">2003</time> – <time datetime="2008">2008</time></div>
             </div>
           </div>
         </div>
@@ -713,12 +673,10 @@
     </footer>
 
     <!-- Back-to-Top Button -->
-    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top">
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to Top" role="button">
       <!-- Up Arrow SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        <path
-          d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
+        <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
       </svg>
     </a>
 
