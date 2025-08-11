@@ -1,208 +1,121 @@
-# Sourav's Portfolio Site
+# Sourav's Portfolio - Integrated Site
 
-This repository houses the source code for [souravas.com](https://souravas.com) — a personal portfolio website showcasing my profile, skills, experience, and contact information. The site is built with Vite and implements SEO best practices including `robots.txt` and `sitemap.xml`.
+This repository contains an integrated version of Sourav's portfolio website that serves both v1 and v2 versions.
 
-## Table of Contents
+## 🌐 Site Structure
 
-- [Overview](#overview)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Build & Deployment](#build--deployment)
-- [File Structure](#file-structure)
-- [License](#license)
+- **Main site (/)**: Serves the original v1 design
+- **v1 (/v1)**: Redirects to the main site
+- **v2 (/v2)**: Serves the new v2 design
 
----
+## 🚀 Getting Started
 
-## Overview
+### Installation
 
-- **Live Site:** [souravas.com](https://souravas.com)
-- **Description:**
-  - Single-page portfolio: includes About, Skills, Experience, Certifications, Education, Projects, and Contact sections.
-  - Uses [Vite](https://vitejs.dev/) for fast development and optimized builds.
-  - Provides `robots.txt` and `sitemap.xml` for search engine crawling and indexing.
-  - JSON-LD structured data for improved SEO (`<script type="application/ld+json">...`).
+```bash
+# Install dependencies for the root project
+npm install
 
----
+# Install dependencies for v1
+cd v1 && npm install && cd ..
 
-## Features
-
-- **Responsive Layout**: Adapts to various screen sizes (mobile, tablet, desktop).
-- **Dark/Light Theme Toggle**: Allows users to switch between color modes with preference storage.
-- **Accessible Navigation**: "Skip to content" link, semantic HTML, and keyboard-friendly interface.
-- **Progressive Web App (PWA)**: Service worker for offline functionality and app-like experience.
-- **Performance Optimized**:
-  - Terser minification for JavaScript
-  - CSS optimization with cssnano and PostCSS
-  - Resource hints and DNS prefetching for external domains
-  - Aggressive caching strategies with service worker
-  - Optimized font loading
-- **Optimized SEO**:
-  - `robots.txt` to allow all crawlers and link to sitemap.
-  - `sitemap.xml` for better URL discovery.
-  - JSON-LD structured data for rich search results.
-  - Content Security Policy headers for security.
-
----
-
-## Technologies Used
-
-- **HTML5** & **CSS3** (Poppins font & responsive design)
-- **JavaScript (ES6+)** with modern optimization
-- **Vite** for front-end tooling and build optimization
-- **PostCSS** with autoprefixer and cssnano for CSS optimization
-- **Terser** for advanced JavaScript minification
-- **Service Worker** for PWA functionality and caching
-- **GitHub Pages** for deployment
-- **Namecheap** for custom domain
-
----
-
-## Installation
-
-1. **Clone** the repository:
-    ```bash
-    git clone https://github.com/souravas/souravas.github.io.git
-    cd souravas.github.io
-    ```
-
-2. **Install** dependencies:
-   ```bash
-   npm install
-   ```
-
-3. **Start** the development server:
-   ```bash
-   npm run dev
-   ```
-
----
-
-## Build & Deployment
-
-- **Development**:
-  ```bash
-  npm run dev
-  ```
-  This starts Vite's development server with hot module replacement.
-
-- **Production Build**:
-  ```bash
-  npm run build
-  ```
-  This generates optimized assets in the `dist` directory with:
-  - Terser minification for JavaScript
-  - CSS optimization with cssnano
-  - Resource bundling and tree shaking
-  - Service worker generation for PWA functionality
-
-- **Optimization Analysis**:
-  ```bash
-  npm run optimize
-  ```
-  This builds the site and runs bundle analysis to check optimization effectiveness.
-
-- **Preview Production Build**:
-  ```bash
-  npm run preview
-  ```
-  This serves the production build locally for testing.
-
-- **Deploy**:
-  ```bash
-  npm run deploy
-  ```
-  This builds the site and deploys it to GitHub Pages using the gh-pages package.
-
-- **Quick Optimization** (optional):
-  ```bash
-  ./optimize.sh
-  ```
-  This runs a comprehensive optimization script that cleans, builds, and analyzes the site.
-
----
-
-## File Structure
-
-```
-souravas.github.io/
-├─ src/
-│  ├─ style.css       # Main stylesheet
-│  └─ main.js         # JavaScript functionality (includes service worker registration)
-├─ public/
-│  ├─ assets/         # Images, resume PDF, etc.
-│  ├─ favicon.ico     # Site favicon
-│  ├─ robots.txt      # Instructions for web crawlers
-│  ├─ sitemap.xml     # Site structure for search engines
-│  ├─ resume.html     # Resume redirect page
-│  ├─ cv.html         # CV redirect page
-│  ├─ sw.js           # Service worker for PWA functionality
-│  ├─ _headers        # HTTP headers for security and caching
-│  └─ site.webmanifest # Progressive Web App manifest
-├─ index.html         # Main HTML entry point
-├─ vite.config.js     # Vite configuration with optimization settings
-├─ postcss.config.js  # PostCSS configuration for CSS optimization
-├─ package.json       # Project dependencies and scripts
-├─ optimize.sh        # Optional optimization script
-├─ CNAME              # Custom domain configuration
-└─ README.md          # Project documentation
+# Install dependencies for v2
+cd v2 && npm install && cd ..
 ```
 
-- **`src/`**: Contains JavaScript and CSS source files.
-- **`public/`**: Static files served at the root path.
-- **`index.html`**: Main HTML document with structured data.
-- **`vite.config.js`**: Configuration for the Vite build tool.
+### Development
 
----
+```bash
+# Run v1 in development mode
+npm run dev:v1
 
-## Performance Optimization
+# Run v2 in development mode  
+npm run dev:v2
 
-The site implements several performance optimizations:
+# Run v1 by default
+npm run dev
+```
 
-### **Build Optimizations**
-- **JavaScript**: Minified with Terser (~2.78kB gzipped)
-- **CSS**: Optimized with cssnano and PostCSS (~2.15kB gzipped)
-- **HTML**: Compressed and optimized (~8.34kB gzipped)
-- **Total bundle size**: ~12.5kB gzipped
+### Building
 
-### **Caching Strategy**
-- **Service Worker**: Aggressive caching for repeat visits
-- **HTTP Headers**: Long-term caching for static assets
-- **Progressive Web App**: Offline functionality and fast loading
+```bash
+# Build both versions and integrate them
+npm run build
 
-### **Loading Performance**
-- **Resource Hints**: DNS prefetching for external domains
-- **Font Optimization**: Async loading with fallbacks
-- **Critical CSS**: Inlined for faster initial render
-- **Tree Shaking**: Dead code elimination
+# Build only v1
+npm run build:v1
 
-### **Monitoring**
-Use `npm run optimize` to analyze bundle sizes and performance metrics.
+# Build only v2
+npm run build:v2
 
-### **Service Worker Debugging**
-To check if the service worker is running:
+# Clean all build artifacts
+npm run clean
+```
 
-1. **Browser DevTools** (Recommended):
-   - Open your site → Press `F12` → **Application** tab → **Service Workers**
-   - Look for "Activated and is running" status
+### Deployment
 
-2. **Browser Internals**:
-   - Chrome: `chrome://serviceworker-internals/`
-   - Firefox: `about:serviceworkers`
-   - Edge: `edge://serviceworker-internals/`
+```bash
+# Deploy to GitHub Pages
+npm run deploy
 
-3. **Console Messages**:
-   - Look for `✅ SW registered successfully` in browser console
-   - Check for service worker activity logs
+# Or use the shell script
+./deploy.sh
+```
 
-4. **Debug Script**:
-   ```bash
-   ./check-sw.sh
-   ```
-   This script verifies service worker files and provides debugging guidance.
+## 📁 Project Structure
 
----
+```
+souravas.github.io_integrated/
+├── v1/                 # Original portfolio (v1)
+├── v2/                 # New portfolio design (v2)
+├── scripts/
+│   └── integrate.js    # Integration script
+├── dist/               # Final integrated build
+├── deploy.sh           # Deployment script
+└── package.json        # Root package.json
+```
 
-## License
+## 🔧 How It Works
 
-This project is open source and available under the Apache License.
+1. **Build Process**: Each version is built independently in its respective directory
+2. **Integration**: The `integrate.js` script combines both builds:
+   - v1 files are copied to the root of `dist/`
+   - v2 files are copied to `dist/v2/`
+   - A redirect is created at `dist/v1/` that points to the root
+3. **Deployment**: The integrated `dist/` folder is deployed to GitHub Pages
+
+## 🛠 Maintenance
+
+### Adding New Features
+
+- **For v1**: Work in the `v1/` directory
+- **For v2**: Work in the `v2/` directory  
+- **For shared functionality**: Consider updating the integration script
+
+### Updating Dependencies
+
+```bash
+# Update root dependencies
+npm update
+
+# Update v1 dependencies
+cd v1 && npm update && cd ..
+
+# Update v2 dependencies
+cd v2 && npm update && cd ..
+```
+
+## 📊 Performance
+
+Both versions are optimized for production with:
+- Minified assets
+- Tree shaking
+- CSS optimization  
+- Image optimization
+- Service worker caching (where applicable)
+
+## 🔗 Links
+
+- **Live Site**: https://souravas.github.io
+- **V2 Version**: https://souravas.github.io/v2
+- **Repository**: https://github.com/souravas/souravas.github.io
