@@ -217,13 +217,13 @@ a:hover{
     padding-left: 0;
     margin-left: 1rem;
   }
-  
+
   .edu li{
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.8rem;
   }
-  
+
   .edu li::before{
     content: "•";
     color: var(--brand);
@@ -475,7 +475,7 @@ input.error,textarea.error{border-color:var(--error)}
 
   /* Ensure bullets don't extend too far left */
   .bullets{margin-left:1rem}
-  
+
   /* Additional spacing between specific sections on mobile */
   #experience{margin-top: 1rem}
   #education{margin-top: 1rem}
