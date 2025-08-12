@@ -1,15 +1,20 @@
 {
-  "name": "Sourav \u2014 Senior Software Engineer",
+  "name": "Sourav — Senior Software Engineer Portfolio",
   "short_name": "Sourav",
+  "description": "Portfolio of Sourav, a Senior Software Engineer specializing in backend development, REST APIs, and system optimization",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#0b1220",
   "theme_color": "#0ea5e9",
+  "categories": ["portfolio", "developer", "software"],
+  "lang": "en",
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }

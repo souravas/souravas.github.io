@@ -64,15 +64,15 @@
         <img src="/assets/logo-mark.svg" alt="" class="brand-mark" />
         <span class="brand-text">Sourav</span>
       </a>
-      <button id="themeToggle" class="btn btn-ghost" aria-label="Toggle theme">🌓</button>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#certs">Certifications</a></li>
-        <li><a href="/assets/resume.pdf" target="_blank">Resume</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <button id="themeToggle" class="btn btn-ghost" aria-label="Toggle dark/light theme">🌓</button>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="#about" aria-label="About section">About</a></li>
+        <li><a href="#skills" aria-label="Skills section">Skills</a></li>
+        <li><a href="#experience" aria-label="Experience section">Experience</a></li>
+        <li><a href="#projects" aria-label="Projects section">Projects</a></li>
+        <li><a href="#certs" aria-label="Certifications section">Certifications</a></li>
+        <li><a href="/assets/resume.pdf" target="_blank" aria-label="Download resume (opens in new tab)">Resume</a></li>
+        <li><a href="#contact" aria-label="Contact section">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -82,17 +82,27 @@
       <div class="hero-text">
         <h1>Hi, I'm <span class="grad">Sourav</span>.</h1>
         <p class="tagline">Senior Software Engineer · 5+ Years · Innovator · Problem Solver</p>
-        <p class="lead">Backend developer specializing in <strong>REST APIs</strong>, <strong>database optimization</strong>, and <strong>backend automation</strong> across monoliths and microservices. I design efficient systems, optimize workflows, and ship high-impact solutions.</p>
+        <p class="lead">Backend developer specializing in <strong>REST APIs</strong>, <strong>database optimization</strong>, and <strong>backend automation</strong> across monoliths and microservices. I design efficient systems, optimize workflows, and ship high-impact solutions that drive business growth.</p>
+
         <div class="cta">
-          <a class="btn btn-primary" href="#contact">Hire me</a>
-          <a class="btn btn-outline" href="/assets/resume.pdf" target="_blank">Resume</a>
-          <a class="btn btn-outline" href="https://github.com/souravas" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn btn-outline" href="https://www.linkedin.com/in/souravas/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn btn-primary" href="#contact" aria-label="Contact me for work opportunities">
+            💼 Hire me
+          </a>
+          <a class="btn btn-outline" href="/assets/resume.pdf" target="_blank" aria-label="Download my resume">
+            📄 Resume
+          </a>
+          <a class="btn btn-outline" href="https://github.com/souravas" target="_blank" rel="noreferrer" aria-label="Visit my GitHub profile">
+            🔗 GitHub
+          </a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/souravas/" target="_blank" rel="noreferrer" aria-label="Connect on LinkedIn">
+            💼 LinkedIn
+          </a>
         </div>
         <ul class="meta">
           <li>📍 India · Open to <strong>Hybrid / Remote / On-site</strong></li>
-          <li>✉️ <a href="mailto:souravas007@gmail.com">souravas007@gmail.com</a></li>
-          <li>📱 <a href="tel:+919526444907">+91-9526-444-907</a></li>
+          <li>✉️ <a href="mailto:souravas007@gmail.com" aria-label="Send email">souravas007@gmail.com</a></li>
+          <li>📱 <a href="tel:+919526444907" aria-label="Call phone number">+91-9526-444-907</a></li>
+          <li>🌟 Available for new opportunities</li>
         </ul>
       </div>
       <div class="hero-art">
@@ -213,20 +223,23 @@
       <h2>Contact</h2>
       <div class="contact">
         <p>Best way: email me at <a href="mailto:souravas007@gmail.com">souravas007@gmail.com</a>. For quick chats, connect on <a href="https://www.linkedin.com/in/souravas/" target="_blank" rel="noreferrer">LinkedIn</a>.</p>
-        <form id="contact-form" action="#" method="post" class="card">
+        <form id="contact-form" action="#" method="post" class="card" aria-label="Contact form">
           <div class="row">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" required placeholder="Your name" />
+            <label for="name">Name *</label>
+            <input id="name" name="name" type="text" required placeholder="Your name" aria-describedby="name-help" />
+            <small id="name-help" class="sr-only">Enter your full name</small>
           </div>
           <div class="row">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required placeholder="you@example.com" />
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com" aria-describedby="email-help" />
+            <small id="email-help" class="sr-only">Enter a valid email address</small>
           </div>
           <div class="row">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" required placeholder="How can I help?"></textarea>
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="4" required placeholder="How can I help?" aria-describedby="message-help"></textarea>
+            <small id="message-help" class="sr-only">Describe your project or inquiry</small>
           </div>
-          <button class="btn btn-primary" type="submit">Send</button>
+          <button class="btn btn-primary" type="submit" aria-label="Send contact message">Send Message</button>
         </form>
       </div>
     </section>
