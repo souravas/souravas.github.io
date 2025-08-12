@@ -190,7 +190,7 @@ a:hover{
 .skill-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 .card{background:var(--bg-elev);border:1px solid var(--border);border-radius:18px;padding:1rem 1.1rem;box-shadow:var(--shadow)}
 .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
-.chip{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.35);color:#7dd3fc;padding:.35rem .6rem;border-radius:999px;font-size:.9rem}
+.chip{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.35);color:var(--brand);padding:.35rem .6rem;border-radius:999px;font-size:.9rem}
 
 .timeline{position:relative;margin-top:.5rem}
 .timeline:before{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand), transparent)}
