@@ -30,7 +30,54 @@ import './style.css'
   }
 })();
 
-// Contact form -> fallback to mailto with better UX
+// Mobile navigation toggle - Simplified
+document.addEventListener('DOMContentLoaded', function(){
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  if(navToggle && navLinks){
+    console.log("Navigation elements found and ready"); // Debug log
+
+    navToggle.addEventListener("click", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isOpen = navLinks.classList.contains("open");
+
+      if(isOpen) {
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        console.log("Menu closed");
+      } else {
+        navLinks.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+        console.log("Menu opened");
+      }
+    });
+
+    // Close menu when clicking on a link
+    navLinks.addEventListener("click", function(e) {
+      if(e.target.tagName === "A"){
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        console.log("Menu closed via link click");
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function(e) {
+      if(!navToggle.contains(e.target) && !navLinks.contains(e.target)){
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  } else {
+    console.error("Navigation elements not found!", {
+      navToggle: !!navToggle,
+      navLinks: !!navLinks
+    });
+  }
+});// Contact form -> fallback to mailto with better UX
 (function(){
   const form = document.getElementById('contact-form');
   if(!form) return;
