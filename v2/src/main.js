@@ -59,6 +59,35 @@ import './style.css'
   });
 })();
 
+// Contact form -> fallback to mailto with better UX
+(function(){
+  const form = document.getElementById('contact-form');
+  if(!form) return;
+
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+
+    try {
+      const data = new FormData(form);
+      const name = encodeURIComponent(data.get('name') || "");
+      const email = encodeURIComponent(data.get('email') || "");
+      const msg = encodeURIComponent(data.get('message') || "");
+
+      if(!name || !email || !msg) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      const subject = `Website contact from ${decodeURIComponent(name)}`;
+      const body = `From: ${decodeURIComponent(name)} <${decodeURIComponent(email)}>%0D%0A%0D%0A${decodeURIComponent(msg)}`;
+      window.location.href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
+    } catch (error) {
+      console.error('Contact form error:', error);
+      alert('Error sending message. Please try again.');
+    }
+  });
+})();
+
 // Load projects from GitHub with improved error handling
 (async function loadProjects(){
   const grid = document.getElementById("projects-grid");

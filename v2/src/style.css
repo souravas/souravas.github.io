@@ -221,15 +221,6 @@ input.error,textarea.error{border-color:var(--error)}
 .error-state{text-align:center;padding:2rem;color:var(--muted)}
 .error-state .btn{margin-top:1rem}
 
-/* Enhanced project cards */
-.project-card{transition:all .3s ease}
-.project-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(2,6,23,.6)}
-.project-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
-.project-lang{background:rgba(14,165,233,.15);color:var(--brand);padding:.2rem .6rem;border-radius:12px;font-size:.75rem;font-weight:600}
-.project-description{color:var(--muted);font-size:.95rem;margin:.5rem 0}
-.project-stats{display:flex;gap:1rem;margin-top:.8rem;font-size:.8rem;color:var(--muted)}
-.project-stats .stat{display:flex;align-items:center;gap:.2rem}
-
 /* Scrolled header */
 .site-header.scrolled{background:rgba(11,18,32,.95);backdrop-filter:blur(12px)}
 [data-theme="light"] .site-header.scrolled{background:rgba(248,250,252,.95)}
@@ -256,6 +247,4 @@ input.error,textarea.error{border-color:var(--error)}
   .grid{grid-template-columns:1fr}
   .hero .cta{flex-direction:column;align-items:center}
   .about-stats{grid-template-columns:1fr 1fr}
-  .project-stats{flex-direction:column;gap:.5rem}
-  .project-stats .stat{justify-content:center}
 }
