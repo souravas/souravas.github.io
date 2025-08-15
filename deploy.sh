@@ -43,9 +43,9 @@ if [ $? -eq 0 ]; then
     if [ $? -eq 0 ]; then
         echo "🎉 Deployment successful!"
         echo "🔗 Your site should be available at:"
-        echo "   Main site (v1): https://souravas.github.io"
-        echo "   Version 1: https://souravas.github.io/v1 (redirects to main)"
-        echo "   Version 2: https://souravas.github.io/v2"
+        echo "   Main site (v2): https://souravas.github.io"
+        echo "   Version 1: https://souravas.github.io/v1"
+        echo "   Version 2: https://souravas.github.io/v2 (redirects to main)"
     else
         echo "❌ Deployment failed!"
         exit 1

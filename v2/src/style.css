@@ -218,6 +218,13 @@ a:hover{
 
 .skill-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 .card{background:var(--bg-elev);border:1px solid var(--border);border-radius:18px;padding:1rem 1.1rem;box-shadow:var(--shadow)}
+
+/* Certification card styling */
+.cert-card a{display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--text);transition:var(--transition)}
+.cert-card a:hover{color:var(--text);text-decoration:none;transform:translateY(-2px)}
+.cert-icon{width:2.5rem;height:2.5rem;fill:var(--brand);flex-shrink:0}
+.cert-card h3{margin:0;font-size:1.1rem;line-height:1.3}
+.cert-card p{margin:0.5rem 0 0 0;color:var(--muted);font-size:0.9rem}
 .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
 .chip{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.35);color:var(--brand);padding:.35rem .6rem;border-radius:999px;font-size:.9rem}
 
