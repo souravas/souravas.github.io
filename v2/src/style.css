@@ -69,8 +69,9 @@ html{
 }
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-  background: radial-gradient(1200px 600px at 10% 10%, rgba(14,165,233,.07), transparent 60%),
-              radial-gradient(800px 400px at 90% 0%, rgba(34,211,238,.07), transparent 60%),
+  background: radial-gradient(1400px 800px at 15% 15%, rgba(14,165,233,.05), transparent 85%),
+              radial-gradient(1000px 600px at 85% 10%, rgba(34,211,238,.04), transparent 85%),
+              radial-gradient(1200px 700px at 50% 100%, rgba(14,165,233,.03), transparent 90%),
               var(--bg);
   color: var(--text);
   line-height: 1.65;
@@ -329,12 +330,12 @@ input.error,textarea.error{border-color:var(--error)}
   .section{padding:4rem 0} /* More vertical spacing */
   
   /* Increase spacing between headings and content */
-  .section h2{margin-bottom:3rem !important; margin-top:3rem !important} /* Large gap both above and below section headings */
-  .edu-grid{margin-top:2rem} /* Extra space above education grid */
-  .grid{margin-top:2rem} /* Extra space above certification grid */
-  .timeline{margin-top:2rem} /* Extra space above experience timeline */
-  .skill-groups{margin-top:2rem} /* Extra space above skills grid */
-  .contact{margin-top:2rem} /* Extra space above contact content */
+  .section h2{margin-bottom:1.5rem !important; margin-top:2rem !important} /* Balanced gap above and below section headings */
+  .edu-grid{margin-top:1rem} /* Reduced space above education grid */
+  .grid{margin-top:1rem} /* Reduced space above certification grid */
+  .timeline{margin-top:1rem} /* Reduced space above experience timeline */
+  .skill-groups{margin-top:1rem} /* Reduced space above skills grid */
+  .contact{margin-top:1rem} /* Reduced space above contact content */
 }
 
 /* Responsive */
@@ -351,12 +352,12 @@ input.error,textarea.error{border-color:var(--error)}
   .section{padding:4.5rem 0} /* Increased vertical spacing */
   
   /* Additional spacing between headings and content for medium screens */
-  .section h2{margin-bottom:3.5rem !important; margin-top:3.5rem !important} /* Even larger gap above and below on medium screens */
-  .edu-grid{margin-top:2.5rem} /* More space above education grid */
-  .grid{margin-top:2.5rem} /* More space above certification grid */
-  .timeline{margin-top:2.5rem} /* More space above experience timeline */
-  .skill-groups{margin-top:2.5rem} /* More space above skills grid */
-  .contact{margin-top:2.5rem} /* More space above contact content */
+  .section h2{margin-bottom:1.8rem !important; margin-top:2.5rem !important} /* Balanced gap above and below on medium screens */
+  .edu-grid{margin-top:1.2rem} /* Balanced space above education grid */
+  .grid{margin-top:1.2rem} /* Balanced space above certification grid */
+  .timeline{margin-top:1.2rem} /* Balanced space above experience timeline */
+  .skill-groups{margin-top:1.2rem} /* Balanced space above skills grid */
+  .contact{margin-top:1.2rem} /* Balanced space above contact content */
 }
 
 /* Medium tablets - ensure proper spacing */
@@ -365,12 +366,12 @@ input.error,textarea.error{border-color:var(--error)}
   .section{padding:5rem 0} /* Much more vertical padding */
   
   /* Maximum spacing for tablet range */
-  .section h2{margin-bottom:4rem !important; margin-top:4rem !important} /* Maximum gap above and below section headings */
-  .edu-grid{margin-top:3rem} /* Maximum space above education grid */
-  .grid{margin-top:3rem} /* Maximum space above certification grid */
-  .timeline{margin-top:3rem} /* Maximum space above experience timeline */
-  .skill-groups{margin-top:3rem} /* Maximum space above skills grid */
-  .contact{margin-top:3rem} /* Maximum space above contact content */
+  .section h2{margin-bottom:2rem !important; margin-top:3rem !important} /* Balanced maximum gap above and below section headings */
+  .edu-grid{margin-top:1.5rem} /* Balanced space above education grid */
+  .grid{margin-top:1.5rem} /* Balanced space above certification grid */
+  .timeline{margin-top:1.5rem} /* Balanced space above experience timeline */
+  .skill-groups{margin-top:1.5rem} /* Balanced space above skills grid */
+  .contact{margin-top:1.5rem} /* Balanced space above contact content */
 }
 
 /* Mobile Navigation - Simpler approach */
