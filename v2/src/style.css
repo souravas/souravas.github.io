@@ -128,8 +128,11 @@ a:hover{
 .brand-mark{width:28px;height:28px}
 .brand-text{letter-spacing:.02em}
 .nav-links{list-style:none;display:flex;gap:1rem;margin-left:auto}
-.nav-links a{color:var(--text);text-decoration:none;opacity:.9;transition:var(--transition)}
+.nav-links a{color:var(--text);text-decoration:none;opacity:.9;transition:var(--transition);position:relative;padding:.5rem 0}
 .nav-links a:hover{opacity:1;color:var(--text);text-decoration:none}
+.nav-links a.active{font-weight:600;color:var(--brand);opacity:1}
+.nav-links a.active::after{content:"";display:block;position:absolute;bottom:-.25rem;left:0;width:100%;height:.1875rem;background:var(--brand);border-radius:.125rem}
+.nav-links a[aria-current="page"]{font-weight:700;color:var(--brand)}
 
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:2rem 0 1.5rem}
 .hero .tagline{color:var(--muted);font-weight:600;margin-top:.5rem}
@@ -203,12 +206,22 @@ a:hover{
 .t-item{position:relative;padding-left:2.2rem;margin:1.2rem 0}
 .t-marker{position:absolute;left:1px;top:.6rem;width:18px;height:18px;border-radius:50%;background:linear-gradient(var(--brand),var(--brand-2));box-shadow:0 0 0 4px rgba(14,165,233,.15)}
 .t-header{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;margin-bottom:.4rem}
+.t-company{display:flex;align-items:center;gap:.6rem}
+.company-logo{width:2.5rem;height:2.5rem;object-fit:contain;border-radius:.25rem}
 .bullets{margin-left:1.2rem;display:grid;gap:.35rem}
 
 .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:1rem;margin-top:.8rem}
 .grid.cards .card{min-height:120px}
 
 .edu{display:grid;gap:.4rem;margin-top:.6rem}
+
+/* Education grid layout */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:.8rem}
+.edu-card{display:grid;grid-template-rows:auto auto 1fr;align-items:center;text-align:center;padding:1.2rem}
+.edu-card h3{margin:.3rem 0;font-size:1.2em}
+.edu-logo{width:3rem;height:3rem;object-fit:contain;border-radius:.25rem;margin:0 auto .6rem}
+.degree{font-size:.95em;font-weight:500;color:var(--muted);margin-bottom:.2rem}
+.duration{font-size:.85em;color:var(--muted)}
 
 /* Fix education list styling on mobile */
 @media (max-width: 768px){
@@ -260,6 +273,32 @@ input.error,textarea.error{border-color:var(--error)}
 .site-footer .social{list-style:none;display:flex;gap:.9rem}
 .site-footer .social a{color:var(--muted);text-decoration:none;transition:var(--transition)}
 .site-footer .social a:hover{color:var(--text);text-decoration:none}
+
+/* Back-to-Top Button */
+.back-to-top{
+  display:flex;
+  position:fixed;
+  bottom:2.5rem;
+  right:2.5rem;
+  width:3rem;
+  height:3rem;
+  background:var(--brand);
+  color:#000;
+  border-radius:50%;
+  font-size:1.6em;
+  text-decoration:none;
+  cursor:pointer;
+  z-index:2000;
+  transition:var(--transition);
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(20px);
+}
+.back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{background:var(--brand-2);color:#000;text-decoration:none;transform:translateY(-2px) scale(1.1)}
+.back-to-top svg{width:1em;height:1em;fill:currentColor}
 
 /* Mobile menu toggle */
 .nav-toggle{
@@ -411,6 +450,8 @@ input.error,textarea.error{border-color:var(--error)}
   .grid{grid-template-columns:1fr}
   .about-stats{grid-template-columns:1fr 1fr}
   .skill-groups{grid-template-columns:1fr}
+  .edu-grid{grid-template-columns:1fr}
+  .edu-logo{width:2.5rem;height:2.5rem}
 
   /* Metrics mobile layout */
   .metrics{
@@ -427,6 +468,8 @@ input.error,textarea.error{border-color:var(--error)}
   /* Timeline mobile adjustments */
   .t-item{margin:1rem 0; padding-left:2.5rem}
   .t-header{flex-direction:column; align-items:flex-start; gap:0.3rem}
+  .t-company{gap:.4rem}
+  .company-logo{width:2rem;height:2rem}
 
   /* Ensure timeline doesn't touch edge on mobile */
   .timeline {
@@ -439,6 +482,9 @@ input.error,textarea.error{border-color:var(--error)}
 
   /* Floating tech badges - hide on mobile for cleaner look */
   .floating-tech{display:none}
+
+  /* Back-to-top mobile adjustments */
+  .back-to-top{bottom:1.5rem;right:1.5rem;width:2.8rem;height:2.8rem}
 }
 
 /* Extra small mobile devices */

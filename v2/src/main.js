@@ -106,33 +106,89 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 })();
 
-// Contact form -> fallback to mailto with better UX
+// Back-to-Top Button functionality
 (function(){
-  const form = document.getElementById('contact-form');
-  if(!form) return;
+  const backToTop = document.getElementById("back-to-top");
+  if(!backToTop) return;
 
-  form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-
-    try {
-      const data = new FormData(form);
-      const name = encodeURIComponent(data.get('name') || "");
-      const email = encodeURIComponent(data.get('email') || "");
-      const msg = encodeURIComponent(data.get('message') || "");
-
-      if(!name || !email || !msg) {
-        alert('Please fill in all fields');
-        return;
-      }
-
-      const subject = `Website contact from ${decodeURIComponent(name)}`;
-      const body = `From: ${decodeURIComponent(name)} <${decodeURIComponent(email)}>%0D%0A%0D%0A${decodeURIComponent(msg)}`;
-      window.location.href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
-    } catch (error) {
-      console.error('Contact form error:', error);
-      alert('Error sending message. Please try again.');
+  function toggleBackToTopVisibility() {
+    if (window.scrollY > 300) {
+      backToTop.classList.add('is-visible');
+    } else {
+      backToTop.classList.remove('is-visible');
     }
+  }
+
+  // Throttle scroll events for performance
+  let ticking = false;
+  function throttledScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        toggleBackToTopVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", throttledScroll);
+  
+  backToTop.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
+  
+  // Initial check
+  toggleBackToTopVisibility();
+})();
+
+// Active navigation highlighting
+(function(){
+  const sections = Array.from(document.querySelectorAll("section[id]"));
+  const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
+  const headerOffset = 100;
+
+  function updateActiveLink() {
+    let currentSection = "";
+    const scrollY = window.scrollY;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - headerOffset;
+      const sectionHeight = section.offsetHeight;
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    // If at bottom of page, highlight last section
+    if (window.innerHeight + scrollY >= document.body.offsetHeight - 5 && sections.length) {
+      currentSection = sections[sections.length - 1].getAttribute("id");
+    }
+
+    navLinks.forEach(link => {
+      const isActive = link.getAttribute("href") === `#${currentSection}`;
+      link.classList.toggle("active", isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  let navTicking = false;
+  function throttledNavScroll() {
+    if (!navTicking) {
+      requestAnimationFrame(() => {
+        updateActiveLink();
+        navTicking = false;
+      });
+      navTicking = true;
+    }
+  }
+
+  window.addEventListener("scroll", throttledNavScroll);
+  updateActiveLink(); // Initial check
 })();
 
 // Load projects from GitHub with improved error handling
