@@ -1,76 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-  http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.souravas.com/</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>1.00</priority>
+    <loc>https://souravas.com/</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- About Section -->
-  <url>
-    <loc>https://www.souravas.com/#about</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- Skills Section -->
-  <url>
-    <loc>https://www.souravas.com/#skills</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- Experience Section -->
-  <url>
-    <loc>https://www.souravas.com/#experience</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- Certifications Section -->
-  <url>
-    <loc>https://www.souravas.com/#certifications</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- Education Section -->
-  <url>
-    <loc>https://www.souravas.com/#education</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- Resume/CV Pages -->
-  <url>
-    <loc>https://www.souravas.com/assets/resume.pdf</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.souravas.com/resume</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
+    <loc>https://souravas.com/#about</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.souravas.com/cv</loc>
-    <lastmod>2025-08-05</lastmod>
-    <priority>0.80</priority>
+    <loc>https://souravas.com/#skills</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://souravas.com/#experience</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://souravas.com/#projects</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://souravas.com/#contact</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
