@@ -90,7 +90,7 @@ main{
 .container{max-width:1100px;margin:0 auto;padding:0 1.2rem}
 .section{padding:4.5rem 0}
 h1{font-size:clamp(1.8rem, 5vw, 3.2rem);line-height:1.15;letter-spacing:-.02em}
-h2{font-size:clamp(1.4rem, 4vw, 2.2rem);margin-bottom:1rem}
+h2{font-size:clamp(1.4rem, 4vw, 2.2rem);margin-bottom:2rem} /* Increased spacing below section headings */
 h3{font-size:1.15rem;margin-bottom:.5rem}
 p{margin:.8rem 0}
 .muted{color:var(--muted)}
@@ -323,8 +323,23 @@ input.error,textarea.error{border-color:var(--error)}
   outline-offset:2px;
 }
 
+/* Large tablets and small laptops - fix 1039px dimension */
+@media (max-width: 1100px){
+  .container{padding:0 2.5rem !important} /* Ensure adequate padding for larger screens */
+  .section{padding:4rem 0} /* More vertical spacing */
+  
+  /* Increase spacing between headings and content */
+  .section h2{margin-bottom:3rem !important; margin-top:3rem !important} /* Large gap both above and below section headings */
+  .edu-grid{margin-top:2rem} /* Extra space above education grid */
+  .grid{margin-top:2rem} /* Extra space above certification grid */
+  .timeline{margin-top:2rem} /* Extra space above experience timeline */
+  .skill-groups{margin-top:2rem} /* Extra space above skills grid */
+  .contact{margin-top:2rem} /* Extra space above contact content */
+}
+
 /* Responsive */
 @media (max-width: 950px){
+  .container{padding:0 2rem !important} /* Ensure adequate padding at medium screen sizes */
   .hero{grid-template-columns:1fr; text-align:center; gap:1.5rem}
   .hero .cta{justify-content:center;flex-wrap:wrap}
   .hero .meta{justify-content:center}
@@ -333,7 +348,29 @@ input.error,textarea.error{border-color:var(--error)}
   .skill-groups{grid-template-columns:1fr;gap:.8rem}
   .grid{grid-template-columns:1fr 1fr}
   .contact{grid-template-columns:1fr}
-  .section{padding:3rem 0}
+  .section{padding:4.5rem 0} /* Increased vertical spacing */
+  
+  /* Additional spacing between headings and content for medium screens */
+  .section h2{margin-bottom:3.5rem !important; margin-top:3.5rem !important} /* Even larger gap above and below on medium screens */
+  .edu-grid{margin-top:2.5rem} /* More space above education grid */
+  .grid{margin-top:2.5rem} /* More space above certification grid */
+  .timeline{margin-top:2.5rem} /* More space above experience timeline */
+  .skill-groups{margin-top:2.5rem} /* More space above skills grid */
+  .contact{margin-top:2.5rem} /* More space above contact content */
+}
+
+/* Medium tablets - ensure proper spacing */
+@media (max-width: 1024px) and (min-width: 769px){
+  .container{padding:0 2.5rem !important} /* Extra padding for medium screens */
+  .section{padding:5rem 0} /* Much more vertical padding */
+  
+  /* Maximum spacing for tablet range */
+  .section h2{margin-bottom:4rem !important; margin-top:4rem !important} /* Maximum gap above and below section headings */
+  .edu-grid{margin-top:3rem} /* Maximum space above education grid */
+  .grid{margin-top:3rem} /* Maximum space above certification grid */
+  .timeline{margin-top:3rem} /* Maximum space above experience timeline */
+  .skill-groups{margin-top:3rem} /* Maximum space above skills grid */
+  .contact{margin-top:3rem} /* Maximum space above contact content */
 }
 
 /* Mobile Navigation - Simpler approach */
