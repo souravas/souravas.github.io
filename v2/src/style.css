@@ -69,9 +69,18 @@ html{
 }
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-  background: radial-gradient(1400px 800px at 15% 15%, rgba(14,165,233,.05), transparent 85%),
-              radial-gradient(1000px 600px at 85% 10%, rgba(34,211,238,.04), transparent 85%),
-              radial-gradient(1200px 700px at 50% 100%, rgba(14,165,233,.03), transparent 90%),
+  background: linear-gradient(180deg, 
+                rgba(14,165,233,.02) 0%, 
+                rgba(14,165,233,.018) 10%, 
+                rgba(14,165,233,.016) 20%, 
+                rgba(14,165,233,.014) 30%, 
+                rgba(14,165,233,.012) 40%, 
+                rgba(14,165,233,.01) 50%, 
+                rgba(14,165,233,.008) 60%, 
+                rgba(14,165,233,.006) 70%, 
+                rgba(14,165,233,.004) 80%, 
+                rgba(14,165,233,.002) 90%, 
+                transparent 100%),
               var(--bg);
   color: var(--text);
   line-height: 1.65;
