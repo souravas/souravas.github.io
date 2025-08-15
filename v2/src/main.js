@@ -142,31 +142,50 @@ document.addEventListener('DOMContentLoaded', function(){
   toggleBackToTopVisibility();
 })();
 
-// Active navigation highlighting
+// Active navigation highlighting - Simple and reliable approach
 (function(){
   const sections = Array.from(document.querySelectorAll("section[id]"));
   const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
-  const headerOffset = 100;
+  const headerOffset = 120; // Slightly larger offset
 
   function updateActiveLink() {
-    let currentSection = "";
     const scrollY = window.scrollY;
+    let currentSection = "";
     
-    sections.forEach(section => {
+    // Simple approach: find the section whose top is closest to current scroll position
+    // but only if we've actually scrolled past its beginning
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = sections[i];
       const sectionTop = section.offsetTop - headerOffset;
-      const sectionHeight = section.offsetHeight;
-      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      
+      if (scrollY >= sectionTop) {
         currentSection = section.getAttribute("id");
+        break;
       }
-    });
+    }
 
-    // If at bottom of page, highlight last section
-    if (window.innerHeight + scrollY >= document.body.offsetHeight - 5 && sections.length) {
-      currentSection = sections[sections.length - 1].getAttribute("id");
+    // Don't highlight anything if we're at the very top
+    if (scrollY < 50) {
+      currentSection = "";
+    }
+
+    // Don't highlight contact unless we're really deep into it
+    if (currentSection === "contact") {
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        const contactTop = contactSection.offsetTop - headerOffset;
+        const contactHeight = contactSection.offsetHeight;
+        
+        // Only highlight contact if we're at least 200px into the section
+        if (scrollY < contactTop + 200) {
+          currentSection = ""; // Don't highlight contact unless we're really in it
+        }
+      }
     }
 
     navLinks.forEach(link => {
-      const isActive = link.getAttribute("href") === `#${currentSection}`;
+      const targetSection = link.getAttribute("href")?.substring(1);
+      const isActive = currentSection && currentSection === targetSection;
       link.classList.toggle("active", isActive);
       if (isActive) {
         link.setAttribute('aria-current', 'page');
