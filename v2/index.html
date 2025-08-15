@@ -303,22 +303,27 @@
 
     <section id="contact" class="section container">
       <h2>Contact</h2>
-      <div class="contact">
-        <p>Best way: email me at <a href="mailto:souravas007@gmail.com">souravas007@gmail.com</a>. For quick chats, connect on <a href="https://www.linkedin.com/in/souravas/" target="_blank" rel="noreferrer">LinkedIn</a>.</p>
-        <form id="contact-form" action="#" method="post" class="card" aria-label="Contact form">
-          <div class="row">
-            <label for="name">Name *</label>
-            <input id="name" name="name" type="text" required placeholder="Your name" aria-describedby="name-help" />
-            <small id="name-help" class="sr-only">Enter your full name</small>
-          </div>
-          <div class="row">
-            <label for="email">Email *</label>
-            <input id="email" name="email" type="email" required placeholder="you@example.com" aria-describedby="email-help" />
-            <small id="email-help" class="sr-only">Enter a valid email address</small>
+      <div class="contact-simple">
+        <div class="contact-intro">
+          <h3>Get In Touch</h3>
+          <p>Have a project in mind? Let's discuss how I can help.</p>
+        </div>
+        <form id="contact-form" action="#" method="post" class="contact-form-centered card" aria-label="Contact form">
+          <div class="form-grid">
+            <div class="row">
+              <label for="name">Name *</label>
+              <input id="name" name="name" type="text" required placeholder="Your name" aria-describedby="name-help" />
+              <small id="name-help" class="sr-only">Enter your full name</small>
+            </div>
+            <div class="row">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" required placeholder="you@example.com" aria-describedby="email-help" />
+              <small id="email-help" class="sr-only">Enter a valid email address</small>
+            </div>
           </div>
           <div class="row">
             <label for="message">Message *</label>
-            <textarea id="message" name="message" rows="4" required placeholder="How can I help?" aria-describedby="message-help"></textarea>
+            <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project, timeline, budget, or any questions you have..." aria-describedby="message-help"></textarea>
             <small id="message-help" class="sr-only">Describe your project or inquiry</small>
           </div>
           <button class="btn btn-primary" type="submit" aria-label="Send contact message">Send Message</button>
