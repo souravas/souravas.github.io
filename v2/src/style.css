@@ -244,7 +244,18 @@ a:hover{
   text-decoration: none;
 }
 
-.edu-card h3 a:hover {
+/* Consistent hover effect for education cards */
+.edu-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Company name links in experience section should match theme text color */
+.t-company h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.t-company h3 a:hover {
   color: var(--brand);
   text-decoration: underline;
 }
