@@ -15,13 +15,16 @@
   --warning: #f59e0b;
 
   /* Fluid layout vars (increased min padding for small screens) */
-  --container-inline: clamp(1.5rem, 5vw, 3rem);
+  --container-inline: clamp(2rem, 6vw, 3rem);
   --section-space: clamp(2rem, 6.5vw, 3.75rem);
-  
+
   /* Responsive container padding - more generous on mobile */
-  --container-mobile: clamp(1.25rem, 4vw, 2rem);
-  --container-tablet: clamp(2rem, 5vw, 2.5rem);
-  --container-desktop: clamp(2.5rem, 6vw, 3rem);
+  --container-mobile: clamp(1.5rem, 5vw, 2.5rem);
+  --container-tablet: clamp(2rem, 6vw, 3rem);
+  --container-desktop: clamp(2.5rem, 7vw, 3.5rem);
+
+  /* Safety padding for edge cases */
+  --container-safe: max(2rem, 5vw);
 }
 
 [data-theme="light"] {
@@ -98,14 +101,21 @@ body {
 :where(p, li, h1, h2, h3, h4, h5, h6) {
   overflow-wrap: anywhere;
   word-break: break-word;
+  /* Extra safety for text content */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
 }
 
 /* Layout - Fluid, safe-area aware container padding */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-left: max(env(safe-area-inset-left), var(--container-inline));
-  padding-right: max(env(safe-area-inset-right), var(--container-inline));
+  padding-left: max(env(safe-area-inset-left), var(--container-inline), 2rem);
+  padding-right: max(env(safe-area-inset-right), var(--container-inline), 2rem);
+  /* Extra safety for edge cases */
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 main {
@@ -299,6 +309,9 @@ a:hover {
   gap: clamp(1.25rem, 3vw, 2rem);
   align-items: center;
   padding: 2rem 0 1.5rem;
+  /* Ensure content doesn't overflow */
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .hero .tagline {
@@ -724,6 +737,22 @@ textarea:focus {
 
 /* Responsive */
 
+/* Large screens - ensure good padding */
+@media (max-width: 1100px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), clamp(2.5rem, 7vw, 3rem));
+    padding-right: max(env(safe-area-inset-right), clamp(2.5rem, 7vw, 3rem));
+  }
+}
+
+/* Catch problematic resolutions like 1039px */
+@media (max-width: 1050px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), var(--container-safe));
+    padding-right: max(env(safe-area-inset-right), var(--container-safe));
+  }
+}
+
 /* Large tablets and small desktops */
 @media (max-width: 1000px) {
   .container {
@@ -765,6 +794,29 @@ textarea:focus {
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Medium tablet + landscape phones */
+@media (max-width: 850px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), clamp(2rem, 6vw, 2.5rem));
+    padding-right: max(env(safe-area-inset-right), clamp(2rem, 6vw, 2.5rem));
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  .hero .cta {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero .meta {
+    justify-content: center;
   }
 }
 
@@ -923,16 +975,16 @@ textarea:focus {
 /* Large mobile phones */
 @media (max-width: 600px) {
   .container {
-    padding-left: max(env(safe-area-inset-left), 1.75rem);
-    padding-right: max(env(safe-area-inset-right), 1.75rem);
+    padding-left: max(env(safe-area-inset-left), 2rem);
+    padding-right: max(env(safe-area-inset-right), 2rem);
   }
 }
 
 /* Standard mobile phones */
 @media (max-width: 480px) {
   .container {
-    padding-left: max(env(safe-area-inset-left), 1.5rem);
-    padding-right: max(env(safe-area-inset-right), 1.5rem);
+    padding-left: max(env(safe-area-inset-left), 1.75rem);
+    padding-right: max(env(safe-area-inset-right), 1.75rem);
   }
 
   main {
@@ -1017,12 +1069,12 @@ textarea:focus {
     padding-left: max(env(safe-area-inset-left), 1.25rem);
     padding-right: max(env(safe-area-inset-right), 1.25rem);
   }
-  
+
   /* Improve text flow on small screens */
   p, .lead {
     line-height: 1.7;
   }
-  
+
   .hero .meta {
     font-size: 0.9rem;
   }
@@ -1034,21 +1086,21 @@ textarea:focus {
     padding-left: max(env(safe-area-inset-left), 1rem);
     padding-right: max(env(safe-area-inset-right), 1rem);
   }
-  
+
   /* Ensure text doesn't get too close to edges */
   .hero .cta {
     gap: 0.5rem;
   }
-  
+
   .btn {
     padding: 0.6rem 0.8rem;
     font-size: 0.85rem;
   }
-  
+
   h1 {
     font-size: clamp(1.2rem, 8vw, 1.8rem);
   }
-  
+
   h2 {
     font-size: clamp(1.1rem, 6vw, 1.4rem);
   }
