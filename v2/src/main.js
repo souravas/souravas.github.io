@@ -142,59 +142,44 @@ document.addEventListener('DOMContentLoaded', function(){
   toggleBackToTopVisibility();
 })();
 
-// Active navigation highlighting - Simple and reliable approach
+// Active navigation highlighting - Improved and reliable approach
 (function(){
   const sections = Array.from(document.querySelectorAll("section[id]"));
   const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
-  const headerOffset = 120; // Slightly larger offset
+  const headerOffset = 100;
 
   function updateActiveLink() {
     const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
     let currentSection = "";
     
-    // DEBUG: Log all section positions
-    console.log(`--- Navigation Debug: scrollY=${scrollY} ---`);
-    sections.forEach((section, i) => {
-      const sectionId = section.getAttribute("id");
-      const offset = sectionId === "contact" ? 200 : headerOffset; // Use larger offset for contact
-      const sectionTop = section.offsetTop - offset;
-      const isActive = scrollY >= sectionTop;
-      console.log(`Section ${i}: ${sectionId}, top=${sectionTop}, active=${isActive} (offset: ${offset})`);
-    });
+    // Check if we're near the bottom of the page (within 100px)
+    const nearBottom = scrollY + windowHeight >= documentHeight - 100;
     
-    // Simple approach: find the section whose top is closest to current scroll position
-    // but only if we've actually scrolled past its beginning
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const section = sections[i];
-      const sectionId = section.getAttribute("id");
+    // If near bottom, always highlight contact
+    if (nearBottom) {
+      currentSection = "contact";
+    } else {
+      // Normal section detection
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const sectionId = section.getAttribute("id");
+        const sectionTop = section.offsetTop - headerOffset;
+        
+        if (scrollY >= sectionTop) {
+          currentSection = sectionId;
+          break;
+        }
+      }
       
-      // Use much larger offset for contact section to make it easier to activate
-      const offset = sectionId === "contact" ? 200 : headerOffset;
-      const sectionTop = section.offsetTop - offset;
-      
-      if (scrollY >= sectionTop) {
-        currentSection = sectionId;
-        console.log(`Selected section: ${currentSection} (offset: ${offset})`);
-        break;
+      // Don't highlight anything if we're at the very top
+      if (scrollY < 50) {
+        currentSection = "";
       }
     }
 
-    // Don't highlight anything if we're at the very top
-    if (scrollY < 50) {
-      currentSection = "";
-      console.log("Cleared section - at top of page");
-    }
-
-    // Special handling for contact section - but let's be less restrictive for now
-    if (currentSection === "contact") {
-      console.log("Contact section detected - applying blue line");
-      // For debugging, let's temporarily remove the distance restriction
-      // We'll add it back once we confirm contact detection works
-    }
-    
-    console.log(`Final currentSection: ${currentSection}`);
-    console.log("--- End Navigation Debug ---");
-
+    // Update navigation links
     navLinks.forEach(link => {
       const targetSection = link.getAttribute("href")?.substring(1);
       const isActive = currentSection && currentSection === targetSection;

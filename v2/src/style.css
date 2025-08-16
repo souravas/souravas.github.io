@@ -153,6 +153,8 @@ a:hover{
 .nav-links a.active{font-weight:600;color:var(--brand);opacity:1}
 .nav-links a.active::after{content:"";display:block;position:absolute;bottom:-.25rem;left:0;width:100%;height:.1875rem;background:var(--brand);border-radius:.125rem}
 .nav-links a[aria-current="page"]{font-weight:700;color:var(--brand)}
+.nav-links a.nav-external{opacity:.8;border-left:1px solid var(--border);padding-left:1rem;margin-left:.5rem}
+.nav-links a.nav-external:hover{opacity:1}
 
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:2rem 0 1.5rem}
 .hero .tagline{color:var(--muted);font-weight:600;margin-top:.5rem}
