@@ -230,6 +230,25 @@ a:hover{
 .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
 .chip{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.35);color:var(--brand);padding:.35rem .6rem;border-radius:999px;font-size:.9rem}
 
+/* Light mode chip improvements */
+[data-theme="light"] .chip{
+  background:#f1f5f9;
+  border:1px solid #cbd5e1;
+  color:#475569;
+  font-weight:500;
+}
+
+/* Education card heading links should match theme text color */
+.edu-card h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.edu-card h3 a:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}
+
 .timeline{position:relative;margin-top:.5rem}
 .timeline:before{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand), transparent)}
 .t-item{position:relative;padding-left:2.2rem;margin:1.2rem 0}
