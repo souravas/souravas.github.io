@@ -207,6 +207,33 @@ document.addEventListener('DOMContentLoaded', function(){
   updateActiveLink(); // Initial check
 })();
 
+// Remove focus from external links after click to prevent persistent blue outline
+(function(){
+  document.addEventListener('click', function(e) {
+    // Find the actual link element (in case we clicked on a child element like SVG icon)
+    const link = e.target.closest('a');
+    
+    if (link && (link.hasAttribute('target') || link.href.startsWith('http'))) {
+      // Small delay to ensure the new tab opens first, then remove focus
+      setTimeout(() => {
+        link.blur();
+      }, 150);
+    }
+  });
+  
+  // Also handle when user returns to tab via visibility change
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+      // User returned to tab, remove focus from any focused external links
+      const focusedElement = document.activeElement;
+      if (focusedElement && focusedElement.tagName === 'A' && 
+          (focusedElement.hasAttribute('target') || focusedElement.href.startsWith('http'))) {
+        focusedElement.blur();
+      }
+    }
+  });
+})();
+
 // Load projects from GitHub with improved error handling
 (async function loadProjects(){
   const grid = document.getElementById("projects-grid");
