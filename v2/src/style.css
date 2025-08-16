@@ -385,6 +385,12 @@ input.error,textarea.error{border-color:var(--error)}
   outline-offset:2px;
 }
 
+/* Large screens - reduce excessive spacing */
+@media (min-width: 1103px){
+  .section{padding:2.5rem 0} /* Much more compact spacing for large screens */
+  .section h2{margin-bottom:1rem !important; margin-top:1rem !important} /* Very compact spacing for large screens */
+}
+
 /* Large tablets and small laptops - fix 1039px dimension */
 @media (max-width: 1100px){
   .container{padding:0 2.5rem !important} /* Ensure adequate padding for larger screens */

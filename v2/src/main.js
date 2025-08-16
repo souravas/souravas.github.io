@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function(){
   const navLinks = document.querySelector(".nav-links");
 
   if(navToggle && navLinks){
-    console.log("Navigation elements found and ready"); // Debug log
 
     navToggle.addEventListener("click", function(e) {
       e.preventDefault();
@@ -47,11 +46,9 @@ document.addEventListener('DOMContentLoaded', function(){
       if(isOpen) {
         navLinks.classList.remove("open");
         navToggle.setAttribute("aria-expanded", "false");
-        console.log("Menu closed");
       } else {
         navLinks.classList.add("open");
         navToggle.setAttribute("aria-expanded", "true");
-        console.log("Menu opened");
       }
     });
 
@@ -60,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function(){
       if(e.target.tagName === "A"){
         navLinks.classList.remove("open");
         navToggle.setAttribute("aria-expanded", "false");
-        console.log("Menu closed via link click");
       }
     });
 
