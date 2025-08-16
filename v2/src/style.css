@@ -15,7 +15,7 @@
   --warning: #f59e0b;
 
   /* Fluid layout vars (increased min padding for small screens) */
-  --container-inline: clamp(2rem, 6vw, 3rem);
+  --container-inline: clamp(2.5rem, 6vw, 3rem);
   --section-space: clamp(2rem, 6.5vw, 3.75rem);
 
   /* Responsive container padding - more generous on mobile */
@@ -24,7 +24,7 @@
   --container-desktop: clamp(2.5rem, 7vw, 3.5rem);
 
   /* Safety padding for edge cases */
-  --container-safe: max(2rem, 5vw);
+  --container-safe: max(2.5rem, 6vw);
 }
 
 [data-theme="light"] {
@@ -101,9 +101,6 @@ body {
 :where(p, li, h1, h2, h3, h4, h5, h6) {
   overflow-wrap: anywhere;
   word-break: break-word;
-  /* Extra safety for text content */
-  margin-left: auto;
-  margin-right: auto;
   max-width: 100%;
 }
 
@@ -111,8 +108,8 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-left: max(env(safe-area-inset-left), var(--container-inline), 2rem);
-  padding-right: max(env(safe-area-inset-right), var(--container-inline), 2rem);
+  padding-left: max(env(safe-area-inset-left), var(--container-inline), 2.5rem);
+  padding-right: max(env(safe-area-inset-right), var(--container-inline), 2.5rem);
   /* Extra safety for edge cases */
   min-width: 0;
   box-sizing: border-box;
@@ -737,6 +734,14 @@ textarea:focus {
 
 /* Responsive */
 
+/* Extra large screens edge case */
+@media (max-width: 1150px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), clamp(3rem, 8vw, 4rem));
+    padding-right: max(env(safe-area-inset-right), clamp(3rem, 8vw, 4rem));
+  }
+}
+
 /* Large screens - ensure good padding */
 @media (max-width: 1100px) {
   .container {
@@ -762,22 +767,7 @@ textarea:focus {
 }
 
 /* Standard tablet landscape/portrait transitions */
-@media (max-width: 950px) {
-  .hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: clamp(1.25rem, 3vw, 1.75rem);
-  }
-
-  .hero .cta {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .hero .meta {
-    justify-content: center;
-  }
-
+@media (max-width: 720px) {
   .skill-groups {
     grid-template-columns: 1fr;
     gap: 0.8rem;
@@ -803,7 +793,20 @@ textarea:focus {
     padding-left: max(env(safe-area-inset-left), clamp(2rem, 6vw, 2.5rem));
     padding-right: max(env(safe-area-inset-right), clamp(2rem, 6vw, 2.5rem));
   }
+}
 
+/* Standard tablet + mobile landscape */
+@media (max-width: 768px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), var(--container-mobile));
+    padding-right: max(env(safe-area-inset-right), var(--container-mobile));
+  }
+
+  main {
+    padding-top: 70px;
+  }
+
+  /* Hero centering for truly mobile layouts */
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
@@ -817,18 +820,6 @@ textarea:focus {
 
   .hero .meta {
     justify-content: center;
-  }
-}
-
-/* Standard tablet + mobile landscape */
-@media (max-width: 768px) {
-  .container {
-    padding-left: max(env(safe-area-inset-left), var(--container-mobile));
-    padding-right: max(env(safe-area-inset-right), var(--container-mobile));
-  }
-
-  main {
-    padding-top: 70px;
   }
 
   /* Mobile Navigation */
