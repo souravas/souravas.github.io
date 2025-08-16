@@ -279,8 +279,7 @@ a:hover{
 /* Form-focused contact section design */
 .contact-simple{display:grid;grid-template-columns:1fr 3fr;gap:2rem;align-items:start}
 .contact-intro{display:flex;flex-direction:column;justify-content:flex-start}
-.contact-intro h3{margin:0 0 0.5rem 0;font-size:1.4rem;color:var(--text)}
-.contact-intro p{font-size:1rem;line-height:1.5;color:var(--muted);margin:0}
+.contact-intro p{font-size:1.1rem;line-height:1.6;color:var(--text);margin:0}
 .contact-form-centered{width:100%}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
 .row{display:grid;gap:.25rem;margin:.4rem 0}
@@ -304,10 +303,8 @@ input.error,textarea.error{border-color:var(--error)}
 [data-theme="light"] .site-header.scrolled{background:rgba(248,250,252,.95)}
 
 .site-footer{padding:2rem 0;border-top:1px solid var(--border);margin-top:2.5rem}
-.site-footer .container{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-.site-footer .social{list-style:none;display:flex;gap:.9rem}
-.site-footer .social a{color:var(--muted);text-decoration:none;transition:var(--transition)}
-.site-footer .social a:hover{color:var(--text);text-decoration:none}
+.site-footer .container{display:flex;justify-content:center;align-items:center}
+.site-footer p{color:var(--muted);margin:0}
 
 /* Back-to-Top Button */
 .back-to-top{
