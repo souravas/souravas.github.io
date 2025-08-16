@@ -15,7 +15,7 @@
   --warning: #f59e0b;
 
   /* Fluid layout vars (increased min padding for small screens) */
-  --container-inline: clamp(2.5rem, 6vw, 3rem);
+  --container-inline: clamp(3rem, 7vw, 4rem);
   --section-space: clamp(2rem, 6.5vw, 3.75rem);
 
   /* Responsive container padding - more generous on mobile */
@@ -24,7 +24,7 @@
   --container-desktop: clamp(2.5rem, 7vw, 3.5rem);
 
   /* Safety padding for edge cases */
-  --container-safe: max(2.5rem, 6vw);
+  --container-safe: max(3rem, 7vw);
 }
 
 [data-theme="light"] {
@@ -99,17 +99,21 @@ body {
 
 /* Prevent long content from overflowing/touching */
 :where(p, li, h1, h2, h3, h4, h5, h6) {
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   word-break: break-word;
   max-width: 100%;
+  /* Disable ugly hyphenation globally */
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
 }
 
 /* Layout - Fluid, safe-area aware container padding */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-left: max(env(safe-area-inset-left), var(--container-inline), 2.5rem);
-  padding-right: max(env(safe-area-inset-right), var(--container-inline), 2.5rem);
+  padding-left: max(env(safe-area-inset-left), var(--container-inline), 3rem);
+  padding-right: max(env(safe-area-inset-right), var(--container-inline), 3rem);
   /* Extra safety for edge cases */
   min-width: 0;
   box-sizing: border-box;
@@ -143,6 +147,10 @@ h3 {
 
 p {
   margin: 0.8rem 0;
+  /* Better text wrapping without ugly hyphenation */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: none;
 }
 
 .muted {
@@ -152,6 +160,11 @@ p {
 .lead {
   font-size: clamp(1rem, 2.5vw, 1.05rem);
   max-width: 66ch;
+  /* Better text wrapping without ugly breaks */
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
+  line-height: 1.7;
 }
 
 .small {
@@ -309,6 +322,12 @@ a:hover {
   /* Ensure content doesn't overflow */
   min-width: 0;
   overflow-wrap: break-word;
+}
+
+/* Hero text content - extra safety */
+.hero-text {
+  min-width: 0;
+  padding-right: clamp(1rem, 3vw, 2rem);
 }
 
 .hero .tagline {
@@ -734,6 +753,22 @@ textarea:focus {
 
 /* Responsive */
 
+/* Ultra wide screens edge case - catch 1207px and above */
+@media (max-width: 1250px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), clamp(4rem, 10vw, 6rem));
+    padding-right: max(env(safe-area-inset-right), clamp(4rem, 10vw, 6rem));
+  }
+}
+
+/* Very wide screens edge case - catch 1193px and similar */
+@media (max-width: 1200px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), clamp(3.5rem, 9vw, 5rem));
+    padding-right: max(env(safe-area-inset-right), clamp(3.5rem, 9vw, 5rem));
+  }
+}
+
 /* Extra large screens edge case */
 @media (max-width: 1150px) {
   .container {
@@ -820,6 +855,32 @@ textarea:focus {
 
   .hero .meta {
     justify-content: center;
+  }
+
+  /* Mobile Navigation */
+  .nav {
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 60px;
+  }
+}
+
+/* Problematic tablet range - catch 737px */
+@media (max-width: 750px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), clamp(3rem, 8vw, 4rem));
+    padding-right: max(env(safe-area-inset-right), clamp(3rem, 8vw, 4rem));
+  }
+
+  /* Ensure proper centering and spacing for hero content */
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  .hero-text {
+    padding: 0 clamp(1.5rem, 5vw, 3rem);
   }
 
   /* Mobile Navigation */
@@ -960,6 +1021,150 @@ textarea:focus {
     right: 1.5rem;
     width: 2.8rem;
     height: 2.8rem;
+  }
+}
+
+/* Standard tablet landscape/portrait transitions */
+@media (max-width: 720px) {
+  .brand {
+    order: 1;
+  }
+
+  #themeToggle {
+    order: 2;
+    margin-left: auto;
+    margin-right: 0.5rem;
+  }
+
+  .nav-toggle {
+    display: block;
+    order: 3;
+    margin-left: 0;
+  }
+
+  .nav-links {
+    display: none;
+    order: 4;
+    width: 100%;
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: var(--transition);
+  }
+
+  .nav-links a:hover {
+    background: rgba(14, 165, 233, 0.1);
+  }
+
+  /* Mobile Layout Adjustments */
+  .hero {
+    padding: 1.5rem 0 1rem;
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .hero .cta {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1rem 0 0.8rem;
+  }
+
+  .hero .cta .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .profile {
+    width: min(200px, 60%);
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+  }
+
+  h2 {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: clamp(0.95rem, 3vw, 1rem);
+    line-height: 1.6;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .edu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .t-item {
+    margin: 1rem 0;
+    padding-left: 2.5rem;
+  }
+
+  .t-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .t-company {
+    gap: 0.4rem;
+  }
+
+  .company-logo {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .timeline:before {
+    left: 15px;
+  }
+
+  .t-marker {
+    left: 6px;
+  }
+
+  .back-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}
+
+/* Medium mobile/tablet gap - catch 635px and similar */
+@media (max-width: 680px) {
+  .container {
+    padding-left: max(env(safe-area-inset-left), clamp(2.5rem, 7vw, 3rem));
+    padding-right: max(env(safe-area-inset-right), clamp(2.5rem, 7vw, 3rem));
   }
 }
 
