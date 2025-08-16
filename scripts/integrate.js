@@ -24,6 +24,13 @@ mkdirSync(distDir, { recursive: true });
 if (existsSync(v2DistDir)) {
     console.log('📂 Copying v2 to root...');
     copyRecursively(v2DistDir, distDir);
+    
+    // Ensure CNAME file is copied to root for custom domain
+    const v2CnameFile = join(rootDir, 'v2', 'CNAME');
+    if (existsSync(v2CnameFile)) {
+        console.log('📄 Copying CNAME for custom domain...');
+        copyFileSync(v2CnameFile, join(distDir, 'CNAME'));
+    }
 } else {
     console.error('❌ v2 dist directory not found. Run "npm run build:v2" first.');
     process.exit(1);
