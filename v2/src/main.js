@@ -1,29 +1,42 @@
 // Import styles
 import './style.css'
 
-// Theme toggle with improved performance
+// Theme toggle with dynamic icon switching
 (function(){
   const root = document.documentElement;
   const key = "theme";
+  const btn = document.getElementById("themeToggle");
+
+  // Function to update theme and icon
+  function setTheme(theme) {
+    if(theme === 'light'){
+      root.setAttribute("data-theme", theme);
+      btn.textContent = "☀️"; // Sun icon when in light mode (to switch to dark)
+    } else {
+      root.removeAttribute("data-theme");
+      btn.textContent = "🌙"; // Moon icon when in dark mode (to switch to light)
+    }
+  }
 
   // Apply saved theme immediately
   const saved = localStorage.getItem(key);
   if(saved === 'light'){
-    root.setAttribute("data-theme", saved);
+    setTheme('light');
+  } else {
+    setTheme('dark');
   }
 
   // Setup theme toggle button
-  const btn = document.getElementById("themeToggle");
   if(btn){
     btn.addEventListener("click", () => {
       const current = root.getAttribute("data-theme");
-      const next = current === "light" ? null : "light";
+      const next = current === "light" ? "dark" : "light";
 
-      if(next){
-        root.setAttribute("data-theme", next);
+      setTheme(next);
+      
+      if(next === 'light'){
         localStorage.setItem(key, next);
       } else {
-        root.removeAttribute("data-theme");
         localStorage.removeItem(key);
       }
     });

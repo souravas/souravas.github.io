@@ -185,6 +185,7 @@ a:hover{
 .btn{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);border-radius:12px;padding:.6rem .9rem;text-decoration:none;color:var(--text);box-shadow:var(--shadow);transition:all .3s ease;position:relative;overflow:hidden;white-space:nowrap}
 .btn:hover{transform:translateY(-2px);text-decoration:none;color:var(--text)}
 .btn:active{transform:translateY(0)}
+.btn:focus{outline:none}
 .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2)); border-color:transparent; color:#00111a; font-weight:700}
 .btn-primary:hover{color:#00111a;box-shadow:0 20px 40px rgba(14,165,233,.3)}
 .btn-outline{background:transparent}
@@ -663,4 +664,16 @@ input.error,textarea.error{border-color:var(--error)}
     padding:0.7rem;
     font-size:1.2rem;
   }
+}
+
+/* Theme toggle icon visibility improvements */
+#themeToggle {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Make sun icon more visible in light mode */
+[data-theme="light"] #themeToggle {
+  color: #0f172a;
+  text-shadow: 0 0 1px rgba(0,0,0,0.1);
 }
