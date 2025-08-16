@@ -1,40 +1,37 @@
 // Import styles
-import './style.css'
+import "./style.css";
 
-// Theme toggle with dynamic icon switching
-(function(){
+// Theme toggle functionality
+(function () {
   const root = document.documentElement;
   const key = "theme";
   const btn = document.getElementById("themeToggle");
 
-  // Function to update theme and icon
   function setTheme(theme) {
-    if(theme === 'light'){
+    if (theme === "light") {
       root.setAttribute("data-theme", theme);
-      btn.textContent = "☀️"; // Sun icon when in light mode (to switch to dark)
+      if (btn) btn.textContent = "☀️";
     } else {
       root.removeAttribute("data-theme");
-      btn.textContent = "🌙"; // Moon icon when in dark mode (to switch to light)
+      if (btn) btn.textContent = "🌙";
     }
   }
 
-  // Apply saved theme immediately
   const saved = localStorage.getItem(key);
-  if(saved === 'light'){
-    setTheme('light');
+  if (saved === "light") {
+    setTheme("light");
   } else {
-    setTheme('dark');
+    setTheme("dark");
   }
 
-  // Setup theme toggle button
-  if(btn){
+  if (btn) {
     btn.addEventListener("click", () => {
       const current = root.getAttribute("data-theme");
       const next = current === "light" ? "dark" : "light";
 
       setTheme(next);
-      
-      if(next === 'light'){
+
+      if (next === "light") {
         localStorage.setItem(key, next);
       } else {
         localStorage.removeItem(key);
@@ -43,20 +40,19 @@ import './style.css'
   }
 })();
 
-// Mobile navigation toggle - Simplified
-document.addEventListener('DOMContentLoaded', function(){
+// Mobile navigation toggle
+document.addEventListener("DOMContentLoaded", function () {
   const navToggle = document.getElementById("navToggle");
   const navLinks = document.querySelector(".nav-links");
 
-  if(navToggle && navLinks){
-
-    navToggle.addEventListener("click", function(e) {
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
 
       const isOpen = navLinks.classList.contains("open");
 
-      if(isOpen) {
+      if (isOpen) {
         navLinks.classList.remove("open");
         navToggle.setAttribute("aria-expanded", "false");
       } else {
@@ -65,70 +61,66 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
 
-    // Close menu when clicking on a link
-    navLinks.addEventListener("click", function(e) {
-      if(e.target.tagName === "A"){
+    navLinks.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
         navLinks.classList.remove("open");
         navToggle.setAttribute("aria-expanded", "false");
       }
     });
 
-    // Close menu when clicking outside
-    document.addEventListener("click", function(e) {
-      if(!navToggle.contains(e.target) && !navLinks.contains(e.target)){
+    document.addEventListener("click", function (e) {
+      if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
         navLinks.classList.remove("open");
         navToggle.setAttribute("aria-expanded", "false");
       }
-    });
-  } else {
-    console.error("Navigation elements not found!", {
-      navToggle: !!navToggle,
-      navLinks: !!navLinks
     });
   }
-});// Contact form -> fallback to mailto with better UX
-(function(){
-  const form = document.getElementById('contact-form');
-  if(!form) return;
+});
 
-  form.addEventListener('submit', (e)=>{
+// Contact form handling
+(function () {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     try {
       const data = new FormData(form);
-      const name = encodeURIComponent(data.get('name') || "");
-      const email = encodeURIComponent(data.get('email') || "");
-      const msg = encodeURIComponent(data.get('message') || "");
+      const name = encodeURIComponent(data.get("name") || "");
+      const email = encodeURIComponent(data.get("email") || "");
+      const msg = encodeURIComponent(data.get("message") || "");
 
-      if(!name || !email || !msg) {
-        alert('Please fill in all fields');
+      if (!name || !email || !msg) {
+        alert("Please fill in all fields");
         return;
       }
 
       const subject = `Website contact from ${decodeURIComponent(name)}`;
-      const body = `From: ${decodeURIComponent(name)} <${decodeURIComponent(email)}>%0D%0A%0D%0A${decodeURIComponent(msg)}`;
+      const body = `From: ${decodeURIComponent(name)} <${decodeURIComponent(
+        email
+      )}>%0D%0A%0D%0A${decodeURIComponent(msg)}`;
       window.location.href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
     } catch (error) {
-      console.error('Contact form error:', error);
-      alert('Error sending message. Please try again.');
+      console.error("Contact form error:", error);
+      alert("Error sending message. Please try again.");
     }
   });
 })();
 
-// Back-to-Top Button functionality
-(function(){
+// Back-to-top button
+(function () {
   const backToTop = document.getElementById("back-to-top");
-  if(!backToTop) return;
+  if (!backToTop) return;
 
   function toggleBackToTopVisibility() {
     if (window.scrollY > 300) {
-      backToTop.classList.add('is-visible');
+      backToTop.classList.add("is-visible");
     } else {
-      backToTop.classList.remove('is-visible');
+      backToTop.classList.remove("is-visible");
     }
   }
 
-  // Throttle scroll events for performance
   let ticking = false;
   function throttledScroll() {
     if (!ticking) {
@@ -140,63 +132,71 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  window.addEventListener("scroll", throttledScroll);
-  
+  window.addEventListener("scroll", throttledScroll, { passive: true });
+
   backToTop.addEventListener("click", (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-  
-  // Initial check
+
   toggleBackToTopVisibility();
 })();
 
-// Active navigation highlighting - Improved and reliable approach
-(function(){
+// Active navigation highlighting (header-aware)
+(function () {
   const sections = Array.from(document.querySelectorAll("section[id]"));
-  const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
-  const headerOffset = 100;
+  const navLinks = Array.from(
+    document.querySelectorAll(".nav-links a[href^='#']")
+  );
+
+  function getHeaderOffset() {
+    const header = document.querySelector(".site-header");
+    if (!header) return 80;
+    // Add a little breathing room below the header
+    return Math.ceil(header.offsetHeight + 20);
+  }
+
+  function setScrollPadding(px) {
+    document.documentElement.style.setProperty("--scroll-padding", `${px}px`);
+  }
+
+  let headerOffset = getHeaderOffset();
+  setScrollPadding(headerOffset);
 
   function updateActiveLink() {
-    const scrollY = window.scrollY;
+    // +1 to avoid edge cases when scroll equals exact offsetTop
+    const scrollY = window.scrollY + 1;
     const windowHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
+
     let currentSection = "";
-    
-    // Check if we're near the bottom of the page (within 100px)
+
     const nearBottom = scrollY + windowHeight >= documentHeight - 100;
-    
-    // If near bottom, always highlight contact
+
     if (nearBottom) {
-      currentSection = "contact";
+      currentSection = sections.at(-1)?.id || "";
     } else {
-      // Normal section detection
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
-        const sectionId = section.getAttribute("id");
-        const sectionTop = section.offsetTop - headerOffset;
-        
+        const sectionTop = section.offsetTop - headerOffset - 1;
         if (scrollY >= sectionTop) {
-          currentSection = sectionId;
+          currentSection = section.id;
           break;
         }
       }
-      
-      // Don't highlight anything if we're at the very top
       if (scrollY < 50) {
         currentSection = "";
       }
     }
 
-    // Update navigation links
-    navLinks.forEach(link => {
+    navLinks.forEach((link) => {
       const targetSection = link.getAttribute("href")?.substring(1);
       const isActive = currentSection && currentSection === targetSection;
-      link.classList.toggle("active", isActive);
+      link.classList.toggle("active", !!isActive);
       if (isActive) {
-        link.setAttribute('aria-current', 'page');
+        link.setAttribute("aria-current", "page");
       } else {
-        link.removeAttribute('aria-current');
+        link.removeAttribute("aria-current");
       }
     });
   }
@@ -212,76 +212,82 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  window.addEventListener("scroll", throttledNavScroll);
-  updateActiveLink(); // Initial check
+  function onResize() {
+    headerOffset = getHeaderOffset();
+    setScrollPadding(headerOffset);
+    updateActiveLink();
+  }
+
+  window.addEventListener("scroll", throttledNavScroll, { passive: true });
+  window.addEventListener("resize", onResize);
+  updateActiveLink();
 })();
 
-// Remove focus from external links after click to prevent persistent blue outline
-(function(){
-  document.addEventListener('click', function(e) {
-    // Find the actual link element (in case we clicked on a child element like SVG icon)
-    const link = e.target.closest('a');
-    
-    if (link && (link.hasAttribute('target') || link.href.startsWith('http'))) {
-      // Small delay to ensure the new tab opens first, then remove focus
+// Remove focus from external links
+(function () {
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest("a");
+
+    if (link && (link.hasAttribute("target") || link.href.startsWith("http"))) {
       setTimeout(() => {
         link.blur();
       }, 150);
     }
   });
-  
-  // Also handle when user returns to tab via visibility change
-  document.addEventListener('visibilitychange', function() {
+
+  document.addEventListener("visibilitychange", function () {
     if (!document.hidden) {
-      // User returned to tab, remove focus from any focused external links
       const focusedElement = document.activeElement;
-      if (focusedElement && focusedElement.tagName === 'A' && 
-          (focusedElement.hasAttribute('target') || focusedElement.href.startsWith('http'))) {
+      if (
+        focusedElement &&
+        focusedElement.tagName === "A" &&
+        (focusedElement.hasAttribute("target") ||
+          focusedElement.href.startsWith("http"))
+      ) {
         focusedElement.blur();
       }
     }
   });
 })();
 
-// Load projects from GitHub with improved error handling
-(async function loadProjects(){
+// Load GitHub projects (if projects section exists)
+(async function loadProjects() {
   const grid = document.getElementById("projects-grid");
-  if(!grid) return;
+  if (!grid) return;
 
-  // Add loading state
   grid.innerHTML = '<div class="loading">Loading projects...</div>';
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-    const res = await fetch("https://api.github.com/users/souravas/repos?per_page=100&sort=updated", {
-      signal: controller.signal
-    });
+    const res = await fetch(
+      "https://api.github.com/users/souravas/repos?per_page=100&sort=updated",
+      {
+        signal: controller.signal,
+      }
+    );
     clearTimeout(timeoutId);
 
-    if(!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
     const repos = await res.json();
 
-    // Filter & rank with better logic
     const filtered = repos
-      .filter(r => !r.fork && !r.private && r.description) // Only repos with descriptions
-      .sort((a,b)=> {
-        // Prioritize by stars, then by recent updates
+      .filter((r) => !r.fork && !r.private && r.description)
+      .sort((a, b) => {
         const starDiff = b.stargazers_count - a.stargazers_count;
         if (starDiff !== 0) return starDiff;
         return new Date(b.updated_at) - new Date(a.updated_at);
       })
-      .slice(0,6);
+      .slice(0, 6);
 
-    if(filtered.length === 0) {
+    if (filtered.length === 0) {
       throw new Error("No public repositories found");
     }
 
-    // Clear loading state
-    grid.innerHTML = '';
+    grid.innerHTML = "";
 
-    for(const r of filtered){
+    for (const r of filtered) {
       const el = document.createElement("a");
       el.className = "card";
       el.href = r.html_url;
@@ -289,10 +295,15 @@ document.addEventListener('DOMContentLoaded', function(){
       el.rel = "noreferrer";
       el.innerHTML = `<h3>${r.name}</h3>
         <p class="muted">${r.description ?? "No description provided."}</p>
-        <p class="small muted">★ ${r.stargazers_count} · ⑂ ${r.forks_count} · Updated ${new Date(r.updated_at).toLocaleDateString()}</p>`;
+        <p class="small muted">★ ${r.stargazers_count} · ⑂ ${
+        r.forks_count
+      } · Updated ${new Date(r.updated_at).toLocaleDateString()}</p>`;
       grid.appendChild(el);
     }
-  } catch (err){
-    grid.innerHTML = `<p class="muted">Couldn’t auto-load projects right now. Visit <a href="https://github.com/souravas" target="_blank" rel="noreferrer">github.com/souravas</a>.</p>`;
+  } catch (err) {
+    grid.innerHTML =
+      `<p class="muted">Couldn't auto-load projects right now. Visit ` +
+      `<a href="https://github.com/souravas" target="_blank" ` +
+      `rel="noreferrer">github.com/souravas</a>.</p>`;
   }
 })();
