@@ -36,6 +36,11 @@ import "./style.css";
       } else {
         localStorage.removeItem(key);
       }
+
+      // Remove focus to prevent the blue outline from staying
+      setTimeout(() => {
+        btn.blur();
+      }, 150);
     });
   }
 })();
