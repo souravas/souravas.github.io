@@ -359,9 +359,13 @@ a:hover {
 
 .profile {
   width: min(280px, 70%);
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Prevent overflow */
+  object-fit: contain; /* Scale to fit without cropping */
   filter: drop-shadow(0 20px 40px rgba(2, 6, 23, 0.5));
   transition: var(--transition);
   border-radius: 12px;
+  display: block; /* Ensure proper rendering */
 }
 
 .profile:hover {
