@@ -9,6 +9,8 @@ This is Sourav's integrated portfolio website that manages two versions (v1 and 
 - v1 is available at the `/v1` path  
 - `/v2` redirects to the root (since v2 is now primary)
 
+**IMPORTANT**: v2 is the active version - all changes should be made in the `v2/` directory unless specifically asked to modify v1. v1 is the legacy site that is preserved for reference but no longer actively maintained.
+
 ## Development Commands
 
 ### Prerequisites
