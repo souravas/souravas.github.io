@@ -88,10 +88,16 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
         progress.style.width = pct + "%";
       }
 
-      // active link
+      // active link: pick the last section whose top has entered the upper
+      // third of the visible area below the header. This makes short
+      // trailing sections (like Contact) light up as soon as they dominate
+      // the viewport, even if the page can't scroll far enough to push
+      // their top past the header line.
+      const visible = window.innerHeight - headerOffset;
+      const threshold = headerOffset + Math.max(80, visible / 3);
       let activeId = "";
       for (const sec of sections) {
-        if (sec.getBoundingClientRect().top - headerOffset <= 0) activeId = sec.id;
+        if (sec.getBoundingClientRect().top <= threshold) activeId = sec.id;
       }
       navLinks.forEach((a) => {
         const active = a.getAttribute("href") === "#" + activeId;
