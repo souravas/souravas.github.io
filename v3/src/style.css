@@ -424,11 +424,12 @@ a:hover { color: var(--accent); }
   display: inline-flex; align-items: center; gap: .45rem;
   padding: .35rem .65rem;
   border-radius: 999px;
-  background: rgba(0,0,0,.45);
+  background: rgba(0,0,0,.55);
   color: #fff;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
 }
+.hero-card-badge .mono { color: #fff; }
 .badge-dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent-2);
