@@ -32,10 +32,7 @@ jobs:
         
     - name: Install root dependencies
       run: npm ci
-      
-    - name: Install v1 dependencies
-      run: cd v1 && npm ci
-      
+
     - name: Install v2 dependencies
       run: cd v2 && npm ci
       

@@ -4,17 +4,14 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/dev.js v2",
-    "dev:v1": "node scripts/dev.js v1",
-    "dev:v2": "node scripts/dev.js v2",
+    "dev": "node scripts/dev.js",
     "dev:integrated": "npm run build && npm run preview",
-    "build": "npm run build:v1 && npm run build:v2 && npm run integrate",
-    "build:v1": "cd v1 && npm run build",
+    "build": "npm run build:v2 && npm run integrate",
     "build:v2": "cd v2 && npm run build",
     "integrate": "node scripts/integrate.js",
     "preview": "vite preview --outDir dist --port 3002",
     "deploy": "npm run build && gh-pages -d dist",
-    "clean": "rm -rf dist v1/dist v2/dist"
+    "clean": "rm -rf dist v2/dist"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",

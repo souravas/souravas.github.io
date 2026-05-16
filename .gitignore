@@ -6,7 +6,6 @@ yarn-error.log*
 
 # Build outputs
 dist/
-v1/dist/
 v2/dist/
 
 # Environment files

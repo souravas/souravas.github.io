@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Deployment script for integrated souravas.github.io
-# This script builds both v1 and v2, integrates them, and deploys to GitHub Pages
+# Deployment script for souravas.github.io
+# Builds v2 and deploys to GitHub Pages
 
-echo "🚀 Deploying integrated souravas.github.io to GitHub Pages..."
+echo "🚀 Deploying souravas.github.io to GitHub Pages..."
 
 # Check if we're in a git repository
 if [ ! -d ".git" ]; then
@@ -18,9 +18,8 @@ if [ -n "$(git status --porcelain)" ]; then
     exit 1
 fi
 
-# Install dependencies for both projects
+# Install dependencies
 echo "📦 Installing dependencies..."
-cd v1 && npm install && cd ..
 cd v2 && npm install && cd ..
 npm install
 
@@ -29,8 +28,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Build the integrated project
-echo "🔨 Building integrated project..."
+# Build the project
+echo "🔨 Building project..."
 npm run build
 
 if [ $? -eq 0 ]; then
@@ -42,10 +41,7 @@ if [ $? -eq 0 ]; then
 
     if [ $? -eq 0 ]; then
         echo "🎉 Deployment successful!"
-        echo "🔗 Your site should be available at:"
-        echo "   Main site (v2): https://souravas.github.io"
-        echo "   Version 1: https://souravas.github.io/v1"
-        echo "   Version 2: https://souravas.github.io/v2 (redirects to main)"
+        echo "🔗 Your site should be available at: https://souravas.github.io"
     else
         echo "❌ Deployment failed!"
         exit 1
