@@ -417,6 +417,7 @@ a:hover { color: var(--accent); }
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+  object-position: center 25%;
   display: block;
 }
 .hero-card-badge {
