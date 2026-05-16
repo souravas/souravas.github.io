@@ -10,8 +10,9 @@ const rootDir = dirname(__dirname);
 
 const distDir = join(rootDir, 'dist');
 const v2DistDir = join(rootDir, 'v2', 'dist');
+const v3DistDir = join(rootDir, 'v3', 'dist');
 
-console.log('🔄 Preparing v2 build for deployment...');
+console.log('🔄 Preparing combined build for deployment...');
 
 if (existsSync(distDir)) {
     rmSync(distDir, { recursive: true, force: true });
@@ -23,8 +24,16 @@ if (!existsSync(v2DistDir)) {
     process.exit(1);
 }
 
-console.log('📂 Copying v2 to root...');
+console.log('📂 Copying v2 → root (default site)...');
 copyRecursively(v2DistDir, distDir);
+
+if (existsSync(v3DistDir)) {
+    const v3OutDir = join(distDir, 'v3');
+    console.log('📂 Copying v3 → /v3...');
+    copyRecursively(v3DistDir, v3OutDir);
+} else {
+    console.warn('⚠️  v3 dist not found — skipping. Run "npm run build:v3" to include it.');
+}
 
 const v2CnameFile = join(rootDir, 'v2', 'CNAME');
 if (existsSync(v2CnameFile)) {
@@ -33,6 +42,8 @@ if (existsSync(v2CnameFile)) {
 }
 
 console.log('✅ Integration complete!');
+console.log('   • /        → v2 (default)');
+console.log('   • /v3/     → v3');
 
 function copyRecursively(src, dest) {
     const stat = statSync(src);

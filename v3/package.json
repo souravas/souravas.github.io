@@ -1,0 +1,15 @@
+{
+  "name": "souravas-v3",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "terser": "^5.43.1",
+    "vite": "^6.2.0"
+  }
+}
