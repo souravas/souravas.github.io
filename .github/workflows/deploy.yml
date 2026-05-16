@@ -33,9 +33,6 @@ jobs:
     - name: Install root dependencies
       run: npm ci
 
-    - name: Install v2 dependencies
-      run: cd v2 && npm ci
-
     - name: Install v3 dependencies
       run: cd v3 && npm ci
 

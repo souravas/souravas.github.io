@@ -8,14 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = dirname(__dirname);
 
-const target = process.argv[2] === 'v3' ? 'v3' : 'v2';
-const port = target === 'v3' ? 3003 : 3001;
-
-console.log(`🚀 Starting ${target} development server...`);
+console.log('🚀 Starting development server...');
 const server = await createServer({
-    root: join(rootDir, target),
+    root: join(rootDir, 'v3'),
     server: {
-        port,
+        port: 3001,
         open: true,
     },
 });

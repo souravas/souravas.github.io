@@ -10,8 +10,8 @@ This repository contains the source for Sourav's portfolio website.
 # Install root dependencies
 npm install
 
-# Install v2 dependencies
-cd v2 && npm install && cd ..
+# Install v3 dependencies
+cd v3 && npm install && cd ..
 ```
 
 ### Development
@@ -45,7 +45,7 @@ npm run deploy
 
 ```
 souravas.github.io/
-├── v2/                 # Portfolio source
+├── v3/                 # Portfolio source
 ├── scripts/
 │   ├── dev.js          # Dev server launcher
 │   └── integrate.js    # Build copy + CNAME script
@@ -56,8 +56,8 @@ souravas.github.io/
 
 ## 🔧 How It Works
 
-1. **Build**: `v2/` builds via Vite to `v2/dist/`
-2. **Integrate**: `scripts/integrate.js` copies `v2/dist/` to `dist/` and adds the CNAME
+1. **Build**: `v3/` builds via Vite to `v3/dist/`
+2. **Integrate**: `scripts/integrate.js` copies `v3/dist/` to `dist/` and adds the CNAME
 3. **Deploy**: The `dist/` folder is published to GitHub Pages
 
 ## 🔗 Links

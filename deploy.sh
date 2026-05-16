@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Deployment script for souravas.github.io
-# Builds v2 and deploys to GitHub Pages
+# Builds v3 and deploys to GitHub Pages
 
 echo "🚀 Deploying souravas.github.io to GitHub Pages..."
 
@@ -20,7 +20,7 @@ fi
 
 # Install dependencies
 echo "📦 Installing dependencies..."
-cd v2 && npm install && cd ..
+cd v3 && npm install && cd ..
 npm install
 
 if [ $? -ne 0 ]; then
@@ -41,7 +41,7 @@ if [ $? -eq 0 ]; then
 
     if [ $? -eq 0 ]; then
         echo "🎉 Deployment successful!"
-        echo "🔗 Your site should be available at: https://souravas.github.io"
+        echo "🔗 Your site should be available at: https://souravas.com"
     else
         echo "❌ Deployment failed!"
         exit 1
