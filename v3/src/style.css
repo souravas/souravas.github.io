@@ -255,8 +255,6 @@ a:hover { color: var(--accent); }
   background: var(--accent);
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
 }
-.brand-slash { color: var(--muted); margin: 0 .15em; }
-.brand-version { color: var(--accent); }
 
 .nav-links {
   display: flex;
