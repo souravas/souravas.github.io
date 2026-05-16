@@ -62,7 +62,6 @@ npm run deploy
    - Copies the v3 CNAME file for the custom domain
 
 ### Development Scripts
-- **`scripts/dev.js`**: Vite dev server launcher for v3
 - **`scripts/integrate.js`**: Copies v3 build output and CNAME into `dist/`
 
 ### Site Structure
@@ -76,7 +75,6 @@ localhost:3002 → integrated preview
 ```
 
 ### Key Files
-- `scripts/dev.js`: Development server manager
 - `scripts/integrate.js`: Build copy + CNAME logic
 - `deploy.sh`: Production deployment script with dependency checks
 - `QUICKSTART.md`: Quick reference for common tasks
