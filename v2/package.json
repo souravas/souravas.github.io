@@ -15,7 +15,9 @@
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.1.0",
     "gh-pages": "^6.3.0",
+    "png-to-ico": "^3.0.1",
     "postcss": "^8.5.6",
+    "sharp": "^0.34.5",
     "terser": "^5.43.1",
     "vite": "^6.2.0"
   }
