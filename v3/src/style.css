@@ -806,6 +806,27 @@ textarea { resize: vertical; min-height: 140px; }
   border: 0;
 }
 
+.skip-link {
+  position: fixed;
+  top: 0; left: 50%;
+  transform: translate(-50%, -110%);
+  z-index: 2000;
+  padding: .7rem 1.1rem;
+  border-radius: 0 0 12px 12px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  transition: transform .2s var(--ease);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  color: var(--bg);
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1024px) {
   .hero {
