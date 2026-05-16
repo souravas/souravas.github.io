@@ -64,7 +64,7 @@
 html, body { margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  scroll-padding-top: var(--scroll-padding, 96px);
   color-scheme: dark;
 }
 [data-theme="light"] html, html[data-theme="light"] { color-scheme: light; }

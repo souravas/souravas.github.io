@@ -67,6 +67,13 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     .map((a) => document.querySelector(a.getAttribute("href")))
     .filter(Boolean);
 
+  let headerOffset = (header?.offsetHeight ?? 80) + 24;
+  const publishOffset = () => {
+    headerOffset = (header?.offsetHeight ?? 80) + 24;
+    root.style.setProperty("--scroll-padding", `${headerOffset}px`);
+  };
+  publishOffset();
+
   let ticking = false;
   const onScroll = () => {
     if (ticking) return;
@@ -82,19 +89,25 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       }
 
       // active link
-      const offset = (header?.offsetHeight ?? 80) + 24;
       let activeId = "";
       for (const sec of sections) {
-        if (sec.getBoundingClientRect().top - offset <= 0) activeId = sec.id;
+        if (sec.getBoundingClientRect().top - headerOffset <= 0) activeId = sec.id;
       }
       navLinks.forEach((a) => {
-        a.classList.toggle("is-active", a.getAttribute("href") === "#" + activeId);
+        const active = a.getAttribute("href") === "#" + activeId;
+        a.classList.toggle("is-active", active);
+        if (active) a.setAttribute("aria-current", "page");
+        else a.removeAttribute("aria-current");
       });
 
       ticking = false;
     });
   };
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", () => {
+    publishOffset();
+    onScroll();
+  });
   onScroll();
 })();
 
@@ -207,6 +220,23 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   });
 
   update();
+})();
+
+/* ---------- Drop focus ring after opening external links ---------- */
+(() => {
+  const isExternal = (a) =>
+    a && (a.hasAttribute("target") || /^https?:\/\//i.test(a.getAttribute("href") || ""));
+
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (isExternal(link)) setTimeout(() => link.blur(), 150);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) return;
+    const el = document.activeElement;
+    if (el && el.tagName === "A" && isExternal(el)) el.blur();
+  });
 })();
 
 /* ---------- Contact form (mailto fallback) ---------- */
