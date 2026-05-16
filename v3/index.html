@@ -25,17 +25,92 @@
   <meta property="og:url" content="https://souravas.com/v3/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://souravas.com/assets/profile.webp" />
+  <meta property="og:image:width" content="300" />
+  <meta property="og:image:height" content="300" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sourav — Senior Software Engineer" />
+  <meta name="twitter:description" content="Backend specialist · Python · Ruby on Rails · REST APIs · AWS · Kubernetes · PostgreSQL." />
+  <meta name="twitter:image" content="https://souravas.com/assets/profile.webp" />
 
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-48x48.png" sizes="48x48" type="image/png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Sourav" />
   <link rel="manifest" href="/manifest.webmanifest" />
+
+  <link rel="dns-prefetch" href="//api.github.com" />
+  <link rel="dns-prefetch" href="//github.com" />
+  <link rel="dns-prefetch" href="//linkedin.com" />
+  <link rel="dns-prefetch" href="//credly.com" />
+  <link rel="dns-prefetch" href="//hackerrank.com" />
+  <link rel="dns-prefetch" href="//coursera.org" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <script type="module" src="/src/main.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sourav",
+    "url": "https://souravas.com",
+    "image": "https://souravas.com/assets/profile.webp",
+    "sameAs": [
+      "https://github.com/souravas",
+      "https://www.linkedin.com/in/souravas/"
+    ],
+    "email": "mailto:souravas007@gmail.com",
+    "jobTitle": "Senior Software Engineer",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Personal",
+      "telephone": "+91-9526-444-907",
+      "email": "mailto:souravas007@gmail.com"
+    },
+    "worksFor": [
+      {
+        "@type": "Organization",
+        "name": "Tata 1mg",
+        "url": "https://www.1mg.com",
+        "roleName": "SDE III"
+      },
+      {
+        "@type": "Organization",
+        "name": "Tata Health",
+        "url": "https://www.linkedin.com/company/tatahealth",
+        "roleName": "Software Engineer"
+      },
+      {
+        "@type": "Organization",
+        "name": "Pelatro",
+        "url": "https://www.pelatro.com",
+        "roleName": "Software Engineer"
+      }
+    ],
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "NSS College of Engineering, Palakkad",
+        "url": "https://www.nssce.ac.in/"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "Jawahar Navodaya Vidyalaya (JNV)",
+        "url": "http://www.navodaya.gov.in/"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "Bethany St.John's EHSS",
+        "url": "https://bethanystjohns.edu.in/"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="aurora" aria-hidden="true">
@@ -365,16 +440,19 @@
         </aside>
         <form id="contact-form" class="contact-form reveal" data-delay="100" action="#" method="post" aria-label="Contact form">
           <div class="row">
-            <label for="name">Your name</label>
-            <input id="name" name="name" type="text" required placeholder="Jane Doe" autocomplete="name" />
+            <label for="name">Your name *</label>
+            <input id="name" name="name" type="text" required placeholder="Jane Doe" autocomplete="name" aria-describedby="name-help" />
+            <small id="name-help" class="sr-only">Enter your full name</small>
           </div>
           <div class="row">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required placeholder="jane@company.com" autocomplete="email" />
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required placeholder="jane@company.com" autocomplete="email" aria-describedby="email-help" />
+            <small id="email-help" class="sr-only">Enter a valid email address</small>
           </div>
           <div class="row">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Tell me about the role, project, or question…"></textarea>
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Tell me about the role, project, or question…" aria-describedby="message-help"></textarea>
+            <small id="message-help" class="sr-only">Describe the opportunity or inquiry</small>
           </div>
           <button class="btn btn-primary magnetic" type="submit">
             <span>Send message</span>
@@ -394,5 +472,9 @@
       </a>
     </div>
   </footer>
+
+  <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top" role="button">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </a>
 </body>
 </html>

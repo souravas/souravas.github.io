@@ -185,6 +185,30 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   });
 })();
 
+/* ---------- Back-to-top FAB ---------- */
+(() => {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+
+  let ticking = false;
+  const update = () => {
+    btn.classList.toggle("is-visible", window.scrollY > 300);
+    ticking = false;
+  };
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
+
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+
+  update();
+})();
+
 /* ---------- Contact form (mailto fallback) ---------- */
 (() => {
   const form = document.getElementById("contact-form");
