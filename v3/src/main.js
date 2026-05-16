@@ -58,10 +58,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   });
 })();
 
-/* ---------- Scroll: header style, progress bar, active link ---------- */
+/* ---------- Scroll: header, progress, active link, back-to-top ---------- */
 (() => {
   const header = document.querySelector(".site-header");
   const progress = document.querySelector(".scroll-progress span");
+  const backToTop = document.getElementById("back-to-top");
   const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
   const sections = navLinks
     .map((a) => document.querySelector(a.getAttribute("href")))
@@ -81,6 +82,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     requestAnimationFrame(() => {
       const y = window.scrollY;
       if (header) header.classList.toggle("is-scrolled", y > 8);
+      if (backToTop) backToTop.classList.toggle("is-visible", y > 300);
 
       if (progress) {
         const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -146,7 +148,20 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const tiles = Array.from(document.querySelectorAll(".tile"));
 
   let mx = -9999, my = -9999, tx = -9999, ty = -9999;
-  const lerp = (a, b, t) => a + (b - a) * t;
+  let running = false;
+
+  const tick = () => {
+    const dx = mx - tx;
+    const dy = my - ty;
+    tx += dx * 0.18;
+    ty += dy * 0.18;
+    if (glow) glow.style.transform = `translate3d(${tx - 240}px, ${ty - 240}px, 0)`;
+    if (Math.abs(dx) > 0.25 || Math.abs(dy) > 0.25) {
+      requestAnimationFrame(tick);
+    } else {
+      running = false;
+    }
+  };
 
   window.addEventListener("pointermove", (e) => {
     mx = e.clientX;
@@ -157,15 +172,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       tile.style.setProperty("--mx", `${e.clientX - r.left}px`);
       tile.style.setProperty("--my", `${e.clientY - r.top}px`);
     }
-  }, { passive: true });
 
-  function tick() {
-    tx = lerp(tx, mx, 0.18);
-    ty = lerp(ty, my, 0.18);
-    if (glow) glow.style.transform = `translate3d(${tx - 240}px, ${ty - 240}px, 0)`;
-    requestAnimationFrame(tick);
-  }
-  tick();
+    if (!running) {
+      running = true;
+      requestAnimationFrame(tick);
+    }
+  }, { passive: true });
 })();
 
 /* ---------- Magnetic buttons ---------- */
@@ -175,13 +187,20 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const strength = 14;
 
   buttons.forEach((btn) => {
+    let frame = 0;
+    let tx = 0, ty = 0;
+    const apply = () => {
+      frame = 0;
+      btn.style.transform = `translate(${tx}px, ${ty}px)`;
+    };
     btn.addEventListener("pointermove", (e) => {
       const r = btn.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * strength;
-      const y = ((e.clientY - r.top) / r.height - 0.5) * strength;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
+      tx = ((e.clientX - r.left) / r.width - 0.5) * strength;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * strength;
+      if (!frame) frame = requestAnimationFrame(apply);
     });
     btn.addEventListener("pointerleave", () => {
+      if (frame) { cancelAnimationFrame(frame); frame = 0; }
       btn.style.transform = "";
     });
   });
@@ -193,13 +212,22 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const card = document.querySelector(".hero-card");
   if (!card) return;
 
+  let frame = 0;
+  let rx = 0, ry = 0;
+  const apply = () => {
+    frame = 0;
+    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+  };
   card.addEventListener("pointermove", (e) => {
     const r = card.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5;
     const py = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `perspective(900px) rotateX(${(-py * 4).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg)`;
+    rx = +(-py * 4).toFixed(2);
+    ry = +(px * 6).toFixed(2);
+    if (!frame) frame = requestAnimationFrame(apply);
   });
   card.addEventListener("pointerleave", () => {
+    if (frame) { cancelAnimationFrame(frame); frame = 0; }
     card.style.transform = "";
   });
 })();
@@ -208,24 +236,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 (() => {
   const btn = document.getElementById("back-to-top");
   if (!btn) return;
-
-  let ticking = false;
-  const update = () => {
-    btn.classList.toggle("is-visible", window.scrollY > 300);
-    ticking = false;
-  };
-  window.addEventListener("scroll", () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }, { passive: true });
-
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   });
-
-  update();
 })();
 
 /* ---------- Drop focus ring after opening external links ---------- */

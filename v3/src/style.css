@@ -63,9 +63,11 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: var(--scroll-padding, 96px);
   color-scheme: dark;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
 [data-theme="light"] html, html[data-theme="light"] { color-scheme: light; }
 

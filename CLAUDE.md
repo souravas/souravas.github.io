@@ -4,77 +4,40 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is Sourav's portfolio website. All source lives under `v3/`; the root is a thin build wrapper that copies the v3 build into `dist/` for GitHub Pages.
+Sourav's portfolio website. All source lives under `v3/`. GitHub Actions builds Vite output from `v3/` and deploys directly to GitHub Pages via `actions/deploy-pages`.
 
-**IMPORTANT**: All changes should be made in the `v3/` directory.
+**IMPORTANT**: All changes go in `v3/`. There is no root build wrapper.
 
 ## Development Commands
 
-### Prerequisites
+All commands run from `v3/`.
+
 ```bash
-# Install dependencies (root + v3)
+cd v3
 npm install
-cd v3 && npm install && cd ..
+npm run dev       # dev server on http://localhost:3003
+npm run build     # production build → v3/dist
+npm run preview   # preview the production build
 ```
 
-### Development Server
-```bash
-# Run the dev server (port 3001)
-npm run dev
+## Deployment
 
-# Run integrated preview after building (port 3002)
-npm run dev:integrated
-```
-
-### Building
-```bash
-# Build v3 and copy to dist/
-npm run build
-
-# Build v3 only
-npm run build:v3
-
-# Run the copy/CNAME step
-npm run integrate
-
-# Preview integrated build
-npm run preview
-
-# Clean all build artifacts
-npm run clean
-```
-
-### Deployment
-```bash
-# Deploy to GitHub Pages
-npm run deploy
-
-# Alternative deployment script
-./deploy.sh
-```
+Pushes to `main` are built and published by `.github/workflows/deploy.yml` (modern `actions/deploy-pages` path — no `gh-pages` package, no manual `dist/` copy step). Pull requests run the build only, without deploying.
 
 ## Architecture
 
-### Build Process
-1. **v3 Build**: Vite builds `v3/` to `v3/dist/`
-2. **Integration Script** (`scripts/integrate.js`):
-   - Copies `v3/dist/` to `dist/`
-   - Copies the v3 CNAME file for the custom domain
+- **Vite build** outputs to `v3/dist/`; that directory is what gets uploaded as the Pages artifact.
+- **`v3/public/CNAME`** carries the custom domain and is emitted untouched into the build.
+- **CSP**: the inline theme bootstrap and JSON-LD scripts in `v3/index.html` are tightened at build time by a small Vite plugin in `v3/vite.config.js` that computes SHA-256 hashes for each inline `<script>` and replaces `'unsafe-inline'` in the CSP meta tag. Dev mode keeps `'unsafe-inline'` so HMR works.
+- **Sitemap**: emitted by the same `vite.config.js` with the current build date, so `lastmod` never goes stale.
 
-### Development Scripts
-- **`scripts/integrate.js`**: Copies v3 build output and CNAME into `dist/`
+## Site Structure
 
-### Site Structure
 ```
 Production URL:
-/          → portfolio (served from v3 build)
+/                 → portfolio
+/cv, /resume      → redirect to /assets/resume.pdf
 
 Local Development:
-localhost:3001 → v3 dev server
-localhost:3002 → integrated preview
+localhost:3003    → v3 dev server
 ```
-
-### Key Files
-- `scripts/integrate.js`: Build copy + CNAME logic
-- `deploy.sh`: Production deployment script with dependency checks
-- `QUICKSTART.md`: Quick reference for common tasks

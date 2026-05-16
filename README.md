@@ -1,66 +1,34 @@
 # Sourav's Portfolio
 
-This repository contains the source for Sourav's portfolio website.
+Source for [souravas.com](https://souravas.com). All source lives in `v3/`; GitHub Actions builds and deploys to GitHub Pages on every push to `main`.
 
-## 🚀 Getting Started
-
-### Installation
+## Getting Started
 
 ```bash
-# Install root dependencies
+cd v3
 npm install
-
-# Install v3 dependencies
-cd v3 && npm install && cd ..
+npm run dev       # dev server on http://localhost:3003
+npm run build     # production build → v3/dist
+npm run preview   # preview the production build
 ```
 
-### Development
+## Deployment
 
-```bash
-# Run the dev server
-npm run dev
-```
+Pushes to `main` are built and deployed automatically via [.github/workflows/deploy.yml](.github/workflows/deploy.yml) using `actions/deploy-pages`. To trigger a deploy manually, use the *Run workflow* button on the Actions tab.
 
-### Building
-
-```bash
-# Build the site
-npm run build
-
-# Clean build artifacts
-npm run clean
-```
-
-### Deployment
-
-```bash
-# Deploy to GitHub Pages
-npm run deploy
-
-# Or use the shell script
-./deploy.sh
-```
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 souravas.github.io/
-├── v3/                 # Portfolio source
-├── scripts/
-│   ├── dev.js          # Dev server launcher
-│   └── integrate.js    # Build copy + CNAME script
-├── dist/               # Final build output
-├── deploy.sh           # Deployment script
-└── package.json        # Root package.json
+├── v3/                # Portfolio source (Vite)
+│   ├── index.html
+│   ├── public/        # static assets, CNAME, favicons, manifest
+│   ├── src/
+│   └── vite.config.js
+└── .github/workflows/deploy.yml
 ```
 
-## 🔧 How It Works
+## Links
 
-1. **Build**: `v3/` builds via Vite to `v3/dist/`
-2. **Integrate**: `scripts/integrate.js` copies `v3/dist/` to `dist/` and adds the CNAME
-3. **Deploy**: The `dist/` folder is published to GitHub Pages
-
-## 🔗 Links
-
-- **Live Site**: https://souravas.github.io
-- **Repository**: https://github.com/souravas/souravas.github.io
+- Live site: https://souravas.com
+- Repository: https://github.com/souravas/souravas.github.io

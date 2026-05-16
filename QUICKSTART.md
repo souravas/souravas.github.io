@@ -1,34 +1,21 @@
-# Quick Start Guide
+# Quick Start
 
-## 🚀 Running Locally
+All commands run from `v3/`.
 
-### Development Mode
 ```bash
-# Run the dev server
-npm run dev
+cd v3
+npm install
 
-# Run the integrated preview (after building)
-npm run dev:integrated
+npm run dev       # http://localhost:3003
+npm run build     # → v3/dist
+npm run preview   # serves v3/dist
 ```
 
-### Building & Testing
-```bash
-# Build the site
-npm run build
+## Deploy
 
-# Preview the build
-npm run preview
-```
+Push to `main` — GitHub Actions builds and publishes to GitHub Pages (see [.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
 
-### URLs
-- **Local dev**: http://localhost:3001
-- **Local preview**: http://localhost:3002
+## URLs
 
-## 🌐 Production URL
-- **Main site**: https://souravas.github.io
-
-## 🔧 Development Workflow
-1. Make changes in `v3/`
-2. Test locally with `npm run dev`
-3. Build and preview: `npm run build && npm run preview`
-4. Deploy: `npm run deploy` or push to main branch (auto-deploy)
+- Local dev: http://localhost:3003
+- Production: https://souravas.com
