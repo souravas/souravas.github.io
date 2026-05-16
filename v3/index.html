@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <script>
     try {
       const t = localStorage.getItem('theme-v3');
@@ -11,8 +14,8 @@
     }
   </script>
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'" />
+
   <title>Sourav — Senior Software Engineer</title>
   <meta name="description" content="Sourav — Senior Software Engineer (7 years). Backend specialist · Python · Ruby on Rails · REST APIs · AWS · Kubernetes · PostgreSQL." />
 
@@ -41,6 +44,8 @@
   <meta name="apple-mobile-web-app-title" content="Sourav" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
+  <link rel="preload" as="image" href="/assets/profile.webp" fetchpriority="high" />
+
   <link rel="dns-prefetch" href="//api.github.com" />
   <link rel="dns-prefetch" href="//github.com" />
   <link rel="dns-prefetch" href="//linkedin.com" />
@@ -50,7 +55,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
 
   <script type="module" src="/src/main.js"></script>
   <script type="application/ld+json">
@@ -188,7 +195,7 @@
 
       <aside class="hero-card reveal" data-delay="280" aria-label="Profile">
         <div class="hero-card-frame">
-          <img class="profile" src="/assets/profile.webp" alt="Portrait of Sourav" width="320" height="320" loading="eager" />
+          <img class="profile" src="/assets/profile.webp" alt="Portrait of Sourav" width="320" height="320" loading="eager" fetchpriority="high" decoding="async" />
           <div class="hero-card-badge">
             <span class="badge-dot"></span>
             <span class="mono">India · Remote / Hybrid / On-site</span>
