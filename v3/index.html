@@ -14,7 +14,7 @@
     }
   </script>
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'" />
 
   <title>Sourav — Senior Software Engineer</title>
   <meta name="description" content="Sourav — Senior Software Engineer (7 years). Backend specialist · Python · Ruby on Rails · REST APIs · AWS · Kubernetes · PostgreSQL." />
@@ -45,6 +45,8 @@
   <link rel="manifest" href="/manifest.webmanifest" />
 
   <link rel="preload" as="image" href="/assets/profile.webp" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif.woff2" crossorigin />
 
   <link rel="dns-prefetch" href="//api.github.com" />
   <link rel="dns-prefetch" href="//github.com" />
@@ -52,12 +54,6 @@
   <link rel="dns-prefetch" href="//credly.com" />
   <link rel="dns-prefetch" href="//hackerrank.com" />
   <link rel="dns-prefetch" href="//coursera.org" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
 
   <script type="module" src="/src/main.js"></script>
   <script type="application/ld+json">
@@ -171,7 +167,7 @@
           <span>Available for new opportunities</span>
         </div>
 
-        <h1 class="display reveal">
+        <h1 class="display">
           <span class="line">Senior software engineer</span>
           <span class="line">building <em>resilient</em></span>
           <span class="line">backend systems.</span>

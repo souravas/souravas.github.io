@@ -259,6 +259,13 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   });
 })();
 
+/* ---------- Pause atmosphere when tab hidden ---------- */
+(() => {
+  document.addEventListener("visibilitychange", () => {
+    root.classList.toggle("is-bg-paused", document.hidden);
+  });
+})();
+
 /* ---------- Contact form (mailto fallback) ---------- */
 (() => {
   const form = document.getElementById("contact-form");
