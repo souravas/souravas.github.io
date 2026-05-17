@@ -15,6 +15,12 @@ npm run preview   # preview the production build
 
 Pushes to `main` are built and deployed automatically via [.github/workflows/deploy.yml](.github/workflows/deploy.yml) using `actions/deploy-pages`. Pull requests run the build only. To trigger a deploy manually, use *Run workflow* on the Actions tab.
 
+## URLs
+
+- Local dev: <http://localhost:3003>
+- Production: <https://souravas.com>
+- Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
+
 ## Project Structure
 
 ```
