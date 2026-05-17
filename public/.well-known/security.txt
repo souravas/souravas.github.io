@@ -1,0 +1,4 @@
+Contact: mailto:souravas007@gmail.com
+Expires: 2027-05-17T00:00:00Z
+Preferred-Languages: en
+Canonical: https://souravas.com/.well-known/security.txt

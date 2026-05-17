@@ -15,7 +15,7 @@
     }
   </script>
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Sourav — Senior Software Engineer · Backend Systems &amp; APIs</title>
   <meta name="description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
@@ -30,7 +30,7 @@
   <meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:site_name" content="Sourav" />
-  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale" content="en_IN" />
   <meta property="og:title" content="Sourav — Senior Software Engineer · Backend Systems &amp; APIs" />
   <meta property="og:description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
   <meta property="og:url" content="https://souravas.com/" />
@@ -60,9 +60,6 @@
 
   <link rel="preload" as="image" href="/assets/profile.webp" fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif.woff2" crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif-italic.woff2" crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin />
 
   <script type="module" src="/src/main.js"></script>
   <script type="application/ld+json">
@@ -73,8 +70,17 @@
         "@type": "Person",
         "@id": "https://souravas.com/#person",
         "name": "Sourav",
+        "givenName": "Sourav",
         "url": "https://souravas.com/",
-        "image": "https://souravas.com/assets/profile.webp",
+        "image": {
+          "@type": "ImageObject",
+          "@id": "https://souravas.com/#profile-image",
+          "url": "https://souravas.com/assets/profile.webp",
+          "width": 320,
+          "height": 320,
+          "caption": "Sourav — Senior Software Engineer"
+        },
+        "nationality": { "@type": "Country", "name": "India" },
         "description": "Senior Software Engineer with 7 years of experience building resilient backend systems — REST APIs, database performance, and backend automation across monoliths and microservices.",
         "jobTitle": "Senior Software Engineer",
         "knowsAbout": [
@@ -183,6 +189,23 @@
         "description": "Portfolio of Sourav, a Senior Software Engineer specializing in backend development, REST APIs, and system optimization.",
         "inLanguage": "en",
         "publisher": { "@id": "https://souravas.com/#person" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://souravas.com/#webpage",
+        "url": "https://souravas.com/",
+        "name": "Sourav — Senior Software Engineer · Backend Systems & APIs",
+        "description": "Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://souravas.com/#website" },
+        "about": { "@id": "https://souravas.com/#person" },
+        "mainEntity": { "@id": "https://souravas.com/#person" },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://souravas.com/assets/og-cover.jpg",
+          "width": 1200,
+          "height": 630
+        }
       }
     ]
   }
@@ -264,7 +287,7 @@
 
       <aside class="hero-card reveal" data-delay="280" aria-label="Profile">
         <div class="hero-card-frame">
-          <img class="profile" src="/assets/profile.webp" alt="Portrait of Sourav" width="320" height="320" loading="eager" fetchpriority="high" decoding="async" />
+          <img class="profile" src="/assets/profile.webp" alt="Sourav — Senior Software Engineer, headshot" width="320" height="320" loading="eager" fetchpriority="high" decoding="async" />
           <div class="hero-card-badge">
             <span class="badge-dot"></span>
             <span class="mono">India · Remote / Hybrid / On-site</span>
@@ -331,7 +354,7 @@
           <div class="t-rail"></div>
           <header class="t-head">
             <div class="t-org">
-              <img src="/assets/1mg.webp" alt="Tata 1mg" width="44" height="44" loading="lazy" />
+              <img src="/assets/1mg.webp" alt="Tata 1mg logo" width="44" height="44" loading="lazy" />
               <div>
                 <h3><a href="https://www.1mg.com/" target="_blank" rel="noopener">Tata 1mg</a></h3>
                 <p class="t-role">SDE III · Hybrid</p>
@@ -352,7 +375,7 @@
           <div class="t-rail"></div>
           <header class="t-head">
             <div class="t-org">
-              <img src="/assets/tata_health.webp" alt="Tata Health" width="44" height="44" loading="lazy" />
+              <img src="/assets/tata_health.webp" alt="Tata Health logo" width="44" height="44" loading="lazy" />
               <div>
                 <h3><a href="https://www.linkedin.com/company/tatahealth" target="_blank" rel="noopener">Tata Health</a></h3>
                 <p class="t-role">Software Engineer · Remote</p>
@@ -372,7 +395,7 @@
           <div class="t-rail"></div>
           <header class="t-head">
             <div class="t-org">
-              <img src="/assets/pelatro.webp" alt="Pelatro" width="44" height="44" loading="lazy" />
+              <img src="/assets/pelatro.webp" alt="Pelatro logo" width="44" height="44" loading="lazy" />
               <div>
                 <h3><a href="https://www.pelatro.com/" target="_blank" rel="noopener">Pelatro</a></h3>
                 <p class="t-role">Software Engineer · On-site</p>
@@ -472,7 +495,7 @@
       <h3 class="sub-title">Education</h3>
       <div class="grid cards">
         <article class="edu reveal">
-          <img src="/assets/nss.webp" alt="NSS College of Engineering" width="48" height="48" loading="lazy" />
+          <img src="/assets/nss.webp" alt="NSS College of Engineering logo" width="48" height="48" loading="lazy" />
           <div>
             <h4><a href="https://www.nssce.ac.in/" target="_blank" rel="noopener">NSS College of Engineering, Palakkad</a></h4>
             <p class="muted">BTech · Computer Science</p>
@@ -480,7 +503,7 @@
           </div>
         </article>
         <article class="edu reveal" data-delay="80">
-          <img src="/assets/jnv.webp" alt="Jawahar Navodaya Vidyalaya" width="48" height="48" loading="lazy" />
+          <img src="/assets/jnv.webp" alt="Jawahar Navodaya Vidyalaya logo" width="48" height="48" loading="lazy" />
           <div>
             <h4><a href="http://www.navodaya.gov.in/" target="_blank" rel="noopener">Jawahar Navodaya Vidyalaya</a></h4>
             <p class="muted">High School</p>
@@ -488,7 +511,7 @@
           </div>
         </article>
         <article class="edu reveal" data-delay="160">
-          <img src="/assets/bethany.webp" alt="Bethany St.John's EHSS" width="48" height="48" loading="lazy" />
+          <img src="/assets/bethany.webp" alt="Bethany St.John's EHSS logo" width="48" height="48" loading="lazy" />
           <div>
             <h4><a href="https://bethanystjohns.edu.in/" target="_blank" rel="noopener">Bethany St.John's EHSS</a></h4>
             <p class="muted">Primary School</p>
