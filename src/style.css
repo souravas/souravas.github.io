@@ -112,7 +112,6 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
   min-height: 100vh;
   font-feature-settings: "ss01", "cv11";
 }
@@ -125,6 +124,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .aurora {
   position: fixed; inset: 0;
   pointer-events: none; z-index: -2;
+  overflow: hidden;
   filter: blur(80px);
   opacity: .9;
   transform: translateZ(0);
@@ -167,7 +167,10 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 }
 @media (pointer: fine) { .cursor-glow { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .aurora span { animation: none; }
+  .aurora { display: none; }
+}
+@media (max-width: 600px) {
+  .aurora { display: none; }
 }
 
 /* ---------- SCROLL PROGRESS ---------- */

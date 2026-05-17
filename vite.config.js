@@ -52,7 +52,6 @@ export default defineConfig({
     emptyOutDir: true,
     cssMinify: true,
     sourcemap: false,
-    assetsInlineLimit: 4096,
     target: 'es2020',
     cssCodeSplit: false,
     rolldownOptions: {
