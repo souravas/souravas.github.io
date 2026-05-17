@@ -738,7 +738,8 @@ a:hover { color: var(--accent); }
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
-.contact-side .kv li { grid-template-columns: 110px 1fr; }
+.contact-side .kv li { grid-template-columns: 110px minmax(0, 1fr); }
+.contact-side .kv li > a { overflow-wrap: anywhere; }
 
 .contact-form {
   display: grid; gap: 1.1rem;
@@ -913,7 +914,8 @@ textarea { resize: vertical; min-height: 140px; }
 
 @media (max-width: 480px) {
   .display { font-size: clamp(2.2rem, 11vw, 3.4rem); }
-  .kv li { grid-template-columns: 1fr; gap: .25rem; }
+  .kv li,
+  .contact-side .kv li { grid-template-columns: 1fr; gap: .25rem; }
   .hero-stats .num { font-size: 1.3rem; }
   .cert { grid-template-columns: auto 1fr; }
   .cert-arrow { grid-column: 2; justify-self: end; }
