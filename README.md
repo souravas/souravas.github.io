@@ -6,7 +6,7 @@ Source for [souravas.com](https://souravas.com). Vanilla HTML / CSS / JS built w
 
 ```bash
 npm install
-npm run dev       # dev server on http://localhost:3003
+npm run dev       # dev server on http://localhost:5173
 npm run build     # production build → dist/
 npm run preview   # preview the production build
 ```
@@ -17,7 +17,7 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 
 ## URLs
 
-- Local dev: <http://localhost:3003>
+- Local dev: <http://localhost:5173>
 - Production: <https://souravas.com>
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 

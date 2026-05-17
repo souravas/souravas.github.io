@@ -10,7 +10,7 @@ Sourav's portfolio website. Vanilla HTML / CSS / JS built with Vite — no frame
 
 ```bash
 npm install
-npm run dev       # dev server on http://localhost:3003
+npm run dev       # dev server on http://localhost:5173
 npm run build     # production build → dist/
 npm run preview   # preview the production build
 ```
@@ -38,4 +38,4 @@ Pushes to `main` are built and published by [.github/workflows/deploy.yml](.gith
 /sitemap.xml      → generated at build time
 ```
 
-Local dev: <http://localhost:3003>. Production: <https://souravas.com>.
+Local dev: <http://localhost:5173>. Production: <https://souravas.com>.
