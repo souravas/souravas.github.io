@@ -15,7 +15,7 @@
     }
   </script>
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Sourav — Senior Software Engineer · Backend Systems &amp; APIs</title>
   <meta name="description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
@@ -30,7 +30,7 @@
   <meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:site_name" content="Sourav" />
-  <meta property="og:locale" content="en_IN" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="Sourav — Senior Software Engineer · Backend Systems &amp; APIs" />
   <meta property="og:description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
   <meta property="og:url" content="https://souravas.com/" />
@@ -107,7 +107,7 @@
           "https://github.com/souravas",
           "https://www.linkedin.com/in/souravas/"
         ],
-        "email": "mailto:souravas007@gmail.com",
+        "email": "souravas007@gmail.com",
         "telephone": "+91-9526-444-907",
         "address": {
           "@type": "PostalAddress",
@@ -117,7 +117,7 @@
           "@type": "ContactPoint",
           "contactType": "Personal",
           "telephone": "+91-9526-444-907",
-          "email": "mailto:souravas007@gmail.com"
+          "email": "souravas007@gmail.com"
         },
         "worksFor": {
           "@type": "OrganizationRole",
@@ -538,7 +538,7 @@
             <li><span class="mono">github</span><a href="https://github.com/souravas" target="_blank" rel="noreferrer">@souravas</a></li>
           </ul>
         </aside>
-        <form id="contact-form" class="contact-form reveal" data-delay="100" action="#" method="post" aria-label="Contact form">
+        <form id="contact-form" class="contact-form reveal" data-delay="100" action="mailto:souravas007@gmail.com" method="post" enctype="text/plain" aria-label="Contact form">
           <div class="row">
             <label for="name">Your name *</label>
             <input id="name" name="name" type="text" required placeholder="Jane Doe" autocomplete="name" aria-describedby="name-help" />

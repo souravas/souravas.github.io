@@ -8,9 +8,13 @@ const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
 
-// Compute SHA-256 hashes for inline <script> bodies and inject them
-// into the CSP meta tag, replacing 'unsafe-inline'. Build-only — dev
-// keeps 'unsafe-inline' so Vite's HMR client can run.
+// Tighten the CSP meta tag at build time:
+//   - script-src: replace 'unsafe-inline' with SHA-256 hashes of each inline <script>
+//   - style-src:  drop 'unsafe-inline' entirely (built HTML has no <style> tags
+//                 and no inline style="" attributes; CSSOM mutations via
+//                 element.style.X aren't governed by style-src)
+// Dev keeps 'unsafe-inline' on both so Vite's HMR client and injected
+// style tags continue to work.
 const cspInlineHashes = () => ({
   name: 'csp-inline-hashes',
   apply: 'build',
@@ -24,9 +28,13 @@ const cspInlineHashes = () => ({
         const digest = createHash('sha256').update(m[2], 'utf8').digest('base64')
         hashes.add(`'sha256-${digest}'`)
       }
-      if (hashes.size === 0) return html
-      const directive = `script-src 'self' ${[...hashes].join(' ')}`
-      return html.replace(/script-src 'self' 'unsafe-inline'/, directive)
+      let out = html
+      if (hashes.size > 0) {
+        const directive = `script-src 'self' ${[...hashes].join(' ')}`
+        out = out.replace(/script-src 'self' 'unsafe-inline'/, directive)
+      }
+      out = out.replace(/style-src 'self' 'unsafe-inline'/, "style-src 'self'")
+      return out
     },
   },
 })
