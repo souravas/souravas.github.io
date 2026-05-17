@@ -1,14 +1,11 @@
 # Quick Start
 
-All commands run from `v3/`.
-
 ```bash
-cd v3
 npm install
 
 npm run dev       # http://localhost:3003
-npm run build     # → v3/dist
-npm run preview   # serves v3/dist
+npm run build     # → dist/
+npm run preview   # serves dist/
 ```
 
 ## Deploy

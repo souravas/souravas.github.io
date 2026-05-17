@@ -5,7 +5,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
 /* ---------- Theme toggle ---------- */
 (() => {
-  const KEY = "theme-v3";
+  const KEY = "theme";
   const btn = document.getElementById("themeToggle");
 
   const apply = (t) => {
