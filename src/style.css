@@ -888,8 +888,8 @@ textarea { resize: vertical; min-height: 140px; }
     top: 100%; left: var(--pad-x); right: var(--pad-x);
     flex-direction: column;
     align-items: stretch;
-    background: color-mix(in oklab, var(--bg-elev) 95%, transparent);
-    border: 1px solid var(--line);
+    background: var(--bg-elev);
+    border: 1px solid var(--line-strong);
     border-radius: 14px;
     padding: 1rem;
     margin-top: .5rem;
