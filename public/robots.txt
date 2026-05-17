@@ -13,6 +13,3 @@ Allow: /assets/resume.pdf
 
 # Sitemap
 Sitemap: https://souravas.com/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
