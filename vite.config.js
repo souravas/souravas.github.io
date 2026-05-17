@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import { createHash } from 'node:crypto'
 
 const SITE_ORIGIN = 'https://souravas.com'
+// Redirect stubs (/cv, /resume) are intentionally excluded — they're
+// meta-refresh pages to the PDF and would just be deindexed.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
-  { loc: '/resume.html', changefreq: 'monthly', priority: '0.6' },
-  { loc: '/cv.html', changefreq: 'monthly', priority: '0.6' },
 ]
 
 // Compute SHA-256 hashes for inline <script> bodies and inject them
