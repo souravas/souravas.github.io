@@ -45,6 +45,20 @@ const sitemap = () => ({
   },
 })
 
+// Replace __BUILD_DATE__ in index.html with the current ISO timestamp.
+// Used by article:modified_time so LinkedIn / Slack / etc. can show a
+// fresh "publication date" without us hand-editing the meta tag.
+const buildDate = () => ({
+  name: 'build-date',
+  apply: 'build',
+  transformIndexHtml: {
+    order: 'pre',
+    handler(html) {
+      return html.replaceAll('__BUILD_DATE__', new Date().toISOString())
+    },
+  },
+})
+
 export default defineConfig({
   base: '/',
   build: {
@@ -85,6 +99,7 @@ export default defineConfig({
         })
       },
     },
+    buildDate(),
     cspInlineHashes(),
     sitemap(),
   ],
