@@ -347,10 +347,16 @@ a:hover { color: var(--accent); }
   transition: border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
 }
 .icon-btn:hover { border-color: var(--line-strong); color: var(--accent); transform: translateY(-1px); }
-.icon-btn .ico { transition: opacity .25s var(--ease), transform .35s var(--ease); }
-.icon-btn .sun { display: none; }
-[data-theme="light"] .icon-btn .moon { display: none; }
-[data-theme="light"] .icon-btn .sun { display: block; }
+.icon-btn .ico {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s var(--ease), transform .35s var(--ease);
+}
+.icon-btn .moon { opacity: 1; visibility: visible; }
+[data-theme="light"] .icon-btn .moon { opacity: 0; visibility: hidden; }
+[data-theme="light"] .icon-btn .sun { opacity: 1; visibility: visible; }
 
 .pill-btn {
   display: inline-flex; align-items: center; gap: .4rem;

@@ -8,11 +8,14 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const btn = document.getElementById("themeToggle");
   if (!btn) return;
 
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+
   btn.addEventListener("click", () => {
     const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
     const run = () => {
       root.setAttribute("data-theme", next);
       root.style.colorScheme = next;
+      if (themeMeta) themeMeta.content = next === "light" ? "#f6f3ec" : "#08090c";
       localStorage.setItem("theme", next);
     };
     if (document.startViewTransition && !reduceMotion) {
@@ -104,9 +107,13 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     });
   };
   window.addEventListener("scroll", onScroll, { passive: true });
+  let resizeTimer = 0;
   window.addEventListener("resize", () => {
-    publishOffset();
-    onScroll();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      publishOffset();
+      onScroll();
+    }, 100);
   });
   onScroll();
 })();
