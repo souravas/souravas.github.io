@@ -7,11 +7,12 @@
 
   <script>
     try {
-      const t = localStorage.getItem('theme');
-      if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
-      else document.documentElement.setAttribute('data-theme', 'dark');
+      const t = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.style.colorScheme = t;
     } catch (e) {
       document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.style.colorScheme = 'dark';
     }
   </script>
 
@@ -60,6 +61,8 @@
 
   <link rel="preload" as="image" href="/assets/profile.webp" fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif-italic.woff2" crossorigin />
 
   <script type="module" src="/src/main.js"></script>
   <script type="application/ld+json">

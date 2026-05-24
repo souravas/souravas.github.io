@@ -71,8 +71,6 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'dist',
-    emptyOutDir: true,
-    cssMinify: true,
     sourcemap: false,
     target: 'es2022',
     cssCodeSplit: false,

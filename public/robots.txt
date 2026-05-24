@@ -1,15 +1,5 @@
 User-agent: *
 Allow: /
 
-# Block access to development files
-Disallow: /*.json$
-Disallow: /*.map$
-Disallow: /node_modules/
-Disallow: /.git/
-
-# Allow specific files
-Allow: /manifest.webmanifest
-Allow: /assets/resume.pdf
-
 # Sitemap
 Sitemap: https://souravas.com/sitemap.xml
