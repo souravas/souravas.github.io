@@ -5,23 +5,15 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
 /* ---------- Theme toggle ---------- */
 (() => {
-  const KEY = "theme";
   const btn = document.getElementById("themeToggle");
-
-  const apply = (t) => {
-    root.setAttribute("data-theme", t);
-    root.style.colorScheme = t;
-  };
-
-  const saved = localStorage.getItem(KEY);
-  apply(saved === "light" ? "light" : "dark");
-
   if (!btn) return;
+
   btn.addEventListener("click", () => {
     const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
     const run = () => {
-      apply(next);
-      localStorage.setItem(KEY, next);
+      root.setAttribute("data-theme", next);
+      root.style.colorScheme = next;
+      localStorage.setItem("theme", next);
     };
     if (document.startViewTransition && !reduceMotion) {
       document.startViewTransition(run);
@@ -264,6 +256,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   document.addEventListener("visibilitychange", () => {
     root.classList.toggle("is-bg-paused", document.hidden);
   });
+})();
+
+/* ---------- Footer year ---------- */
+(() => {
+  const el = document.getElementById("footer-year");
+  if (el) el.textContent = new Date().getFullYear();
 })();
 
 /* ---------- Contact form (mailto fallback) ---------- */

@@ -81,7 +81,7 @@
   --line-strong: rgba(10, 10, 20, 0.22);
   --text: #131318;
   --text-soft: #3a3a44;
-  --muted: #6c6c78;
+  --muted: #5e5e6a;
   --accent: #5b48ff;          /* indigo */
   --accent-2: #0a8aa7;        /* teal */
   --accent-3: #b15a00;        /* burnt */
@@ -839,6 +839,20 @@ textarea { resize: vertical; min-height: 140px; }
 }
 
 /* ---------- A11Y UTILITIES ---------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.chip:focus-visible,
+.social-link:focus-visible,
+.nav-links a:focus-visible {
+  outline-offset: 2px;
+}
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
 .sr-only {
   position: absolute;
   width: 1px; height: 1px;
