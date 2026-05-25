@@ -8,6 +8,8 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const btn = document.getElementById("themeToggle");
   if (!btn) return;
 
+  btn.setAttribute("aria-pressed", root.getAttribute("data-theme") === "light" ? "true" : "false");
+
   const themeMeta = document.querySelector('meta[name="theme-color"]');
 
   btn.addEventListener("click", () => {
@@ -17,6 +19,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       root.style.colorScheme = next;
       if (themeMeta) themeMeta.content = next === "light" ? "#f6f3ec" : "#08090c";
       localStorage.setItem("theme", next);
+      btn.setAttribute("aria-pressed", next === "light" ? "true" : "false");
     };
     if (document.startViewTransition && !reduceMotion) {
       document.startViewTransition(run);

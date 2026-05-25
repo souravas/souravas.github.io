@@ -113,7 +113,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   min-height: 100vh;
-  font-feature-settings: "ss01", "cv11";
+  font-feature-settings: "ss01", "ss02";
 }
 
 ::selection { background: var(--selection); color: var(--text); }
