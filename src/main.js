@@ -37,6 +37,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   if (!toggle || !links) return;
 
   const close = () => {
+    if (!links.classList.contains("open")) return;
     links.classList.remove("open");
     toggle.setAttribute("aria-expanded", "false");
   };
@@ -45,6 +46,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     e.stopPropagation();
     const open = links.classList.toggle("open");
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) {
+      const first = links.querySelector("a");
+      if (first) first.focus({ preventScroll: true });
+    }
   });
 
   links.addEventListener("click", (e) => {
@@ -53,6 +58,13 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   document.addEventListener("click", (e) => {
     if (!toggle.contains(e.target) && !links.contains(e.target)) close();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && links.classList.contains("open")) {
+      close();
+      toggle.focus({ preventScroll: true });
+    }
   });
 })();
 
@@ -152,6 +164,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   let mx = -9999, my = -9999, tx = -9999, ty = -9999;
   let running = false;
 
+  // Cache tile rects; refresh on resize and on scroll-driven layout shifts.
+  let tileRects = tiles.map((t) => t.getBoundingClientRect());
+  const refreshRects = () => { tileRects = tiles.map((t) => t.getBoundingClientRect()); };
+  window.addEventListener("resize", refreshRects);
+  window.addEventListener("scroll", refreshRects, { passive: true });
+
   const tick = () => {
     const dx = mx - tx;
     const dy = my - ty;
@@ -169,10 +187,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     mx = e.clientX;
     my = e.clientY;
 
-    for (const tile of tiles) {
-      const r = tile.getBoundingClientRect();
-      tile.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      tile.style.setProperty("--my", `${e.clientY - r.top}px`);
+    for (let i = 0; i < tiles.length; i++) {
+      const r = tileRects[i];
+      tiles[i].style.setProperty("--mx", `${e.clientX - r.left}px`);
+      tiles[i].style.setProperty("--my", `${e.clientY - r.top}px`);
     }
 
     if (!running) {
@@ -187,13 +205,14 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   if (!window.matchMedia("(pointer: fine)").matches || reduceMotion) return;
   const buttons = document.querySelectorAll(".magnetic");
   const strength = 14;
+  const lift = 2; // matches CSS .btn:hover { transform: translateY(-2px) }
 
   buttons.forEach((btn) => {
     let frame = 0;
     let tx = 0, ty = 0;
     const apply = () => {
       frame = 0;
-      btn.style.transform = `translate(${tx}px, ${ty}px)`;
+      btn.style.transform = `translate(${tx}px, ${ty - lift}px)`;
     };
     btn.addEventListener("pointermove", (e) => {
       const r = btn.getBoundingClientRect();
@@ -281,17 +300,46 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    if (!form.reportValidity()) return;
+
     const data = new FormData(form);
     const name = (data.get("name") || "").toString().trim();
     const email = (data.get("email") || "").toString().trim();
     const msg = (data.get("message") || "").toString().trim();
 
-    if (!name || !email || !msg) {
-      alert("Please fill in all fields.");
-      return;
-    }
     const subject = encodeURIComponent(`Website contact from ${name}`);
     const body = encodeURIComponent(`From: ${name} <${email}>\n\n${msg}`);
-    window.location.href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
+    const href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
+
+    // Open via a synthetic <a> so handler-less devices fall back to whatever
+    // the OS does with mailto: links, rather than navigating the page away.
+    const a = document.createElement("a");
+    a.href = href;
+    a.rel = "noopener";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  });
+})();
+
+/* ---------- Lazy prefetch the résumé on hover/focus ---------- */
+(() => {
+  const targets = document.querySelectorAll('a[href$="resume.pdf"]');
+  if (!targets.length) return;
+  let prefetched = false;
+  const prefetch = () => {
+    if (prefetched) return;
+    prefetched = true;
+    const link = document.createElement("link");
+    link.rel = "prefetch";
+    link.as = "document";
+    link.href = "/assets/resume.pdf";
+    document.head.appendChild(link);
+  };
+  targets.forEach((el) => {
+    el.addEventListener("pointerenter", prefetch, { once: true });
+    el.addEventListener("focus", prefetch, { once: true });
+    el.addEventListener("touchstart", prefetch, { once: true, passive: true });
   });
 })();
