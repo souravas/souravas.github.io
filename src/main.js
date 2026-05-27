@@ -2,6 +2,8 @@ import "./style.css";
 
 const root = document.documentElement;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const finePointer = window.matchMedia("(pointer: fine)").matches;
+const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRemaining: () => 0 }), 1));
 
 /* ---------- Theme toggle ---------- */
 (() => {
@@ -135,8 +137,13 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
 /* ---------- Reveal on scroll ---------- */
 (() => {
-  if (reduceMotion) {
-    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+  const items = document.querySelectorAll(".reveal");
+  if (!items.length) return;
+
+  const revealAll = () => items.forEach((el) => el.classList.add("is-visible"));
+
+  if (reduceMotion || typeof IntersectionObserver === "undefined") {
+    revealAll();
     return;
   }
   const io = new IntersectionObserver(
@@ -152,12 +159,18 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     },
     { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
   );
-  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  items.forEach((el) => io.observe(el));
+
+  // Safety net: if the page never scrolls (bot, headless tester, very tall
+  // viewport, or content-visibility skipping intersection callbacks for
+  // off-screen sections) reveal everything after a short idle so the page
+  // can never get stuck with permanently invisible content.
+  idle(() => setTimeout(revealAll, 1500));
 })();
 
 /* ---------- Cursor glow ---------- */
-(() => {
-  if (!window.matchMedia("(pointer: fine)").matches || reduceMotion) return;
+idle(() => {
+  if (!finePointer || reduceMotion) return;
   const glow = document.querySelector(".cursor-glow");
   if (!glow) return;
 
@@ -169,7 +182,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     const dy = my - ty;
     tx += dx * 0.18;
     ty += dy * 0.18;
-    glow.style.transform = `translate3d(${tx - 240}px, ${ty - 240}px, 0)`;
+    glow.style.transform = `translate3d(${tx - 180}px, ${ty - 180}px, 0)`;
     if (Math.abs(dx) > 0.25 || Math.abs(dy) > 0.25) {
       requestAnimationFrame(tick);
     } else {
@@ -185,11 +198,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       requestAnimationFrame(tick);
     }
   }, { passive: true });
-})();
+});
 
 /* ---------- Tile spotlight (per-tile, no scroll listener) ---------- */
-(() => {
-  if (!window.matchMedia("(pointer: fine)").matches || reduceMotion) return;
+idle(() => {
+  if (!finePointer || reduceMotion) return;
   document.querySelectorAll(".tile").forEach((tile) => {
     let rect = null;
     let frame = 0;
@@ -211,11 +224,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       if (frame) { cancelAnimationFrame(frame); frame = 0; }
     });
   });
-})();
+});
 
 /* ---------- Magnetic buttons ---------- */
-(() => {
-  if (!window.matchMedia("(pointer: fine)").matches || reduceMotion) return;
+idle(() => {
+  if (!finePointer || reduceMotion) return;
   const buttons = document.querySelectorAll(".magnetic");
   const strength = 14;
   const lift = 2; // matches CSS .btn:hover { transform: translateY(-2px) }
@@ -238,11 +251,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       btn.style.transform = "";
     });
   });
-})();
+});
 
 /* ---------- Hero card tilt ---------- */
-(() => {
-  if (!window.matchMedia("(pointer: fine)").matches || reduceMotion) return;
+idle(() => {
+  if (!finePointer || reduceMotion) return;
   const card = document.querySelector(".hero-card");
   if (!card) return;
 
@@ -264,7 +277,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     if (frame) { cancelAnimationFrame(frame); frame = 0; }
     card.style.transform = "";
   });
-})();
+});
 
 /* ---------- Back-to-top FAB ---------- */
 (() => {

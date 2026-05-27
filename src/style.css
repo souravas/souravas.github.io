@@ -111,7 +111,6 @@ body {
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
   min-height: 100dvh;
   font-feature-settings: "ss01", "ss02";
 }
@@ -156,7 +155,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 
 .cursor-glow {
   position: fixed; top: 0; left: 0;
-  width: 480px; height: 480px;
+  width: 360px; height: 360px;
   border-radius: 50%;
   pointer-events: none;
   z-index: -1;
@@ -164,6 +163,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   transform: translate3d(-9999px, -9999px, 0);
   transition: opacity .3s var(--ease);
   opacity: 0;
+  will-change: transform;
 }
 @media (pointer: fine) { .cursor-glow { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
@@ -201,6 +201,13 @@ main { padding-top: 84px; }
 .section {
   padding-block: var(--section-pad);
   position: relative;
+}
+/* Skip rendering work for off-screen sections. The intrinsic-size keeps
+   scrollbar position and the page height stable; height is generous so
+   late-painted content doesn't shift layout when it scrolls into view. */
+#work, #skills, #credentials, #contact {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 /* ---------- TYPE ---------- */
