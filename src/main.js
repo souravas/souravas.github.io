@@ -155,27 +155,21 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 })();
 
-/* ---------- Cursor glow + tile spotlight ---------- */
+/* ---------- Cursor glow ---------- */
 (() => {
   if (!window.matchMedia("(pointer: fine)").matches || reduceMotion) return;
   const glow = document.querySelector(".cursor-glow");
-  const tiles = Array.from(document.querySelectorAll(".tile"));
+  if (!glow) return;
 
   let mx = -9999, my = -9999, tx = -9999, ty = -9999;
   let running = false;
-
-  // Cache tile rects; refresh on resize and on scroll-driven layout shifts.
-  let tileRects = tiles.map((t) => t.getBoundingClientRect());
-  const refreshRects = () => { tileRects = tiles.map((t) => t.getBoundingClientRect()); };
-  window.addEventListener("resize", refreshRects);
-  window.addEventListener("scroll", refreshRects, { passive: true });
 
   const tick = () => {
     const dx = mx - tx;
     const dy = my - ty;
     tx += dx * 0.18;
     ty += dy * 0.18;
-    if (glow) glow.style.transform = `translate3d(${tx - 240}px, ${ty - 240}px, 0)`;
+    glow.style.transform = `translate3d(${tx - 240}px, ${ty - 240}px, 0)`;
     if (Math.abs(dx) > 0.25 || Math.abs(dy) > 0.25) {
       requestAnimationFrame(tick);
     } else {
@@ -186,18 +180,37 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   window.addEventListener("pointermove", (e) => {
     mx = e.clientX;
     my = e.clientY;
-
-    for (let i = 0; i < tiles.length; i++) {
-      const r = tileRects[i];
-      tiles[i].style.setProperty("--mx", `${e.clientX - r.left}px`);
-      tiles[i].style.setProperty("--my", `${e.clientY - r.top}px`);
-    }
-
     if (!running) {
       running = true;
       requestAnimationFrame(tick);
     }
   }, { passive: true });
+})();
+
+/* ---------- Tile spotlight (per-tile, no scroll listener) ---------- */
+(() => {
+  if (!window.matchMedia("(pointer: fine)").matches || reduceMotion) return;
+  document.querySelectorAll(".tile").forEach((tile) => {
+    let rect = null;
+    let frame = 0;
+    let lx = 0, ly = 0;
+    const apply = () => {
+      frame = 0;
+      tile.style.setProperty("--mx", `${lx}px`);
+      tile.style.setProperty("--my", `${ly}px`);
+    };
+    tile.addEventListener("pointerenter", () => { rect = tile.getBoundingClientRect(); });
+    tile.addEventListener("pointermove", (e) => {
+      if (!rect) rect = tile.getBoundingClientRect();
+      lx = e.clientX - rect.left;
+      ly = e.clientY - rect.top;
+      if (!frame) frame = requestAnimationFrame(apply);
+    }, { passive: true });
+    tile.addEventListener("pointerleave", () => {
+      rect = null;
+      if (frame) { cancelAnimationFrame(frame); frame = 0; }
+    });
+  });
 })();
 
 /* ---------- Magnetic buttons ---------- */

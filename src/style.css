@@ -401,6 +401,7 @@ a:hover { color: var(--accent); }
   box-shadow: 0 0 0 4px rgba(52, 211, 153, .18);
   animation: pulse 2.4s ease-in-out infinite;
 }
+.is-bg-paused .status-dot { animation-play-state: paused; }
 @keyframes pulse {
   0%, 100% { box-shadow: 0 0 0 4px rgba(52, 211, 153, .18); }
   50% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
