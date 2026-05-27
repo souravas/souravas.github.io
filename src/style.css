@@ -163,14 +163,15 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   transform: translate3d(-9999px, -9999px, 0);
   transition: opacity .3s var(--ease);
   opacity: 0;
-  will-change: transform;
 }
-@media (pointer: fine) { .cursor-glow { opacity: 1; } }
+@media (pointer: fine) {
+  .cursor-glow { opacity: 1; will-change: transform; }
+}
 @media (prefers-reduced-motion: reduce) {
   .aurora { display: none; }
 }
 @media (max-width: 600px) {
-  .aurora { display: none; }
+  .aurora, .grain { display: none; }
 }
 
 /* ---------- SCROLL PROGRESS ---------- */
@@ -201,13 +202,6 @@ main { padding-top: 84px; }
 .section {
   padding-block: var(--section-pad);
   position: relative;
-}
-/* Skip rendering work for off-screen sections. The intrinsic-size keeps
-   scrollbar position and the page height stable; height is generous so
-   late-painted content doesn't shift layout when it scrolls into view. */
-#work, #skills, #credentials, #contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
 }
 
 /* ---------- TYPE ---------- */
@@ -558,6 +552,7 @@ a:hover { color: var(--accent); }
   border-radius: var(--radius);
   background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
   overflow: hidden;
+  contain: layout style;
   transition: transform .35s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
 }
 .t-item::before {
@@ -632,6 +627,7 @@ a:hover { color: var(--accent); }
   background: color-mix(in oklab, var(--bg-elev) 75%, transparent);
   min-height: 220px;
   overflow: hidden;
+  contain: layout style;
   transition: transform .35s var(--ease), border-color .25s var(--ease);
 }
 .tile:hover { border-color: var(--line-strong); transform: translateY(-3px); }
@@ -692,6 +688,7 @@ a:hover { color: var(--accent); }
   border-radius: var(--radius);
   background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
   color: var(--text);
+  contain: layout style;
   transition: all .25s var(--ease);
   overflow: hidden;
 }
@@ -721,6 +718,7 @@ a:hover { color: var(--accent); }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
+  contain: layout style;
   transition: all .25s var(--ease);
 }
 .edu:hover { border-color: var(--line-strong); transform: translateY(-2px); }

@@ -38,16 +38,28 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
   const links = document.querySelector(".nav-links");
   if (!toggle || !links) return;
 
+  // When the nav collapses behind the burger menu, the links remain in the
+  // DOM and (without intervention) tab-focusable. `inert` removes them from
+  // the focus order and a11y tree when the menu is closed.
+  const mobileMq = window.matchMedia("(max-width: 820px)");
+  const syncInert = () => {
+    links.inert = mobileMq.matches && !links.classList.contains("open");
+  };
+  syncInert();
+  mobileMq.addEventListener("change", syncInert);
+
   const close = () => {
     if (!links.classList.contains("open")) return;
     links.classList.remove("open");
     toggle.setAttribute("aria-expanded", "false");
+    syncInert();
   };
 
   toggle.addEventListener("click", (e) => {
     e.stopPropagation();
     const open = links.classList.toggle("open");
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    syncInert();
     if (open) {
       const first = links.querySelector("a");
       if (first) first.focus({ preventScroll: true });
