@@ -191,6 +191,48 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
   idle(() => setTimeout(revealAll, 1500));
 })();
 
+/* ---------- Metric count-up ---------- */
+(() => {
+  if (reduceMotion || typeof IntersectionObserver === "undefined") return;
+  const metrics = document.querySelectorAll(".metric");
+  if (!metrics.length) return;
+
+  const animate = (el, prefix, target, decimals, suffix) => {
+    const dur = 900;
+    const start = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const step = (now) => {
+      const p = Math.min(1, (now - start) / dur);
+      el.textContent = prefix + (target * ease(p)).toFixed(decimals) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        io.unobserve(el);
+        // Split "−1.3 h" / "₹5L/mo" into sign-or-currency prefix, the number,
+        // and whatever trails it; only the number animates.
+        const m = el.textContent.match(/^([^0-9]*)(\d+(?:\.\d+)?)(.*)$/);
+        if (!m) return;
+        const decimals = (m[2].split(".")[1] || "").length;
+        // Pin the chip to its final width so the count-up doesn't reflow text.
+        el.style.minWidth = `${el.offsetWidth}px`;
+        // Let the parent card's reveal transition bring the chip into view
+        // before the digits start moving.
+        const wait = parseInt(el.closest(".reveal")?.dataset.delay || "0", 10) + 250;
+        setTimeout(() => animate(el, m[1], parseFloat(m[2]), decimals, m[3]), wait);
+      });
+    },
+    { threshold: 0.6 }
+  );
+  metrics.forEach((el) => io.observe(el));
+})();
+
 /* ---------- Cursor glow ---------- */
 idle(() => {
   if (!finePointer || reduceMotion) return;

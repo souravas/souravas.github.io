@@ -918,13 +918,45 @@ textarea { resize: vertical; min-height: 140px; }
 /* ---------- FOOTER ---------- */
 .site-footer {
   border-top: 1px solid var(--line);
-  padding-block: 1.5rem 2rem;
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) 2rem;
   margin-top: 4rem;
+}
+/* Closing wordmark: outlined serif at display scale, echoing the brand mark.
+   The gradient lives in a clipped background at 0% width so hover sweeps the
+   fill in from the left; the trailing dot stays solid accent, mirroring the
+   nav's brand-dot. */
+.foot-mark {
+  display: block;
+  width: fit-content;
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 18vw, 11rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in oklab, var(--text) 30%, transparent);
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  transition: background-size .7s var(--ease);
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+.foot-mark:hover,
+.foot-mark:focus-visible {
+  color: transparent;
+  background-size: 100% 100%;
+}
+.foot-mark-dot {
+  color: var(--accent);
+  -webkit-text-stroke-width: 0;
 }
 .foot {
   display: flex;
   align-items: center; justify-content: space-between;
   gap: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
 }
 .foot p { margin: 0; color: var(--muted); font-size: .8rem; }
 .foot-links { display: flex; align-items: center; gap: 1.4rem; }
