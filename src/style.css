@@ -100,6 +100,8 @@ html, body { margin: 0; padding: 0; }
 html {
   scroll-padding-top: var(--scroll-padding, 96px);
   color-scheme: dark;
+  scrollbar-gutter: stable;
+  scrollbar-color: color-mix(in oklab, var(--muted) 55%, transparent) transparent;
 }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
@@ -568,6 +570,48 @@ a:hover { color: var(--accent); }
 }
 .social-link:hover { color: var(--accent); }
 
+/* ---------- TICKER ---------- */
+/* Full-bleed marquee of craft keywords. Two identical copies and a -50%
+   translate make the loop seamless; the animation is transform-only so it
+   stays on the compositor. Decorative — the wrapper is aria-hidden. */
+.ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding-block: .8rem;
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 48s linear infinite;
+}
+.ticker-copy {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; align-items: center;
+}
+.ticker-copy li {
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: lowercase;
+  color: var(--muted);
+}
+.ticker-copy li::after {
+  content: "·";
+  margin-inline: 2.5ch;
+  color: var(--accent);
+  opacity: .75;
+}
+@keyframes ticker-scroll {
+  to { transform: translateX(-50%); }
+}
+.is-bg-paused .ticker-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+}
+
 /* ---------- ABOUT ---------- */
 .about-grid {
   display: grid;
@@ -601,9 +645,21 @@ a:hover { color: var(--accent); }
 .kv li > span:last-child, .kv li > a { color: var(--text); }
 
 /* ---------- TIMELINE ---------- */
+/* A real spine: one continuous rail on the list, one node per role. The
+   current role's node is filled and pulses. Cards must not clip (no
+   overflow:hidden) so the nodes can sit out on the rail. */
 .timeline {
-  list-style: none; margin: 0; padding: 0;
+  --rail: clamp(1.6rem, 3.5vw, 2.4rem);
+  list-style: none; margin: 0;
+  padding: 0 0 0 var(--rail);
+  position: relative;
   display: grid; gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.timeline::before {
+  content: "";
+  position: absolute; left: 0; top: 12px; bottom: 12px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--accent), var(--line) 35%, var(--line) 82%, transparent);
 }
 .t-item {
   position: relative;
@@ -612,16 +668,28 @@ a:hover { color: var(--accent); }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
-  overflow: hidden;
   contain: layout style;
   transition: transform .35s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
 }
 .t-item::before {
   content: "";
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--accent), transparent);
-  opacity: .55;
+  position: absolute;
+  left: calc(0.5px - var(--rail));
+  top: 2.3rem;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  border: 2px solid var(--accent);
+}
+.t-item:first-child::before { background: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .t-item:first-child::before { animation: node-pulse 2.6s ease-in-out infinite; }
+  .is-bg-paused .t-item:first-child::before { animation-play-state: paused; }
+}
+@keyframes node-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 40%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 8px transparent; }
 }
 .t-item:hover {
   border-color: var(--line-strong);
@@ -674,11 +742,13 @@ a:hover { color: var(--accent); }
 }
 
 /* ---------- BENTO SKILLS ---------- */
+/* Asymmetric checker: row one is wide+narrow, row two narrow+wide. */
 .bento {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
+.tile-lg, .tile-wide { grid-column: span 2; }
 .tile {
   position: relative;
   display: grid; gap: 1rem;
@@ -709,11 +779,6 @@ a:hover { color: var(--accent); }
   font-size: 1.4rem;
   margin: 0;
 }
-.tile-lg { grid-column: span 1; }
-@media (min-width: 880px) {
-  .tile-lg { grid-row: span 1; }
-}
-
 .chips { display: flex; flex-wrap: wrap; gap: .45rem; }
 .chip {
   display: inline-flex; align-items: center;
@@ -862,6 +927,7 @@ textarea { resize: vertical; min-height: 140px; }
   gap: 1rem;
 }
 .foot p { margin: 0; color: var(--muted); font-size: .8rem; }
+.foot-links { display: flex; align-items: center; gap: 1.4rem; }
 .foot-top {
   display: inline-flex; align-items: center; gap: .4rem;
   font-family: var(--font-mono);
@@ -987,7 +1053,7 @@ textarea:focus-visible {
   .hero-card { max-width: 360px; justify-self: start; }
   .about-grid { grid-template-columns: 1fr; }
   .bento { grid-template-columns: 1fr 1fr; }
-  .tile-lg { grid-column: 1 / -1; }
+  .tile-lg, .tile-wide { grid-column: 1 / -1; }
   .contact-wrap { grid-template-columns: 1fr; }
 }
 

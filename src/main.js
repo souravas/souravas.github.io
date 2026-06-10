@@ -369,6 +369,10 @@ idle(() => {
   const form = document.getElementById("contact-form");
   if (!form) return;
 
+  const label = form.querySelector('button[type="submit"] span');
+  const labelText = label ? label.textContent : "";
+  let labelTimer = 0;
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!form.reportValidity()) return;
@@ -391,8 +395,26 @@ idle(() => {
     document.body.appendChild(a);
     a.click();
     a.remove();
+
+    if (label) {
+      label.textContent = "Opening your mail app…";
+      clearTimeout(labelTimer);
+      labelTimer = setTimeout(() => {
+        label.textContent = labelText;
+      }, 2600);
+    }
   });
 })();
+
+/* ---------- Console note for the curious ---------- */
+idle(() => {
+  console.log(
+    "%c sourav %c backend engineer — thanks for peeking under the hood.\n%c source → https://github.com/souravas/souravas.github.io",
+    "background:#b8b1ff;color:#08090c;font-weight:700;padding:2px 8px;border-radius:4px;font-family:monospace",
+    "color:inherit;font-family:monospace",
+    "color:#87e5ff;font-family:monospace"
+  );
+});
 
 /* ---------- Lazy prefetch the résumé on hover/focus ---------- */
 (() => {

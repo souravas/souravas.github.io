@@ -333,6 +333,18 @@
       </div>
     </section>
 
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <ul class="ticker-copy">
+          <li>rest apis</li><li>database performance</li><li>python</li><li>ruby on rails</li><li>aws</li><li>kubernetes</li><li>postgresql</li><li>kafka</li><li>docker</li><li>microservices</li><li>backend automation</li><li>observability</li>
+        </ul>
+        <ul class="ticker-copy">
+          <li>rest apis</li><li>database performance</li><li>python</li><li>ruby on rails</li><li>aws</li><li>kubernetes</li><li>postgresql</li><li>kafka</li><li>docker</li><li>microservices</li><li>backend automation</li><li>observability</li>
+        </ul>
+      </div>
+    </div>
+
     <!-- ABOUT -->
     <section id="about" class="section container">
       <div class="section-head" data-num="01">
@@ -451,6 +463,13 @@
             <span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">ElasticSearch</span>
           </div>
         </article>
+
+        <article class="tile tile-wide reveal" data-delay="240">
+          <header><span class="mono">practice · approach</span><h3>How I work</h3></header>
+          <div class="chips">
+            <span class="chip">System Design</span><span class="chip">Microservices</span><span class="chip">TDD</span><span class="chip">Query Optimization</span><span class="chip">Backend Automation</span><span class="chip">Observability</span>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -565,7 +584,7 @@
             <small id="message-help" class="sr-only">Describe the opportunity or inquiry</small>
           </div>
           <button class="btn btn-primary magnetic" type="submit">
-            <span>Send message</span>
+            <span aria-live="polite">Send message</span>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
         </form>
@@ -576,10 +595,16 @@
   <footer class="site-footer">
     <div class="container foot">
       <p class="mono">© <span id="footer-year">__BUILD_YEAR__</span> Sourav · Crafted with care<span id="footer-time"></span></p>
-      <a href="#top" class="foot-top">
-        Back to top
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-      </a>
+      <div class="foot-links">
+        <a href="https://github.com/souravas/souravas.github.io" target="_blank" rel="noopener noreferrer" class="foot-top">
+          View source
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+        <a href="#top" class="foot-top">
+          Back to top
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </a>
+      </div>
     </div>
   </footer>
 
