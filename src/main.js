@@ -110,8 +110,8 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
 
       if (progress) {
         const max = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = max > 0 ? Math.min(100, (y / max) * 100) : 0;
-        progress.style.width = pct + "%";
+        const pct = max > 0 ? Math.min(1, y / max) : 0;
+        progress.style.transform = `scaleX(${pct})`;
       }
 
       // active link: pick the last section whose top has entered the upper

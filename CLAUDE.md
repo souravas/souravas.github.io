@@ -22,9 +22,9 @@ Pushes to `main` are built and published by [.github/workflows/deploy.yml](.gith
 ## Architecture
 
 - **Entry points**: [index.html](index.html) loads [src/main.js](src/main.js), which imports [src/style.css](src/style.css). No framework, no router — everything is one page with anchor sections.
-- **Vite build** outputs to `dist/`; that directory is what gets uploaded as the Pages artifact. Assets are hashed; CSS is not code-split.
+- **Vite build** outputs to `dist/`; that directory is what gets uploaded as the Pages artifact. Assets are hashed; the single CSS bundle is inlined into `index.html` by the `inline-css` plugin in [vite.config.js](vite.config.js), so production has no render-blocking stylesheet request.
 - **`public/`** is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs (`cv.html`, `resume.html`), and `assets/` (images + `resume.pdf`).
-- **CSP**: the inline theme bootstrap and JSON-LD scripts in [index.html](index.html) are tightened at build time by the `csp-inline-hashes` Vite plugin in [vite.config.js](vite.config.js), which computes SHA-256 hashes for each inline `<script>` and replaces `'unsafe-inline'` in the CSP meta tag. Dev mode keeps `'unsafe-inline'` so HMR works.
+- **CSP**: the inline theme bootstrap, JSON-LD scripts, and the inlined stylesheet in [index.html](index.html) are tightened at build time by the `csp-inline-hashes` Vite plugin in [vite.config.js](vite.config.js), which computes SHA-256 hashes for each inline `<script>`/`<style>` and replaces `'unsafe-inline'` in the CSP meta tag. Dev mode keeps `'unsafe-inline'` so HMR works.
 - **Sitemap**: emitted by the same `vite.config.js` with the current build date, so `lastmod` never goes stale.
 - **404 page**: [404.html](404.html) is a self-contained static page that GitHub Pages serves for unknown routes.
 

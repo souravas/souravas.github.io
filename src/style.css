@@ -124,21 +124,22 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   position: fixed; inset: 0;
   pointer-events: none; z-index: -2;
   overflow: hidden;
-  filter: blur(80px);
   opacity: .9;
-  transform: translateZ(0);
 }
+/* The blobs are radial gradients rather than blur()-ed discs: the spans
+   animate continuously, and a filter on the parent would force the blur to
+   be re-evaluated every frame. Gradients keep the drift compositor-only. */
 .aurora span {
   position: absolute;
   width: 60vmax; height: 60vmax;
-  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--blob) 30%, transparent);
   mix-blend-mode: screen;
   animation: drift 22s ease-in-out infinite;
 }
 [data-theme="light"] .aurora span { mix-blend-mode: multiply; }
-.aurora-a { background: var(--aurora-a); top: -20vmax; left: -20vmax; }
-.aurora-b { background: var(--aurora-b); top: -10vmax; right: -25vmax; animation-delay: -7s; animation-duration: 28s; }
-.aurora-c { background: var(--aurora-c); bottom: -30vmax; left: 10vmax; animation-delay: -14s; animation-duration: 34s; }
+.aurora-a { --blob: var(--aurora-a); top: -20vmax; left: -20vmax; }
+.aurora-b { --blob: var(--aurora-b); top: -10vmax; right: -25vmax; animation-delay: -7s; animation-duration: 28s; }
+.aurora-c { --blob: var(--aurora-c); bottom: -30vmax; left: 10vmax; animation-delay: -14s; animation-duration: 34s; }
 .is-bg-paused .aurora span { animation-play-state: paused; }
 
 @keyframes drift {
@@ -181,12 +182,16 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   z-index: 1001;
   background: transparent;
 }
+/* Driven via transform (not width) so per-scroll-frame updates stay on the
+   compositor instead of triggering layout + paint. */
 .scroll-progress span {
   display: block;
   height: 100%;
-  width: 0;
+  width: 100%;
   background: linear-gradient(90deg, var(--accent-2), var(--accent));
-  transition: width .08s linear;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .08s linear;
 }
 
 /* ---------- LAYOUT ---------- */
