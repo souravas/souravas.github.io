@@ -53,6 +53,7 @@
   --accent-3: #ffd09b;      /* warm */
   --accent-ink: #08090c;
   --selection: rgba(184, 177, 255, 0.35);
+  --grad-accent: linear-gradient(110deg, var(--accent-2), var(--accent) 60%, var(--accent-3));
 
   /* Aurora */
   --aurora-a: rgba(135, 229, 255, 0.32);
@@ -226,9 +227,10 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.015em; }
   text-wrap: balance;
 }
 .display .line { display: block; }
-.display em {
+.display em,
+.section-title em {
   font-style: italic;
-  background: linear-gradient(110deg, var(--accent-2), var(--accent) 60%, var(--accent-3));
+  background: var(--grad-accent);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -573,6 +575,14 @@ a:hover { color: var(--accent); }
   gap: clamp(1.5rem, 4vw, 3rem);
 }
 .about-grid .prose:first-child { font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text); }
+.about-grid .prose:first-child::first-letter {
+  font-family: var(--font-serif);
+  font-size: 3em;
+  line-height: .78;
+  float: left;
+  padding: .06em .14em 0 0;
+  color: var(--accent);
+}
 .kv {
   list-style: none; margin: 0; padding: 0;
   display: grid; gap: .6rem;
