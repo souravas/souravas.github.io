@@ -24,6 +24,17 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
       btn.setAttribute("aria-pressed", next === "light" ? "true" : "false");
     };
     if (document.startViewTransition && !reduceMotion) {
+      // Feed the CSS theme-wipe the button's position so the new theme
+      // expands from the toggle; radius reaches the farthest viewport corner.
+      const r = btn.getBoundingClientRect();
+      const x = r.left + r.width / 2;
+      const y = r.top + r.height / 2;
+      root.style.setProperty("--vt-x", `${x}px`);
+      root.style.setProperty("--vt-y", `${y}px`);
+      root.style.setProperty(
+        "--vt-r",
+        `${Math.ceil(Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)))}px`
+      );
       document.startViewTransition(run);
     } else {
       run();
@@ -329,6 +340,28 @@ idle(() => {
 (() => {
   const el = document.getElementById("footer-year");
   if (el) el.textContent = new Date().getFullYear();
+})();
+
+/* ---------- Footer local time (IST) ---------- */
+(() => {
+  const el = document.getElementById("footer-time");
+  if (!el || typeof Intl === "undefined") return;
+  const fmt = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Asia/Kolkata",
+  });
+  const tick = () => {
+    el.textContent = ` · ${fmt.format(new Date())} IST`;
+  };
+  tick();
+  setInterval(() => {
+    if (!document.hidden) tick();
+  }, 30000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) tick();
+  });
 })();
 
 /* ---------- Contact form (mailto fallback) ---------- */

@@ -235,7 +235,30 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.015em; }
   padding-right: 0.05em;
 }
 
-.section-head { display: grid; gap: .5rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.section-head {
+  display: grid; gap: .5rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  position: relative;
+  isolation: isolate;
+}
+/* Editorial watermark: an oversized outlined numeral behind each section
+   head, sourced from data-num. The `/ ""` alt-text form keeps it silent for
+   screen readers; browsers without that syntax skip the declaration and
+   simply render no numeral. */
+.section-head::before {
+  content: attr(data-num) / "";
+  position: absolute;
+  top: 50%; right: 0;
+  transform: translateY(-50%);
+  z-index: -1;
+  font-family: var(--font-serif);
+  font-size: clamp(4.5rem, 11vw, 8.5rem);
+  line-height: 1;
+  letter-spacing: .06em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in oklab, var(--text) 16%, transparent);
+  pointer-events: none;
+}
 .section-num { color: var(--accent); opacity: .8; }
 .section-title {
   font-family: var(--font-serif);
@@ -245,6 +268,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.015em; }
   letter-spacing: -0.015em;
   margin: 0;
   max-width: 22ch;
+  text-wrap: balance;
 }
 .sub-title {
   font-family: var(--font-serif);
@@ -265,6 +289,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.015em; }
   line-height: 1.7;
   max-width: 60ch;
   margin: 0;
+  text-wrap: pretty;
 }
 .lead strong, .prose strong { color: var(--text); font-weight: 600; }
 
@@ -441,6 +466,27 @@ a:hover { color: var(--accent); }
 .btn-primary:hover { box-shadow: 0 18px 40px color-mix(in oklab, var(--accent) 30%, transparent); }
 .btn-ghost { background: color-mix(in oklab, var(--bg-elev) 70%, transparent); }
 .btn-ghost:hover { border-color: var(--line-strong); color: var(--accent); }
+
+/* ---------- HERO ENTRANCE ---------- */
+/* One orchestrated load-in: opacity + translate only (compositor-friendly),
+   `backwards` fill so the animation releases the transform afterwards —
+   the JS tilt/magnetic effects own it from then on. Scoped to
+   html:not(.no-js) so a JS-less visit renders everything immediately. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.no-js) :is(.hero-meta, .display .line, .hero .lead, .hero-cta, .hero-card, .hero-socials) {
+    animation: hero-rise .65s var(--ease) backwards;
+  }
+  html:not(.no-js) .display .line:nth-child(1) { animation-delay: 60ms; }
+  html:not(.no-js) .hero-card { animation-delay: 90ms; }
+  html:not(.no-js) .display .line:nth-child(2) { animation-delay: 130ms; }
+  html:not(.no-js) .display .line:nth-child(3) { animation-delay: 200ms; }
+  html:not(.no-js) .hero .lead { animation-delay: 280ms; }
+  html:not(.no-js) .hero-cta { animation-delay: 360ms; }
+  html:not(.no-js) .hero-socials { animation-delay: 440ms; }
+}
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+}
 
 /* Hero side card */
 .hero-card {
@@ -813,6 +859,26 @@ textarea { resize: vertical; min-height: 140px; }
   color: var(--text-soft);
 }
 .foot-top:hover { color: var(--accent); }
+
+/* ---------- THEME SWITCH WIPE ---------- */
+/* The theme toggle runs inside a view transition (see main.js, which also
+   sets --vt-x/y/r from the button's position). The new theme sweeps out as
+   an expanding circle instead of the default cross-fade. Browsers without
+   view transitions fall back to an instant switch. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+  ::view-transition-new(root) {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0%));
+    animation: theme-wipe .5s var(--ease) forwards;
+  }
+}
+@keyframes theme-wipe {
+  to { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 0%)); }
+}
 
 /* ---------- REVEAL ANIMATION ---------- */
 .reveal {
