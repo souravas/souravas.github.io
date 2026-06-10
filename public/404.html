@@ -1,20 +1,31 @@
 <!doctype html>
 <html lang="en">
+<head>
 <meta charset="utf-8">
-<title>Not found · Sourav</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="robots" content="noindex, follow">
+<title>Not found · Sourav</title>
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-  body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,sans-serif;padding:6rem 2rem;background:#08090c;color:#e6e7eb;text-align:center;margin:0;min-height:100vh;display:grid;place-items:center}
-  h1{font-size:clamp(3rem,10vw,6rem);margin:0;font-weight:600;letter-spacing:-.04em;background:linear-gradient(135deg,#a5f3fc,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent}
-  p{color:#9ca3af;margin-top:.5rem}
-  a{display:inline-block;margin-top:1.5rem;padding:.7rem 1.2rem;border:1px solid #2a2d36;border-radius:999px;color:#e6e7eb;text-decoration:none;transition:all .2s ease}
-  a:hover{border-color:#818cf8;color:#a5b4fc}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/instrument-serif.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/jetbrains-mono.woff2') format('woff2')}
+:root{--bg:#08090c;--text:#ecedef;--muted:#8b8f9b;--line:rgba(255,255,255,.16);--accent:#b8b1ff;--accent-2:#87e5ff;color-scheme:dark}
+@media (prefers-color-scheme:light){:root{--bg:#f6f3ec;--text:#131318;--muted:#5e5e6a;--line:rgba(10,10,20,.22);--accent:#5b48ff;--accent-2:#0a8aa7;color-scheme:light}}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;padding:2rem}
+h1{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(5rem,18vw,9rem);line-height:1;margin:0;background:linear-gradient(110deg,var(--accent-2),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+p{color:var(--muted);margin:.8rem 0 0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.85rem;letter-spacing:.04em;text-transform:lowercase}
+a{display:inline-block;margin-top:2rem;padding:.8rem 1.3rem;border:1px solid var(--line);border-radius:999px;color:var(--text);text-decoration:none;font-size:.95rem;transition:border-color .2s,color .2s,transform .2s}
+a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
 </style>
+</head>
+<body>
+<main>
 <h1>404</h1>
-<p>That page wandered off.</p>
-<a href="/">Back home</a>
+<p>that page wandered off.</p>
+<a href="/">← Back home</a>
+</main>
+</body>
 </html>

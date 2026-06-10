@@ -6,7 +6,6 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
   "background_color": "#08090c",
   "theme_color": "#08090c",
   "categories": ["portfolio", "developer", "software"],
