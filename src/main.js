@@ -406,24 +406,28 @@ idle(() => {
   });
 })();
 
-/* ---------- Contact form (mailto fallback) ---------- */
+/* ---------- Contact form (Formspree, mailto fallback) ---------- */
 (() => {
   const form = document.getElementById("contact-form");
   if (!form) return;
 
-  const label = form.querySelector('button[type="submit"] span');
+  const button = form.querySelector('button[type="submit"]');
+  const label = button ? button.querySelector("span") : null;
   const labelText = label ? label.textContent : "";
   let labelTimer = 0;
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
+  const setLabel = (text, revertAfter) => {
+    if (!label) return;
+    clearTimeout(labelTimer);
+    label.textContent = text;
+    if (revertAfter) {
+      labelTimer = setTimeout(() => {
+        label.textContent = labelText;
+      }, revertAfter);
+    }
+  };
 
-    const data = new FormData(form);
-    const name = (data.get("name") || "").toString().trim();
-    const email = (data.get("email") || "").toString().trim();
-    const msg = (data.get("message") || "").toString().trim();
-
+  const mailtoFallback = (name, email, msg) => {
     const subject = encodeURIComponent(`Website contact from ${name}`);
     const body = encodeURIComponent(`From: ${name} <${email}>\n\n${msg}`);
     const href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
@@ -438,12 +442,35 @@ idle(() => {
     a.click();
     a.remove();
 
-    if (label) {
-      label.textContent = "Opening your mail app…";
-      clearTimeout(labelTimer);
-      labelTimer = setTimeout(() => {
-        label.textContent = labelText;
-      }, 2600);
+    setLabel("Opening your mail app…", 2600);
+  };
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const name = (data.get("name") || "").toString().trim();
+    const email = (data.get("email") || "").toString().trim();
+    const msg = (data.get("message") || "").toString().trim();
+    data.set("_subject", `Website contact from ${name}`);
+
+    if (button) button.disabled = true;
+    setLabel("Sending…");
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      form.reset();
+      setLabel("Message sent ✓", 4000);
+    } catch {
+      mailtoFallback(name, email, msg);
+    } finally {
+      if (button) button.disabled = false;
     }
   });
 })();

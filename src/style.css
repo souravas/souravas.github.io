@@ -914,6 +914,13 @@ input:focus, textarea:focus {
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 16%, transparent);
 }
 textarea { resize: vertical; min-height: 140px; }
+/* Honeypot: hidden via class (not a style attribute) so the hashed CSP allows it. */
+.row.hp {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
 
 /* ---------- FOOTER ---------- */
 .site-footer {

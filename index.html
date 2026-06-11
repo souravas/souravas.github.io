@@ -23,7 +23,7 @@
     }
   </script>
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://formspree.io; manifest-src 'self'; base-uri 'self'; form-action 'self' https://formspree.io; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Sourav — Senior Software Engineer · Backend Systems &amp; APIs</title>
   <meta name="description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
@@ -567,7 +567,7 @@
             <li><span class="mono">github</span><a href="https://github.com/souravas" target="_blank" rel="noopener noreferrer">@souravas</a></li>
           </ul>
         </aside>
-        <form id="contact-form" class="contact-form reveal" data-delay="100" aria-label="Contact form">
+        <form id="contact-form" class="contact-form reveal" data-delay="100" aria-label="Contact form" action="https://formspree.io/f/xgoblndl" method="POST">
           <div class="row">
             <label for="name">Your name *</label>
             <input id="name" name="name" type="text" required placeholder="Jane Doe" autocomplete="name" aria-describedby="name-help" />
@@ -582,6 +582,10 @@
             <label for="message">Message *</label>
             <textarea id="message" name="message" rows="5" required placeholder="Tell me about the role, project, or question…" aria-describedby="message-help"></textarea>
             <small id="message-help" class="sr-only">Describe the opportunity or inquiry</small>
+          </div>
+          <div class="row hp" aria-hidden="true">
+            <label for="hp-field">Leave this field empty</label>
+            <input id="hp-field" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
           </div>
           <button class="btn btn-primary magnetic" type="submit">
             <span aria-live="polite">Send message</span>
