@@ -28,6 +28,9 @@
   <title>Sourav — Senior Software Engineer · Backend Systems &amp; APIs</title>
   <meta name="description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
   <meta name="author" content="Sourav" />
+  <meta property="article:author" content="Sourav" />
+  <meta property="article:published_time" content="2025-02-04T00:00:00Z" />
+  <meta property="article:modified_time" content="__BUILD_DATE__" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -46,6 +49,8 @@
   <meta property="og:description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
   <meta property="og:url" content="https://souravas.com/v2/" />
   <meta property="og:type" content="profile" />
+  <meta property="profile:first_name" content="Sourav" />
+  <meta property="profile:username" content="souravas" />
   <meta property="og:image" content="https://souravas.com/assets/og-cover.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -86,17 +91,125 @@
       "url": "https://souravas.com/",
       "name": "Sourav — Senior Software Engineer"
     },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://souravas.com/assets/og-cover.webp",
+      "width": 1200,
+      "height": 630
+    },
     "mainEntity": {
       "@type": "Person",
       "@id": "https://souravas.com/#person",
       "name": "Sourav",
+      "givenName": "Sourav",
       "url": "https://souravas.com/",
+      "image": {
+        "@type": "ImageObject",
+        "@id": "https://souravas.com/#profile-image",
+        "url": "https://souravas.com/assets/profile.webp",
+        "width": 640,
+        "height": 640,
+        "caption": "Sourav — Senior Software Engineer"
+      },
+      "nationality": { "@type": "Country", "name": "India" },
+      "description": "Senior Software Engineer with 7 years of experience building resilient backend systems — REST APIs, database performance, and backend automation across monoliths and microservices.",
       "jobTitle": "Senior Software Engineer",
-      "image": "https://souravas.com/assets/profile.webp",
-      "email": "souravas007@gmail.com",
+      "knowsAbout": [
+        "Python",
+        "Ruby on Rails",
+        "REST APIs",
+        "Java",
+        "Spring Boot",
+        "JavaScript",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "Apache Kafka",
+        "Linux",
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Elasticsearch",
+        "Backend Development",
+        "Microservices",
+        "Database Performance Optimization"
+      ],
       "sameAs": [
         "https://github.com/souravas",
         "https://www.linkedin.com/in/souravas/"
+      ],
+      "email": "souravas007@gmail.com",
+      "telephone": "+91-9526-444-907",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Personal",
+        "telephone": "+91-9526-444-907",
+        "email": "souravas007@gmail.com"
+      },
+      "worksFor": {
+        "@type": "OrganizationRole",
+        "roleName": "SDE III",
+        "startDate": "2022-10",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Tata 1mg",
+          "url": "https://www.1mg.com"
+        }
+      },
+      "hasOccupation": [
+        {
+          "@type": "EmployeeRole",
+          "roleName": "SDE III",
+          "startDate": "2022-10",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Tata 1mg",
+            "url": "https://www.1mg.com"
+          }
+        },
+        {
+          "@type": "EmployeeRole",
+          "roleName": "Software Engineer",
+          "startDate": "2021-12",
+          "endDate": "2022-09",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Tata Health",
+            "url": "https://www.linkedin.com/company/tatahealth"
+          }
+        },
+        {
+          "@type": "EmployeeRole",
+          "roleName": "Software Engineer",
+          "startDate": "2019-06",
+          "endDate": "2021-11",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Pelatro",
+            "url": "https://www.pelatro.com"
+          }
+        }
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "NSS College of Engineering, Palakkad",
+          "url": "https://www.nssce.ac.in/"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Jawahar Navodaya Vidyalaya (JNV)",
+          "url": "https://www.navodaya.gov.in/"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Bethany St.John's EHSS",
+          "url": "https://bethanystjohns.edu.in/"
+        }
       ]
     }
   }
@@ -444,15 +557,18 @@
         <form id="contact-form" class="contact-form rv" data-delay="100" aria-label="Contact form" action="https://formspree.io/f/xgoblndl" method="POST">
           <div class="f-row">
             <label class="mono" for="name">01 — Your name *</label>
-            <input id="name" name="name" type="text" required placeholder="Jane Doe" autocomplete="name" />
+            <input id="name" name="name" type="text" required placeholder="Jane Doe" autocomplete="name" aria-describedby="name-help" />
+            <small id="name-help" class="sr-only">Enter your full name</small>
           </div>
           <div class="f-row">
             <label class="mono" for="email">02 — Email *</label>
-            <input id="email" name="email" type="email" required placeholder="jane@company.com" autocomplete="email" />
+            <input id="email" name="email" type="email" required placeholder="jane@company.com" autocomplete="email" aria-describedby="email-help" />
+            <small id="email-help" class="sr-only">Enter a valid email address</small>
           </div>
           <div class="f-row">
             <label class="mono" for="message">03 — Message *</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Tell me about the role, project, or question…"></textarea>
+            <textarea id="message" name="message" rows="5" required placeholder="Tell me about the role, project, or question…" aria-describedby="message-help"></textarea>
+            <small id="message-help" class="sr-only">Describe the opportunity or inquiry</small>
           </div>
           <div class="f-row hp" aria-hidden="true">
             <label for="hp-field">Leave this field empty</label>

@@ -174,7 +174,7 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
 /* ---------- Outcome count-up ---------- */
 (() => {
   if (reduceMotion || typeof IntersectionObserver === "undefined") return;
-  const counters = document.querySelectorAll(".count");
+  const counters = document.querySelectorAll(".count, .e-bullets .m");
   if (!counters.length) return;
 
   const animate = (el, prefix, target, decimals, suffix) => {
@@ -206,6 +206,23 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
     { threshold: 0.6 }
   );
   counters.forEach((el) => io.observe(el));
+})();
+
+/* ---------- Drop focus ring after opening external links ---------- */
+(() => {
+  const isExternal = (a) =>
+    a && (a.hasAttribute("target") || /^https?:\/\//i.test(a.getAttribute("href") || ""));
+
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (isExternal(link)) setTimeout(() => link.blur(), 150);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) return;
+    const el = document.activeElement;
+    if (el && el.tagName === "A" && isExternal(el)) el.blur();
+  });
 })();
 
 /* ---------- Footer year + IST clock ---------- */
