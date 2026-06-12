@@ -19,7 +19,7 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 
 - Local dev: <http://localhost:5173>
 - Production: <https://souravas.com>
-- Page versions: `/` serves v1 by default; `/v1` and `/v2` open each design explicitly
+- Page versions: `/` serves v1 by default; `/v1`, `/v2`, and `/v3` open each design explicitly
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 
 ## Project Structure
@@ -30,7 +30,12 @@ souravas.github.io/
 │   ├── index.html
 │   ├── main.js
 │   └── style.css
-├── v2/                     # newer design, served at /v2
+├── v2/                     # "Systems Ledger" design, served at /v2
+│   ├── index.html
+│   ├── main.js
+│   ├── style.css
+│   └── fonts/
+├── v3/                     # "Control Room" design, served at /v3
 │   ├── index.html
 │   ├── main.js
 │   ├── style.css

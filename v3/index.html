@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta name="theme-color" content="#050807" />
+
+  <script>
+    document.documentElement.classList.remove('no-js');
+    try {
+      const stored = localStorage.getItem('theme');
+      const t = stored === 'light' || stored === 'dark'
+        ? stored
+        : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.style.colorScheme = t;
+      document.querySelector('meta[name="theme-color"]').content = t === 'light' ? '#edf0ea' : '#050807';
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.style.colorScheme = 'dark';
+    }
+  </script>
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://formspree.io; manifest-src 'self'; base-uri 'self'; form-action 'self' https://formspree.io; object-src 'none'; upgrade-insecure-requests" />
+
+  <title>Sourav — Senior Software Engineer · Backend Systems &amp; APIs</title>
+  <meta name="description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
+  <meta name="author" content="Sourav" />
+  <meta property="article:author" content="Sourav" />
+  <meta property="article:published_time" content="2025-02-04T00:00:00Z" />
+  <meta property="article:modified_time" content="__BUILD_DATE__" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-48x48.png" sizes="48x48" type="image/png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Sourav" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <link rel="canonical" href="https://souravas.com/v3/" />
+  <meta property="og:site_name" content="Sourav" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Sourav — Senior Software Engineer · Backend Systems &amp; APIs" />
+  <meta property="og:description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
+  <meta property="og:url" content="https://souravas.com/v3/" />
+  <meta property="og:type" content="profile" />
+  <meta property="profile:first_name" content="Sourav" />
+  <meta property="profile:username" content="souravas" />
+  <meta property="og:image" content="https://souravas.com/assets/og-cover.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sourav — Senior Software Engineer building resilient backend systems." />
+  <meta property="og:image" content="https://souravas.com/assets/og-cover.webp" />
+  <meta property="og:image:type" content="image/webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sourav — Senior Software Engineer building resilient backend systems." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sourav — Senior Software Engineer · Backend Systems &amp; APIs" />
+  <meta name="twitter:description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
+  <meta name="twitter:image" content="https://souravas.com/assets/og-cover.jpg" />
+  <meta name="twitter:image:alt" content="Sourav — Senior Software Engineer building resilient backend systems." />
+
+  <link rel="preload" as="image" href="/assets/profile.webp" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/v3/fonts/chakra-petch-700.woff2" crossorigin fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/v3/fonts/red-hat-mono.woff2" crossorigin fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/v3/fonts/chakra-petch-600.woff2" crossorigin />
+
+  <link rel="stylesheet" href="/v3/style.css" />
+  <script type="module" src="/v3/main.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://souravas.com/v3/#webpage",
+    "url": "https://souravas.com/v3/",
+    "name": "Sourav — Senior Software Engineer · Backend Systems & APIs",
+    "description": "Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL.",
+    "inLanguage": "en",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://souravas.com/#website",
+      "url": "https://souravas.com/",
+      "name": "Sourav — Senior Software Engineer"
+    },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://souravas.com/assets/og-cover.webp",
+      "width": 1200,
+      "height": 630
+    },
+    "mainEntity": {
+      "@type": "Person",
+      "@id": "https://souravas.com/#person",
+      "name": "Sourav",
+      "givenName": "Sourav",
+      "url": "https://souravas.com/",
+      "image": {
+        "@type": "ImageObject",
+        "@id": "https://souravas.com/#profile-image",
+        "url": "https://souravas.com/assets/profile.webp",
+        "width": 640,
+        "height": 640,
+        "caption": "Sourav — Senior Software Engineer"
+      },
+      "nationality": { "@type": "Country", "name": "India" },
+      "description": "Senior Software Engineer with 7 years of experience building resilient backend systems — REST APIs, database performance, and backend automation across monoliths and microservices.",
+      "jobTitle": "Senior Software Engineer",
+      "knowsAbout": [
+        "Python",
+        "Ruby on Rails",
+        "REST APIs",
+        "Java",
+        "Spring Boot",
+        "JavaScript",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "Apache Kafka",
+        "Linux",
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Elasticsearch",
+        "Backend Development",
+        "Microservices",
+        "Database Performance Optimization"
+      ],
+      "sameAs": [
+        "https://github.com/souravas",
+        "https://www.linkedin.com/in/souravas/"
+      ],
+      "email": "souravas007@gmail.com",
+      "telephone": "+91-9526-444-907",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Personal",
+        "telephone": "+91-9526-444-907",
+        "email": "souravas007@gmail.com"
+      },
+      "worksFor": {
+        "@type": "OrganizationRole",
+        "roleName": "SDE III",
+        "startDate": "2022-10",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Tata 1mg",
+          "url": "https://www.1mg.com"
+        }
+      },
+      "hasOccupation": [
+        {
+          "@type": "EmployeeRole",
+          "roleName": "SDE III",
+          "startDate": "2022-10",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Tata 1mg",
+            "url": "https://www.1mg.com"
+          }
+        },
+        {
+          "@type": "EmployeeRole",
+          "roleName": "Software Engineer",
+          "startDate": "2021-12",
+          "endDate": "2022-09",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Tata Health",
+            "url": "https://www.linkedin.com/company/tatahealth"
+          }
+        },
+        {
+          "@type": "EmployeeRole",
+          "roleName": "Software Engineer",
+          "startDate": "2019-06",
+          "endDate": "2021-11",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Pelatro",
+            "url": "https://www.pelatro.com"
+          }
+        }
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "NSS College of Engineering, Palakkad",
+          "url": "https://www.nssce.ac.in/"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Jawahar Navodaya Vidyalaya (JNV)",
+          "url": "https://www.navodaya.gov.in/"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Bethany St.John's EHSS",
+          "url": "https://bethanystjohns.edu.in/"
+        }
+      ]
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="sweep" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <header class="console-bar">
+    <div class="container bar-inner">
+      <a class="brand mono" href="#top" aria-label="Sourav home">sourav<span class="brand-ext">.sys</span><span class="brand-caret" aria-hidden="true"></span></a>
+
+      <nav class="nav mono" aria-label="Primary">
+        <a href="#about"><span class="n-num">01</span>Profile</a>
+        <a href="#work"><span class="n-num">02</span>Deploys</a>
+        <a href="#skills"><span class="n-num">03</span>Services</a>
+        <a href="#credentials"><span class="n-num">04</span>Audits</a>
+        <a href="#contact"><span class="n-num">05</span>Contact</a>
+      </nav>
+
+      <div class="bar-actions">
+        <span class="sys-clock mono" id="sys-clock" aria-hidden="true"></span>
+        <button id="themeToggle" class="bar-btn mono" aria-label="Toggle theme" title="Toggle theme">
+          <span class="toggle-led" aria-hidden="true"></span>
+          <span class="theme-word" data-light="night" data-dark="day"></span>
+        </button>
+        <a class="bar-btn mono resume-btn" href="/assets/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open résumé in new tab">resume&nbsp;↗</a>
+        <button id="navToggle" class="bar-btn mono nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO — system overview -->
+    <section class="hero container">
+      <p class="boot-line mono">
+        <span class="ok-tag">[ ok ]</span> status — accepting new opportunities
+        <span class="boot-sep" aria-hidden="true">·</span>
+        <span class="uptime-bit">uptime <span id="uptime">7y</span></span>
+      </p>
+
+      <div class="hero-grid">
+        <div class="hero-main">
+          <h1 class="sysname">Sourav<span class="cursor-block" aria-hidden="true"></span></h1>
+          <p class="role-line mono">senior software engineer <span class="dim" aria-hidden="true">//</span> backend systems &amp; apis</p>
+
+          <p class="lead">
+            I'm <strong>Sourav</strong> — seven years shipping REST APIs, optimizing databases, and automating backends across monoliths and microservices. I design clean, scalable systems that move metrics, not just tickets.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn btn-solid" href="#contact">Open a channel <span aria-hidden="true">→</span></a>
+            <a class="btn btn-line" href="/assets/resume.pdf" target="_blank" rel="noopener noreferrer">resume.pdf <span aria-hidden="true">↗</span></a>
+          </div>
+
+          <ul class="stats" aria-label="Quick facts">
+            <li><span class="stat-num count">7</span><span class="stat-lbl mono">years in prod</span></li>
+            <li><span class="stat-num count">3</span><span class="stat-lbl mono">companies</span></li>
+            <li><span class="stat-num">∞</span><span class="stat-lbl mono">curiosity</span></li>
+          </ul>
+        </div>
+
+        <figure class="feed">
+          <div class="feed-frame">
+            <img class="feed-photo" src="/assets/profile.webp" alt="Sourav — Senior Software Engineer, headshot" width="320" height="320" loading="eager" fetchpriority="high" decoding="async" />
+            <span class="feed-live mono" aria-hidden="true"><span class="live-dot"></span>live</span>
+          </div>
+          <figcaption class="mono">feed_01 — the engineer · India · remote / hybrid / on-site</figcaption>
+        </figure>
+      </div>
+
+      <ul class="channels mono" aria-label="Contact channels">
+        <li><span class="ch-k">mail</span><a href="mailto:souravas007@gmail.com">souravas007@gmail.com</a></li>
+        <li><span class="ch-k">tel</span><a href="tel:+919526444907">+91 95264 44907</a></li>
+        <li><span class="ch-k">git</span><a href="https://github.com/souravas" target="_blank" rel="noopener noreferrer">github.com/souravas&nbsp;↗</a></li>
+        <li><span class="ch-k">lnk</span><a href="https://www.linkedin.com/in/souravas/" target="_blank" rel="noopener noreferrer">linkedin.com/in/souravas&nbsp;↗</a></li>
+      </ul>
+    </section>
+
+    <!-- TELEMETRY STREAM -->
+    <div class="stream" aria-hidden="true">
+      <span class="stream-tag mono">telemetry</span>
+      <div class="stream-window">
+        <div class="stream-track">
+          <ul class="stream-copy mono">
+            <li>rest apis</li><li>database performance</li><li>python</li><li>ruby on rails</li><li>aws</li><li>kubernetes</li><li>postgresql</li><li>kafka</li><li>docker</li><li>microservices</li><li>backend automation</li><li>observability</li>
+          </ul>
+          <ul class="stream-copy mono">
+            <li>rest apis</li><li>database performance</li><li>python</li><li>ruby on rails</li><li>aws</li><li>kubernetes</li><li>postgresql</li><li>kafka</li><li>docker</li><li>microservices</li><li>backend automation</li><li>observability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYS.01 — PROFILE -->
+    <section id="about" class="section container">
+      <header class="sec-head rv">
+        <span class="sec-id mono">sys.01</span>
+        <h2 class="sec-title">Profile</h2>
+        <span class="sec-status mono"><span class="status-led ok" aria-hidden="true"></span>identity verified</span>
+      </header>
+
+      <div class="about-grid">
+        <div class="prose rv">
+          <p>
+            Seven years of building scalable, high-throughput systems as a backend engineer. My day-to-day lives in <strong>REST APIs</strong>, <strong>database performance</strong>, and <strong>backend automation</strong> across both monolithic and microservices architectures.
+          </p>
+          <p>
+            I lean toward clean, maintainable code and measurable outcomes — shaving turnaround times, cutting manual ops, and shipping infrastructure that scales quietly. I work the full stack of the back end: design, query plans, queues, deploys, observability.
+          </p>
+        </div>
+
+        <figure class="conf rv" data-delay="120">
+          <figcaption class="conf-bar mono"><span class="prompt">$</span> cat /etc/sourav.conf</figcaption>
+          <dl class="conf-body mono">
+            <div class="conf-row"><dt>role</dt><dd>SDE III · Tata 1mg</dd></div>
+            <div class="conf-row"><dt>stack</dt><dd>Python · Rails · AWS · K8s</dd></div>
+            <div class="conf-row"><dt>based</dt><dd>India · open to remote</dd></div>
+            <div class="conf-row"><dt>superpower</dt><dd class="amber">turning bottlenecks into boring problems</dd></div>
+          </dl>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SYS.02 — DEPLOY LOG -->
+    <section id="work" class="section container">
+      <header class="sec-head rv">
+        <span class="sec-id mono">sys.02</span>
+        <h2 class="sec-title">Deploy log</h2>
+        <span class="sec-status mono"><span class="status-led ok" aria-hidden="true"></span>3 deployments · 0 rollbacks</span>
+      </header>
+
+      <ol class="deploys">
+        <li class="deploy rv">
+          <div class="d-rail mono" aria-hidden="true"><span class="d-node"></span></div>
+          <article>
+            <header class="d-head">
+              <div class="d-org">
+                <img src="/assets/1mg.webp" alt="Tata 1mg logo" width="40" height="40" loading="lazy" decoding="async" />
+                <div>
+                  <h3><a href="https://www.1mg.com/" target="_blank" rel="noopener noreferrer">Tata 1mg</a></h3>
+                  <p class="d-role mono">SDE III · hybrid</p>
+                </div>
+              </div>
+              <div class="d-meta mono">
+                <span class="d-tag live-tag"><span class="live-dot" aria-hidden="true"></span>in production</span>
+                <span class="d-when">Oct 2022 — present</span>
+              </div>
+            </header>
+            <ul class="d-bullets">
+              <li><span class="m">−1.3 h</span> turnaround via a QR-code SKU tracking system; <span class="m">−53%</span> QC manpower; <span class="m">₹5L/mo</span> savings.</li>
+              <li><span class="m">−25%</span> errors with real-time backend QR validation that removed manual intervention.</li>
+              <li>Led the backend of a tiered <strong>SKU audit system</strong> — configurable scope (single SKU → category → bin), auto-corrects minor deviations and escalates high-variance mismatches; runs on weekly, biweekly, and bimonthly cadences.</li>
+              <li><span class="m">−40%</span> picker idle time through SSE-based automated order assignment.</li>
+              <li>Shipped scalable Rails &amp; Python/Sanic REST APIs with database performance optimizations.</li>
+            </ul>
+          </article>
+        </li>
+
+        <li class="deploy rv" data-delay="80">
+          <div class="d-rail mono" aria-hidden="true"><span class="d-node"></span></div>
+          <article>
+            <header class="d-head">
+              <div class="d-org">
+                <img src="/assets/tata_health.webp" alt="Tata Health logo" width="40" height="40" loading="lazy" decoding="async" />
+                <div>
+                  <h3><a href="https://www.linkedin.com/company/tatahealth" target="_blank" rel="noopener noreferrer">Tata Health</a></h3>
+                  <p class="d-role mono">software engineer · remote</p>
+                </div>
+              </div>
+              <div class="d-meta mono">
+                <span class="d-tag">archived</span>
+                <span class="d-when">Dec 2021 — Sep 2022</span>
+              </div>
+            </header>
+            <ul class="d-bullets">
+              <li><span class="m">−70%</span> DevOps tickets through an idempotent DB-migration tool, centralizing PostgreSQL and MySQL migrations across microservices.</li>
+              <li>Automated Git-based author tracking with email-based error notifications, improving deployment reliability.</li>
+              <li><span class="m">+10%</span> user visits via a rule-based mental-health module for condition diagnosis and symptom-severity classification.</li>
+              <li>Led backend work on consumer and provider platforms — microservices and API performance optimization through advanced query enhancements.</li>
+            </ul>
+          </article>
+        </li>
+
+        <li class="deploy rv" data-delay="160">
+          <div class="d-rail mono" aria-hidden="true"><span class="d-node"></span></div>
+          <article>
+            <header class="d-head">
+              <div class="d-org">
+                <img src="/assets/pelatro.webp" alt="Pelatro logo" width="40" height="40" loading="lazy" decoding="async" />
+                <div>
+                  <h3><a href="https://www.pelatro.com/" target="_blank" rel="noopener noreferrer">Pelatro</a></h3>
+                  <p class="d-role mono">software engineer · on-site</p>
+                </div>
+              </div>
+              <div class="d-meta mono">
+                <span class="d-tag">archived</span>
+                <span class="d-when">Jun 2019 — Nov 2021</span>
+              </div>
+            </header>
+            <ul class="d-bullets">
+              <li><span class="m">−80%</span> manual setup time via an internal profile-configuration tool built with Angular and Spring Boot.</li>
+              <li>REST APIs developed with TDD on Angular, Spring Boot, and PostgreSQL — improved reliability and review velocity.</li>
+              <li><span class="m">−60%</span> development time for a configuration-driven Core Java ETL tool enabling dynamic data transformation via flexible rule specs.</li>
+              <li>Integrated Apache Kafka for real-time data processing — modular OOP architecture for scalability and maintainability.</li>
+            </ul>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <!-- SYS.03 — SERVICES -->
+    <section id="skills" class="section container">
+      <header class="sec-head rv">
+        <span class="sec-id mono">sys.03</span>
+        <h2 class="sec-title">Services</h2>
+        <span class="sec-status mono"><span class="status-led ok" aria-hidden="true"></span>all systems operational</span>
+      </header>
+
+      <div class="services">
+        <article class="svc svc-a rv">
+          <header class="svc-head">
+            <div>
+              <span class="svc-sub mono">programming · web</span>
+              <h3>Languages &amp; APIs</h3>
+            </div>
+            <span class="svc-status mono"><span class="status-led ok" aria-hidden="true"></span>operational</span>
+          </header>
+          <svg class="spark" viewBox="0 0 240 36" preserveAspectRatio="none" aria-hidden="true"><polyline pathLength="1" points="0,26 24,22 48,25 72,16 96,19 120,12 144,15 168,9 192,12 216,6 240,8" /></svg>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">Ruby on Rails</span><span class="chip">REST API</span><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">JavaScript</span><span class="chip">HTML &amp; CSS</span>
+          </div>
+        </article>
+
+        <article class="svc svc-b rv" data-delay="80">
+          <header class="svc-head">
+            <div>
+              <span class="svc-sub mono">cloud · infra</span>
+              <h3>Cloud &amp; Infra</h3>
+            </div>
+            <span class="svc-status mono"><span class="status-led ok" aria-hidden="true"></span>operational</span>
+          </header>
+          <svg class="spark" viewBox="0 0 240 36" preserveAspectRatio="none" aria-hidden="true"><polyline pathLength="1" points="0,28 30,24 60,26 90,18 120,21 150,13 180,16 210,8 240,11" /></svg>
+          <div class="chips">
+            <span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Kafka</span><span class="chip">Linux</span>
+          </div>
+        </article>
+
+        <article class="svc svc-c rv" data-delay="160">
+          <header class="svc-head">
+            <div>
+              <span class="svc-sub mono">databases</span>
+              <h3>Databases</h3>
+            </div>
+            <span class="svc-status mono"><span class="status-led ok" aria-hidden="true"></span>operational</span>
+          </header>
+          <svg class="spark" viewBox="0 0 240 36" preserveAspectRatio="none" aria-hidden="true"><polyline pathLength="1" points="0,24 30,27 60,20 90,23 120,14 150,18 180,10 210,13 240,7" /></svg>
+          <div class="chips">
+            <span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">ElasticSearch</span>
+          </div>
+        </article>
+
+        <article class="svc svc-d rv" data-delay="240">
+          <header class="svc-head">
+            <div>
+              <span class="svc-sub mono">practice · approach</span>
+              <h3>How I work</h3>
+            </div>
+            <span class="svc-status mono"><span class="status-led ok" aria-hidden="true"></span>operational</span>
+          </header>
+          <svg class="spark" viewBox="0 0 240 36" preserveAspectRatio="none" aria-hidden="true"><polyline pathLength="1" points="0,27 24,20 48,23 72,15 96,18 120,10 144,14 168,7 192,11 216,5 240,9" /></svg>
+          <div class="chips">
+            <span class="chip">System Design</span><span class="chip">Microservices</span><span class="chip">TDD</span><span class="chip">Query Optimization</span><span class="chip">Backend Automation</span><span class="chip">Observability</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SYS.04 — AUDITS -->
+    <section id="credentials" class="section container">
+      <header class="sec-head rv">
+        <span class="sec-id mono">sys.04</span>
+        <h2 class="sec-title">Audits</h2>
+        <span class="sec-status mono"><span class="status-led ok" aria-hidden="true"></span>all checks passed</span>
+      </header>
+
+      <h3 class="sub-head mono rv">integrity checks — certifications</h3>
+      <div class="audits">
+        <a class="audit rv" href="https://www.credly.com/badges/362b5b69-0043-4d71-a50d-0f904d90a381/linked_in_profile" target="_blank" rel="noopener noreferrer" aria-label="View AWS SAA on Credly">
+          <span class="audit-tag mono">[ pass ]</span>
+          <span class="audit-body">
+            <strong>AWS Solutions Architect — Associate</strong>
+            <span class="audit-meta mono">Amazon Web Services · Nov 2024 → Nov 2027</span>
+          </span>
+          <span class="audit-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="audit rv" data-delay="80" href="https://www.hackerrank.com/certificates/b68104bff25e" target="_blank" rel="noopener noreferrer">
+          <span class="audit-tag mono">[ pass ]</span>
+          <span class="audit-body">
+            <strong>Software Engineer</strong>
+            <span class="audit-meta mono">HackerRank · Jan 2025</span>
+          </span>
+          <span class="audit-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="audit rv" data-delay="160" href="https://www.hackerrank.com/certificates/daa8afc85ee8" target="_blank" rel="noopener noreferrer">
+          <span class="audit-tag mono">[ pass ]</span>
+          <span class="audit-body">
+            <strong>Problem Solving — Intermediate</strong>
+            <span class="audit-meta mono">HackerRank · Jan 2025</span>
+          </span>
+          <span class="audit-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="audit rv" data-delay="240" href="https://www.coursera.org/account/accomplishments/verify/YI0FLK5Q1BNZ" target="_blank" rel="noopener noreferrer">
+          <span class="audit-tag mono">[ pass ]</span>
+          <span class="audit-body">
+            <strong>Algorithmic Toolbox</strong>
+            <span class="audit-meta mono">Coursera · Feb 2025</span>
+          </span>
+          <span class="audit-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <h3 class="sub-head mono rv">boot sequence — education</h3>
+      <div class="boot-seq">
+        <article class="edu rv">
+          <span class="edu-tag mono"><span class="ok-tag">[ ok ]</span> stage_0 · 2003 — 2008</span>
+          <div class="edu-body">
+            <img src="/assets/bethany.webp" alt="Bethany St.John's EHSS logo" width="44" height="44" loading="lazy" decoding="async" />
+            <div>
+              <h4><a href="https://bethanystjohns.edu.in/" target="_blank" rel="noopener noreferrer">Bethany St.John's EHSS</a></h4>
+              <p class="edu-deg">Primary School</p>
+            </div>
+          </div>
+        </article>
+        <article class="edu rv" data-delay="80">
+          <span class="edu-tag mono"><span class="ok-tag">[ ok ]</span> stage_1 · 2008 — 2015</span>
+          <div class="edu-body">
+            <img src="/assets/jnv.webp" alt="Jawahar Navodaya Vidyalaya logo" width="44" height="44" loading="lazy" decoding="async" />
+            <div>
+              <h4><a href="https://www.navodaya.gov.in/" target="_blank" rel="noopener noreferrer">Jawahar Navodaya Vidyalaya</a></h4>
+              <p class="edu-deg">High School</p>
+            </div>
+          </div>
+        </article>
+        <article class="edu rv" data-delay="160">
+          <span class="edu-tag mono"><span class="ok-tag">[ ok ]</span> stage_2 · Aug 2015 — Mar 2019</span>
+          <div class="edu-body">
+            <img src="/assets/nss.webp" alt="NSS College of Engineering logo" width="44" height="44" loading="lazy" decoding="async" />
+            <div>
+              <h4><a href="https://www.nssce.ac.in/" target="_blank" rel="noopener noreferrer">NSS College of Engineering, Palakkad</a></h4>
+              <p class="edu-deg">BTech · Computer Science</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SYS.05 — CONTACT -->
+    <section id="contact" class="section container">
+      <header class="sec-head rv">
+        <span class="sec-id mono">sys.05</span>
+        <h2 class="sec-title">Open a channel</h2>
+        <span class="sec-status mono"><span class="status-led ok" aria-hidden="true"></span>channel open</span>
+      </header>
+
+      <div class="contact-grid">
+        <aside class="contact-side rv">
+          <p class="lead">Got a role, a problem, or just curious about my work? Drop a line — I read everything that lands in my inbox.</p>
+          <ul class="channels channels-stack mono">
+            <li><span class="ch-k">mail</span><a href="mailto:souravas007@gmail.com">souravas007@gmail.com</a></li>
+            <li><span class="ch-k">tel</span><a href="tel:+919526444907">+91 95264 44907</a></li>
+            <li><span class="ch-k">lnk</span><a href="https://www.linkedin.com/in/souravas/" target="_blank" rel="noopener noreferrer">/in/souravas&nbsp;↗</a></li>
+            <li><span class="ch-k">git</span><a href="https://github.com/souravas" target="_blank" rel="noopener noreferrer">@souravas&nbsp;↗</a></li>
+          </ul>
+        </aside>
+
+        <form id="contact-form" class="contact-form rv" data-delay="100" aria-label="Contact form" action="https://formspree.io/f/xgoblndl" method="POST">
+          <p class="form-bar mono" aria-hidden="true"><span class="prompt">$</span> mail -s "hello sourav" <span class="form-bar-status">— awaiting input<span class="caret"></span></span></p>
+          <div class="row">
+            <label class="mono" for="name">your name *</label>
+            <input id="name" name="name" type="text" required placeholder="Jane Doe" autocomplete="name" aria-describedby="name-help" />
+            <small id="name-help" class="sr-only">Enter your full name</small>
+          </div>
+          <div class="row">
+            <label class="mono" for="email">email *</label>
+            <input id="email" name="email" type="email" required placeholder="jane@company.com" autocomplete="email" aria-describedby="email-help" />
+            <small id="email-help" class="sr-only">Enter a valid email address</small>
+          </div>
+          <div class="row">
+            <label class="mono" for="message">message *</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Tell me about the role, project, or question…" aria-describedby="message-help"></textarea>
+            <small id="message-help" class="sr-only">Describe the opportunity or inquiry</small>
+          </div>
+          <div class="row hp" aria-hidden="true">
+            <label for="hp-field">Leave this field empty</label>
+            <input id="hp-field" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button class="btn btn-solid" type="submit">
+            <span aria-live="polite">Transmit</span>
+            <span aria-hidden="true">▸</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container eot mono rv" aria-hidden="true">── end of transmission ──</div>
+    <div class="container foot mono">
+      <p>© <span id="footer-year">__BUILD_YEAR__</span> Sourav · crafted with care<span id="footer-time"></span></p>
+      <div class="foot-links">
+        <a href="https://github.com/souravas/souravas.github.io" target="_blank" rel="noopener noreferrer">view source&nbsp;↗</a>
+        <a href="#top">back to top&nbsp;↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="hud mono" id="hud" aria-hidden="true">
+    <span id="hud-x">x:0000</span>
+    <span id="hud-y">y:0000</span>
+    <span id="hud-s">scroll:000%</span>
+  </div>
+
+  <a href="#top" class="back-to-top mono" id="back-to-top" aria-label="Back to top">↑</a>
+</body>
+</html>
