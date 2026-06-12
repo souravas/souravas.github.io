@@ -34,7 +34,7 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
   const links = document.querySelector(".nav");
   if (!toggle || !links) return;
 
-  const mobileMq = window.matchMedia("(max-width: 860px)");
+  const mobileMq = window.matchMedia("(max-width: 920px)");
   const syncInert = () => {
     links.inert = mobileMq.matches && !links.classList.contains("open");
   };
