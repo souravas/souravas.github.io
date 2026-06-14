@@ -789,6 +789,36 @@ html:not(.no-js) .tape:not(.is-rolling) .tape-track { animation-play-state: paus
   .foot-mark { color: var(--rule); }
   .foot-mark:hover { color: var(--acc); }
 }
+.ds-row { padding-block: 1.1rem 0; }
+.design-switch {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: .55rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.1rem;
+}
+.design-switch-label {
+  font-family: var(--mono-f);
+  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+  margin-right: .35rem;
+}
+.ds-pill {
+  font-family: var(--mono-f);
+  font-size: .76rem;
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: .3rem .68rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transition: color .16s ease, border-color .16s ease, background .16s ease;
+}
+.ds-pill:hover, .ds-pill:focus-visible { color: var(--acc); border-color: var(--acc); }
+.ds-pill.is-current {
+  color: var(--acc-ink);
+  background: var(--acc);
+  border-color: var(--acc);
+}
+
 .foot-grid {
   display: flex;
   flex-wrap: wrap;

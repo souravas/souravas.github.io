@@ -958,6 +958,37 @@ textarea { resize: vertical; min-height: 140px; }
   color: var(--accent);
   -webkit-text-stroke-width: 0;
 }
+.ds-row { margin-bottom: 1.25rem; }
+.design-switch {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: .6rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+.design-switch-label {
+  font-family: var(--font-mono);
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted);
+  margin-right: .4rem;
+}
+.ds-pill {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--text-soft);
+  text-decoration: none;
+  padding: .32rem .7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+}
+.ds-pill:hover, .ds-pill:focus-visible { color: var(--accent); border-color: var(--accent); }
+.ds-pill.is-current {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+
 .foot {
   display: flex;
   align-items: center; justify-content: space-between;

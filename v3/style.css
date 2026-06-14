@@ -1112,6 +1112,34 @@ strong { font-weight: 640; color: var(--ink); }
   color: var(--ink-2);
   padding-bottom: 1.6rem;
 }
+.ds-row { padding-bottom: .9rem; }
+.design-switch {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: .5rem;
+  font-family: var(--mono-f);
+}
+.design-switch-label {
+  font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+  margin-right: .35rem;
+}
+.ds-pill {
+  font-family: var(--mono-f);
+  font-size: .72rem; letter-spacing: .06em;
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: .28rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+.ds-pill:hover, .ds-pill:focus-visible { color: var(--ok); border-color: var(--ok); }
+.ds-pill.is-current {
+  color: var(--ok-ink);
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
 .foot {
   display: flex;
   align-items: baseline;
