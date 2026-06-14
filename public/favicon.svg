@@ -1,21 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <radialGradient id="auroraL" cx="0.25" cy="0.2" r="0.75">
-      <stop offset="0" stop-color="#b8b1ff" stop-opacity="0.32"/>
-      <stop offset="1" stop-color="#b8b1ff" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="auroraC" cx="0.8" cy="0.85" r="0.65">
-      <stop offset="0" stop-color="#87e5ff" stop-opacity="0.24"/>
-      <stop offset="1" stop-color="#87e5ff" stop-opacity="0"/>
-    </radialGradient>
+    <radialGradient id="auroraL" cx="0.25" cy="0.2" r="0.75"><stop offset="0" stop-color="#b8b1ff" stop-opacity="0.32"/><stop offset="1" stop-color="#b8b1ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="auroraC" cx="0.82" cy="0.86" r="0.7"><stop offset="0" stop-color="#87e5ff" stop-opacity="0.26"/><stop offset="1" stop-color="#87e5ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="auroraW" cx="0.9" cy="0.12" r="0.5"><stop offset="0" stop-color="#ffd09b" stop-opacity="0.16"/><stop offset="1" stop-color="#ffd09b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="brand" x1="0.08" y1="0.95" x2="0.92" y2="0.05"><stop offset="0" stop-color="#87e5ff"/><stop offset="0.55" stop-color="#b8b1ff"/><stop offset="1" stop-color="#ffd09b"/></linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="#0d0f14"/>
   <rect width="64" height="64" rx="14" fill="url(#auroraL)"/>
   <rect width="64" height="64" rx="14" fill="url(#auroraC)"/>
-  <path d="M48 18 C44 14 32 12 22 16 C12 20 12 28 22 30 C28 32 36 32 42 34 C52 36 52 44 42 48 C32 52 20 50 16 46"
-        fill="none"
-        stroke="#b8b1ff"
-        stroke-width="7.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <rect width="64" height="64" rx="14" fill="url(#auroraW)"/>
+  <g transform="translate(18.002 54.440) scale(0.06225 -0.06225)"><path d="M173 -9Q145 -9 113.5 -3.0Q82 3 54.5 13.5Q27 24 11 38Q6 43 4.5 48.0Q3 53 5 63L33 220Q36 238 49 238Q61 238 61 218L62 179Q64 95 91.0 58.0Q118 21 179 21Q235 21 272.0 61.5Q309 102 309 170Q309 214 285.0 262.0Q261 310 218 358Q167 415 142.5 462.0Q118 509 118 561Q118 602 138.0 640.5Q158 679 198.5 704.5Q239 730 302 730Q389 730 435 691Q449 680 445 658L417 512Q414 497 403 497Q392 497 390 514L389 535Q385 616 366.5 658.5Q348 701 293 701Q253 701 229.0 683.0Q205 665 194.0 638.5Q183 612 183 586Q183 557 191.0 530.5Q199 504 218.5 474.5Q238 445 272 403Q320 346 347.0 294.0Q374 242 374 193Q374 134 347.5 88.5Q321 43 276.0 17.0Q231 -9 173 -9Z" fill="url(#brand)" stroke="url(#brand)" stroke-width="22" stroke-linejoin="round" stroke-linecap="round"/></g>
 </svg>
