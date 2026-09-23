@@ -20,6 +20,7 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 - Local dev: <http://localhost:5173>
 - Production: <https://souravas.com>
 - Page versions: `/` serves v1 by default; `/v1`, `/v2`, and `/v3` open each design explicitly
+- Start page: `/start` — personal bookmarks dashboard (noindex)
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 
 ## Project Structure
@@ -39,6 +40,12 @@ souravas.github.io/
 │   ├── index.html
 │   ├── main.js
 │   ├── style.css
+│   └── fonts/
+├── start/                  # personal start page, served at /start
+│   ├── index.html          # bookmarks + inline SVG icon sprite
+│   ├── main.js             # clock, weather, quick launch
+│   ├── style.css
+│   ├── serenity.webp       # pre-blurred backdrop
 │   └── fonts/
 ├── public/                 # copied verbatim into the build
 │   ├── CNAME               # custom domain
