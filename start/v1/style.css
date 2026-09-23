@@ -1,5 +1,5 @@
 /* ============================================================
-   SOURAV — /start
+   SOURAV — /start/v1
    Static rebuild of the self-hosted Homepage dashboard: dark
    slate theme, blurred "serenity" backdrop, bookmark groups in
    a three-column grid, and type-anywhere quick launch.
@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 400 600;
   font-display: swap;
-  src: url('/start/fonts/manrope.woff2') format('woff2');
+  src: url('/start/v1/fonts/manrope.woff2') format('woff2');
 }
 
 /* ---------- Tokens (Tailwind slate) ---------- */
@@ -57,7 +57,7 @@ body::before {
   z-index: -1;
   background:
     linear-gradient(rgb(30 41 59 / 0.34), rgb(30 41 59 / 0.34)),
-    url('/start/serenity.webp') center / cover no-repeat,
+    url('/start/v1/serenity.webp') center / cover no-repeat,
     var(--slate-800);
 }
 
