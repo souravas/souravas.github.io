@@ -4,8 +4,8 @@
    Candidates are the matching bookmarks (best match first), then "open
    all" for a matching group, then "visit" when the query looks like a
    URL, then a Google search. ↑/↓ cycle through them, the prompt shows
-   what Enter will open, Esc clears. Each group also gets an "open all"
-   button beside its heading. */
+   what Enter will open, Esc clears. Clicking a group's heading opens
+   all of its links. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
@@ -46,11 +46,9 @@
     const hrefs = [...section.querySelectorAll(".links a")].map((a) => a.href);
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "open-all";
-    button.textContent = "open all";
-    button.setAttribute("aria-label", `Open all ${title} links`);
+    button.append(...heading.childNodes);
     button.addEventListener("click", () => openAll(hrefs));
-    heading.after(button);
+    heading.replaceChildren(button);
     return { section, title, key: title.toLowerCase(), hrefs };
   });
 
