@@ -1,3 +1,30 @@
+/* ---------- Quote ----------
+   Shows a random quote from the list in the page, then swaps in a
+   different one every three minutes. Timers keep running in a
+   background tab (throttled to once a minute at most, well inside the
+   period), so a tab left open has moved on by the time you return. */
+(() => {
+  const ROTATE_MS = 3 * 60 * 1000;
+  const list = document.getElementById("quotes");
+  const quotes = list ? [...list.children] : [];
+  if (quotes.length === 0) return;
+
+  let current = Math.floor(Math.random() * quotes.length);
+  quotes[current].classList.add("is-current");
+  if (quotes.length < 2) return;
+
+  setInterval(() => {
+    // Any quote but the one on screen: draw from the other n - 1 and
+    // step over the current index.
+    let next = Math.floor(Math.random() * (quotes.length - 1));
+    if (next >= current) next += 1;
+    list.classList.add("is-rotating");
+    quotes[current].classList.remove("is-current");
+    quotes[next].classList.add("is-current");
+    current = next;
+  }, ROTATE_MS);
+})();
+
 /* ---------- Quick launch ----------
    Type anywhere (or press /) to focus the prompt. The links filter in
    place: matches stay lit with the typed text highlighted, the rest dim.
