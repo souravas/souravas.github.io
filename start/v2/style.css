@@ -84,10 +84,11 @@ svg {
 /* ---------- Layout ----------
    Top-aligned on phones; on wider screens margin:auto centres the
    block (lifted slightly by the heavier bottom padding) without
-   clipping it once the list outgrows the viewport. */
+   clipping it once the list outgrows the viewport. The max width
+   leaves four link columns room for the longest names. */
 .page {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1180px;
   margin: 0 auto auto;
   padding: 28px 20px 48px;
 }
@@ -254,6 +255,12 @@ svg {
 @media (min-width: 960px) {
   .links {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1120px) {
+  .links {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
