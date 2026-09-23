@@ -43,7 +43,7 @@ souravas.github.io/
 │   └── fonts/
 ├── start/                  # personal start page, served at /start
 │   ├── index.html          # bookmarks + inline SVG icon sprite
-│   ├── main.js             # clock, weather, quick launch
+│   ├── main.js             # type-anywhere quick launch
 │   ├── style.css
 │   ├── serenity.webp       # pre-blurred backdrop
 │   └── fonts/
