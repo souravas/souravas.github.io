@@ -1,9 +1,11 @@
 /* ---------- Quick launch ----------
    Type anywhere (or press /) to focus the prompt. The links filter in
    place: matches stay lit with the typed text highlighted, the rest dim.
-   Candidates are the matching bookmarks (best match first), then "visit"
-   when the query looks like a URL, then a Google search. ↑/↓ cycle
-   through them, the prompt shows what Enter will open, Esc clears. */
+   Candidates are the matching bookmarks (best match first), then "open
+   all" for a matching group, then "visit" when the query looks like a
+   URL, then a Google search. ↑/↓ cycle through them, the prompt shows
+   what Enter will open, Esc clears. Each group also gets an "open all"
+   button beside its heading. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
@@ -18,6 +20,40 @@
   let candidates = [];
   let selected = 0;
 
+  const say = (mark, text) => {
+    const kbd = document.createElement("kbd");
+    kbd.textContent = mark;
+    hint.replaceChildren(kbd, text);
+  };
+
+  // A click or keypress lets a page open one tab; browsers block the rest
+  // as pop-ups until the site is allowed to open them. window.open only
+  // reports a blocked tab (null) without noopener, so drop the opener by
+  // hand instead.
+  const openAll = (hrefs) => {
+    let blocked = 0;
+    for (const href of hrefs) {
+      const tab = window.open(href, "_blank");
+      if (tab) tab.opener = null;
+      else blocked += 1;
+    }
+    if (blocked) say("!", "allow pop-ups to open all");
+  };
+
+  const groups = [...document.querySelectorAll(".group")].map((section) => {
+    const heading = section.querySelector("h2");
+    const title = heading.textContent.trim();
+    const hrefs = [...section.querySelectorAll(".links a")].map((a) => a.href);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "open-all";
+    button.textContent = "open all";
+    button.setAttribute("aria-label", `Open all ${title} links`);
+    button.addEventListener("click", () => openAll(hrefs));
+    heading.after(button);
+    return { section, title, key: title.toLowerCase(), hrefs };
+  });
+
   const highlight = (link, at, len) => {
     if (at === -1) {
       link.name.textContent = link.label;
@@ -31,13 +67,9 @@
   const paint = () => {
     const current = candidates[selected];
     for (const link of links) link.a.classList.toggle("is-selected", current?.link === link);
-    if (!current) {
-      hint.replaceChildren();
-      return;
-    }
-    const kbd = document.createElement("kbd");
-    kbd.textContent = "↵";
-    hint.replaceChildren(kbd, current.label);
+    for (const group of groups) group.section.classList.toggle("is-selected", current?.group === group);
+    if (current) say("↵", current.label);
+    else hint.replaceChildren();
   };
 
   const update = () => {
@@ -53,12 +85,17 @@
     // Array#sort is stable, so equally good matches keep page order.
     candidates = matches
       .sort((x, y) => x.at - y.at)
-      .map(({ link }) => ({ link, href: link.a.href, label: `open ${link.label}` }));
+      .map(({ link }) => ({ link, hrefs: [link.a.href], label: `open ${link.label}` }));
+    for (const group of groups) {
+      if (q && group.key.includes(needle)) {
+        candidates.push({ group, hrefs: group.hrefs, label: `open all ${group.hrefs.length} in ${group.title}` });
+      }
+    }
     if (URLISH.test(q)) {
-      candidates.push({ href: /^https?:\/\//i.test(q) ? q : `https://${q}`, label: `visit ${q}` });
+      candidates.push({ hrefs: [/^https?:\/\//i.test(q) ? q : `https://${q}`], label: `visit ${q}` });
     }
     if (q) {
-      candidates.push({ href: `https://www.google.com/search?q=${encodeURIComponent(q)}`, label: "search Google" });
+      candidates.push({ hrefs: [`https://www.google.com/search?q=${encodeURIComponent(q)}`], label: "search Google" });
     }
     selected = 0;
     paint();
@@ -87,8 +124,10 @@
       paint();
     } else if (e.key === "Enter" && !e.isComposing && candidates.length) {
       e.preventDefault();
-      window.open(candidates[selected].href, "_blank", "noopener,noreferrer");
+      const { hrefs } = candidates[selected];
+      // Reset first so a pop-up warning from openAll stays on screen.
       reset();
+      openAll(hrefs);
     } else if (e.key === "Escape") {
       if (input.value) {
         input.value = "";

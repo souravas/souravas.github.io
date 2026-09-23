@@ -97,11 +97,6 @@ svg {
     margin: auto;
     padding: 48px 40px 12vh;
   }
-
-  .row {
-    display: grid;
-    grid-template-columns: var(--gutter) minmax(0, 1fr);
-  }
 }
 
 /* ---------- Prompt ---------- */
@@ -169,7 +164,15 @@ svg {
   font: inherit;
 }
 
-/* ---------- Bookmark groups ---------- */
+/* ---------- Bookmark groups ----------
+   Phones: heading and "open all" on one line above the links.
+   Wider: both in the left gutter, each on a link row's 36px line. */
+.group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
 .group + .group {
   margin-top: 28px;
 }
@@ -183,14 +186,82 @@ svg {
   line-height: 20px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  transition: color 0.12s ease;
 }
 
-/* In the gutter, the heading shares the first link row's 36px line. */
+/* Injected by main.js, so it only exists when it can work. */
+.open-all {
+  margin: 0 0 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: color 0.12s ease, opacity 0.12s ease;
+}
+
+.open-all:hover {
+  color: var(--text);
+}
+
+.open-all:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.group .links {
+  grid-column: 1 / -1;
+}
+
 @media (min-width: 760px) {
-  .group h2 {
+  .group {
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-items: start;
+  }
+
+  .group h2,
+  .open-all {
+    grid-column: 1;
+    justify-self: start;
     margin: 0;
     line-height: 36px;
   }
+
+  .group .links {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* With a mouse, "open all" waits until the group is hovered or focused. */
+@media (hover: hover) {
+  .open-all {
+    opacity: 0;
+  }
+
+  .group:hover .open-all,
+  .group:focus-within .open-all {
+    opacity: 1;
+  }
+}
+
+/* "open all" is the Enter candidate: light the whole group. */
+.group.is-selected h2 {
+  color: var(--accent);
+}
+
+.group.is-selected .links a {
+  opacity: 1;
+  color: var(--text);
+}
+
+.group.is-selected .icon {
+  color: var(--text);
 }
 
 /* Negative margins let each link's hover box bleed past the column
@@ -290,6 +361,8 @@ svg {
 
 @media (prefers-reduced-motion: reduce) {
   .prompt,
+  .group h2,
+  .open-all,
   .links a,
   .icon {
     transition: none;
