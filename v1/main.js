@@ -20,8 +20,12 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
       root.setAttribute("data-theme", next);
       root.style.colorScheme = next;
       if (themeMeta) themeMeta.content = next === "light" ? "#f6f3ec" : "#08090c";
-      localStorage.setItem("theme", next);
       btn.setAttribute("aria-pressed", next === "light" ? "true" : "false");
+      // Storage can be blocked (site data off, some private modes); the
+      // theme still switches, it just isn't remembered.
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
     };
     if (document.startViewTransition && !reduceMotion) {
       // Feed the CSS theme-wipe the button's position so the new theme

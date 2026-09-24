@@ -58,7 +58,8 @@ souravas.github.io/
 │   ├── manifest.webmanifest
 │   ├── robots.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
-│   ├── fonts/              # v1 fonts
+│   ├── start-sw.js         # /start service worker (offline, instant open)
+│   ├── fonts/              # shared by v1 and start v2
 │   └── assets/             # images + resume.pdf
 ├── vite.config.js          # multi-page build, root default copy, CSP hashing, sitemap, dev routes
 └── .github/workflows/deploy.yml

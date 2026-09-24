@@ -14,7 +14,7 @@
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/jetbrains-mono.woff2') format('woff2')}
 :root{--bg:#08090c;--text:#ecedef;--muted:#8b8f9b;--line:rgba(255,255,255,.16);--accent:#b8b1ff;--accent-2:#87e5ff;color-scheme:dark}
 @media (prefers-color-scheme:light){:root{--bg:#f6f3ec;--text:#131318;--muted:#5e5e6a;--line:rgba(10,10,20,.22);--accent:#5b48ff;--accent-2:#0a8aa7;color-scheme:light}}
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;padding:2rem}
+body{box-sizing:border-box;margin:0;min-height:100vh;min-height:100dvh;display:grid;place-items:center;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;padding:2rem}
 h1{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(5rem,18vw,9rem);line-height:1;margin:0;background:linear-gradient(110deg,var(--accent-2),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
 p{color:var(--muted);margin:.8rem 0 0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.85rem;letter-spacing:.04em;text-transform:lowercase}
 a{display:inline-block;margin-top:2rem;padding:.8rem 1.3rem;border:1px solid var(--line);border-radius:999px;color:var(--text);text-decoration:none;font-size:.95rem;transition:border-color .2s,color .2s,transform .2s}
