@@ -28,10 +28,14 @@
 /* ---------- Quick launch ----------
    Type anywhere (or press /) to focus the prompt. The links filter in
    place: matches stay lit with the typed text highlighted, the rest dim.
-   A link matches on its name or on its site's name ("ticktick" finds
-   Tasks). Candidates are the matching bookmarks (best match first), then
-   "open all" for a matching group, then "visit" when the query looks
-   like an address, then a Google search. ↑/↓ cycle through them, the
+   A link matches on an alias (its data-alias: "lc" finds LeetCode), then
+   on its name, where the start of a word ("Code" in NeetCode) beats the
+   inside of one, then on its site's name ("ticktick" finds Tasks). An
+   alias, a space and a query ("lc two sum") opens that link's
+   data-search, a URL with %s where the query goes. Candidates are that
+   search, then the matching bookmarks (best match first), then "open
+   all" for a matching group, then "visit" when the query looks like an
+   address, then a Google search. ↑/↓ cycle through them, the
    prompt shows what Enter will open, Esc clears. Links and Enter open
    in this tab, since /start is the browser's homepage; clicking a
    group's heading opens all of its links in new tabs. */
@@ -42,13 +46,39 @@
   // Touch screens have no keyboard to type "anywhere" with.
   if (matchMedia("(hover: none)").matches) input.placeholder = "search";
 
+  // Where a word starts in a label: after a space or hyphen, or at a
+  // capital inside a word ("NeetCode" has words at 0 and 4). Each match
+  // is the character before the start, if any; lookahead rather than
+  // lookbehind, which Safari only reads from 16.4 on.
+  const WORD_START = /(?:^|[^\p{L}\p{N}])(?=[\p{L}\p{N}])|\p{Ll}(?=\p{Lu})/gu;
+
   const links = [...document.querySelectorAll(".links a")].map((a) => {
     const name = a.querySelector(".name");
     const label = name.textContent.trim();
     // The label left of the TLD: "docs.google.com" → "google".
     const site = a.hostname.split(".").at(-2) ?? "";
-    return { a, name, label, key: label.toLowerCase(), site };
+    const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
+    const starts = new Set([...label.matchAll(WORD_START)].map((m) => m.index + m[0].length));
+    const { search } = a.dataset;
+    // Named in the prompt by host: "youtube.com", "claude.ai".
+    const searchHost = search ? new URL(search.replace("%s", "")).hostname.replace(/^www\./, "") : "";
+    return { a, name, label, key: label.toLowerCase(), site, aliases, starts, search, searchHost };
   });
+
+  // How well a link matches the lowercased query, and where its name
+  // does (-1 if not). Rank 0 is an alias, 1 the start of a word in the
+  // name, 2 the inside of a word, 3 the site's name; no match is Infinity.
+  const match = (link, needle) => {
+    const first = link.key.indexOf(needle);
+    let at = first;
+    while (at !== -1 && !link.starts.has(at)) at = link.key.indexOf(needle, at + 1);
+    let rank = Infinity;
+    if (link.aliases.includes(needle)) rank = 0;
+    else if (at !== -1) rank = 1;
+    else if (first !== -1) rank = 2;
+    else if (link.site.includes(needle)) rank = 3;
+    return { rank, at: at === -1 ? first : at };
+  };
   const URLISH = /^(?<scheme>https?:\/\/)?(?<host>localhost|(?:\d{1,3}\.){3}\d{1,3}|(?:[\w-]+\.)+[a-z]{2,})(?<port>:\d+)?(?<path>\/\S*)?$/i;
   // "os.path" and "node.js" are URL-shaped too. Without a scheme, www.,
   // port or path, only a familiar TLD puts "visit" ahead of the search.
@@ -123,20 +153,24 @@
   const update = () => {
     const q = input.value.trim();
     const needle = q.toLowerCase();
-    const byName = [];
-    const bySite = [];
+    // "lc two sum": the alias of a link with a search, then the query.
+    const [, word = "", query = ""] = /^(\S+)\s+(.+)$/.exec(q) ?? [];
+    const owner = query && links.find((link) => link.search && link.aliases.includes(word.toLowerCase()));
+    const hits = [];
     for (const link of links) {
-      const at = q ? link.key.indexOf(needle) : -1;
-      const hit = at !== -1 || (q !== "" && link.site.includes(needle));
-      link.a.classList.toggle("is-dim", q !== "" && !hit);
+      const { rank, at } = q ? match(link, needle) : { rank: Infinity, at: -1 };
+      link.a.classList.toggle("is-dim", q !== "" && rank === Infinity && link !== owner);
       highlight(link, at, needle.length);
-      if (at !== -1) byName.push({ link, at });
-      else if (hit) bySite.push(link);
+      if (rank !== Infinity) hits.push({ link, rank, at });
     }
-    // Name matches first, earliest match first (Array#sort is stable, so
-    // equally good matches keep page order), then site-only matches.
-    candidates = [...byName.sort((x, y) => x.at - y.at).map(({ link }) => link), ...bySite]
-      .map((link) => ({ link, hrefs: [link.a.href], label: `open ${link.label}` }));
+    // Best rank first, then earliest in the name (Array#sort is stable,
+    // so equally good matches keep page order).
+    candidates = hits.sort((x, y) => x.rank - y.rank || x.at - y.at)
+      .map(({ link }) => ({ link, hrefs: [link.a.href], label: `open ${link.label}` }));
+    if (owner) {
+      const href = owner.search.replace("%s", encodeURIComponent(query));
+      candidates.unshift({ link: owner, hrefs: [href], label: `search ${owner.searchHost}` });
+    }
     for (const group of groups) {
       if (q && group.key.includes(needle)) {
         candidates.push({ group, hrefs: group.hrefs, label: `open all ${group.hrefs.length} in ${group.title}` });
@@ -196,6 +230,22 @@
   // Opening a link with the mouse mid-search returns the page to rest.
   document.addEventListener("click", (e) => {
     if (input.value && e.target.closest(".links a")) reset();
+  });
+
+  // With the prompt empty, pointing at a link names its alias in the
+  // hint, so the short codes can be learned from the page. Pointing
+  // away clears only that, never a pop-up warning.
+  let naming = false;
+  document.addEventListener("pointerover", (e) => {
+    if (input.value || e.pointerType !== "mouse") return;
+    const link = links.find(({ a }) => a.contains(e.target));
+    if (link?.aliases.length) {
+      say(link.aliases.join(" "), link.search ? `+ query searches ${link.searchHost}` : `opens ${link.label}`);
+      naming = true;
+    } else if (naming) {
+      hint.replaceChildren();
+      naming = false;
+    }
   });
 })();
 
