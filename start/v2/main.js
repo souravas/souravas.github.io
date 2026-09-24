@@ -28,22 +28,31 @@
 /* ---------- Quick launch ----------
    Type anywhere (or press /) to focus the prompt. The links filter in
    place: matches stay lit with the typed text highlighted, the rest dim.
-   Candidates are the matching bookmarks (best match first), then "open
-   all" for a matching group, then "visit" when the query looks like a
-   URL, then a Google search. ↑/↓ cycle through them, the prompt shows
-   what Enter will open, Esc clears. Clicking a group's heading opens
-   all of its links. */
+   A link matches on its name or on its site's name ("ticktick" finds
+   Tasks). Candidates are the matching bookmarks (best match first), then
+   "open all" for a matching group, then "visit" when the query looks
+   like an address, then a Google search. ↑/↓ cycle through them, the
+   prompt shows what Enter will open, Esc clears. Links and Enter open
+   in this tab, since /start is the browser's homepage; clicking a
+   group's heading opens all of its links in new tabs. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
   if (!input || !hint) return;
+  // Touch screens have no keyboard to type "anywhere" with.
+  if (matchMedia("(hover: none)").matches) input.placeholder = "search";
 
   const links = [...document.querySelectorAll(".links a")].map((a) => {
     const name = a.querySelector(".name");
     const label = name.textContent.trim();
-    return { a, name, label, key: label.toLowerCase() };
+    // The label left of the TLD: "docs.google.com" → "google".
+    const site = a.hostname.split(".").at(-2) ?? "";
+    return { a, name, label, key: label.toLowerCase(), site };
   });
-  const URLISH = /^(https?:\/\/)?([\w-]+\.)+[a-z]{2,}(:\d+)?(\/\S*)?$/i;
+  const URLISH = /^(?<scheme>https?:\/\/)?(?<host>localhost|(?:\d{1,3}\.){3}\d{1,3}|(?:[\w-]+\.)+[a-z]{2,})(?<port>:\d+)?(?<path>\/\S*)?$/i;
+  // "os.path" and "node.js" are URL-shaped too. Without a scheme, www.,
+  // port or path, only a familiar TLD puts "visit" ahead of the search.
+  const KNOWN_TLD = /\.(com|org|net|io|dev|app|ai|co|in|me|gg|xyz|edu|gov|info|tv|fm|to|ly|page|site|tech|cloud|uk|us|eu|de)$/i;
   let candidates = [];
   let selected = 0;
 
@@ -73,6 +82,7 @@
     const hrefs = [...section.querySelectorAll(".links a")].map((a) => a.href);
     const button = document.createElement("button");
     button.type = "button";
+    button.title = `Open all ${hrefs.length} links`;
     button.append(...heading.childNodes);
     button.addEventListener("click", () => openAll(hrefs));
     heading.replaceChildren(button);
@@ -89,6 +99,19 @@
     link.name.replaceChildren(link.label.slice(0, at), mark, link.label.slice(at + len));
   };
 
+  // A candidate that opens q itself, or null. Addresses on the local
+  // network are rarely served over HTTPS, so those default to http.
+  const visit = (q) => {
+    const url = URLISH.exec(q)?.groups;
+    if (!url) return null;
+    const local = /^(localhost|[\d.]+)$/i.test(url.host);
+    return {
+      hrefs: [url.scheme ? q : `${local ? "http" : "https"}://${q}`],
+      label: `visit ${q}`,
+      sure: Boolean(url.scheme || url.port || url.path || local || /^www\./i.test(url.host) || KNOWN_TLD.test(url.host)),
+    };
+  };
+
   const paint = () => {
     const current = candidates[selected];
     for (const link of links) link.a.classList.toggle("is-selected", current?.link === link);
@@ -100,28 +123,31 @@
   const update = () => {
     const q = input.value.trim();
     const needle = q.toLowerCase();
-    const matches = [];
+    const byName = [];
+    const bySite = [];
     for (const link of links) {
       const at = q ? link.key.indexOf(needle) : -1;
-      link.a.classList.toggle("is-dim", q !== "" && at === -1);
+      const hit = at !== -1 || (q !== "" && link.site.includes(needle));
+      link.a.classList.toggle("is-dim", q !== "" && !hit);
       highlight(link, at, needle.length);
-      if (at !== -1) matches.push({ link, at });
+      if (at !== -1) byName.push({ link, at });
+      else if (hit) bySite.push(link);
     }
-    // Array#sort is stable, so equally good matches keep page order.
-    candidates = matches
-      .sort((x, y) => x.at - y.at)
-      .map(({ link }) => ({ link, hrefs: [link.a.href], label: `open ${link.label}` }));
+    // Name matches first, earliest match first (Array#sort is stable, so
+    // equally good matches keep page order), then site-only matches.
+    candidates = [...byName.sort((x, y) => x.at - y.at).map(({ link }) => link), ...bySite]
+      .map((link) => ({ link, hrefs: [link.a.href], label: `open ${link.label}` }));
     for (const group of groups) {
       if (q && group.key.includes(needle)) {
         candidates.push({ group, hrefs: group.hrefs, label: `open all ${group.hrefs.length} in ${group.title}` });
       }
     }
-    if (URLISH.test(q)) {
-      candidates.push({ hrefs: [/^https?:\/\//i.test(q) ? q : `https://${q}`], label: `visit ${q}` });
-    }
+    const address = visit(q);
+    if (address?.sure) candidates.push(address);
     if (q) {
       candidates.push({ hrefs: [`https://www.google.com/search?q=${encodeURIComponent(q)}`], label: "search Google" });
     }
+    if (address && !address.sure) candidates.push(address);
     selected = 0;
     paint();
   };
@@ -150,9 +176,13 @@
     } else if (e.key === "Enter" && !e.isComposing && candidates.length) {
       e.preventDefault();
       const { hrefs } = candidates[selected];
-      // Reset first so a pop-up warning from openAll stays on screen.
+      // Reset first so a pop-up warning from openAll stays on screen, and
+      // so Back returns to an empty prompt.
       reset();
-      openAll(hrefs);
+      // One link replaces this page, as a browser's new tab page would;
+      // Ctrl/⌘+Enter opens it in a new tab instead.
+      if (hrefs.length === 1 && !e.ctrlKey && !e.metaKey) location.assign(hrefs[0]);
+      else openAll(hrefs);
     } else if (e.key === "Escape") {
       if (input.value) {
         input.value = "";
@@ -168,3 +198,12 @@
     if (input.value && e.target.closest(".links a")) reset();
   });
 })();
+
+/* ---------- Offline ----------
+   /start is the browser's homepage, so it has to open instantly, even
+   before the network is up. /start-sw.js serves a cached copy and
+   refreshes it in the background. Production only: in dev it would
+   serve stale copies over HMR. */
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/start-sw.js", { scope: "/start" }).catch(() => {});
+}
