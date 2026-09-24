@@ -104,7 +104,9 @@ svg {
    Every quote sits in the same grid cell, so the block is always as
    tall as the longest one at the current width and a swap never moves
    the prompt or links below. Only the current one is visible; main.js
-   picks it. Wider: in the link column, past the gutter. */
+   picks it and sets .is-rotating on the first swap, so the quote fades
+   only then and shows at once when the page opens. Wider: in the link
+   column, past the gutter. */
 .quotes {
   display: grid;
   align-items: end;
@@ -131,6 +133,9 @@ svg {
   grid-area: 1 / 1;
   visibility: hidden;
   opacity: 0;
+}
+
+.quotes.is-rotating li {
   transition: opacity 0.4s ease, visibility 0.4s;
 }
 
@@ -140,15 +145,17 @@ svg {
 }
 
 /* On a swap, the new quote waits for the old one to fade out, so the
-   two never overlap. Not on load, where there is nothing to wait for. */
+   two never overlap. */
 .quotes.is-rotating li.is-current {
   transition-delay: 0.4s;
 }
 
-/* ---------- Prompt ---------- */
+/* ---------- Prompt ----------
+   The input keeps at least half the row on phones, so a long hint
+   truncates instead of squeezing what you type. */
 .prompt {
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) auto;
+  grid-template-columns: 28px minmax(50%, 1fr) auto;
   align-items: center;
   margin-bottom: 36px;
   padding-bottom: 14px;
@@ -382,7 +389,7 @@ svg {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .quotes li,
+  .quotes.is-rotating li,
   .prompt,
   .group h2,
   .group h2 button,
