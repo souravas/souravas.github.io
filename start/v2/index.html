@@ -106,7 +106,8 @@
     </ul>
 
     <!-- Quick launch: type anywhere to filter the links below in place,
-         open a URL, or search Google. -->
+         jump by alias, search a site by keyword, open a URL, or search
+         Google. -->
     <div class="prompt">
       <span class="prompt-mark" aria-hidden="true">›</span>
       <input class="prompt-input" id="q" type="text" placeholder="type anywhere to search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" aria-label="Search bookmarks, open a URL, or search Google" aria-describedby="hint" />
@@ -114,17 +115,21 @@
     </div>
 
     <!-- Bookmarks. Copy an <li> to add one; the icon is the <use> href
-         pointing at a <symbol> in the sprite above. -->
+         pointing at a <symbol> in the sprite above. Optional on the <a>:
+         data-alias, space-separated short codes the prompt matches first
+         ("lc" opens LeetCode), and data-search, a URL with %s where a
+         query goes, which "alias query" opens ("lc two sum"). -->
     <section class="group" aria-labelledby="group-daily">
       <h2 id="group-daily">Daily</h2>
       <ul class="links">
         <li><a href="https://ticktick.com/webapp/#q/all/tasks"><span class="icon"><svg aria-hidden="true"><use href="#si-ticktick" /></svg></span><span class="name">Tasks</span></a></li>
         <li><a href="https://ticktick.com/webapp/#q/all/habit"><span class="icon"><svg aria-hidden="true"><use href="#si-ticktick" /></svg></span><span class="name">Habits</span></a></li>
         <li><a href="https://ticktick.com/webapp/#c/all/calendar/d"><span class="icon"><svg aria-hidden="true"><use href="#si-ticktick" /></svg></span><span class="name">Calendar</span></a></li>
-        <li><a href="https://claude.ai/new"><span class="icon"><svg aria-hidden="true"><use href="#si-claude" /></svg></span><span class="name">Claude</span></a></li>
-        <li><a href="https://monkeytype.com/"><span class="icon"><svg aria-hidden="true"><use href="#si-monkeytype" /></svg></span><span class="name">Typing</span></a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1JxNt4t5sVCGtolwqwPLUYdpJOdQ4zJAQTau1O5H7ZXE/edit?gid=1258976699#gid=1258976699"><span class="icon"><svg aria-hidden="true"><use href="#si-googlesheets" /></svg></span><span class="name">Cash Flow</span></a></li>
-        <li><a href="https://www.youtube.com/playlist?list=WL"><span class="icon"><svg aria-hidden="true"><use href="#si-youtube" /></svg></span><span class="name">Watch Later</span></a></li>
+        <li><a href="https://ticktick.com/webapp/#countdown"><span class="icon"><svg aria-hidden="true"><use href="#si-ticktick" /></svg></span><span class="name">Countdown</span></a></li>
+        <li><a href="https://claude.ai/new" data-alias="c" data-search="https://claude.ai/new?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-claude" /></svg></span><span class="name">Claude</span></a></li>
+        <li><a href="https://monkeytype.com/" data-alias="mt"><span class="icon"><svg aria-hidden="true"><use href="#si-monkeytype" /></svg></span><span class="name">Typing</span></a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1JxNt4t5sVCGtolwqwPLUYdpJOdQ4zJAQTau1O5H7ZXE/edit?gid=1258976699#gid=1258976699" data-alias="cf"><span class="icon"><svg aria-hidden="true"><use href="#si-googlesheets" /></svg></span><span class="name">Cash Flow</span></a></li>
+        <li><a href="https://www.youtube.com/playlist?list=WL" data-alias="yt" data-search="https://www.youtube.com/results?search_query=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-youtube" /></svg></span><span class="name">Watch Later</span></a></li>
       </ul>
     </section>
 
@@ -133,19 +138,19 @@
       <ul class="links">
         <li><a href="https://algo.monster/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomonster" /></svg></span><span class="name">AlgoMonster</span></a></li>
         <li><a href="https://algomaster.io/"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomaster" /></svg></span><span class="name">AlgoMaster</span></a></li>
-        <li><a href="https://neetcode.io/practice/practice/neetcode150"><span class="icon"><svg aria-hidden="true"><use href="#logo-neetcode" /></svg></span><span class="name">NeetCode</span></a></li>
-        <li><a href="https://takeuforward.org/plus/home"><span class="icon"><svg aria-hidden="true"><use href="#logo-takeuforward" /></svg></span><span class="name">Striver</span></a></li>
-        <li><a href="https://leetcode.com/explore/"><span class="icon"><svg aria-hidden="true"><use href="#si-leetcode" /></svg></span><span class="name">LeetCode</span></a></li>
-        <li><a href="https://github.com/souravas/code"><span class="icon"><svg aria-hidden="true"><use href="#si-github" /></svg></span><span class="name">My Solutions</span></a></li>
+        <li><a href="https://neetcode.io/practice/practice/neetcode150" data-alias="nc"><span class="icon"><svg aria-hidden="true"><use href="#logo-neetcode" /></svg></span><span class="name">NeetCode</span></a></li>
+        <li><a href="https://takeuforward.org/plus/home" data-alias="tuf"><span class="icon"><svg aria-hidden="true"><use href="#logo-takeuforward" /></svg></span><span class="name">Striver</span></a></li>
+        <li><a href="https://leetcode.com/explore/" data-alias="lc" data-search="https://leetcode.com/problemset/?search=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-leetcode" /></svg></span><span class="name">LeetCode</span></a></li>
+        <li><a href="https://github.com/souravas/code" data-alias="gh" data-search="https://github.com/search?q=repo%3Asouravas%2Fcode+%s&amp;type=code"><span class="icon"><svg aria-hidden="true"><use href="#si-github" /></svg></span><span class="name">My Solutions</span></a></li>
       </ul>
     </section>
 
     <section class="group" aria-labelledby="group-design">
       <h2 id="group-design">Design</h2>
       <ul class="links">
-        <li><a href="https://systemdesignschool.io/"><span class="icon"><svg aria-hidden="true"><use href="#logo-systemdesignschool" /></svg></span><span class="name">System Design School</span></a></li>
-        <li><a href="https://academy.bytemonk.io/library"><span class="icon"><svg aria-hidden="true"><use href="#logo-bytemonk" /></svg></span><span class="name">ByteMonk</span></a></li>
-        <li><a href="https://interviewready.io/account/"><span class="icon"><svg aria-hidden="true"><use href="#logo-interviewready" /></svg></span><span class="name">InterviewReady</span></a></li>
+        <li><a href="https://systemdesignschool.io/" data-alias="sds"><span class="icon"><svg aria-hidden="true"><use href="#logo-systemdesignschool" /></svg></span><span class="name">System Design School</span></a></li>
+        <li><a href="https://academy.bytemonk.io/library" data-alias="bm"><span class="icon"><svg aria-hidden="true"><use href="#logo-bytemonk" /></svg></span><span class="name">ByteMonk</span></a></li>
+        <li><a href="https://interviewready.io/account/" data-alias="ir"><span class="icon"><svg aria-hidden="true"><use href="#logo-interviewready" /></svg></span><span class="name">InterviewReady</span></a></li>
         <li><a href="https://interview.lldcoding.com/"><span class="icon"><svg aria-hidden="true"><use href="#logo-lldcoding" /></svg></span><span class="name">LLD Coding</span></a></li>
         <li><a href="https://refactoring.guru/design-patterns"><span class="icon"><svg aria-hidden="true"><use href="#logo-refactoringguru" /></svg></span><span class="name">Design Patterns</span></a></li>
       </ul>
@@ -154,7 +159,7 @@
     <section class="group" aria-labelledby="group-learn">
       <h2 id="group-learn">Learn</h2>
       <ul class="links">
-        <li><a href="https://www.techinterviewhandbook.org/software-engineering-interview-guide/"><span class="icon"><svg aria-hidden="true"><use href="#logo-techinterviewhandbook" /></svg></span><span class="name">Tech Interview Handbook</span></a></li>
+        <li><a href="https://www.techinterviewhandbook.org/software-engineering-interview-guide/" data-alias="tih"><span class="icon"><svg aria-hidden="true"><use href="#logo-techinterviewhandbook" /></svg></span><span class="name">Tech Interview Handbook</span></a></li>
         <li><a href="https://www.udemy.com/home/my-courses/learning/"><span class="icon"><svg aria-hidden="true"><use href="#si-udemy" /></svg></span><span class="name">Udemy</span></a></li>
         <li><a href="https://www.coursera.org/learn/learning-how-to-learn"><span class="icon"><svg aria-hidden="true"><use href="#si-coursera" /></svg></span><span class="name">Learning How to Learn</span></a></li>
         <li><a href="https://roadmap.sh/courses/sql"><span class="icon"><svg aria-hidden="true"><use href="#si-roadmapdotsh" /></svg></span><span class="name">SQL Course</span></a></li>
