@@ -114,18 +114,18 @@ svg {
   padding: 0;
   list-style: none;
   color: var(--text);
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
 @media (min-width: 760px) {
   .quotes {
-    margin-bottom: 24px;
+    margin-bottom: 22px;
     padding-left: var(--gutter);
-    font-size: 32px;
+    font-size: 22px;
   }
 }
 
