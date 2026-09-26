@@ -12,6 +12,7 @@ const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
   { loc: '/v2/', changefreq: 'monthly', priority: '0.5' },
   { loc: '/v3/', changefreq: 'monthly', priority: '0.5' },
+  { loc: '/v4/', changefreq: 'monthly', priority: '0.5' },
 ]
 
 // Inline the built stylesheet into <head> in place of its <link>, removing
@@ -177,7 +178,7 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Five separate pages (v1–v3, start v1–v2), no SPA fallback.
+  // Six separate pages (v1–v4, start v1–v2), no SPA fallback.
   appType: 'mpa',
   build: {
     outDir: 'dist',
@@ -194,6 +195,7 @@ export default defineConfig({
         v1: 'v1/index.html',
         v2: 'v2/index.html',
         v3: 'v3/index.html',
+        v4: 'v4/index.html',
         'start-v1': 'start/v1/index.html',
         'start-v2': 'start/v2/index.html',
       },
@@ -224,6 +226,8 @@ export default defineConfig({
             req.url = '/v2/index.html'
           } else if (path === '/v3' || path === '/v3/') {
             req.url = '/v3/index.html'
+          } else if (path === '/v4' || path === '/v4/') {
+            req.url = '/v4/index.html'
           } else if (path === '/start/v1' || path === '/start/v1/') {
             req.url = '/start/v1/index.html'
           } else if (path === '/start' || path === '/start/' || path === '/start/v2' || path === '/start/v2/') {
@@ -239,7 +243,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/v4', '/start', '/start/v1', '/start/v2'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'

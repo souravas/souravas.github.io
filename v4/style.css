@@ -1,0 +1,368 @@
+/* =============================================================
+   Sourav — v4 stylesheet ("Plain")
+   A plain document: one column, one typeface, hairline rules.
+   ============================================================= */
+
+/* Newsreader roman (v4's own copy of the file v2 bundles): instanced at
+   opsz 18 with wght 400–600. No italic is used, so none is loaded. */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/v4/fonts/newsreader.woff2') format('woff2');
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #fdfdfc;
+  --text: #1c1c1a;
+  --muted: #5f5f59;
+  --rule: #dddcd6;
+  --field: #ffffff;
+  --field-line: #8c8b84;   /* 3:1 against --field */
+
+  --serif: 'Newsreader', Charter, 'Iowan Old Style', Georgia, serif;
+  --measure: 38rem;
+  --gutter: clamp(1rem, 5vw, 2rem);
+  color-scheme: light;
+}
+/* Dark tokens twice: once for the toggle / stored choice, once for
+   visits without JS, where no data-theme is ever set. */
+:root[data-theme='dark'] {
+  --bg: #161615;
+  --text: #e4e3de;
+  --muted: #a3a29b;
+  --rule: #34332f;
+  --field: #1d1d1b;
+  --field-line: #6e6d67;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #161615;
+    --text: #e4e3de;
+    --muted: #a3a29b;
+    --rule: #34332f;
+    --field: #1d1d1b;
+    --field-line: #6e6d67;
+    color-scheme: dark;
+  }
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-kerning: normal;
+}
+
+img { max-width: 100%; }
+
+h1, h2, h3 { font-weight: 600; line-height: 1.25; margin: 0; }
+
+p { margin: 0; }
+p, li, dd { text-wrap: pretty; }
+
+/* Newsreader draws + and − on the lowercase axis and has no 'case'
+   feature, so next to lining figures ("+91", "−53%") they read as a
+   subscript or a hyphen. Nudge them up to the figures by hand. */
+.sign {
+  font-size: 1.1em;
+  line-height: 0;
+  vertical-align: .1em;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+a:hover { text-decoration-color: currentColor; }
+
+@media (prefers-reduced-motion: no-preference) {
+  a, .theme-toggle, .send {
+    transition: color .15s, background-color .15s, border-color .15s, text-decoration-color .15s;
+  }
+}
+
+.page {
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
+}
+
+/* ---------- Masthead ---------- */
+/* The toggle keeps the top-right corner; the section links wrap in their
+   own column beside it. */
+.masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 1.5rem;
+  padding-top: 1.5rem;
+  font-size: 1rem;
+}
+.sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem 1.1rem;
+}
+.sections a { text-decoration-color: transparent; }
+.sections a:hover { text-decoration-color: currentColor; }
+.theme-toggle {
+  font: inherit;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--text); }
+.theme-toggle .to-light,
+[data-theme='dark'] .theme-toggle .to-dark { display: none; }
+[data-theme='dark'] .theme-toggle .to-light { display: inline; }
+/* The toggle needs JS; without it the page follows the OS setting. */
+.no-js .theme-toggle { display: none; }
+
+/* ---------- Intro ---------- */
+.intro { padding-top: 4rem; }
+.intro::after { content: ""; display: table; clear: both; }
+.photo {
+  float: right;
+  width: 7rem;
+  height: 7rem;
+  margin: .3rem 0 1rem 1.75rem;
+  object-fit: cover;
+}
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+}
+.title {
+  font-size: 1.25rem;
+  color: var(--muted);
+  margin: .2rem 0 1.25rem;
+}
+.intro p + p { margin-top: .6rem; }
+/* Past phone width the photo sits beside the name and title only, and the
+   paragraphs below run the full measure instead of wrapping around it. */
+@media (min-width: 36.01rem) {
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 7rem;
+    grid-template-rows: auto 1fr;   /* the photo's extra height goes under the title */
+    column-gap: 1.75rem;
+    align-items: start;
+  }
+  .intro > * { grid-column: 1 / -1; }
+  .intro h1, .intro .title { grid-column: 1; }
+  .intro .photo { grid-column: 2; grid-row: 1 / span 2; float: none; margin: .3rem 0 0; }
+  .intro::after { content: none; }
+}
+.inline-links {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem 1.25rem;
+}
+.inline-links + .inline-links { margin-top: .3rem; }
+
+/* ---------- Sections ---------- */
+main section:not(.intro) { margin-top: 3.25rem; }
+h2 {
+  font-size: 1.375rem;
+  padding-top: 1rem;
+  margin-bottom: 1.25rem;
+  border-top: 1px solid var(--rule);
+}
+h3 { font-size: 1.125rem; }
+
+.when {
+  color: var(--muted);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- Experience ---------- */
+.job + .job { margin-top: 2.25rem; }
+.entry-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 1rem;
+}
+.role { color: var(--muted); margin: .1rem 0 .65rem; }
+.job ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.job li { padding-left: .2rem; }
+.job li + li { margin-top: .4rem; }
+.job li::marker { color: var(--muted); }
+
+/* ---------- Skills ---------- */
+.pairs {
+  display: grid;
+  grid-template-columns: 10.5rem minmax(0, 1fr);
+  gap: .45rem 1.25rem;
+  margin: 0;
+}
+.pairs dt { color: var(--muted); }
+.pairs dd { margin: 0; overflow-wrap: anywhere; }
+
+/* ---------- Certifications, education ---------- */
+/* Name on the left, dates in a right-hand column; on phones the dates
+   drop onto their own line under the name (see the end of the file). */
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.entries li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 1.5rem;
+}
+.entries li + li { margin-top: .6rem; }
+.note {
+  display: block;
+  color: var(--muted);
+}
+
+/* ---------- Contact form ---------- */
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+.contact-form > :not(.half) { grid-column: 1 / -1; }
+.row { display: grid; gap: .3rem; }
+.row label { font-size: 1rem; color: var(--muted); }
+input, textarea {
+  font: inherit;
+  font-size: 1.0625rem;
+  color: var(--text);
+  background: var(--field);
+  border: 1px solid var(--field-line);
+  border-radius: 2px;
+  padding: .45rem .6rem;
+  width: 100%;
+}
+textarea { resize: vertical; min-height: 8rem; }
+.send {
+  justify-self: start;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--bg);
+  background: var(--text);
+  border: 1px solid var(--text);
+  border-radius: 2px;
+  padding: .4rem 1.1rem;
+  cursor: pointer;
+}
+.send:hover { background: var(--muted); border-color: var(--muted); }
+.send:disabled { cursor: progress; }
+/* Honeypot: hidden via class (not a style attribute) so the hashed CSP allows it. */
+.row.hp {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* ---------- Footer ---------- */
+.colophon {
+  margin-top: 4.5rem;
+  padding: 1.25rem 0 2.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 1rem;
+  color: var(--muted);
+}
+.design-switch,
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem 1.1rem;
+}
+.foot { margin-top: .6rem; }
+.design-switch .is-current { color: var(--text); font-weight: 600; }
+
+/* ---------- Accessibility ---------- */
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+input:focus-visible,
+textarea:focus-visible { outline-offset: 0; border-color: var(--text); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -10rem;
+  left: 1rem;
+  z-index: 10;
+  padding: .4rem .8rem;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 1rem;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 36rem) {
+  body { font-size: 1.0625rem; }
+  .intro { padding-top: 2.75rem; }
+  h1 { font-size: 2rem; }
+  .photo { width: 5.5rem; height: 5.5rem; margin-left: 1.25rem; }
+  .pairs { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .pairs dd + dt { margin-top: .6rem; }
+  .entries li { grid-template-columns: minmax(0, 1fr); }
+  .contact-form { grid-template-columns: minmax(0, 1fr); }
+  input, textarea { font-size: 16px; } /* iOS no-zoom */
+}
+
+/* ---------- Print ---------- */
+/* Prints as a CV: black on white whatever the theme, with nothing that
+   only works on screen (navigation, form, footer links, the PDF link). */
+@media print {
+  :root, :root[data-theme='dark'], :root:not([data-theme]) {
+    --bg: #fff;
+    --text: #000;
+    --muted: #444;
+    --rule: #bbb;
+    color-scheme: light;
+    font-size: 9.75pt;   /* every size is in rem, so body text lands at 11pt */
+  }
+  .masthead, #contact, .design-switch, .foot a, .skip-link,
+  .inline-links li:has(a[href$='.pdf']) { display: none; }
+  .intro { padding-top: 0; }
+  main section:not(.intro) { margin-top: 1.5rem; }
+  .job, .entries li { break-inside: avoid; }
+  .colophon { margin-top: 2rem; padding-bottom: 0; }
+}

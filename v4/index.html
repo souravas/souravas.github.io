@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta name="theme-color" content="#fdfdfc" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#161615" media="(prefers-color-scheme: dark)" />
+
+  <script>
+    document.documentElement.classList.remove('no-js');
+    let stored = null;
+    try {
+      stored = localStorage.getItem('theme');
+    } catch (e) {}
+    const t = stored === 'light' || stored === 'dark'
+      ? stored
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', t);
+    // Both metas carry the chosen colour, so a stored choice beats the OS.
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => {
+      m.content = t === 'dark' ? '#161615' : '#fdfdfc';
+    });
+  </script>
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://formspree.io; manifest-src 'self'; base-uri 'self'; form-action 'self' https://formspree.io; object-src 'none'; upgrade-insecure-requests" />
+
+  <title>Sourav — Senior Software Engineer · Backend Systems &amp; APIs</title>
+  <meta name="description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
+  <meta name="author" content="Sourav" />
+  <meta property="article:author" content="Sourav" />
+  <meta property="article:published_time" content="2025-02-04T00:00:00Z" />
+  <meta property="article:modified_time" content="__BUILD_DATE__" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
+  <link rel="icon" href="/favicon-16x16.png?v=3" sizes="16x16" type="image/png" />
+  <link rel="icon" href="/favicon-32x32.png?v=3" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-48x48.png?v=3" sizes="48x48" type="image/png" />
+  <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+  <meta name="apple-mobile-web-app-title" content="Sourav" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <link rel="canonical" href="https://souravas.com/v4/" />
+  <meta property="og:site_name" content="Sourav" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Sourav — Senior Software Engineer · Backend Systems &amp; APIs" />
+  <meta property="og:description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
+  <meta property="og:url" content="https://souravas.com/v4/" />
+  <meta property="og:type" content="profile" />
+  <meta property="profile:first_name" content="Sourav" />
+  <meta property="profile:username" content="souravas" />
+  <meta property="og:image" content="https://souravas.com/assets/og-cover-v4.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sourav, Senior Software Engineer (souravas.com), beside a headshot." />
+  <meta property="og:image" content="https://souravas.com/assets/og-cover-v4.webp" />
+  <meta property="og:image:type" content="image/webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sourav, Senior Software Engineer (souravas.com), beside a headshot." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sourav — Senior Software Engineer · Backend Systems &amp; APIs" />
+  <meta name="twitter:description" content="Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL." />
+  <meta name="twitter:image" content="https://souravas.com/assets/og-cover-v4.jpg" />
+  <meta name="twitter:image:alt" content="Sourav, Senior Software Engineer (souravas.com), beside a headshot." />
+
+  <link rel="preload" as="image" href="/assets/profile.webp" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/v4/fonts/newsreader.woff2" crossorigin fetchpriority="high" />
+
+  <script type="module" src="/v4/main.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://souravas.com/v4/#webpage",
+    "url": "https://souravas.com/v4/",
+    "name": "Sourav — Senior Software Engineer · Backend Systems & APIs",
+    "description": "Senior Software Engineer (7 years) shipping REST APIs, optimizing databases, and automating backends. Python · Rails · AWS · Kubernetes · PostgreSQL.",
+    "inLanguage": "en",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://souravas.com/#website",
+      "url": "https://souravas.com/",
+      "name": "Sourav — Senior Software Engineer"
+    },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://souravas.com/assets/og-cover-v4.webp",
+      "width": 1200,
+      "height": 630
+    },
+    "mainEntity": {
+      "@type": "Person",
+      "@id": "https://souravas.com/#person",
+      "name": "Sourav",
+      "givenName": "Sourav",
+      "url": "https://souravas.com/",
+      "image": {
+        "@type": "ImageObject",
+        "@id": "https://souravas.com/#profile-image",
+        "url": "https://souravas.com/assets/profile.webp",
+        "width": 640,
+        "height": 640,
+        "caption": "Sourav — Senior Software Engineer"
+      },
+      "nationality": { "@type": "Country", "name": "India" },
+      "description": "Senior Software Engineer with 7 years of experience building resilient backend systems — REST APIs, database performance, and backend automation across monoliths and microservices.",
+      "jobTitle": "Senior Software Engineer",
+      "knowsAbout": [
+        "Python",
+        "Ruby on Rails",
+        "REST APIs",
+        "Java",
+        "Spring Boot",
+        "JavaScript",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "Apache Kafka",
+        "Linux",
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Elasticsearch",
+        "Backend Development",
+        "Microservices",
+        "Database Performance Optimization"
+      ],
+      "sameAs": [
+        "https://github.com/souravas",
+        "https://www.linkedin.com/in/souravas/"
+      ],
+      "email": "souravas007@gmail.com",
+      "telephone": "+91-9526-444-907",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Personal",
+        "telephone": "+91-9526-444-907",
+        "email": "souravas007@gmail.com"
+      },
+      "worksFor": {
+        "@type": "OrganizationRole",
+        "roleName": "SDE III",
+        "startDate": "2022-10",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Tata 1mg",
+          "url": "https://www.1mg.com"
+        }
+      },
+      "hasOccupation": [
+        {
+          "@type": "EmployeeRole",
+          "roleName": "SDE III",
+          "startDate": "2022-10",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Tata 1mg",
+            "url": "https://www.1mg.com"
+          }
+        },
+        {
+          "@type": "EmployeeRole",
+          "roleName": "Software Engineer",
+          "startDate": "2021-12",
+          "endDate": "2022-09",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Tata Health",
+            "url": "https://www.linkedin.com/company/tatahealth"
+          }
+        },
+        {
+          "@type": "EmployeeRole",
+          "roleName": "Software Engineer",
+          "startDate": "2019-06",
+          "endDate": "2021-11",
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Pelatro",
+            "url": "https://www.pelatro.com"
+          }
+        }
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "NSS College of Engineering, Palakkad",
+          "url": "https://www.nssce.ac.in/"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Jawahar Navodaya Vidyalaya (JNV)",
+          "url": "https://www.navodaya.gov.in/"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Bethany St.John's EHSS",
+          "url": "https://bethanystjohns.edu.in/"
+        }
+      ]
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="page">
+    <header class="masthead" id="top">
+      <nav class="sections" aria-label="Sections">
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="themeToggle" class="theme-toggle" type="button"><span class="sr-only">Switch to </span><span class="to-dark">Dark</span><span class="to-light">Light</span><span class="sr-only"> theme</span></button>
+    </header>
+
+    <main id="content">
+      <section class="intro" aria-label="About">
+        <img class="photo" src="/assets/profile.webp" alt="Sourav, headshot" width="640" height="640" fetchpriority="high" decoding="async" />
+        <h1>Sourav</h1>
+        <p class="title">Senior Software Engineer</p>
+        <p>Seven years shipping REST APIs, optimizing databases, and automating backends across monoliths and microservices. Currently SDE III at Tata 1mg.</p>
+        <p>Based in India. Available for new opportunities: remote, hybrid or on-site.</p>
+        <ul class="inline-links">
+          <li><a href="mailto:souravas007@gmail.com">souravas007@gmail.com</a></li>
+          <li><a href="tel:+919526444907"><span class="sign">+</span>91 95264 44907</a></li>
+        </ul>
+        <ul class="inline-links">
+          <li><a href="https://github.com/souravas" target="_blank" rel="noopener noreferrer">github.com/souravas</a></li>
+          <li><a href="https://www.linkedin.com/in/souravas/" target="_blank" rel="noopener noreferrer">linkedin.com/in/souravas</a></li>
+          <li><a href="/assets/resume.pdf" target="_blank" rel="noopener noreferrer">Résumé (PDF)</a></li>
+        </ul>
+      </section>
+
+      <section id="experience">
+        <h2>Experience</h2>
+
+        <article class="job">
+          <div class="entry-head">
+            <h3><a href="https://www.1mg.com/" target="_blank" rel="noopener noreferrer">Tata 1mg</a></h3>
+            <p class="when"><time datetime="2022-10">Oct 2022</time> – Present</p>
+          </div>
+          <p class="role">SDE III · Hybrid</p>
+          <ul>
+            <li><span class="sign">−</span>1.3 h turnaround via a QR-code SKU tracking system; <span class="sign">−</span>53% QC manpower; ₹5L/mo savings.</li>
+            <li><span class="sign">−</span>25% errors with real-time backend QR validation that removed manual intervention.</li>
+            <li>Led the backend of a tiered SKU audit system — configurable scope (single SKU&nbsp;→ category&nbsp;→ bin), auto-corrects minor deviations and escalates high-variance mismatches; runs on weekly, biweekly, and bimonthly cadences.</li>
+            <li><span class="sign">−</span>40% picker idle time through SSE-based automated order assignment.</li>
+            <li>Shipped scalable Rails &amp; Python/Sanic REST APIs with database performance optimizations.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="entry-head">
+            <h3><a href="https://www.linkedin.com/company/tatahealth" target="_blank" rel="noopener noreferrer">Tata Health</a></h3>
+            <p class="when"><time datetime="2021-12">Dec 2021</time> – <time datetime="2022-09">Sep 2022</time></p>
+          </div>
+          <p class="role">Software Engineer · Remote</p>
+          <ul>
+            <li><span class="sign">−</span>70% DevOps tickets through an idempotent DB-migration tool, centralizing PostgreSQL and MySQL migrations across microservices.</li>
+            <li>Automated Git-based author tracking with email-based error notifications, improving deployment reliability.</li>
+            <li><span class="sign">+</span>10% user visits via a rule-based mental-health module for condition diagnosis and symptom-severity classification.</li>
+            <li>Led backend work on consumer and provider platforms — microservices and API performance optimization through advanced query enhancements.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="entry-head">
+            <h3><a href="https://www.pelatro.com/" target="_blank" rel="noopener noreferrer">Pelatro</a></h3>
+            <p class="when"><time datetime="2019-06">Jun 2019</time> – <time datetime="2021-11">Nov 2021</time></p>
+          </div>
+          <p class="role">Software Engineer · On-site</p>
+          <ul>
+            <li><span class="sign">−</span>80% manual setup time via an internal profile-configuration tool built with Angular and Spring Boot.</li>
+            <li>REST APIs developed with TDD on Angular, Spring Boot, and PostgreSQL — improved reliability and review velocity.</li>
+            <li><span class="sign">−</span>60% development time for a configuration-driven Core Java ETL tool enabling dynamic data transformation via flexible rule specs.</li>
+            <li>Integrated Apache Kafka for real-time data processing — modular OOP architecture for scalability and maintainability.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="skills">
+        <h2>Skills</h2>
+        <dl class="pairs">
+          <dt>Languages &amp; APIs</dt>
+          <dd>Python, Ruby on Rails, REST API, Java, Spring Boot, JavaScript, HTML &amp; CSS</dd>
+          <dt>Cloud &amp; infra</dt>
+          <dd>AWS, Docker, Kubernetes, Kafka, Linux</dd>
+          <dt>Databases</dt>
+          <dd>PostgreSQL, MySQL, MongoDB, Elasticsearch</dd>
+          <dt>Practices</dt>
+          <dd>System design, microservices, TDD, query optimization, backend automation, observability</dd>
+        </dl>
+      </section>
+
+      <section id="certifications">
+        <h2>Certifications</h2>
+        <ul class="entries">
+          <li>
+            <span><a href="https://www.credly.com/badges/362b5b69-0043-4d71-a50d-0f904d90a381/linked_in_profile" target="_blank" rel="noopener noreferrer">AWS Solutions Architect – Associate</a>, Amazon Web Services</span>
+            <span class="when"><time datetime="2024-11">Nov 2024</time> – <time datetime="2027-11">Nov 2027</time></span>
+          </li>
+          <li>
+            <span><a href="https://www.hackerrank.com/certificates/b68104bff25e" target="_blank" rel="noopener noreferrer">Software Engineer</a>, HackerRank</span>
+            <span class="when"><time datetime="2025-01">Jan 2025</time></span>
+          </li>
+          <li>
+            <span><a href="https://www.hackerrank.com/certificates/daa8afc85ee8" target="_blank" rel="noopener noreferrer">Problem Solving (Intermediate)</a>, HackerRank</span>
+            <span class="when"><time datetime="2025-01">Jan 2025</time></span>
+          </li>
+          <li>
+            <span><a href="https://www.coursera.org/account/accomplishments/verify/YI0FLK5Q1BNZ" target="_blank" rel="noopener noreferrer">Algorithmic Toolbox</a>, Coursera</span>
+            <span class="when"><time datetime="2025-02">Feb 2025</time></span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="education">
+        <h2>Education</h2>
+        <ul class="entries">
+          <li>
+            <span><a href="https://www.nssce.ac.in/" target="_blank" rel="noopener noreferrer">NSS College of Engineering, Palakkad</a><span class="note">BTech · Computer Science</span></span>
+            <span class="when"><time datetime="2015-08">Aug 2015</time> – <time datetime="2019-03">Mar 2019</time></span>
+          </li>
+          <li>
+            <span><a href="https://www.navodaya.gov.in/" target="_blank" rel="noopener noreferrer">Jawahar Navodaya Vidyalaya</a><span class="note">High School</span></span>
+            <span class="when"><time datetime="2008">2008</time> – <time datetime="2015">2015</time></span>
+          </li>
+          <li>
+            <span><a href="https://bethanystjohns.edu.in/" target="_blank" rel="noopener noreferrer">Bethany St.John's EHSS</a><span class="note">Primary School</span></span>
+            <span class="when"><time datetime="2003">2003</time> – <time datetime="2008">2008</time></span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="contact">
+        <h2 id="contact-title">Contact</h2>
+        <form id="contact-form" class="contact-form" aria-labelledby="contact-title" action="https://formspree.io/f/xgoblndl" method="POST">
+          <div class="row half">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required autocomplete="name" aria-describedby="name-help" />
+            <small id="name-help" class="sr-only">Enter your full name</small>
+          </div>
+          <div class="row half">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" aria-describedby="email-help" />
+            <small id="email-help" class="sr-only">Enter a valid email address</small>
+          </div>
+          <div class="row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required aria-describedby="message-help"></textarea>
+            <small id="message-help" class="sr-only">Describe the opportunity or inquiry</small>
+          </div>
+          <div class="row hp" aria-hidden="true">
+            <label for="hp-field">Leave this field empty</label>
+            <input id="hp-field" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button class="send" type="submit"><span aria-live="polite">Send message</span></button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="colophon">
+      <nav class="design-switch" aria-label="Site design">
+        <span class="design-switch-label">Design</span>
+        <a href="/">Editorial</a>
+        <a href="/v2/">Systems Ledger</a>
+        <a href="/v3/">Control Room</a>
+        <span class="is-current" aria-current="page">Plain</span>
+      </nav>
+      <p class="foot">
+        <span>© <span id="footer-year">__BUILD_YEAR__</span> Sourav</span>
+        <a href="https://github.com/souravas/souravas.github.io" target="_blank" rel="noopener noreferrer">View source</a>
+        <a href="#top">Back to top</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
