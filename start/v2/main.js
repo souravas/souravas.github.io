@@ -55,8 +55,9 @@
   const links = [...document.querySelectorAll(".links a")].map((a) => {
     const name = a.querySelector(".name");
     const label = name.textContent.trim();
-    // The label left of the TLD: "docs.google.com" → "google".
-    const site = a.hostname.split(".").at(-2) ?? "";
+    // The label left of the TLD: "docs.google.com" → "google". A link
+    // that opens an app names it in its scheme: "ticktick://…".
+    const site = a.protocol.startsWith("http") ? a.hostname.split(".").at(-2) ?? "" : a.protocol.slice(0, -1);
     const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
     const starts = new Set([...label.matchAll(WORD_START)].map((m) => m.index + m[0].length));
     const { search } = a.dataset;
