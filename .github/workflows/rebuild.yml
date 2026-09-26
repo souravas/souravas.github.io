@@ -1,0 +1,27 @@
+name: Monthly rebuild
+
+# Redeploys the site on the 1st of each month, so the values filled in at
+# build time (years of experience, the security.txt expiry, sitemap dates)
+# roll over without a push. It only starts the deploy workflow: GitHub
+# switches a scheduled workflow off after 60 days without repository
+# activity, and keeping the schedule out of deploy.yml means that can never
+# stop deploys on push.
+
+on:
+  schedule:
+    - cron: '23 4 1 * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run the deploy workflow
+        run: gh workflow run deploy.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}

@@ -4,16 +4,30 @@ import { copyFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const SITE_ORIGIN = 'https://souravas.com'
-// Redirect stubs (/cv, /resume) are intentionally excluded — they're
-// meta-refresh pages to the PDF and would just be deindexed.
-// /v1/ is excluded too: it's a duplicate of / (its canonical), and the
-// /start/ pages are a personal start page (noindex).
+// Only / is listed. The design versions (/v1/–/v4/) show the same
+// résumé, so each names / as its canonical rather than competing with
+// it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
+// the PDF and would just be deindexed, and the /start/ pages are a
+// personal start page (noindex).
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
-  { loc: '/v2/', changefreq: 'monthly', priority: '0.5' },
-  { loc: '/v3/', changefreq: 'monthly', priority: '0.5' },
-  { loc: '/v4/', changefreq: 'monthly', priority: '0.5' },
 ]
+
+// Contact for security.txt, the file emitted by the security-txt plugin.
+const SECURITY_CONTACT = 'mailto:hello.souravas@gmail.com'
+
+// The career began at Pelatro in June 2019; the pages count whole years
+// from it (see the build-stamps plugin).
+const CAREER_START = { year: 2019, month: 6 }
+const NUMBER_WORDS = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+  'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+]
+const ORDINAL_WORDS = [
+  'zeroth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth',
+  'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth',
+]
+const capitalize = (s) => s[0].toUpperCase() + s.slice(1)
 
 // Inline the built stylesheet into <head> in place of its <link>, removing
 // the one render-blocking request. Must run before csp-inline-hashes so the
@@ -112,19 +126,52 @@ const sitemap = () => ({
   },
 })
 
-// Replace __BUILD_DATE__ / __BUILD_YEAR__ in index.html. article:modified_time
-// uses the ISO timestamp; the footer fallback year uses the four-digit year so
-// crawlers and JS-disabled visitors see a current copyright line.
-const buildDate = () => ({
-  name: 'build-date',
+// security.txt (RFC 9116) must carry an Expires date, which the RFC wants
+// less than a year out. Each build moves it 364 days on, and the monthly
+// rebuild (.github/workflows/rebuild.yml) keeps it there without a push.
+const securityTxt = () => ({
+  name: 'security-txt',
   apply: 'build',
+  generateBundle() {
+    const expires = new Date(Date.now() + 364 * 24 * 60 * 60 * 1000)
+    const txt = [
+      `Contact: ${SECURITY_CONTACT}`,
+      `Expires: ${expires.toISOString().slice(0, 10)}T00:00:00Z`,
+      'Preferred-Languages: en',
+      `Canonical: ${SITE_ORIGIN}/.well-known/security.txt`,
+    ].join('\n')
+    this.emitFile({ type: 'asset', fileName: '.well-known/security.txt', source: `${txt}\n` })
+  },
+})
+
+// Fill in the date-dependent tokens in each page. It runs in dev too, so
+// no token ever shows on screen, and the monthly rebuild rolls the values
+// over without a push:
+//   __BUILD_DATE__         ISO timestamp, for article:modified_time
+//   __BUILD_YEAR__         four-digit year, the footer's no-JS fallback
+//   __YEARS__              whole years since CAREER_START: 7
+//   __YEARS_00__           the same, two digits: 07
+//   __YEARS_WORD__         seven
+//   __YEARS_WORD_CAP__     Seven
+//   __YEARS_ORDINAL_CAP__  Seventh
+const buildStamps = () => ({
+  name: 'build-stamps',
   transformIndexHtml: {
     order: 'pre',
     handler(html) {
       const now = new Date()
+      const months = (now.getUTCFullYear() - CAREER_START.year) * 12 + now.getUTCMonth() + 1 - CAREER_START.month
+      const years = Math.floor(months / 12)
+      const word = NUMBER_WORDS[years] ?? String(years)
+      const ordinal = ORDINAL_WORDS[years] ?? `${years}th`
       return html
         .replaceAll('__BUILD_DATE__', now.toISOString())
         .replaceAll('__BUILD_YEAR__', String(now.getUTCFullYear()))
+        .replaceAll('__YEARS_ORDINAL_CAP__', capitalize(ordinal))
+        .replaceAll('__YEARS_WORD_CAP__', capitalize(word))
+        .replaceAll('__YEARS_WORD__', word)
+        .replaceAll('__YEARS_00__', String(years).padStart(2, '0'))
+        .replaceAll('__YEARS__', String(years))
     },
   },
 })
@@ -156,7 +203,9 @@ const jsonLdMinify = () => ({
 // inline <script>/<style> bodies (which already have their own minification
 // or are CSP-hashed). Those are stashed behind NUL-delimited placeholders,
 // which page text can't contain; the NULs are written as \x00 escapes so
-// git keeps treating this file as text.
+// git keeps treating this file as text. Each run of whitespace becomes one
+// space rather than being dropped between tags: between two inline
+// elements that space is visible, so the build renders exactly like dev.
 const htmlMinify = () => ({
   name: 'html-minify',
   apply: 'build',
@@ -168,8 +217,7 @@ const htmlMinify = () => ({
       const out = html
         .replace(/<(pre|textarea|script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, (m) => stash(m))
         .replace(/<!--(?!\s*\[if)[\s\S]*?-->/g, '')
-        .replace(/>\s+</g, '><')
-        .replace(/\s{2,}/g, ' ')
+        .replace(/\s+/g, ' ')
         .replace(/\x00(\d+)\x00/g, (_, i) => guards[+i])
       return out.trim()
     },
@@ -254,12 +302,13 @@ export default defineConfig({
         })
       },
     },
-    buildDate(),
+    buildStamps(),
     jsonLdMinify(),
     inlineCss(),
     cspInlineHashes(),
     htmlMinify(),
     sitemap(),
+    securityTxt(),
     rootDefault(),
   ],
 })

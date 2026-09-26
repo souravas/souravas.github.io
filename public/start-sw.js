@@ -13,8 +13,11 @@ const PAGE = "/start/";
 
 // The script and fonts the page loads: every same-origin /assets/ or
 // /fonts/ path in its HTML (fonts appear in the inlined CSS and the
-// preload links).
-const assetsOf = (html) => new Set(html.match(/\/(?:assets|fonts)\/[\w.-]+/g));
+// preload links). The path has to open an attribute or a url(), so a
+// bookmark whose address merely contains /assets/ or /fonts/ is left
+// alone; fetching that from this origin would 404 and fail every refresh.
+const assetsOf = (html) =>
+  new Set(Array.from(html.matchAll(/["'(](\/(?:assets|fonts)\/[\w.-]+)/g), (m) => m[1]));
 
 // Vite names /assets/ files by their content, so a cached copy is
 // current forever. /fonts/ are shared with v1 under fixed names, so a
