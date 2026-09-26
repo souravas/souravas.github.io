@@ -14,7 +14,7 @@ const SITEMAP_URLS = [
 ]
 
 // Contact for security.txt, the file emitted by the security-txt plugin.
-const SECURITY_CONTACT = 'mailto:souravas007@gmail.com'
+const SECURITY_CONTACT = 'mailto:hello.souravas@gmail.com'
 
 // The career began at Pelatro in June 2019; the pages count whole years
 // from it (see the build-stamps plugin).

@@ -56,7 +56,7 @@ const root = document.documentElement;
   const mailtoFallback = (name, email, msg) => {
     const subject = encodeURIComponent(`Website contact from ${name}`);
     const body = encodeURIComponent(`From: ${name} <${email}>\n\n${msg}`);
-    const href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
+    const href = `mailto:hello.souravas@gmail.com?subject=${subject}&body=${body}`;
 
     // Open via a synthetic <a> so handler-less devices fall back to whatever
     // the OS does with mailto: links, rather than navigating the page away.

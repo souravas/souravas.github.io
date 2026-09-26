@@ -279,7 +279,7 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
     const subject = encodeURIComponent(`Website contact from ${name}`);
     const body = encodeURIComponent(`From: ${name} <${email}>\n\n${msg}`);
     const a = document.createElement("a");
-    a.href = `mailto:souravas007@gmail.com?subject=${subject}&body=${body}`;
+    a.href = `mailto:hello.souravas@gmail.com?subject=${subject}&body=${body}`;
     a.rel = "noopener";
     a.style.display = "none";
     document.body.appendChild(a);
