@@ -413,8 +413,10 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
 
 /* ---------- Console colophon ---------- */
 idle(() => {
+  // Same reading as the hero's uptime, which the block above keeps current.
+  const uptime = document.getElementById("uptime")?.textContent ?? "";
   console.log(
-    "%c SOURAV.SYS — CONTROL ROOM %c all systems operational · uptime 7y · 0 rollbacks\n%c source → https://github.com/souravas/souravas.github.io",
+    `%c SOURAV.SYS — CONTROL ROOM %c all systems operational · uptime ${uptime} · 0 rollbacks\n%c source → https://github.com/souravas/souravas.github.io`,
     "background:#46e08e;color:#04130b;font-weight:700;padding:2px 8px;font-family:monospace",
     "color:inherit;font-family:monospace",
     "color:#46e08e;font-family:monospace"

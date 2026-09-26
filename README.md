@@ -13,16 +13,17 @@ npm run preview   # preview the production build
 
 ## Deployment
 
-Pushes to `main` are built and deployed automatically via [.github/workflows/deploy.yml](.github/workflows/deploy.yml) using `actions/deploy-pages`. Pull requests run the build only. To trigger a deploy manually, use *Run workflow* on the Actions tab.
+Pushes to `main` are built and deployed automatically via [.github/workflows/deploy.yml](.github/workflows/deploy.yml) using `actions/deploy-pages`. Pull requests run the build only. To trigger a deploy manually, use *Run workflow* on the Actions tab. [.github/workflows/rebuild.yml](.github/workflows/rebuild.yml) redeploys on the 1st of each month, so the values filled in at build time (years of experience, the `security.txt` expiry) stay current without a push.
 
 ## URLs
 
 - Local dev: <http://localhost:5173>
 - Production: <https://souravas.com>
-- Page versions: `/` serves v1 by default; `/v1`, `/v2`, `/v3`, and `/v4` open each design explicitly
+- Page versions: `/` serves v1 by default; `/v1`, `/v2`, `/v3`, and `/v4` open each design explicitly, and each names `/` as its canonical
 - Start page: `/start` — personal bookmarks dashboard (noindex); serves start v2 by default, `/start/v1` and `/start/v2` open each design
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 - Sitemap: `/sitemap.xml`, generated at build time
+- Security contact: `/.well-known/security.txt`, generated at build time
 
 ## Project Structure
 
@@ -66,16 +67,18 @@ souravas.github.io/
 │   ├── icon-192x192.png, icon-512x512.png  # manifest icons
 │   ├── manifest.webmanifest
 │   ├── robots.txt
-│   ├── .well-known/security.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
 │   ├── fonts/              # shared by v1, start v2, and 404.html
 │   └── assets/             # images, social cards (og-cover, og-cover-v4), resume.pdf
 ├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
-│                           # CSP hashing, HTML minify, sitemap, dev routes
+│                           # CSP hashing, HTML minify, build-time values
+│                           # (years, sitemap, security.txt), dev routes
 └── .github/
     ├── dependabot.yml      # weekly npm and Actions updates
-    └── workflows/deploy.yml
+    └── workflows/
+        ├── deploy.yml      # build, and deploy on push to main
+        └── rebuild.yml     # monthly redeploy for the build-time values
 ```
 
 The icons are shared by every page and linked with a `?v=` query. When they change, bump it on every page, `404.html` included, or browsers keep showing the cached ones.
