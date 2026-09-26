@@ -19,15 +19,16 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 
 - Local dev: <http://localhost:5173>
 - Production: <https://souravas.com>
-- Page versions: `/` serves v1 by default; `/v1`, `/v2`, and `/v3` open each design explicitly
+- Page versions: `/` serves v1 by default; `/v1`, `/v2`, `/v3`, and `/v4` open each design explicitly
 - Start page: `/start` — personal bookmarks dashboard (noindex); serves start v2 by default, `/start/v1` and `/start/v2` open each design
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
+- Sitemap: `/sitemap.xml`, generated at build time
 
 ## Project Structure
 
 ```
 souravas.github.io/
-├── v1/                     # default design (also served at /)
+├── v1/                     # "Editorial" design, the default (also served at /)
 │   ├── index.html
 │   ├── main.js
 │   └── style.css
@@ -40,6 +41,11 @@ souravas.github.io/
 │   ├── index.html
 │   ├── main.js
 │   ├── style.css
+│   └── fonts/
+├── v4/                     # "Plain" design, served at /v4
+│   ├── index.html
+│   ├── main.js
+│   ├── style.css           # includes a print stylesheet that prints the page as a CV
 │   └── fonts/
 ├── start/                  # personal start page
 │   ├── v1/                 # Homepage rebuild, served at /start/v1
@@ -55,15 +61,24 @@ souravas.github.io/
 ├── public/                 # copied verbatim into the build
 │   ├── CNAME               # custom domain
 │   ├── 404.html            # static 404 served by GitHub Pages
+│   ├── favicon.svg         # shared icon; favicon.ico and favicon-*.png are renders of it
+│   ├── icon-maskable.svg   # full-bleed icon; apple-touch-icon.png is rendered from it
+│   ├── icon-192x192.png, icon-512x512.png  # manifest icons
 │   ├── manifest.webmanifest
 │   ├── robots.txt
+│   ├── .well-known/security.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
-│   ├── fonts/              # shared by v1 and start v2
-│   └── assets/             # images + resume.pdf
-├── vite.config.js          # multi-page build, root default copy, CSP hashing, sitemap, dev routes
-└── .github/workflows/deploy.yml
+│   ├── fonts/              # shared by v1, start v2, and 404.html
+│   └── assets/             # images, social cards (og-cover, og-cover-v4), resume.pdf
+├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
+│                           # CSP hashing, HTML minify, sitemap, dev routes
+└── .github/
+    ├── dependabot.yml      # weekly npm and Actions updates
+    └── workflows/deploy.yml
 ```
+
+The icons are shared by every page and linked with a `?v=` query. When they change, bump it on every page, `404.html` included, or browsers keep showing the cached ones.
 
 ## Links
 
