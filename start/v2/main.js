@@ -37,8 +37,9 @@
    all" for a matching group, then "visit" when the query looks like an
    address, then a Google search. ↑/↓ cycle through them, the
    prompt shows what Enter will open, Esc clears. Links and Enter open
-   in this tab, since /start is the browser's homepage; clicking a
-   group's heading opens all of its links in new tabs. */
+   in this tab, since /start is the browser's homepage; a link with
+   data-also (Downloads) opens its href and those URLs in new tabs, and
+   clicking a group's heading opens all of its links in new tabs. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
@@ -60,10 +61,12 @@
     const site = a.protocol.startsWith("http") ? a.hostname.split(".").at(-2) ?? "" : a.protocol.slice(0, -1);
     const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
     const starts = new Set([...label.matchAll(WORD_START)].map((m) => m.index + m[0].length));
+    // Everything the link opens, in order: its href, then data-also.
+    const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
     const { search } = a.dataset;
     // Named in the prompt by host: "youtube.com", "claude.ai".
     const searchHost = search ? new URL(search.replace("%s", "")).hostname.replace(/^www\./, "") : "";
-    return { a, name, label, key: label.toLowerCase(), site, aliases, starts, search, searchHost };
+    return { a, name, label, key: label.toLowerCase(), site, aliases, starts, hrefs, search, searchHost };
   });
 
   // How well a link matches the lowercased query, and where its name
@@ -110,7 +113,7 @@
   const groups = [...document.querySelectorAll(".group")].map((section) => {
     const heading = section.querySelector("h2");
     const title = heading.textContent.trim();
-    const hrefs = [...section.querySelectorAll(".links a")].map((a) => a.href);
+    const hrefs = links.filter(({ a }) => section.contains(a)).flatMap((link) => link.hrefs);
     const button = document.createElement("button");
     button.type = "button";
     button.title = `Open all ${hrefs.length} links`;
@@ -167,7 +170,7 @@
     // Best rank first, then earliest in the name (Array#sort is stable,
     // so equally good matches keep page order).
     candidates = hits.sort((x, y) => x.rank - y.rank || x.at - y.at)
-      .map(({ link }) => ({ link, hrefs: [link.a.href], label: `open ${link.label}` }));
+      .map(({ link }) => ({ link, hrefs: link.hrefs, label: `open ${link.label}` }));
     if (owner) {
       const href = owner.search.replace("%s", encodeURIComponent(query));
       candidates.unshift({ link: owner, hrefs: [href], label: `search ${owner.searchHost}` });
@@ -228,9 +231,18 @@
     }
   });
 
-  // Opening a link with the mouse mid-search returns the page to rest.
+  // Opening a link with the mouse mid-search returns the page to rest. A
+  // link to several places opens them all in new tabs instead, after the
+  // reset so a pop-up warning from openAll stays on screen.
   document.addEventListener("click", (e) => {
-    if (input.value && e.target.closest(".links a")) reset();
+    const a = e.target.closest(".links a");
+    if (!a) return;
+    if (input.value) reset();
+    const { hrefs } = links.find((link) => link.a === a);
+    if (hrefs.length > 1) {
+      e.preventDefault();
+      openAll(hrefs);
+    }
   });
 
   // With the prompt empty, pointing at a link names its alias in the

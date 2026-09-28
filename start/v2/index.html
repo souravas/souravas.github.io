@@ -65,6 +65,7 @@
     <symbol id="mdi-meditation" viewBox="0 0 24 24"><path d="M12 4C13.11 4 14 4.89 14 6S13.11 8 12 8 10 7.11 10 6 10.9 4 12 4M21 16V14C18.76 14 16.84 13.04 15.4 11.32L14.06 9.72C13.68 9.26 13.12 9 12.53 9H11.5C10.89 9 10.33 9.26 9.95 9.72L8.61 11.32C7.16 13.04 5.24 14 3 14V16C5.77 16 8.19 14.83 10 12.75V15L6.12 16.55C5.45 16.82 5 17.5 5 18.21C5 19.2 5.8 20 6.79 20H9V19.5C9 18.12 10.12 17 11.5 17H14.5C14.78 17 15 17.22 15 17.5S14.78 18 14.5 18H11.5C10.67 18 10 18.67 10 19.5V20H17.21C18.2 20 19 19.2 19 18.21C19 17.5 18.55 16.82 17.88 16.55L14 15V12.75C15.81 14.83 18.23 16 21 16Z"/></symbol>
     <symbol id="mdi-playlist-play" viewBox="0 0 24 24"><path d="M3 10H14V12H3V10M3 6H14V8H3V6M3 14H10V16H3V14M16 13V21L22 17L16 13Z"/></symbol>
     <symbol id="mdi-music" viewBox="0 0 24 24"><path d="M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V6L21,3Z"/></symbol>
+    <symbol id="mdi-download" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></symbol>
   </svg>
 
   <main class="page">
@@ -121,7 +122,9 @@
          pointing at a <symbol> in the sprite above. Optional on the <a>:
          data-alias, space-separated short codes the prompt matches first
          ("lc" opens LeetCode), and data-search, a URL with %s where a
-         query goes, which "alias query" opens ("lc two sum"). -->
+         query goes, which "alias query" opens ("lc two sum"), and
+         data-also, space-separated URLs that open in new tabs along
+         with the href, in order (Downloads). -->
     <section class="group" aria-labelledby="group-daily">
       <h2 id="group-daily">Daily</h2>
       <ul class="links">
@@ -132,6 +135,7 @@
         <li><a href="https://mail.google.com/" data-alias="gm" data-search="https://mail.google.com/mail/u/0/#search/%s"><span class="icon"><svg aria-hidden="true"><use href="#si-gmail" /></svg></span><span class="name">Gmail</span></a></li>
         <li><a href="https://www.youtube.com/feed/playlists" data-alias="yt" data-search="https://www.youtube.com/results?search_query=%s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-playlist-play" /></svg></span><span class="name">Playlists</span></a></li>
         <li><a href="https://music.youtube.com/" data-alias="ytm" data-search="https://music.youtube.com/search?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-music" /></svg></span><span class="name">Music</span></a></li>
+        <li><a href="https://app.trakt.tv/calendar?mode=media" data-also="https://yts.gg/home https://bwtorrents.cc/home.php https://hawke.uno/ https://www.torrentleech.org/ https://fora.snahp.eu/ https://ext.to/ https://www.myanonamouse.net/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-download" /></svg></span><span class="name">Downloads</span></a></li>
       </ul>
     </section>
 
