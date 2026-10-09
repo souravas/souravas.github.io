@@ -38,8 +38,9 @@
    address, then a Google search. ↑/↓ cycle through them, the
    prompt shows what Enter will open, Esc clears. Links and Enter open
    in this tab, since /start is the browser's homepage; a link with
-   data-also (Downloads) opens its href and those URLs in new tabs, and
-   clicking a group's heading opens all of its links in new tabs. */
+   data-also (Coursera, Downloads) opens its href and those URLs in new
+   tabs, and clicking a group's heading opens all of its links in new
+   tabs. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
