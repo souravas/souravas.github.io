@@ -226,8 +226,9 @@ const SAFE_URL = /^(?:https?:|mailto:|obsidian:|#)/i
 const LESSON_REF = /\bLesson (\d+)\b|\bLessons (\d+(?:(?:,? and |, | to | or )\d+)*)\b/g
 
 // An ending ("-lilla", "-taa") is kept whole: a browser may break a line
-// after a hyphen, which would leave the hyphen on its own.
-const ENDING = /(^|[\s(])(-[A-Za-z][^\s,;:.!?)]*)/g
+// after a hyphen, which would leave the hyphen on its own. It runs on
+// escaped text, so it stops at an &, short of a quote's &quot;.
+const ENDING = /(^|[\s(])(-[A-Za-z][^\s,;:.!?)&]*)/g
 const keepEndings = (html) => html.replace(ENDING, '$1<span class="nw">$2</span>')
 
 function plain(text, ctx, links) {
