@@ -1,0 +1,917 @@
+/* ============================================================
+   SOURAV — /kannada
+   The Kannada Gottilla note as one long page, on /start v2's pure
+   black: the same greys, lavender accent and fonts. Kannada is set
+   in JetBrains Mono, which tells the I of iddIra from an l (Inter
+   Tight draws them alike), and English in Inter Tight. Wider
+   screens put each lesson's number in /start's 120px left gutter.
+   ============================================================ */
+
+/* ---------- Fonts ----------
+   Shared with v1 and /start (public/fonts/). Kannada script falls
+   through to the system's Kannada font. */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-tight.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------- Tokens ----------
+   /start v2's neutral greys on #000 and v1's lavender accent. Body
+   text is /start's link grey (8.4:1 on black); Kannada and headings
+   take the near-white. */
+:root {
+  --bg: #000;
+  --line: #1c1c1c;
+  --rule: #2a2a2a;
+  --hover: #0f0f0f;
+  --cover: #1c1c1c;
+  --text: #f5f5f5;
+  --body: #a3a3a3;
+  --muted: #767676;
+  --accent: #b8b1ff;
+  --radius: 6px;
+  --gutter: 120px;
+  --width: 840px;
+  --bar: 48px;
+  --font-sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+  background: var(--bg);
+  /* A jump to a lesson lands below the sticky bar. */
+  scroll-padding-top: calc(var(--bar) + 24px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--body);
+  font: 400 16px/1.6 var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+::selection {
+  background: rgb(184 177 255 / 0.35);
+  color: var(--text);
+}
+
+/* ---------- Layout ----------
+   One column: the gutter and a 720px text column on wider screens,
+   the full width less 16px each side (and any notch) on phones. */
+.masthead,
+.bar-inner,
+.page,
+.foot {
+  width: 100%;
+  max-width: calc(var(--width) + 80px);
+  margin-inline: auto;
+  padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+}
+
+@media (min-width: 760px) {
+  body {
+    font-size: 17px;
+  }
+
+  .masthead,
+  .bar-inner,
+  .page,
+  .foot {
+    padding-inline: 40px;
+  }
+}
+
+/* ---------- Masthead ---------- */
+.masthead {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.masthead h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.masthead p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+@media (min-width: 760px) {
+  .masthead {
+    padding-top: 72px;
+    padding-bottom: 28px;
+  }
+
+  .masthead h1 {
+    font-size: 40px;
+  }
+}
+
+/* ---------- Bar ----------
+   Section links, then Cover and Lessons. On phones the links scroll
+   sideways and main.js keeps the current one in view. */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--bar);
+}
+
+.bar-links {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  margin: 0 0 0 -8px;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.bar-links::-webkit-scrollbar {
+  display: none;
+}
+
+.bar-links a {
+  display: block;
+  padding: 8px;
+  border-radius: var(--radius);
+  color: var(--muted);
+  font: 400 11px/16px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease;
+}
+
+.bar-links a[aria-current='true'] {
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .bar-links a:hover {
+    color: var(--text);
+  }
+}
+
+.bar-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.bar-button {
+  flex: none;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--body);
+  font: 400 11px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+
+.bar-button[hidden] {
+  display: none;
+}
+
+@media (hover: hover) {
+  .bar-button:hover {
+    border-color: #3a3a3a;
+    color: var(--text);
+  }
+}
+
+.bar-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.bar-button[aria-pressed='true'] {
+  border-color: rgb(184 177 255 / 0.45);
+  color: var(--accent);
+}
+
+/* Phones: tighter buttons leave the links more of the row. */
+@media (max-width: 759px) {
+  .bar-inner {
+    gap: 6px;
+  }
+
+  .bar-button {
+    padding: 0 8px;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* ---------- The note ----------
+   Phones: every block in one column, a lesson's number above its
+   title. Wider: the part titles span the gutter, the lesson numbers
+   and the small headings inside a lesson sit in it, and the rest
+   keeps to the text column. */
+.page {
+  padding-bottom: 96px;
+}
+
+.part {
+  padding-top: 48px;
+}
+
+.part + .part {
+  margin-top: 64px;
+  border-top: 1px solid var(--line);
+}
+
+h2,
+h3 {
+  color: var(--text);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.part > h2 {
+  margin: 0 0 16px;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.lesson,
+.sub {
+  margin-top: 56px;
+}
+
+.lesson > h3,
+.sub > h3 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.num {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* The " — " between number and title, kept for screen readers. */
+.dash {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+h4 {
+  margin: 28px 0 10px;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* :where() keeps these at element weight, so any class beats them. */
+:where(.page) :is(p, ul, ol) {
+  max-width: 68ch;
+  margin: 0 0 16px;
+  text-wrap: pretty;
+}
+
+:where(.page) ul {
+  padding-left: 1.4em;
+}
+
+/* Room for a two-digit number: the exercises run to 20. */
+:where(.page) ol {
+  padding-left: 2.2em;
+}
+
+:where(.page) li + li {
+  margin-top: 6px;
+}
+
+:where(.page) li::marker {
+  color: var(--muted);
+}
+
+:where(.page) ol > li::marker {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Kannada: backticks in the note, its Kannada table columns, and the
+   exercise lines. Never uppercased, so the capitals keep meaning a
+   sound. */
+.kn {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.kn .kn,
+th .kn,
+summary .kn {
+  font-size: 1em;
+}
+
+/* An ending, like -lilla, never breaks after its hyphen. */
+.nw {
+  white-space: nowrap;
+}
+
+/* Kannada script (Lesson 1's letters) reads small at the size that
+   suits the Latin letters beside it. */
+td [lang='kn'] {
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: #3d3d3d;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.12s ease, text-decoration-color 0.12s ease;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--text);
+    text-decoration-color: var(--accent);
+  }
+}
+
+a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (min-width: 760px) {
+  .part,
+  .lesson,
+  .sub {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .part > *,
+  .lesson > *,
+  .sub > * {
+    grid-column: 2;
+  }
+
+  .part > h2,
+  .part > .lesson,
+  .part > .sub {
+    grid-column: 1 / -1;
+  }
+
+  .part > h2 {
+    font-size: 30px;
+  }
+
+  .lesson > h3 {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    align-items: baseline;
+    font-size: 22px;
+  }
+
+  .sub > h3 {
+    font-size: 22px;
+  }
+
+  .num {
+    margin: 0;
+  }
+
+  /* A heading inside a lesson (Do, Eat, Part A) shares a row with the
+     block after it. */
+  .lesson > h4 {
+    grid-column: 1;
+    margin-top: 28px;
+  }
+
+  .lesson > h4 + * {
+    margin-top: 28px;
+  }
+}
+
+/* ---------- Tables ----------
+   Rows ruled like /start's prompt line. Wider: each row's hover band
+   bleeds 10px past the text column, as /start's links do. Phones: a
+   table too wide for the screen scrolls sideways, edge to edge. */
+.table {
+  margin: 4px 0 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+th {
+  padding: 0 16px 8px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font: 400 10.5px/16px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+td {
+  padding: 8px 16px 8px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+@media (min-width: 760px) {
+  .table {
+    margin-inline: -10px;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 10px;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 10px;
+  }
+}
+
+@media (hover: hover) {
+  tbody tr:hover {
+    background: var(--hover);
+  }
+}
+
+@media (max-width: 759px) {
+  .table {
+    margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))) calc(-1 * max(16px, env(safe-area-inset-right)));
+    padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding-right: 12px;
+  }
+
+  .wide {
+    font-size: 13px;
+  }
+}
+
+/* Lesson numbers as links: the Lesson Index and the Lesson columns. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--body);
+  font: 400 12px/1 var(--font-mono);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+}
+
+@media (hover: hover) {
+  .chip:hover {
+    border-color: #3a3a3a;
+    background: var(--hover);
+    color: var(--text);
+  }
+}
+
+.chip:active {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.index .chip {
+  min-width: 36px;
+  height: 32px;
+  font-size: 13px;
+}
+
+.index td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  vertical-align: middle;
+}
+
+.index td:first-child {
+  width: 50%;
+}
+
+/* Phones: each run's lessons in a row of their own, its topics below. */
+@media (max-width: 759px) {
+  .index thead {
+    display: none;
+  }
+
+  .index tr {
+    display: grid;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .index td,
+  .index td:first-child {
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .index .chip {
+    min-width: 40px;
+    height: 36px;
+  }
+}
+
+/* ---------- Answers ----------
+   The note's folded callouts: closed until you have tried. */
+.callout {
+  max-width: 68ch;
+  margin: 4px 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.callout summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  list-style: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease;
+}
+
+.callout summary::-webkit-details-marker {
+  display: none;
+}
+
+.callout summary::before {
+  content: '+' / '';
+  width: 1ch;
+  color: var(--accent);
+}
+
+.callout[open] summary::before {
+  content: '−' / '';
+}
+
+@media (hover: hover) {
+  .callout summary:hover {
+    color: var(--text);
+  }
+}
+
+.callout summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.callout-title {
+  margin: 0;
+  padding: 10px 14px 0;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.callout-body {
+  padding: 2px 14px 14px;
+}
+
+.callout-body > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Cover ----------
+   The note's routine: cover the Kannada and say each line from the
+   English. Covered cells keep their size, so nothing moves; a tap
+   shows one. */
+.is-covering td.c {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.is-covering td.c:not(.is-shown),
+.is-covering td.c:not(.is-shown) * {
+  color: transparent;
+}
+
+.is-covering td.c:not(.is-shown) {
+  background: var(--cover) content-box;
+}
+
+@media (hover: hover) {
+  .is-covering td.c:not(.is-shown):hover {
+    background: #262626 content-box;
+  }
+}
+
+/* ---------- Lessons sheet ----------
+   Phones: a sheet from the bottom, in reach of a thumb. Wider: a
+   panel in the middle. Never given a display, so the popover's own
+   display: none still hides it when closed. */
+.jump {
+  inset: auto 0 0;
+  width: 100%;
+  max-height: min(88dvh, 720px);
+  margin: 0;
+  padding: 0 max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-radius: 14px 14px 0 0;
+  background: var(--bg);
+  color: var(--body);
+}
+
+.jump::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+
+@media (min-width: 760px) {
+  .jump {
+    inset: 0;
+    width: 460px;
+    height: fit-content;
+    max-height: 84vh;
+    margin: auto;
+    padding: 0 20px 20px;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+}
+
+.jump-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0 12px;
+  background: var(--bg);
+}
+
+.jump-label {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jump section + section {
+  margin-top: 12px;
+}
+
+.jump h2 {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.jump h2 span {
+  margin-left: 6px;
+  color: #4d4d4d;
+}
+
+/* Eight to a row on a 390px phone and ten on the panel, so all 89 fit
+   on one screen without scrolling the sheet. */
+.jump ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .jump ol {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+
+  .jump a {
+    height: 40px;
+  }
+}
+
+.jump a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--body);
+  font: 400 13px/1 var(--font-mono);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.jump a[aria-current] {
+  border-color: rgb(184 177 255 / 0.5);
+  color: var(--accent);
+}
+
+@media (hover: hover) {
+  .jump a:hover {
+    border-color: #3a3a3a;
+    background: var(--hover);
+    color: var(--text);
+  }
+}
+
+.jump a:active {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.jump a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* A browser without popovers would show the sheet at the foot of the
+   page, under a button that does nothing: drop both. */
+@supports not selector(:popover-open) {
+  .jump,
+  #jump-button {
+    display: none;
+  }
+}
+
+/* ---------- Footer ---------- */
+.foot {
+  display: flex;
+  gap: 24px;
+  padding-top: 8px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+}
+
+.foot a {
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-links a,
+  .bar-button,
+  a,
+  .chip,
+  .callout summary {
+    transition: none;
+  }
+}
+
+/* ---------- Print ----------
+   Black on white, without the bar, the sheet or the footer. */
+@media print {
+  :root {
+    --bg: #fff;
+    --line: #ddd;
+    --rule: #bbb;
+    --text: #000;
+    --body: #222;
+    --muted: #555;
+
+    color-scheme: light;
+  }
+
+  .bar,
+  .jump,
+  .foot {
+    display: none;
+  }
+
+  .page {
+    padding-bottom: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  tr,
+  li,
+  .callout {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+}

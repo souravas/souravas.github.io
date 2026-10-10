@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import { createHash } from 'node:crypto'
-import { copyFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { copyFileSync, readFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
+import { renderNote } from './kannada/render.js'
 
 const SITE_ORIGIN = 'https://souravas.com'
 // Only / is listed. The design versions (/v1/–/v4/) show the same
@@ -176,6 +177,46 @@ const buildStamps = () => ({
   },
 })
 
+// The Kannada page's content is kannada/note.md, a copy of the Obsidian
+// note "70 - Learn/Language/Kannada Gottilla.md". kannada/render.js turns
+// it into HTML at kannada/index.html's <!--note--> marker, and into the
+// Lessons sheet's grid at <!--lessons-->, in dev as well as the build;
+// dev reloads the page when the note changes. Every in-page link has to
+// land on an id, so a renamed heading shows up as a warning.
+const KANNADA_NOTE = 'kannada/note.md'
+
+const kannadaNote = () => {
+  let root = process.cwd()
+  let logger = console
+  const warn = (message) => logger.warn(`[kannada-note] ${message}`)
+  return {
+    name: 'kannada-note',
+    configResolved(config) {
+      root = config.root
+      logger = config.logger
+    },
+    configureServer(server) {
+      const note = resolve(root, KANNADA_NOTE)
+      server.watcher.add(note)
+      server.watcher.on('change', (file) => {
+        if (resolve(file) === note) server.ws.send({ type: 'full-reload' })
+      })
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        if (!html.includes('<!--note-->')) return html
+        const note = renderNote(readFileSync(resolve(root, KANNADA_NOTE), 'utf8'), { warn })
+        const out = html.replace('<!--note-->', () => note.html).replace('<!--lessons-->', () => note.jump)
+        const ids = new Set([...out.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]))
+        const missing = new Set([...out.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]).filter((id) => !ids.has(id)))
+        for (const id of missing) warn(`#${id} links to nothing`)
+        return out
+      },
+    },
+  }
+}
+
 // Collapse whitespace inside JSON-LD blocks so they minify alongside the rest
 // of the HTML. Runs before csp-inline-hashes so the SHA-256 matches the body
 // the browser sees.
@@ -306,6 +347,7 @@ export default defineConfig({
       },
     },
     buildStamps(),
+    kannadaNote(),
     jsonLdMinify(),
     inlineCss(),
     cspInlineHashes(),

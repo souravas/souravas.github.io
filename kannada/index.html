@@ -2,12 +2,15 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
 
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
 
-  <title>Kannada</title>
+  <title>Kannada Gottilla</title>
+  <meta name="description" content="Spoken Bangalore Kannada in 89 lessons, one a day." />
   <meta name="robots" content="noindex, nofollow" />
 
   <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
@@ -15,16 +18,58 @@
   <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
 
-  <style>
-    body { margin: 0; min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; background: #000; color: #ecedef; font-family: ui-sans-serif, system-ui, sans-serif; text-align: center; }
-    h1 { margin: 0; font-size: clamp(2.5rem, 10vw, 4rem); font-weight: 600; }
-    p { margin: .5rem 0 0; color: #8b8f9b; }
-  </style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
+
+  <link rel="stylesheet" href="/kannada/style.css" />
+  <script type="module" src="/kannada/main.js"></script>
 </head>
 <body>
-  <main>
-    <h1 lang="kn">ನಮಸ್ಕಾರ</h1>
-    <p>Hello, world.</p>
+  <header class="masthead" id="top">
+    <h1>Kannada Gottilla</h1>
+    <p lang="kn">ಕನ್ನಡ ಗೊತ್ತಿಲ್ಲ</p>
+  </header>
+
+  <!-- Sticks to the top once the title scrolls away. The links are the
+       note's top-level headings; the build warns if one stops matching.
+       main.js names the lesson on screen in the Lessons button and
+       un-hides Cover, which hides the Kannada in the tables. -->
+  <nav class="bar" aria-label="Sections">
+    <div class="bar-inner">
+      <ul class="bar-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#how-this-note-writes-kannada">Notation</a></li>
+        <li><a href="#daily-routine">Routine</a></li>
+        <li><a href="#lesson-index">Index</a></li>
+        <li><a href="#ending-sheet">Endings</a></li>
+        <li><a href="#beginner">Beginner</a></li>
+        <li><a href="#intermediate">Intermediate</a></li>
+        <li><a href="#advanced">Advanced</a></li>
+      </ul>
+      <button class="bar-button" id="cover" type="button" aria-pressed="false" title="Hide the Kannada in the tables; tap a cell to show it" hidden>Cover</button>
+      <button class="bar-button" id="jump-button" type="button" popovertarget="jump">Lessons</button>
+    </div>
+  </nav>
+
+  <!-- The note, kannada/note.md, rendered in at build time (and on each
+       request in dev) by the kannada-note plugin in vite.config.js. -->
+  <main class="page" id="content">
+    <!--note-->
   </main>
+
+  <footer class="foot">
+    <a href="#top">Top</a>
+    <a href="obsidian://open?vault=hope&amp;file=70%20-%20Learn%2FLanguage%2FKannada%20Gottilla">Open in Obsidian</a>
+  </footer>
+
+  <!-- Every lesson by number, from the Lessons button. A bottom sheet on
+       phones, a panel in the middle on wider screens. -->
+  <div class="jump" id="jump" popover>
+    <div class="jump-head">
+      <p class="jump-label" id="jump-label">Lessons</p>
+      <button class="bar-button" type="button" popovertarget="jump" popovertargetaction="hide">Close</button>
+    </div>
+    <!--lessons-->
+  </div>
 </body>
 </html>
