@@ -130,36 +130,6 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
   onScroll();
 })();
 
-/* ---------- Reveal on scroll ---------- */
-(() => {
-  const items = document.querySelectorAll(".rv");
-  if (!items.length) return;
-
-  const revealAll = () => items.forEach((el) => el.classList.add("is-visible"));
-
-  if (reduceMotion || typeof IntersectionObserver === "undefined") {
-    revealAll();
-    return;
-  }
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        el.style.transitionDelay = `${parseInt(el.dataset.delay || "0", 10)}ms`;
-        el.classList.add("is-visible");
-        io.unobserve(el);
-      });
-    },
-    { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
-  );
-  items.forEach((el) => io.observe(el));
-
-  // Safety net: never leave content invisible if intersection callbacks
-  // don't fire (bots, headless, very tall viewports).
-  idle(() => setTimeout(revealAll, 1500));
-})();
-
 /* ---------- Spec tape: only animate while on screen ---------- */
 (() => {
   const tape = document.querySelector(".tape");
@@ -203,8 +173,7 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
         if (!m) return;
         const decimals = (m[2].split(".")[1] || "").length;
         el.style.minWidth = `${el.offsetWidth}px`;
-        const wait = parseInt(el.closest(".rv")?.dataset.delay || "0", 10) + 200;
-        setTimeout(() => animate(el, m[1], parseFloat(m[2]), decimals, m[3]), wait);
+        setTimeout(() => animate(el, m[1], parseFloat(m[2]), decimals, m[3]), 200);
       });
     },
     { threshold: 0.6 }

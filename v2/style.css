@@ -322,11 +322,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   line-height: 1.45;
   font-weight: 420;
   max-width: 24em;
-  opacity: 0;
-  animation: fade-rise 0.7s ease 0.45s forwards;
 }
 .dek em { font-style: italic; color: var(--acc); }
-.dek-sm { font-size: 1.2rem; opacity: 1; animation: none; }
+.dek-sm { font-size: 1.2rem; }
 .dek strong { font-weight: 600; }
 
 .hero-cta {
@@ -832,16 +830,6 @@ html:not(.no-js) .tape:not(.is-rolling) .tape-track { animation-play-state: paus
 .foot-links a { text-decoration: none; color: var(--ink-2); transition: color 0.16s ease; }
 .foot-links a:hover { color: var(--acc); }
 
-/* ---------- Scroll reveals ---------- */
-html:not(.no-js) .rv {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-html:not(.no-js) .rv.is-visible { opacity: 1; transform: translateY(0); }
-
-html:not(.no-js) .rv-line { transform-origin: 0 50%; }
-
 /* ---------- Theme wipe (view transition) ---------- */
 ::view-transition-old(root), ::view-transition-new(root) {
   animation: none;
@@ -927,9 +915,8 @@ html:not(.no-js) .rv-line { transform-origin: 0 50%; }
   .masthead { position: static; background: none; }
   .band { border-block: 2px solid #111; }
   .band-cell + .band-cell { border-color: #ccc; }
-  html:not(.no-js) .rv { opacity: 1; transform: none; }
   .np-line { animation: none; transform: none; }
-  .dek, .hero-stats, .hero-socials, .hero-fig, .stamp { animation: none; opacity: 1; }
+  .hero-stats, .hero-socials, .hero-fig, .stamp { animation: none; opacity: 1; }
   .section, .entry { break-inside: avoid-page; }
   .colophon .foot-mark { display: none; }
 }
@@ -938,11 +925,10 @@ html:not(.no-js) .rv-line { transform-origin: 0 50%; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .np-line { animation: none; transform: none; }
-  .dek, .hero-cta, .hero-stats, .hero-socials, .hero-fig { animation: none; opacity: 1; }
+  .hero-cta, .hero-stats, .hero-socials, .hero-fig { animation: none; opacity: 1; }
   .stamp { animation: none; opacity: 1; }
   .live-dot { animation: none; }
   .tape-track { animation: none; }
-  html:not(.no-js) .rv { opacity: 1; transform: none; transition: none; }
   ::view-transition-new(root) { animation: none; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

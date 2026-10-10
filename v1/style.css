@@ -1026,19 +1026,6 @@ textarea { resize: vertical; min-height: 140px; }
   to { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 0%)); }
 }
 
-/* ---------- REVEAL ANIMATION ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .9s var(--ease), transform .9s var(--ease);
-  transition-delay: 0ms;
-}
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
-.no-js .reveal { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
-
 /* ---------- BACK TO TOP (FAB) ---------- */
 .back-to-top {
   position: fixed;

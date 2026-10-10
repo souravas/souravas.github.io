@@ -552,12 +552,11 @@ strong { font-weight: 640; color: var(--ink); }
 
 /* Hero load sequence */
 @media (prefers-reduced-motion: no-preference) {
-  .boot-line, .sysname, .role-line, .lead, .hero-cta, .stats, .feed, .hero .channels {
+  .boot-line, .sysname, .role-line, .hero-cta, .stats, .feed, .hero .channels {
     animation: rise 0.65s cubic-bezier(0.22, 0.8, 0.3, 1) both;
   }
   .sysname { animation-delay: 80ms; }
   .role-line { animation-delay: 160ms; }
-  .lead { animation-delay: 240ms; }
   .hero-cta { animation-delay: 320ms; }
   .stats { animation-delay: 400ms; }
   .feed { animation-delay: 260ms; }
@@ -879,11 +878,6 @@ strong { font-weight: 640; color: var(--ink); }
   width: 100%;
   height: 36px;
   margin-block: 0.9rem 1rem;
-  /* Draw-in via clip-path: dashoffset tricks misrender in Chromium
-     when combined with non-scaling-stroke (dash length is computed
-     in screen space, truncating the line on wide cards). Negative
-     insets keep the glow from being clipped at the edges. */
-  clip-path: inset(-8px 100% -8px -8px);
 }
 .spark polyline {
   fill: none;
@@ -892,10 +886,6 @@ strong { font-weight: 640; color: var(--ink); }
   vector-effect: non-scaling-stroke;
   opacity: 0.85;
   filter: drop-shadow(0 0 4px var(--glow));
-}
-.svc.is-visible .spark {
-  transition: clip-path 1.4s cubic-bezier(0.3, 0, 0.2, 1) 0.2s;
-  clip-path: inset(-8px);
 }
 
 .chips {
@@ -1204,22 +1194,6 @@ strong { font-weight: 640; color: var(--ink); }
 }
 .back-to-top:hover { color: var(--ok); border-color: var(--ok); }
 
-/* ---------- Reveal on scroll ---------- */
-.rv {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.6s cubic-bezier(0.22, 0.8, 0.3, 1), transform 0.6s cubic-bezier(0.22, 0.8, 0.3, 1);
-}
-.rv.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.no-js .rv {
-  opacity: 1;
-  transform: none;
-}
-.no-js .svc .spark { clip-path: none; }
-
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .sys-clock { display: none; }
@@ -1293,6 +1267,4 @@ strong { font-weight: 640; color: var(--ink); }
   }
   .sweep { display: none; }
   .stream-track { animation: none; }
-  .rv { opacity: 1; transform: none; }
-  .spark { clip-path: none; }
 }
