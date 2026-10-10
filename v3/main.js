@@ -114,7 +114,7 @@ const idle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRe
       navLinks.forEach((a) => {
         const active = a.getAttribute("href") === "#" + activeId;
         a.classList.toggle("is-active", active);
-        if (active) a.setAttribute("aria-current", "page");
+        if (active) a.setAttribute("aria-current", "true");
         else a.removeAttribute("aria-current");
       });
 

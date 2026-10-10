@@ -264,6 +264,9 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.015em; }
   pointer-events: none;
 }
 .section-num { color: var(--accent); opacity: .8; }
+/* On the light paper the accent reads at this size (4.5:1) only at full
+   strength. */
+[data-theme="light"] .section-num { opacity: 1; }
 .section-title {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -352,6 +355,7 @@ a:hover { color: var(--accent); }
   color: var(--accent);
   opacity: .7;
 }
+[data-theme="light"] .nav-links a .nav-num { opacity: 1; }
 .nav-links a::after {
   content: "";
   position: absolute; left: 0; right: 0; bottom: -4px;

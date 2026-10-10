@@ -59,22 +59,24 @@
 
 :root[data-theme='light'] {
   /* Day shift — a printed ops runbook: pale sage paper, deep
-     green ink stamps, amber annotations. */
+     green ink stamps, amber annotations. --ink-2 and --ok are just
+     dark enough for the small mono text on the darkest panel
+     (4.5:1). */
   --bg: #edf0ea;
   --panel: #f6f8f3;
   --panel-2: #e7ebe3;
   --ink: #1a2620;
-  --ink-2: #5d6f64;
+  --ink-2: #5a6c61;
   --line: rgba(26, 38, 32, 0.3);
   --line-soft: rgba(26, 38, 32, 0.13);
-  --ok: #0c7c4e;
+  --ok: #0a764a;
   --ok-ink: #f1f7f1;
-  --ok-soft: rgba(12, 124, 78, 0.1);
+  --ok-soft: rgba(10, 118, 74, 0.1);
   --amber: #a35c00;
-  --glow: rgba(12, 124, 78, 0.2);
+  --glow: rgba(10, 118, 74, 0.2);
   --grid-line: rgba(26, 38, 32, 0.05);
   --scan: rgba(26, 38, 32, 0.045);
-  --feed-tint: rgba(12, 124, 78, 0.05);
+  --feed-tint: rgba(10, 118, 74, 0.05);
 }
 
 /* ---------- Reset & base ---------- */
