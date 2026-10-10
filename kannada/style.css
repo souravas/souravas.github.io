@@ -285,6 +285,27 @@ h3 {
   margin-top: 56px;
 }
 
+/* A lesson off screen is skipped until it scrolls near, so a phone lays
+   out the screenful it shows rather than all 89: first paint, Cover and
+   a rotation stay quick. Skipping clips a lesson to its box, so the box
+   reaches over the page's side padding, where the tables bleed. */
+.lesson {
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))) calc(-1 * max(16px, env(safe-area-inset-right)));
+  padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 1500px;
+}
+
+/* That also keeps a lesson's last margin inside it. On phones it used
+   to fold into the 56px gap after the lesson, so drop it there to keep
+   the gap; wider screens lay a lesson out as a grid, which never
+   folded it. */
+@media (max-width: 759px) {
+  .lesson > :last-child {
+    margin-bottom: 0;
+  }
+}
+
 .lesson > h3,
 .sub > h3 {
   margin: 0 0 14px;
@@ -425,6 +446,11 @@ a:focus-visible {
   .part > .lesson,
   .part > .sub {
     grid-column: 1 / -1;
+  }
+
+  .lesson {
+    margin-inline: -40px;
+    padding-inline: 40px;
   }
 
   .part > h2 {
@@ -897,6 +923,10 @@ td:last-child {
 
   .page {
     padding-bottom: 0;
+  }
+
+  .lesson {
+    content-visibility: visible;
   }
 
   a {
