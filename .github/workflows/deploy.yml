@@ -10,9 +10,13 @@ on:
 permissions:
   contents: read
 
+# Deploys queue one at a time and none is cut off half way. GitHub keeps
+# only the newest waiting run in a group, so a pull request, which only
+# builds, gets a group of its own instead of replacing a waiting deploy;
+# a new push to the pull request replaces its older build.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('build-{0}', github.event.number) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
