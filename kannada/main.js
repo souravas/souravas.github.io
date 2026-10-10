@@ -17,10 +17,15 @@
   const chips = new Map([...jump.querySelectorAll("ol a")].map((a) => [a.hash.slice(1), a]));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
 
-  const lastAbove = (headings, line) => {
+  // box(heading) is the element measured for it. A lesson is measured by
+  // its section, which starts where its heading does: a lesson off screen
+  // is skipped (content-visibility: auto in style.css), and asking where
+  // anything inside it sits makes the browser lay it out, which after a
+  // jump or a rotation would be every lesson above the screen.
+  const lastAbove = (headings, line, box = (heading) => heading) => {
     let found = null;
     for (const heading of headings) {
-      if (heading.getBoundingClientRect().top > line) break;
+      if (box(heading).getBoundingClientRect().top > line) break;
       found = heading;
     }
     return found;
@@ -35,7 +40,7 @@
   const update = () => {
     const line = bar.offsetHeight + innerHeight / 3;
     const nextPart = lastAbove(parts, line);
-    const nextLesson = lastAbove(lessons, line);
+    const nextLesson = lastAbove(lessons, line, (heading) => heading.parentElement);
     if (nextPart !== part) {
       links.get(part?.id)?.removeAttribute("aria-current");
       part = nextPart;
