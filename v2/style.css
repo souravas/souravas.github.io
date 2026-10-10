@@ -69,6 +69,9 @@
   --stamp-blend: multiply;
 }
 
+/* Dark is also the default, for visits without JS, where no data-theme
+   is ever set. */
+:root,
 :root[data-theme='dark'] {
   --paper: #171511;
   --paper-2: #1f1c16;
@@ -899,7 +902,7 @@ html:not(.no-js) .tape:not(.is-rolling) .tape-track { animation-play-state: paus
 
 /* ---------- Print ---------- */
 @media print {
-  :root[data-theme='light'], :root[data-theme='dark'] {
+  :root, :root[data-theme='light'], :root[data-theme='dark'] {
     --paper: #fff;
     --paper-2: #fff;
     --ink: #111;
