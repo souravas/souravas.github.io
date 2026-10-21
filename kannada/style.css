@@ -1,6 +1,6 @@
 /* ============================================================
    SOURAV — /kannada
-   The Kannada Gottilla note as one long page, on /start v2's pure
+   The Kannada Gottilla note as one long page, on /start's pure
    black: the same greys, lavender accent and fonts. Kannada is set
    in JetBrains Mono, which tells the I of iddIra from an l (Inter
    Tight draws them alike), and English in Inter Tight. Wider
@@ -28,7 +28,7 @@
 }
 
 /* ---------- Tokens ----------
-   /start v2's neutral greys on #000 and v1's lavender accent. Body
+   /start's neutral greys on #000 and v1's lavender accent. Body
    text is /start's link grey (8.4:1 on black); Kannada and headings
    take the near-white. */
 :root {

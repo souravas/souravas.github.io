@@ -94,12 +94,10 @@ const cspInlineHashes = () => ({
 })
 
 // Default designs: copy each built page to its section root so GitHub Pages
-// serves it there — v1 at /, start v2 at /start/. All asset URLs in the
-// built HTML are absolute (base '/'), so a copy renders identically from
-// either path.
+// serves it there — v1 at /. All asset URLs in the built HTML are absolute
+// (base '/'), so a copy renders identically from either path.
 const DEFAULT_PAGES = [
   ['v1/index.html', 'index.html'],
-  ['start/v2/index.html', 'start/index.html'],
 ]
 
 const rootDefault = () => ({
@@ -267,7 +265,7 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Eight separate pages (v1–v4, start v1–v2, kannada, exercises), no SPA
+  // Seven separate pages (v1–v4, start, kannada, exercises), no SPA
   // fallback.
   appType: 'mpa',
   build: {
@@ -286,8 +284,7 @@ export default defineConfig({
         v2: 'v2/index.html',
         v3: 'v3/index.html',
         v4: 'v4/index.html',
-        'start-v1': 'start/v1/index.html',
-        'start-v2': 'start/v2/index.html',
+        start: 'start/index.html',
         kannada: 'kannada/index.html',
         exercises: 'exercises/index.html',
       },
@@ -305,9 +302,9 @@ export default defineConfig({
     {
       // Mirror production routing locally. GitHub Pages serves /v2 → /v2/
       // (directory redirect) and / → index.html; dev and preview servers
-      // need the same rewrites. Dev serves v1 at / and start v2 at /start
-      // from source; preview already has the DEFAULT_PAGES copies, so only
-      // the slashless paths need help.
+      // need the same rewrites. Dev serves v1 at / from source; preview
+      // already has the DEFAULT_PAGES copy, so only the slashless paths
+      // need help.
       name: 'html-routes',
       configureServer(server) {
         server.middlewares.use((req, _res, next) => {
@@ -320,10 +317,8 @@ export default defineConfig({
             req.url = '/v3/index.html'
           } else if (path === '/v4' || path === '/v4/') {
             req.url = '/v4/index.html'
-          } else if (path === '/start/v1' || path === '/start/v1/') {
-            req.url = '/start/v1/index.html'
-          } else if (path === '/start' || path === '/start/' || path === '/start/v2' || path === '/start/v2/') {
-            req.url = '/start/v2/index.html'
+          } else if (path === '/start' || path === '/start/') {
+            req.url = '/start/index.html'
           } else if (path === '/kannada' || path === '/kannada/') {
             req.url = '/kannada/index.html'
           } else if (path === '/exercises' || path === '/exercises/') {
@@ -339,7 +334,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/v4', '/start', '/start/v1', '/start/v2', '/kannada', '/exercises'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/v4', '/start', '/kannada', '/exercises'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'

@@ -6,8 +6,8 @@
    Registered with scope /start (no slash), so a homepage set to
    souravas.com/start is answered here too, skipping GitHub Pages'
    redirect to /start/. Only /start and /start/ are served from cache;
-   every other page in scope (/start/v1/, /start/v2/) and anything the
-   cache doesn't hold goes to the network as usual. */
+   anything else in scope, and anything the cache doesn't hold, goes
+   to the network as usual. */
 const CACHE = "start";
 const PAGE = "/start/";
 

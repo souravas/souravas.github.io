@@ -1,7 +1,7 @@
 /* ============================================================
    SOURAV — /exercises
    The page behind /start's Exercises link: five exercise videos
-   as a numbered list, on /start v2's pure black with its greys,
+   as a numbered list, on /start's pure black with its greys,
    lavender accent and fonts. Wider screens put the way back to
    /start in its 120px left gutter.
    ============================================================ */
@@ -26,7 +26,7 @@
 }
 
 /* ---------- Tokens ----------
-   /start v2's: neutral greys on #000 and v1's lavender accent.
+   /start's: neutral greys on #000 and v1's lavender accent.
    Contrast on black: --text 19:1, --link 8.4:1, --muted 4.6:1. */
 :root {
   --bg: #000;

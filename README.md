@@ -20,7 +20,7 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 - Local dev: <http://localhost:5173>
 - Production: <https://souravas.com>
 - Page versions: `/` serves v1 by default; `/v1`, `/v2`, `/v3`, and `/v4` open each design explicitly, and each names `/` as its canonical
-- Start page: `/start` — personal bookmarks dashboard (noindex); serves start v2 by default, `/start/v1` and `/start/v2` open each design
+- Start page: `/start` — personal bookmarks dashboard (noindex)
 - Kannada: `/kannada` — the Kannada Gottilla lessons note as a page (noindex), rendered from `kannada/note.md` at build time
 - Exercises: `/exercises` — exercise videos behind the start page's Exercises link (noindex)
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
@@ -50,17 +50,10 @@ souravas.github.io/
 │   ├── main.js
 │   ├── style.css           # includes a print stylesheet that prints the page as a CV
 │   └── fonts/
-├── start/                  # personal start page
-│   ├── v1/                 # Homepage rebuild, served at /start/v1
-│   │   ├── index.html      # bookmarks + inline SVG icon sprite
-│   │   ├── main.js         # type-anywhere quick launch
-│   │   ├── style.css
-│   │   ├── serenity.webp   # pre-blurred backdrop
-│   │   └── fonts/
-│   └── v2/                 # pure-black design (default, also served at /start)
-│       ├── index.html
-│       ├── main.js
-│       └── style.css
+├── start/                  # personal start page, served at /start
+│   ├── index.html          # bookmarks + inline SVG icon sprite
+│   ├── main.js             # type-anywhere prompt that filters the links
+│   └── style.css
 ├── kannada/                # Kannada lessons, served at /kannada
 │   ├── index.html          # page shell: title, bar, lessons sheet
 │   ├── note.md             # copy of the Obsidian note: the page's content
@@ -80,7 +73,7 @@ souravas.github.io/
 │   ├── robots.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
-│   ├── fonts/              # shared by v1, start v2, /kannada, /exercises, and 404.html
+│   ├── fonts/              # shared by v1, /start, /kannada, /exercises, and 404.html
 │   └── assets/             # images, social cards (og-cover, og-cover-v4), resume.pdf
 ├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
 │                           # CSP hashing, HTML minify, build-time values
