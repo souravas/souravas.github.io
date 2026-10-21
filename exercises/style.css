@@ -1,0 +1,238 @@
+/* ============================================================
+   SOURAV — /exercises
+   The page behind /start's Exercises link: five exercise videos
+   as a numbered list, on /start v2's pure black with its greys,
+   lavender accent and fonts. Wider screens put the way back to
+   /start in its 120px left gutter.
+   ============================================================ */
+
+/* ---------- Fonts ----------
+   Shared with v1 and /start (public/fonts/). */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-tight.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------- Tokens ----------
+   /start v2's: neutral greys on #000 and v1's lavender accent.
+   Contrast on black: --text 19:1, --link 8.4:1, --muted 4.6:1. */
+:root {
+  --bg: #000;
+  --line: #1c1c1c;
+  --hover: #0f0f0f;
+  --text: #f5f5f5;
+  --link: #a3a3a3;
+  --muted: #767676;
+  --accent: #b8b1ff;
+  --radius: 6px;
+  --gutter: 120px;
+  --font-sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+  background: var(--bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background: var(--bg);
+  color: var(--link);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgb(184 177 255 / 0.35);
+  color: var(--text);
+}
+
+/* ---------- Layout ----------
+   As on /start: top-aligned on phones, clear of a notch or home
+   indicator; centred on wider screens, lifted slightly by the
+   heavier bottom padding. Narrow, since the list is one column. */
+.page {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto auto;
+  padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+@media (min-width: 760px) {
+  .page {
+    margin: auto;
+    padding: 48px 40px 12vh;
+  }
+}
+
+/* ---------- Head ----------
+   The way back above the title on phones; wider, it sits in the
+   gutter on the title's line, like /start's group headings. The rule
+   below is /start's prompt line. */
+.head {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 760px) {
+  .head {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    align-items: baseline;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+  }
+}
+
+.back {
+  display: inline-block;
+  padding: 4px 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 20px;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.12s ease;
+}
+
+@media (hover: hover) {
+  .back:hover {
+    color: var(--text);
+  }
+}
+
+.back:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 760px) {
+  .back {
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+}
+
+/* ---------- Steps ----------
+   /start's link rows, numbered where /start shows an icon. Negative
+   margins let each row's hover box bleed past the column edge, so
+   the numbers line up with the title. Rows are 44px on phones, for a
+   thumb, and /start's 36px wider; padding rather than a min-height
+   sets that, so the number can sit on the name's baseline. The <ol>
+   already tells screen readers each one's place, so the drawn number
+   is hidden from them. */
+.steps {
+  margin: 0 -10px;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+@media (min-width: 760px) {
+  .steps {
+    margin-left: calc(var(--gutter) - 10px);
+  }
+}
+
+.steps li {
+  counter-increment: step;
+}
+
+.steps a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 10px;
+  border-radius: var(--radius);
+  color: var(--link);
+  font-size: 15px;
+  line-height: 20px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+@media (min-width: 760px) {
+  .steps a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+.steps a::before {
+  content: counter(step);
+  content: counter(step) / '';
+  flex-shrink: 0;
+  width: 16px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  transition: color 0.12s ease;
+}
+
+.steps a:active {
+  background: var(--hover);
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .steps a:hover {
+    background: var(--hover);
+    color: var(--text);
+  }
+
+  .steps a:hover::before {
+    color: var(--text);
+  }
+}
+
+.steps a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back,
+  .steps a,
+  .steps a::before {
+    transition: none;
+  }
+}

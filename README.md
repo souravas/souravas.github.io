@@ -22,6 +22,7 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 - Page versions: `/` serves v1 by default; `/v1`, `/v2`, `/v3`, and `/v4` open each design explicitly, and each names `/` as its canonical
 - Start page: `/start` — personal bookmarks dashboard (noindex); serves start v2 by default, `/start/v1` and `/start/v2` open each design
 - Kannada: `/kannada` — the Kannada Gottilla lessons note as a page (noindex), rendered from `kannada/note.md` at build time
+- Exercises: `/exercises` — exercise videos behind the start page's Exercises link (noindex)
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 - Sitemap: `/sitemap.xml`, generated at build time
 - Security contact: `/.well-known/security.txt`, generated at build time
@@ -66,6 +67,9 @@ souravas.github.io/
 │   ├── render.js           # note.md → HTML, run at build time by vite.config.js
 │   ├── main.js             # lesson on screen, lessons sheet, Cover
 │   └── style.css
+├── exercises/              # exercise videos, served at /exercises
+│   ├── index.html
+│   └── style.css
 ├── public/                 # copied verbatim into the build
 │   ├── CNAME               # custom domain
 │   ├── 404.html            # static 404 served by GitHub Pages
@@ -76,7 +80,7 @@ souravas.github.io/
 │   ├── robots.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
-│   ├── fonts/              # shared by v1, start v2, /kannada, and 404.html
+│   ├── fonts/              # shared by v1, start v2, /kannada, /exercises, and 404.html
 │   └── assets/             # images, social cards (og-cover, og-cover-v4), resume.pdf
 ├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
 │                           # CSP hashing, HTML minify, build-time values
