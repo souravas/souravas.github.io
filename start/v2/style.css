@@ -82,15 +82,15 @@ svg {
 }
 
 /* ---------- Layout ----------
-   Top-aligned on phones, and tighter there so every group fits on
-   one screen; the side and bottom padding clear a notch or home
-   indicator. On wider screens margin:auto centres the block (lifted
-   slightly by the heavier bottom padding) without clipping it once
-   the list outgrows the viewport. The max width leaves four link
-   columns room for the longest names. */
+   Top-aligned on phones, where the list runs past one screen; the
+   side and bottom padding clear a notch or home indicator. On wider
+   screens margin:auto centres the block without clipping it once the
+   list outgrows the viewport. The max width leaves six link columns
+   room for the longest names, which is what lets every group fit in
+   a laptop's browser window (see the groups below). */
 .page {
   width: 100%;
-  max-width: 1180px;
+  max-width: 1280px;
   margin: 0 auto auto;
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
@@ -98,58 +98,8 @@ svg {
 @media (min-width: 760px) {
   .page {
     margin: auto;
-    padding: 48px 40px 12vh;
+    padding: 32px 40px;
   }
-}
-
-/* ---------- Quote ----------
-   Every quote sits in the same grid cell, so the block is always as
-   tall as the longest one at the current width and a swap never moves
-   the prompt or links below. Only the current one is visible; main.js
-   picks it and sets .is-rotating on the first swap, so the quote fades
-   only then and shows at once when the page opens. Wider: in the link
-   column, past the gutter. */
-.quotes {
-  display: grid;
-  align-items: end;
-  margin: 0 0 14px;
-  padding: 0;
-  list-style: none;
-  color: var(--text);
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-}
-
-@media (min-width: 760px) {
-  .quotes {
-    margin-bottom: 22px;
-    padding-left: var(--gutter);
-    font-size: 22px;
-  }
-}
-
-.quotes li {
-  grid-area: 1 / 1;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.quotes.is-rotating li {
-  transition: opacity 0.4s ease, visibility 0.4s;
-}
-
-.quotes li.is-current {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* On a swap, the new quote waits for the old one to fade out, so the
-   two never overlap. */
-.quotes.is-rotating li.is-current {
-  transition-delay: 0.4s;
 }
 
 /* ---------- Prompt ----------
@@ -173,8 +123,7 @@ svg {
 @media (min-width: 760px) {
   .prompt {
     grid-template-columns: var(--gutter) minmax(0, 1fr) auto;
-    margin-bottom: 44px;
-    padding-bottom: 14px;
+    margin-bottom: 24px;
   }
 }
 
@@ -222,7 +171,10 @@ svg {
 
 /* ---------- Bookmark groups ----------
    Phones: heading above the links.
-   Wider: heading in the left gutter, on the first link row's 36px line. */
+   Wider: heading in the left gutter, on the first link row's line. The
+   rows drop to 32px there and the groups sit 12px apart, so at six
+   columns the whole page is about 660px tall and fits a laptop's
+   browser window. */
 .group + .group {
   margin-top: 16px;
 }
@@ -267,7 +219,7 @@ svg {
 
 @media (min-width: 760px) {
   .group + .group {
-    margin-top: 28px;
+    margin-top: 12px;
   }
 
   .group {
@@ -278,7 +230,7 @@ svg {
 
   .group h2 {
     margin: 0;
-    line-height: 36px;
+    line-height: 32px;
   }
 }
 
@@ -298,7 +250,10 @@ svg {
 
 /* Negative margins let each link's hover box bleed past the column
    edge, so the icons line up with the prompt text above. Two columns
-   from phone width; one only on the narrowest screens. */
+   from phone width; one only on the narrowest screens. Wider, each
+   step adds columns as soon as every cell still holds the longest
+   name (Design Patterns, about 150px with its icon). Five would add
+   no row over four, since the groups hold 3, 4, 6 or 8 links. */
 .links {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -314,15 +269,21 @@ svg {
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 760px) {
   .links {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1120px) {
+@media (min-width: 880px) {
   .links {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .links {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -338,6 +299,12 @@ svg {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
+}
+
+@media (min-width: 760px) {
+  .links a {
+    min-height: 32px;
+  }
 }
 
 .links a:active,
@@ -433,7 +400,6 @@ svg {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .quotes.is-rotating li,
   .prompt,
   .group h2,
   .group h2 button,
