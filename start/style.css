@@ -83,9 +83,11 @@ svg {
 }
 
 /* ---------- Layout ----------
-   Top-aligned, so the prompt sits where the eye lands when the page
-   opens; the side and bottom padding clear a notch or home indicator
-   on phones.
+   Top-aligned on phones, where the list runs past one screen; the
+   side and bottom padding clear a notch or home indicator. Wider,
+   margin:auto centres the block in the window, so a tall monitor
+   doesn't leave its lower half empty, and once the list outgrows the
+   window the margins drop to zero and it starts at the top, unclipped.
    Wider, the groups run in two, three, then four columns, set like a
    newspaper's: a group never splits across two, and the browser
    balances their heights, so the columns end close together. Each
@@ -113,6 +115,7 @@ svg {
   }
 
   .page {
+    margin: auto;
     padding: calc(var(--gap) + 8px) 40px 24px;
     column-gap: 64px;
     columns: 2;
