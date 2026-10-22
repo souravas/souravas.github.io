@@ -3,7 +3,8 @@
    place: matches stay lit with the typed text highlighted, the rest dim.
    A link matches on an alias (its data-alias: "lc" finds LeetCode), then
    on its name, where the start of a word ("Code" in NeetCode) beats the
-   inside of one, then on its site's name ("ticktick" finds Tasks). An
+   name's initials ("pp" finds Proton Pass), which beat the inside of a
+   word, then on its site's name ("ticktick" finds Tasks). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then "open
@@ -12,8 +13,8 @@
    prompt shows what Enter will open, Esc clears. Links and Enter open
    in this tab, since /start is the browser's homepage; a link with
    data-also (Coursera, Downloads) opens its href and those URLs in new
-   tabs, and clicking a group's heading opens all of its links in new
-   tabs. */
+   tabs, on a click or a middle click, and clicking a group's heading
+   opens all of its links in new tabs. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
@@ -34,28 +35,42 @@
     // that opens an app names it in its scheme: "obsidian://…".
     const site = a.protocol.startsWith("http") ? a.hostname.split(".").at(-2) ?? "" : a.protocol.slice(0, -1);
     const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
-    const starts = new Set([...label.matchAll(WORD_START)].map((m) => m.index + m[0].length));
+    const starts = [...label.matchAll(WORD_START)].map((m) => m.index + m[0].length);
+    // The first letter of each word: "pp" for Proton Pass.
+    const initials = starts.map((i) => label[i]).join("").toLowerCase();
     // Everything the link opens, in order: its href, then data-also.
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
     const { search } = a.dataset;
     // Named in the prompt by host: "youtube.com", "claude.ai".
     const searchHost = search ? new URL(search.replace("%s", "")).hostname.replace(/^www\./, "") : "";
-    return { a, name, label, key: label.toLowerCase(), site, aliases, starts, hrefs, search, searchHost };
+    return { a, name, label, key: label.toLowerCase(), site, aliases, starts, initials, hrefs, search, searchHost };
   });
 
-  // How well a link matches the lowercased query, and where its name
-  // does (-1 if not). Rank 0 is an alias, 1 the start of a word in the
-  // name, 2 the inside of a word, 3 the site's name; no match is Infinity.
+  // How well a link matches the lowercased query, and the [from, to)
+  // ranges of its name to mark. Rank 0 is an alias, 1 the start of a word
+  // in the name, 2 its initials, 3 the inside of a word, 4 the site's
+  // name; no match is Infinity.
   const match = (link, needle) => {
     const first = link.key.indexOf(needle);
     let at = first;
-    while (at !== -1 && !link.starts.has(at)) at = link.key.indexOf(needle, at + 1);
+    while (at !== -1 && !link.starts.includes(at)) at = link.key.indexOf(needle, at + 1);
     let rank = Infinity;
+    let marks = [];
+    if (at !== -1) {
+      rank = 1;
+      marks = [[at, at + needle.length]];
+    } else if (link.initials.startsWith(needle)) {
+      rank = 2;
+      marks = link.starts.slice(0, needle.length).map((i) => [i, i + 1]);
+    } else if (first !== -1) {
+      rank = 3;
+      marks = [[first, first + needle.length]];
+    } else if (link.site.includes(needle)) {
+      rank = 4;
+    }
+    // An alias outranks the rest, but its name is still marked.
     if (link.aliases.includes(needle)) rank = 0;
-    else if (at !== -1) rank = 1;
-    else if (first !== -1) rank = 2;
-    else if (link.site.includes(needle)) rank = 3;
-    return { rank, at: at === -1 ? first : at };
+    return { rank, marks };
   };
   const URLISH = /^(?<scheme>https?:\/\/)?(?<host>localhost|(?:\d{1,3}\.){3}\d{1,3}|(?:[\w-]+\.)+[a-z]{2,})(?<port>:\d+)?(?<path>\/\S*)?$/i;
   // "os.path" and "node.js" are URL-shaped too. Without a scheme, www.,
@@ -97,14 +112,17 @@
     return { section, title, key: title.toLowerCase(), hrefs };
   });
 
-  const highlight = (link, at, len) => {
-    if (at === -1) {
-      link.name.textContent = link.label;
-      return;
+  // Marks each [from, to) range of a link's name.
+  const highlight = (link, marks) => {
+    const parts = [];
+    let end = 0;
+    for (const [from, to] of marks) {
+      const mark = document.createElement("mark");
+      mark.textContent = link.label.slice(from, to);
+      parts.push(link.label.slice(end, from), mark);
+      end = to;
     }
-    const mark = document.createElement("mark");
-    mark.textContent = link.label.slice(at, at + len);
-    link.name.replaceChildren(link.label.slice(0, at), mark, link.label.slice(at + len));
+    link.name.replaceChildren(...parts, link.label.slice(end));
   };
 
   // A candidate that opens q itself, or null. Addresses on the local
@@ -136,10 +154,10 @@
     const owner = query && links.find((link) => link.search && link.aliases.includes(word.toLowerCase()));
     const hits = [];
     for (const link of links) {
-      const { rank, at } = q ? match(link, needle) : { rank: Infinity, at: -1 };
+      const { rank, marks } = q ? match(link, needle) : { rank: Infinity, marks: [] };
       link.a.classList.toggle("is-dim", q !== "" && rank === Infinity && link !== owner);
-      highlight(link, at, needle.length);
-      if (rank !== Infinity) hits.push({ link, rank, at });
+      highlight(link, marks);
+      if (rank !== Infinity) hits.push({ link, rank, at: marks[0]?.[0] ?? -1 });
     }
     // Best rank first, then earliest in the name (Array#sort is stable,
     // so equally good matches keep page order).
@@ -205,27 +223,35 @@
     }
   });
 
-  // Opening a link with the mouse mid-search returns the page to rest. A
-  // link to several places opens them all in new tabs instead, after the
-  // reset so a pop-up warning from openAll stays on screen.
-  document.addEventListener("click", (e) => {
+  // A link to several places opens them all in new tabs, on a click or a
+  // middle click; the browser alone would open only its href.
+  const openLinks = (e) => {
     const a = e.target.closest(".links a");
     if (!a) return;
-    if (input.value) reset();
     const { hrefs } = links.find((link) => link.a === a);
     if (hrefs.length > 1) {
       e.preventDefault();
       openAll(hrefs);
     }
+  };
+
+  // Opening a link with the mouse mid-search returns the page to rest,
+  // before openLinks so a pop-up warning from openAll stays on screen.
+  document.addEventListener("click", (e) => {
+    if (input.value && e.target.closest(".links a")) reset();
+    openLinks(e);
+  });
+  document.addEventListener("auxclick", (e) => {
+    if (e.button === 1) openLinks(e);
   });
 
-  // With the prompt empty, pointing at a link names its alias in the
-  // hint, so the short codes can be learned from the page. Pointing
-  // away clears only that, never a pop-up warning.
+  // With the prompt empty, pointing at a link or tabbing to it names its
+  // alias in the hint, so the short codes can be learned from the page.
+  // Moving away clears only that, never a pop-up warning.
   let naming = false;
-  document.addEventListener("pointerover", (e) => {
-    if (input.value || e.pointerType !== "mouse") return;
-    const link = links.find(({ a }) => a.contains(e.target));
+  const nameAlias = (target) => {
+    if (input.value) return;
+    const link = links.find(({ a }) => a.contains(target));
     if (link?.aliases.length) {
       say(link.aliases.join(" "), link.search ? `+ query searches ${link.searchHost}` : `opens ${link.label}`);
       naming = true;
@@ -233,6 +259,14 @@
       hint.replaceChildren();
       naming = false;
     }
+  };
+  document.addEventListener("pointerover", (e) => {
+    if (e.pointerType === "mouse") nameAlias(e.target);
+  });
+  document.addEventListener("focusin", (e) => nameAlias(e.target));
+  // Focus leaving for nothing, as a click on the page leaves it.
+  document.addEventListener("focusout", (e) => {
+    if (!e.relatedTarget) nameAlias(null);
   });
 })();
 
