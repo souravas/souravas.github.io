@@ -39,6 +39,8 @@
   --muted: #767676;
   --accent: #b8b1ff;
   --radius: 6px;
+  --row: 36px;
+  --gap: 16px;
   --font-sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -81,17 +83,22 @@ svg {
 }
 
 /* ---------- Layout ----------
-   Top-aligned on phones, where the list runs past one screen; the
-   side and bottom padding clear a notch or home indicator. On wider
-   screens margin:auto centres the block without clipping it once the
-   list outgrows the viewport.
+   Top-aligned, so the prompt sits where the eye lands when the page
+   opens; the side and bottom padding clear a notch or home indicator
+   on phones.
    Wider, the groups run in two, three, then four columns, set like a
    newspaper's: a group never splits across two, and the browser
    balances their heights, so the columns end close together. Each
    step adds a column once every one still holds two links of the
-   longest name (Design Patterns, about 150px with its icon). The page
-   is about 600px tall at three and 480px at four, so it fits a
-   laptop's browser window. */
+   longest name (Design Patterns, 151px with its icon) beside a 64px
+   gap, which keeps the groups apart from the two link columns inside
+   each.
+   The rows (--row) and the gaps around the groups (--gap) grow with
+   the window's height: 32px and 24px in a 640px-tall window, rows
+   reaching 40px at 720px and gaps 40px at 800px. So the page fills a
+   laptop's browser window instead of floating in it, and three
+   columns still fit without scrolling down to 640px. Phones keep
+   36px rows and 16px gaps. */
 .page {
   width: 100%;
   max-width: 1200px;
@@ -100,23 +107,27 @@ svg {
 }
 
 @media (min-width: 760px) {
+  :root {
+    --row: clamp(32px, 10vh - 32px, 40px);
+    --gap: clamp(24px, 10vh - 40px, 40px);
+  }
+
   .page {
-    margin: auto;
-    padding: 32px 40px;
-    column-gap: 48px;
+    padding: calc(var(--gap) + 8px) 40px 24px;
+    column-gap: 64px;
     columns: 2;
   }
 }
 
-@media (min-width: 1080px) {
+@media (min-width: 1120px) {
   .page {
     columns: 3;
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1480px) {
   .page {
-    max-width: 1440px;
+    max-width: 1520px;
     columns: 4;
   }
 }
@@ -145,7 +156,7 @@ svg {
 @media (min-width: 760px) {
   .prompt {
     grid-template-columns: 28px minmax(0, 1fr) auto;
-    margin-bottom: 28px;
+    margin-bottom: var(--gap);
   }
 }
 
@@ -198,7 +209,7 @@ svg {
    above); a block moving to the next column drops its top margin
    there, so every column starts on the same line. */
 .group + .group {
-  margin-top: 16px;
+  margin-top: var(--gap);
 }
 
 .group h2 {
@@ -244,12 +255,8 @@ svg {
     break-inside: avoid;
   }
 
-  .group + .group {
-    margin-top: 24px;
-  }
-
   .group h2 {
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 }
 
@@ -270,8 +277,7 @@ svg {
 /* Negative margins let each link's hover box bleed past the column
    edge, so the icons line up with the group heading above. Two
    columns at every width but the narrowest, since the groups hold 3,
-   4, 6 or 8 links; the 48px column gap keeps two groups side by side
-   from reading as one. */
+   4, 6 or 8 links. */
 .links {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -291,7 +297,7 @@ svg {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 36px;
+  min-height: var(--row);
   padding: 0 10px;
   border-radius: var(--radius);
   color: var(--link);
@@ -299,12 +305,6 @@ svg {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
-}
-
-@media (min-width: 760px) {
-  .links a {
-    min-height: 32px;
-  }
 }
 
 .links a:active,
