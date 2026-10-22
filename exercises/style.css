@@ -88,8 +88,8 @@ body {
 
 /* ---------- Head ----------
    The way back above the title on phones; wider, it sits in the
-   gutter on the title's line, like /start's group headings. The rule
-   below is /start's prompt line. */
+   gutter on the title's line. The rule below is /start's prompt
+   line. */
 .head {
   margin-bottom: 12px;
   padding-bottom: 12px;
