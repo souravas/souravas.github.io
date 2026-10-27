@@ -3,7 +3,7 @@
    place: matches stay lit with the typed text highlighted, the rest dim.
    A link matches on an alias (its data-alias: "lc" finds LeetCode), then
    on its name, where the start of a word ("Code" in NeetCode) beats the
-   name's initials ("pp" finds Proton Pass), which beat the inside of a
+   name's initials ("dp" finds Design Patterns), which beat the inside of a
    word, then on its site's name ("headway" finds Books). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
@@ -36,7 +36,7 @@
     const site = a.protocol.startsWith("http") ? a.hostname.split(".").at(-2) ?? "" : a.protocol.slice(0, -1);
     const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
     const starts = [...label.matchAll(WORD_START)].map((m) => m.index + m[0].length);
-    // The first letter of each word: "pp" for Proton Pass.
+    // The first letter of each word: "dp" for Design Patterns.
     const initials = starts.map((i) => label[i]).join("").toLowerCase();
     // Everything the link opens, in order: its href, then data-also.
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
