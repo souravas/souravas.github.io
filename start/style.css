@@ -279,8 +279,8 @@ svg {
 
 /* Negative margins let each link's hover box bleed past the column
    edge, so the icons line up with the group heading above. Two
-   columns at every width but the narrowest, since the groups hold 3,
-   4, 6 or 8 links. */
+   columns at every width but the narrowest, since the groups hold 4,
+   5, 6 or 8 links. */
 .links {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
