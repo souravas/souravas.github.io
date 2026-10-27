@@ -4,7 +4,7 @@
    A link matches on an alias (its data-alias: "lc" finds LeetCode), then
    on its name, where the start of a word ("Code" in NeetCode) beats the
    name's initials ("pp" finds Proton Pass), which beat the inside of a
-   word, then on its site's name ("ticktick" finds Tasks). An
+   word, then on its site's name ("headway" finds Books). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then "open
