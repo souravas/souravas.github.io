@@ -88,13 +88,18 @@ svg {
    margin:auto centres the block in the window, so a tall monitor
    doesn't leave its lower half empty, and once the list outgrows the
    window the margins drop to zero and it starts at the top, unclipped.
-   Wider, the groups run in two, three, then four columns, set like a
+   Wider, the groups run in two, then three columns, set like a
    newspaper's: a group never splits across two, and the browser
-   balances their heights, so the columns end close together. Each
-   step adds a column once every one still holds two links of the
+   balances their heights, so the columns end close together. The
+   step to three comes once each column still holds two links of the
    longest name (Design Patterns, 151px with its icon) beside a 64px
    gap, which keeps the groups apart from the two link columns inside
-   each.
+   each. There is no fourth: six groups split evenly into two or
+   three columns, but four would leave one group alone in a column,
+   short of the pairs beside it. The group order (Daily, Learn, Code,
+   Finance, Social, Media) is set for three, so each column pairs two
+   groups: Code, the longest at five rows, shares one with Finance,
+   the shortest, which leaves that column a single row longer.
    The rows (--row) and the gaps around the groups (--gap) grow with
    the window's height: 32px and 24px in a 640px-tall window, rows
    reaching 40px at 720px and gaps 40px at 800px. So the page fills a
@@ -125,13 +130,6 @@ svg {
 @media (min-width: 1120px) {
   .page {
     columns: 3;
-  }
-}
-
-@media (min-width: 1480px) {
-  .page {
-    max-width: 1520px;
-    columns: 4;
   }
 }
 
@@ -280,7 +278,7 @@ svg {
 /* Negative margins let each link's hover box bleed past the column
    edge, so the icons line up with the group heading above. Two
    columns at every width but the narrowest, since the groups hold 4,
-   5, 6 or 8 links. */
+   6 or 10 links: an even count fills its last row. */
 .links {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
