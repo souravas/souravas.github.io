@@ -1,7 +1,7 @@
 /* ---------- Quick launch ----------
    Type anywhere (or press /) to focus the prompt. The links filter in
    place: matches stay lit with the typed text highlighted, the rest dim.
-   A link matches on an alias (its data-alias: "lc" finds Code), then
+   A link matches on an alias (its data-alias: "lc" finds LeetCode), then
    on its name, where the start of a word ("Ready" in Interview Ready) beats the
    name's initials ("dp" finds Design Patterns), which beat the inside of a
    word, then on its site's name ("headway" finds Books). An
