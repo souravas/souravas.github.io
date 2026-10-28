@@ -27,7 +27,7 @@
 <body>
   <!-- Icon sprite: a bookmark shows the logo of the site it opens, or
        an icon for its topic where that logo would repeat or say little
-       about the link (Music and Fit, and Practice, Books and Cloud,
+       about the link (Music and Fit, and Code, Books and Cloud,
        which open more than one site).
        Each is a light mark on the black page, like Udemy's: a logo
        drawn as a filled tile with its mark cut out keeps just the mark
@@ -91,7 +91,7 @@
     <!-- Bookmarks. Copy an <li> to add one; the icon is the <use> href
          pointing at a <symbol> in the sprite above. Optional on the <a>:
          data-alias, space-separated short codes the prompt matches first
-         ("lc" opens Practice), and data-search, a URL with %s where a
+         ("lc" opens Code), and data-search, a URL with %s where a
          query goes, which "alias query" opens ("lc two sum"), and
          data-also, space-separated URLs that open in new tabs along
          with the href, in order (Coursera, Downloads). -->
@@ -124,14 +124,20 @@
       <ul class="links">
         <li><a href="https://algo.monster/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomonster" /></svg></span><span class="name">AlgoMonster</span></a></li>
         <li><a href="https://algomaster.io/"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomaster" /></svg></span><span class="name">AlgoMaster</span></a></li>
+        <li><a href="https://www.techinterviewhandbook.org/software-engineering-interview-guide/" data-alias="tih"><span class="icon"><svg aria-hidden="true"><use href="#logo-techinterviewhandbook" /></svg></span><span class="name">Tech Interview</span></a></li>
+        <li><a href="https://www.greatfrontend.com/interviews/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-greatfrontend" /></svg></span><span class="name">Frontend</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="group-design">
+      <h2 id="group-design">Design</h2>
+      <ul class="links">
         <li><a href="https://systemdesignschool.io/" data-alias="sds"><span class="icon"><svg aria-hidden="true"><use href="#logo-systemdesignschool" /></svg></span><span class="name">System Design</span></a></li>
         <li><a href="https://www.hellointerview.com/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-hellointerview" /></svg></span><span class="name">Hello Interview</span></a></li>
         <li><a href="https://interviewready.io/account/" data-alias="ir"><span class="icon"><svg aria-hidden="true"><use href="#logo-interviewready" /></svg></span><span class="name">Interview Ready</span></a></li>
         <li><a href="https://academy.bytemonk.io/library" data-alias="bm"><span class="icon"><svg aria-hidden="true"><use href="#logo-bytemonk" /></svg></span><span class="name">ByteMonk</span></a></li>
-        <li><a href="https://www.techinterviewhandbook.org/software-engineering-interview-guide/" data-alias="tih"><span class="icon"><svg aria-hidden="true"><use href="#logo-techinterviewhandbook" /></svg></span><span class="name">Tech Interview</span></a></li>
         <li><a href="https://interview.lldcoding.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-sitemap" /></svg></span><span class="name">LLD</span></a></li>
         <li><a href="https://refactoring.guru/design-patterns"><span class="icon"><svg aria-hidden="true"><use href="#mdi-shape-outline" /></svg></span><span class="name">Design Patterns</span></a></li>
-        <li><a href="https://www.greatfrontend.com/interviews/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-greatfrontend" /></svg></span><span class="name">Frontend</span></a></li>
       </ul>
     </section>
 

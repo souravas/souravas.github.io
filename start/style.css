@@ -1,7 +1,7 @@
 /* ============================================================
    SOURAV — /start
    Pure black start page: the bookmark groups as a plain index
-   of links in balanced columns of groups, and an inline prompt
+   of links, a row to a group on wide screens, and an inline prompt
    that filters the links in place instead of opening a modal.
    ============================================================ */
 
@@ -41,6 +41,7 @@
   --radius: 6px;
   --row: 36px;
   --gap: 16px;
+  --gutter: 96px;
   --font-sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -88,24 +89,18 @@ svg {
    margin:auto centres the block in the window, so a tall monitor
    doesn't leave its lower half empty, and once the list outgrows the
    window the margins drop to zero and it starts at the top, unclipped.
-   Wider, the groups run in two, then three columns, set like a
-   newspaper's: a group never splits across two, and the browser
-   balances their heights, so the columns end close together. The
-   step to three comes once each column still holds two links of the
-   longest name (Design Patterns, 151px with its icon) beside a 64px
-   gap, which keeps the groups apart from the two link columns inside
-   each. There is no fourth: six groups split evenly into two or
-   three columns, but four would leave one group alone in a column,
-   short of the pairs beside it. The group order (Daily, Learn, Code,
-   Finance, Social, Media) is set for three, so each column pairs two
-   groups: Code, the longest at five rows, shares one with Finance,
-   the shortest, which leaves that column a single row longer.
+   Wider, the groups run in two columns, set like a newspaper's: a
+   group never splits across two, and the browser balances their
+   heights, so the columns end close together. From 1120px each group
+   is a row instead (see the groups below): its heading in the gutter,
+   its links in six columns, so they read left to right in their order.
+   That step comes once a sixth of the row still holds the longest
+   name (Interview Ready, 151px with its icon) beside the 96px gutter.
    The rows (--row) and the gaps around the groups (--gap) grow with
    the window's height: 32px and 24px in a 640px-tall window, rows
-   reaching 40px at 720px and gaps 40px at 800px. So the page fills a
-   laptop's browser window instead of floating in it, and three
-   columns still fit without scrolling down to 640px. Phones keep
-   36px rows and 16px gaps. */
+   reaching 40px at 720px and gaps 40px at 800px, so the page fills
+   more of a laptop's browser window instead of floating in it.
+   Phones keep 36px rows and 16px gaps. */
 .page {
   width: 100%;
   max-width: 1200px;
@@ -129,7 +124,7 @@ svg {
 
 @media (min-width: 1120px) {
   .page {
-    columns: 3;
+    columns: auto;
   }
 }
 
@@ -158,6 +153,14 @@ svg {
   .prompt {
     grid-template-columns: 28px minmax(0, 1fr) auto;
     margin-bottom: var(--gap);
+  }
+}
+
+/* Clear of the group headings' gutter, so the mark sits over the
+   icons and what you type over the link names. */
+@media (min-width: 1120px) {
+  .prompt {
+    margin-left: var(--gutter);
   }
 }
 
@@ -208,7 +211,11 @@ svg {
    so a group fills whole rows and only an odd count leaves a cell
    empty. Wider screens set the blocks in columns (see the layout
    above); a block moving to the next column drops its top margin
-   there, so every column starts on the same line. */
+   there, so every column starts on the same line. From 1120px a
+   group is a row: the heading in a gutter, the links in six columns
+   that line up from group to group. A group of more than six would
+   wrap to a second row, so groups are set further apart than the
+   rows inside one, to keep the two apart. */
 .group + .group {
   margin-top: var(--gap);
 }
@@ -261,6 +268,24 @@ svg {
   }
 }
 
+/* The heading's padding centres it on the first row of links. */
+@media (min-width: 1120px) {
+  .group {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .group + .group {
+    margin-top: calc(var(--gap) / 2);
+  }
+
+  .group h2 {
+    margin: 0;
+    padding-top: calc((var(--row) - 20px) / 2);
+  }
+}
+
 /* "open all" is the Enter candidate: light the whole group. */
 .group.is-selected h2 {
   color: var(--accent);
@@ -277,8 +302,9 @@ svg {
 
 /* Negative margins let each link's hover box bleed past the column
    edge, so the icons line up with the group heading above. Two
-   columns at every width but the narrowest, since the groups hold 4,
-   6 or 10 links: an even count fills its last row. */
+   columns at every width but the narrowest, since the groups hold 4
+   or 6 links: an even count fills its last row. Six from 1120px,
+   where a group is a row, with a narrower gap to fit them. */
 .links {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -291,6 +317,13 @@ svg {
 @media (min-width: 340px) {
   .links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1120px) {
+  .links {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0 8px;
   }
 }
 
