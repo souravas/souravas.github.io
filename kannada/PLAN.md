@@ -22,7 +22,7 @@ Order of work (numbers are the ones Sourav picked from):
       Whole note mode, progress in the Lessons sheet.
 - [x] 2. Start here: the three spelling rules and how a day works, first
       visit and from the bar.
-- [ ] 5. Street phrases in week one: Lessons 2 to 7 get `[!say]` lines
+- [x] 5. Street phrases in week one: Lessons 2 to 7 get `[!say]` lines
       from Lessons 58 and 60, flagged as not yet checked by a speaker.
 - [ ] 4. "Learn today" and "For later" in Lessons 1 to 33: 8 to 15 lines
       to learn, look-up tables folded, nothing deleted.

@@ -940,6 +940,10 @@ td:last-child {
   color: var(--body);
 }
 
+.say-line {
+  display: block;
+}
+
 .step .action {
   grid-column: 3;
   grid-row: 1 / span 2;

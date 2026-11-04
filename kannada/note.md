@@ -176,6 +176,8 @@ Skip this on the first pass. Come back to it when you have an ending in your ear
 
 Lesson 1 to Lesson 33. The sounds, the words and the three tenses. At the end of this block you can introduce yourself, ask and answer a question, and say what you did yesterday and what you will do tomorrow.
 
+The first seven lessons each end on a Say it today, a line or two to use on a real person that day. From Lesson 2 they come forward from Lessons 58 and 60, the market and the auto, so the first week already has something to say outside. Learn them as whole phrases; the lessons that take them apart come later. Those two lessons are among the ones the Overview says to run past a Kannada speaker first.
+
 ## Lesson 1 — Sounds That Change the Meaning
 
 Today is one rule and five pairs of words, about ten minutes. You do not need the script. You do need the sounds, because Kannada separates pairs that English runs together, and a wrong one turns a word into a different word. Learn this lesson before the word lists start, or you will learn half the vocabulary wrong.
@@ -281,6 +283,14 @@ Spoken and written Kannada differ mostly in the verb ending, and the two registe
 |spoken|naanu yOga maaDtEne|I do yoga|
 |written|naanu yOga maaDuttEne|I do yoga|
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |how much is this?|idu eshTu?|
+> |that is enough.|saaku|
+>
+> Both from the market, Lesson 58. `idu` is this and `eshTu` is how much, and there is no verb: the rule above, at a stall.
+
 ## Lesson 3 — Greetings
 
 |English|Kannada|
@@ -335,6 +345,14 @@ Wishing someone on a festival is one formula: the name of the festival, then `ha
 
 The new year and Kannada Rajyotsava, the day Karnataka was formed, are not a `habba`, so the ending goes straight onto their own names.
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |thank you|dhanyavaada|
+> |put the meter.|meter haaki|
+>
+> The first is from this lesson. The second is the first thing to say in an auto, from Lesson 60.
+
 ## Lesson 4 — Yes, No, Please and Sorry
 
 |English|Kannada|
@@ -367,6 +385,14 @@ The sentence starts with `nanage`, to me, and not with `naanu`. That is not a sl
 
 `gottilla` is *know-not*. Adding `-aa` to the end of a word turns it into a yes-or-no question, which is how `gottaa` is built, and Lesson 30 has the rule in full.
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I do not want it.|nanage bEDa|
+> |how much in total?|eshTu aaytu?|
+>
+> Both from the market, Lesson 58. `bEDa` and `eshTu` are this lesson's, and `nanage` is the to me that Lesson 38 explains.
+
 ## Lesson 5 — Parts of the Day and Days Around Today
 
 |English|Kannada|
@@ -390,6 +416,14 @@ The sentence starts with `nanage`, to me, and not with `naanu`. That is not a sl
 |later, then|aamEle|
 
 Morning is also heard as `beLagge`, and both spellings are the same word. Lesson 56 has the weekdays, the months and the seasons, and Lesson 57 has the clock.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |go straight.|nEra hOgi|
+> |a little ahead|swalpa munde|
+>
+> Both from the auto, Lesson 60: the two lines that get you to the right gate.
 
 ## Lesson 6 — Pronouns, Far and Near
 
@@ -434,6 +468,14 @@ In front of a noun, `idu` and `adu` shrink to `ee` and `aa`, and the near and fa
 |this charger|ee charger|
 |this is a charger.|idu charger|
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |stop here.|illi nillisi|
+> |show me this one.|idanna tOrisi|
+>
+> `illi`, here, is this lesson's, and `idanna` is `idu`, this, as the thing shown. From Lessons 60 and 58.
+
 ## Lesson 7 — Plurals
 
 Things take `-gaLu`. People usually take `-ru`. The ending does the work of s or es in English.
@@ -462,6 +504,14 @@ Things take `-gaLu`. People usually take `-ru`. The ending does the work of s or
 |they are students.|avaru vidyaarthigaLu|
 
 `neevu vidyaarthi` and `neevu vidyaarthigaLu` are not the same sentence. The first is one person addressed politely; the second is more than one student.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |will you go to Jayanagar? The opening line.|Jayanagara-kke bartIraa?|
+> |that is too much.|tumba jaasti|
+>
+> The opening line in an auto, from Lesson 60, with your own stop in place of Jayanagar, and the answer to its price, from Lesson 58.
 
 ## Lesson 8 — Possessives
 

@@ -105,14 +105,15 @@ const lessonLink = (n, text = `Lesson ${n}`) => {
   return a;
 };
 
-// The lesson's Say it today line, from its callout, or none.
-function sayLine(n) {
-  const row = section(n)?.querySelector(".callout-say tbody tr");
-  if (!row) return null;
-  const cells = [...row.cells];
-  const kn = cells.find((c) => c.classList.contains("kn"));
-  const en = cells.find((c) => !c.classList.contains("kn"));
-  return kn ? { kn: kn.textContent.trim(), en: en?.textContent.trim() ?? "" } : null;
+// The lesson's Say it today lines, from its callout: none, one or two.
+function sayLines(n) {
+  const rows = section(n)?.querySelectorAll(".callout-say tbody tr") ?? [];
+  return [...rows].flatMap((row) => {
+    const cells = [...row.cells];
+    const kn = cells.find((c) => c.classList.contains("kn"));
+    const en = cells.find((c) => !c.classList.contains("kn"));
+    return kn ? [{ kn: kn.textContent.trim(), en: en?.textContent.trim() ?? "" }] : [];
+  });
 }
 
 function plan(n) {
@@ -157,9 +158,17 @@ function plan(n) {
 
   list.append(step(n, "listen", "Listen", noteOf("Five minutes of real Kannada, the same clip all week. ", lessonLink(88), " says where.")));
 
-  const line = sayLine(n);
-  const sayNote = line
-    ? noteOf(el("span", "kn", line.kn), line.en ? ` (${line.en.replace(/[.!]$/, "")})` : "")
+  const lines = sayLines(n);
+  const sayNote = lines.length
+    ? noteOf(
+        ...lines.map(({ kn, en }) => {
+          const line = el("span", "say-line");
+          // "will you go to Jayanagar? The opening line." loses its note.
+          const gloss = en.replace(/([.?!]) [A-Z].*$/, "$1").replace(/[.!]$/, "");
+          line.append(el("span", "kn", kn), gloss ? ` (${gloss})` : "");
+          return line;
+        }),
+      )
     : noteOf("One line from the last few lessons, to a real person.");
   list.append(step(n, "say", "Say it to someone", sayNote));
   return list;
