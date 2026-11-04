@@ -1,3 +1,6 @@
+import { loadCards, preloadCards, shuffle } from "./cards.js";
+import { deckMessage, openDeck } from "./deck.js";
+
 /* ---------- Where you are ----------
    The bar lights the part on screen, the Lessons button names the
    lesson on screen, and the Lessons sheet lights that lesson's number.
@@ -118,5 +121,55 @@
   document.addEventListener("click", (e) => {
     if (!document.body.classList.contains("is-covering") || e.target.closest("a")) return;
     e.target.closest("td.c")?.classList.toggle("is-shown");
+  });
+})();
+
+/* ---------- Quiz ----------
+   Each lesson with cards ends on a Quiz button (render.js writes it,
+   hidden until this shows it). A quiz is up to eight of the lesson's
+   cards: its Say it today lines always, the rest at random. Lesson 1's
+   sound pairs go first, then half the lines to recognise and half to
+   say, the Say it today lines among the ones to say. */
+function lessonQuiz(cards, n, size) {
+  const { cards: all, say } = cards.lesson(n);
+  const picked = new Set(say.slice(0, 2));
+  for (const card of shuffle(all.slice())) {
+    if (picked.size >= size) break;
+    picked.add(card);
+  }
+  const chosen = [...picked];
+  const sayCards = chosen.filter((c) => say.includes(c));
+  const lines = shuffle(chosen.filter((c) => !c.pair && !say.includes(c)));
+  const half = Math.ceil((lines.length + sayCards.length) / 2);
+  return [
+    ...chosen.filter((c) => c.pair).map((card) => ({ card, mode: "pair" })),
+    ...lines.slice(0, half).map((card) => ({ card, mode: "recognise" })),
+    ...shuffle([...lines.slice(half), ...sayCards]).map((card) => ({ card, mode: "recall" })),
+  ];
+}
+
+(() => {
+  const ends = document.querySelectorAll(".lesson-end");
+  if (!ends.length || !document.getElementById("deck")) return;
+  for (const end of ends) end.hidden = false;
+  preloadCards();
+
+  document.addEventListener("click", async (e) => {
+    const quiz = e.target.closest("[data-quiz]");
+    if (!quiz || quiz.getAttribute("aria-busy") === "true") return;
+    const n = Number(quiz.dataset.quiz);
+    quiz.setAttribute("aria-busy", "true");
+    try {
+      const cards = await loadCards();
+      openDeck({
+        title: `Lesson ${n} quiz`,
+        items: lessonQuiz(cards, n, Number(quiz.dataset.size) || 8),
+        pool: () => cards.near(n),
+      });
+    } catch (error) {
+      deckMessage(`Lesson ${n} quiz`, `${error.message} Check the connection and try again.`);
+    } finally {
+      quiz.removeAttribute("aria-busy");
+    }
   });
 })();

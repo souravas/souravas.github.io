@@ -183,10 +183,22 @@ const buildStamps = () => ({
 // land on an id, so a renamed heading shows up as a warning.
 const KANNADA_NOTE = 'kannada/note.md'
 
+// The quizzes' cards, built from the note's tables, go in a file of their
+// own (/kannada/cards.<hash>.json, named in the page's <!--cards--> meta)
+// so the page stays light; main.js fetches it once the page is idle. The
+// hash changes with the cards, so a cached page never meets new cards.
 const kannadaNote = () => {
   let root = process.cwd()
   let logger = console
+  let cards = null
   const warn = (message) => logger.warn(`[kannada-note] ${message}`)
+  const render = () => {
+    const note = renderNote(readFileSync(resolve(root, KANNADA_NOTE), 'utf8'), { warn })
+    const json = JSON.stringify(note.cards)
+    const hash = createHash('sha1').update(json).digest('hex').slice(0, 8)
+    cards = { fileName: `kannada/cards.${hash}.json`, source: json }
+    return note
+  }
   return {
     name: 'kannada-note',
     configResolved(config) {
@@ -199,13 +211,26 @@ const kannadaNote = () => {
       server.watcher.on('change', (file) => {
         if (resolve(file) === note) server.ws.send({ type: 'full-reload' })
       })
+      // Dev serves the cards of the note as it is now, whatever the hash.
+      server.middlewares.use((req, res, next) => {
+        if (!/^\/kannada\/cards\.[0-9a-f]+\.json$/.test(req.url.split('?')[0])) return next()
+        render()
+        res.setHeader('Content-Type', 'application/json')
+        res.end(cards.source)
+      })
+    },
+    generateBundle() {
+      if (cards) this.emitFile({ type: 'asset', fileName: cards.fileName, source: cards.source })
     },
     transformIndexHtml: {
       order: 'pre',
       handler(html) {
         if (!html.includes('<!--note-->')) return html
-        const note = renderNote(readFileSync(resolve(root, KANNADA_NOTE), 'utf8'), { warn })
-        const out = html.replace('<!--note-->', () => note.html).replace('<!--lessons-->', () => note.jump)
+        const note = render()
+        const out = html
+          .replace('<!--note-->', () => note.html)
+          .replace('<!--lessons-->', () => note.jump)
+          .replace('<!--cards-->', () => `<meta name="cards" content="/${cards.fileName}" />`)
         const ids = new Set([...out.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]))
         const missing = new Set([...out.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]).filter((id) => !ids.has(id)))
         for (const id of missing) warn(`#${id} links to nothing`)

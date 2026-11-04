@@ -767,6 +767,375 @@ td:last-child {
   }
 }
 
+/* ---------- Actions ----------
+   The page's few real buttons: Quiz, and the moves inside a card. The
+   bar's mono labels, a thumb's height, lit in the accent. Quiet ones
+   (Not yet) keep to grey. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgb(184 177 255 / 0.45);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--accent);
+  font: 400 12px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.action.quiet {
+  border-color: var(--rule);
+  color: var(--body);
+}
+
+.action[hidden] {
+  display: none;
+}
+
+.action[aria-busy='true'] {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+@media (hover: hover) {
+  .action:hover {
+    background: rgb(184 177 255 / 0.08);
+    color: var(--text);
+  }
+
+  .action.quiet:hover {
+    border-color: #3a3a3a;
+    background: var(--hover);
+  }
+}
+
+.action:active {
+  background: rgb(184 177 255 / 0.12);
+}
+
+.action:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Lesson end ----------
+   A lesson's last line: its quiz. */
+.lesson-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 28px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.lesson-end[hidden] {
+  display: none;
+}
+
+.lesson-end-note {
+  margin: 0;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ---------- Deck ----------
+   A quiz or a review, a card at a time. Phones: the whole screen, the
+   moves at the foot, in reach of a thumb. Wider: a panel in the middle.
+   Right and wrong are a quiet green and red, the only colours on the
+   page besides the accent. */
+.deck {
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  border: 0;
+  background: var(--bg);
+  color: var(--body);
+}
+
+.deck[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.deck::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+
+body:has(.deck[open]) {
+  overflow: hidden;
+}
+
+@media (min-width: 760px) {
+  .deck {
+    width: 560px;
+    height: fit-content;
+    max-height: 86vh;
+    margin: auto;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+}
+
+.deck-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 12px max(16px, env(safe-area-inset-left));
+}
+
+@media (min-width: 760px) {
+  .deck-head {
+    padding: 14px 20px 12px;
+  }
+}
+
+.deck-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deck-count {
+  margin: 0;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.deck-progress {
+  display: block;
+  flex: none;
+  width: 100%;
+  height: 2px;
+  border: 0;
+  background: var(--line);
+  color: var(--accent);
+  appearance: none;
+}
+
+.deck-progress::-webkit-progress-bar {
+  background: var(--line);
+}
+
+.deck-progress::-webkit-progress-value {
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.deck-progress::-moz-progress-bar {
+  background: var(--accent);
+}
+
+.deck-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: 32px max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (min-width: 760px) {
+  .deck-body {
+    padding: 32px 20px 20px;
+  }
+}
+
+.deck-ask {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.deck-prompt {
+  margin: 0;
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.deck .deck-prompt.kn,
+.deck .deck-answer.kn {
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+
+.deck-hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.deck-options {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0 0;
+}
+
+.deck-options.is-pair {
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+.deck-option {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: none;
+  color: var(--body);
+  font: 400 16px/1.4 var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.is-pair .deck-option {
+  justify-content: center;
+  color: var(--text);
+  font: 400 18px/1.4 var(--font-mono);
+}
+
+.is-pair .deck-key {
+  display: none;
+}
+
+.deck-key {
+  flex: none;
+  color: var(--muted);
+  font: 400 11px/1 var(--font-mono);
+}
+
+/* The numbers are keys to press, so a touch screen leaves them out. */
+@media (hover: none) {
+  .deck-key {
+    display: none;
+  }
+}
+
+@media (hover: hover) {
+  .deck-option:not(:disabled):hover {
+    border-color: #3a3a3a;
+    background: var(--hover);
+    color: var(--text);
+  }
+}
+
+.deck-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.deck-option:disabled {
+  cursor: default;
+}
+
+.deck-option.is-right {
+  border-color: rgb(134 239 172 / 0.55);
+  color: #bbf7d0;
+}
+
+.deck-option.is-wrong {
+  border-color: rgb(252 165 165 / 0.55);
+  color: #fecaca;
+}
+
+.deck-note {
+  min-height: 26px;
+  margin: 16px 0 0;
+  color: var(--body);
+}
+
+.deck-reveal {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.deck-reveal[hidden] {
+  display: none;
+}
+
+.deck-answer {
+  margin: 0;
+  color: var(--text);
+}
+
+.deck-also {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.deck-missed {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deck-missed li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.deck-missed-en {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* The moves sit at the foot of the card: on a phone, under a thumb. */
+.deck-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.deck-actions .action {
+  flex: 1 1 0;
+}
+
 /* ---------- Lessons sheet ----------
    Phones: a sheet from the bottom, in reach of a thumb. Wider: a
    panel in the middle. Never given a display, so the popover's own
@@ -929,13 +1298,17 @@ td:last-child {
   .bar-button,
   a,
   .chip,
-  .callout summary {
+  .callout summary,
+  .action,
+  .deck-option,
+  .deck-progress::-webkit-progress-value {
     transition: none;
   }
 }
 
 /* ---------- Print ----------
-   Black on white, without the bar, the sheet or the footer. */
+   Black on white, without the bar, the sheet, the quizzes or the
+   footer. */
 @media print {
   :root {
     --bg: #fff;
@@ -950,7 +1323,9 @@ td:last-child {
 
   .bar,
   .jump,
-  .foot {
+  .foot,
+  .deck,
+  .lesson-end {
     display: none;
   }
 

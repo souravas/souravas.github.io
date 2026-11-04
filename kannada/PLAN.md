@@ -1,6 +1,6 @@
 # /kannada improvement plan (temporary handoff file)
 
-Sourav asked for all twelve improvements below, each committed and pushed
+Sourav asked for the improvements below (all of the list but 12, recording yourself, which he dropped), each committed and pushed
 to `main` on its own, so a new chat can pick up from the first unchecked
 item. Delete this file once every item is done. The build does not ship
 it: only `note.md` is read from this folder.
@@ -10,7 +10,7 @@ Order of work (numbers are the ones Sourav picked from):
 - [x] 3. Lesson 1 as a 10-minute start: the rule and the five sound
       pairs stay, everything else folds under `> [!later]-`, and it ends
       with `> [!say] Say it today`: `nanage Kannada gottilla`.
-- [ ] 6. Quiz at the end of each lesson: cards built at build time from the
+- [x] 6. Quiz at the end of each lesson: cards built at build time from the
       lesson's English/Kannada tables (not from `[!later]` folds or exercise
       tables), run in a dialog. Recognise (Kannada shown, pick the English
       of 4), recall (English shown, say it, reveal, Got it / Not yet), and
@@ -31,7 +31,6 @@ Order of work (numbers are the ones Sourav picked from):
 - [ ] 11. Play Kannada lines with the device's Kannada voice: the note's
       spelling turned into Kannada script, tap a line to hear it.
 - [ ] 10. Anki deck: the build writes `/kannada/anki.txt`.
-- [ ] 12. Record yourself in a card and compare with the voice.
 
 Content edits keep to what the note already says: no new Kannada beyond
 lines already in it. `note.md` now differs from the vault's copy, so it

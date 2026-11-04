@@ -8,6 +8,8 @@
    wiki-links — and nothing more.
    ============================================================ */
 
+import { createHash } from 'node:crypto'
+
 // The vault the note lives in, the one /start's Obsidian link opens. A
 // wiki-link to another note in it opens that note in Obsidian.
 const VAULT = 'hope'
@@ -277,6 +279,123 @@ function headingId(text, ctx) {
   return id
 }
 
+/* ---------- Cards ----------
+   The quizzes and the review are built from the lessons' own tables, so
+   they never hold a line the note does not. A table gives a card for
+   each row and each Kannada column, asked from the row's English: the
+   column headed English (or Meaning, or What it means), else a Number
+   or Case column. A card's id is a hash of its English and Kannada, so
+   a line two lessons share is one card, and a line that changes in the
+   note becomes a new one. Left out: the look-up tables folded under
+   [!later], exercise tables (the ones an Answers callout follows, whose
+   rows are shuffled on purpose), cells with backticks (English that
+   marks its own Kannada) and anything over a long sentence. */
+
+const PROMPT_COLUMNS = [/^English/, /^(Meaning|What it means)$/, /^(Number|Case)$/]
+// Kannada columns that the row's English does not translate: Lesson 8's
+// "naanu" beside "my, mine", Lesson 12's "eraDu" that twenty is built from.
+const SKIP_COLUMNS = new Set(['Pronoun', 'Person', 'Built from'])
+// English columns that give the answer away, kept out of a card's hint:
+// Lesson 18's formula, Lesson 36's "the possessive, nanna jote".
+const HINT_SKIP = new Set(['Formula', 'Follows', 'Lesson', 'Lessons'])
+const MAX_CARD = 140
+// How many cards a lesson's quiz asks, at most.
+const QUIZ_SIZE = 8
+
+const cardId = (...parts) => createHash('sha1').update(parts.join('\n')).digest('hex').slice(0, 10)
+
+// A cell as plain text: no backticks, emphasis or link syntax.
+const stripInline = (s) =>
+  s.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, target, alias) => alias ?? target.replace(/^#/, ''))
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/\*([^*\s][^*]*?)\*/g, '$1')
+    .replace(/`/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+const KANNADA_SCRIPT = /\p{Script=Kannada}/u
+
+function addCard(ctx, id, card) {
+  if (!ctx.cards.has(id)) ctx.cards.set(id, card)
+  const lesson = ctx.lessonCards.get(ctx.lesson.n)
+  if (!lesson.cards.includes(id)) lesson.cards.push(id)
+  if (ctx.say && !lesson.say.includes(id)) lesson.say.push(id)
+  return id
+}
+
+// The cards of one table, as their ids, or none.
+function tableCards(block, ctx) {
+  if (!ctx.lesson || ctx.later || block.exercise) return []
+  const headers = block.header.map(plainText)
+  const ids = []
+
+  // Lesson 1's sound pairs: "haalu / haaLu" against "milk / ruined".
+  if (headers[0] === 'Pair' && headers[1] === 'Meaning') {
+    for (const row of block.rows) {
+      const words = stripInline(row[0] ?? '').split(' / ')
+      const meanings = stripInline(row[1] ?? '').split(' / ')
+      if (words.length < 2 || words.length !== meanings.length) continue
+      ids.push(addCard(ctx, cardId('pair', ...words), { pair: true, en: meanings, kn: words, lesson: ctx.lesson.n }))
+    }
+    return ids
+  }
+
+  const english = headers.map(isEnglishColumn)
+  const prompts = PROMPT_COLUMNS.map((re) => headers.flatMap((h, i) => (english[i] && re.test(h) ? [i] : []))).find((cols) => cols.length) ?? []
+  if (!prompts.length) return []
+  let answers = headers.flatMap((h, i) => (!english[i] && !SKIP_COLUMNS.has(h) ? [i] : []))
+  if (headers.includes('Kannada')) answers = answers.filter((i) => headers[i] === 'Kannada')
+  const found = []
+  for (const row of block.rows) {
+    for (const k of answers) {
+      // The English nearest the left of the answer, as in English | Kannada
+      // | English | Kannada, or else the first.
+      const e = [...prompts].reverse().find((i) => i < k) ?? prompts[0]
+      const raw = row[k] ?? ''
+      const en = stripInline(row[e] ?? '')
+      const kn = stripInline(raw)
+      if (!en || !kn || kn === '—' || en === '—' || raw.includes('`')) continue
+      if (KANNADA_SCRIPT.test(en) || !/[a-z]/i.test(kn) || en.length > MAX_CARD || kn.length > MAX_CARD) continue
+      // The rest of the row's English says which form it is: Lesson 2's
+      // "spoken", Lesson 13's "100", a speaker in a conversation.
+      const extra = english.flatMap((isEnglish, i) => (isEnglish && i !== e && !prompts.includes(i) && !HINT_SKIP.has(headers[i]) && row[i] ? [stripInline(row[i])] : []))
+      found.push({ en, kn, k, extra })
+    }
+  }
+  // When the cards come from Kannada columns with different headings, a
+  // card names the one it asks for, and a subheading in the lesson names
+  // what the table is about (Lesson 29's "Do", Lesson 9's "Plural").
+  const many = new Set(found.map((f) => headers[f.k])).size > 1
+  const sub = many && ctx.sub ? ctx.sub.toLowerCase() : ''
+  for (const { en, kn, k, extra } of found) {
+    const hint = [sub, many ? headers[k].toLowerCase() : '', ...extra].filter(Boolean).join(' · ')
+    ids.push(addCard(ctx, cardId(en, kn), { en, kn, hint, lesson: ctx.lesson.n }))
+  }
+  return ids
+}
+
+// A table or list that an Answers callout follows is an exercise.
+function markExercises(blocks) {
+  blocks.forEach((block, i) => {
+    const next = blocks[i + 1]
+    if (next?.type === 'callout' && next.kind === 'success') block.exercise = true
+    if (block.body) markExercises(block.body)
+  })
+}
+
+// The cards as the page reads them: each card once, by id; each table's
+// card ids, by the key in its data-deck ("12.3", Lesson 12's third
+// table with cards), which together are its lesson's; and each lesson's
+// Say it today lines.
+function cardData(ctx) {
+  const cards = {}
+  for (const [id, c] of ctx.cards) cards[id] = [c.en, c.kn, c.hint ?? '', c.lesson, c.pair ? 1 : 0]
+  const say = {}
+  for (const [n, l] of ctx.lessonCards) if (l.say.length) say[n] = l.say
+  return { cards, decks: ctx.decks, say }
+}
+
 /* ---------- Rendering ---------- */
 
 function renderHeading(block, ctx) {
@@ -333,7 +452,16 @@ function renderTable(block, ctx) {
   }
   const head = block.header.map((h) => `<th scope="col">${inline(h, ctx, { links: false })}</th>`).join('')
   const rows = block.rows.map((row) => `<tr>${headers.map((_, i) => cell(row[i] ?? '', i)).join('')}</tr>`).join('\n')
-  return `<div class="table"><table${classes.length ? ` class="${classes.join(' ')}"` : ''}><thead><tr>${head}</tr></thead><tbody>\n${rows}\n</tbody></table></div>`
+  // A table that gives cards gets a key, lesson and table number, that
+  // names its cards in the cards file: for drilling it on its own.
+  const ids = tableCards(block, ctx)
+  let deck = ''
+  if (ids.length) {
+    const key = `${ctx.lesson.n}.${ctx.lessonCards.get(ctx.lesson.n).tables++}`
+    ctx.decks[key] = ids
+    deck = ` data-deck="${key}"`
+  }
+  return `<div class="table"${deck}><table${classes.length ? ` class="${classes.join(' ')}"` : ''}><thead><tr>${head}</tr></thead><tbody>\n${rows}\n</tbody></table></div>`
 }
 
 // Two kinds are the page's own, and Obsidian draws them as plain notes:
@@ -342,7 +470,11 @@ function renderTable(block, ctx) {
 // lesson itself stays a day's work.
 function renderCallout(block, ctx) {
   const title = block.title ? inline(block.title, ctx) : block.kind[0].toUpperCase() + block.kind.slice(1)
+  const outer = { later: ctx.later, say: ctx.say }
+  ctx.later ||= block.kind === 'later'
+  ctx.say ||= block.kind === 'say'
   const body = block.body.map((b) => renderBlock(b, ctx)).join('\n')
+  Object.assign(ctx, outer)
   const kind = /^[a-z]+$/.test(block.kind) ? ` callout-${block.kind}` : ''
   if (!block.fold) return `<div class="callout${kind}"><p class="callout-title">${title}</p><div class="callout-body">${body}</div></div>`
   return `<details class="callout${kind}"${block.fold === '+' ? ' open' : ''}><summary>${title}</summary><div class="callout-body">${body}</div></details>`
@@ -380,17 +512,37 @@ function renderJump(parts) {
 export function renderNote(markdown, { warn = () => {} } = {}) {
   const text = markdown.replace(/\r\n?/g, '\n').replace(/^---\n[\s\S]*?\n---\n/, '')
   const blocks = parseBlocks(text.split('\n'))
+  markExercises(blocks)
   const { byText, parts } = assignIds(blocks)
   const ctx = {
     ids: byText,
     lessons: new Set(parts.flatMap((part) => part.lessons.map((l) => l.n))),
     lexicon: collectKannada(blocks),
     warn,
+    // Where the renderer is: the lesson, the subheading inside it, and
+    // whether it is inside a For later or a Say it today callout.
+    lesson: null,
+    sub: null,
+    later: false,
+    say: false,
+    cards: new Map(),
+    lessonCards: new Map(),
+    decks: {},
   }
   const html = []
   const open = []
+  // A lesson with cards ends on its quiz, which main.js shows (it needs
+  // JS, so it starts hidden). data-size is how many cards a quiz asks.
+  const end = () => {
+    const cards = ctx.lesson && ctx.lessonCards.get(ctx.lesson.n).cards
+    if (!cards?.length) return
+    const n = ctx.lesson.n
+    const size = Math.min(QUIZ_SIZE, cards.length)
+    html.push(`<div class="lesson-end" hidden><button class="action" type="button" data-quiz="${n}" data-size="${size}">Quiz</button><p class="lesson-end-note">${size} cards from Lesson ${n}</p></div>`)
+  }
   const close = (level) => {
     while (open.length && open.at(-1) >= level) {
+      if (open.at(-1) === 2) end()
       html.push('</section>')
       open.pop()
     }
@@ -398,11 +550,16 @@ export function renderNote(markdown, { warn = () => {} } = {}) {
   for (const block of blocks) {
     if (block.type === 'heading' && block.level <= 2) {
       close(block.level)
+      ctx.lesson = block.lesson ?? null
+      ctx.sub = null
+      if (ctx.lesson) ctx.lessonCards.set(ctx.lesson.n, { cards: [], say: [], tables: 1 })
       html.push(`<section class="${block.level === 1 ? 'part' : block.lesson ? 'lesson' : 'sub'}">`)
       open.push(block.level)
+    } else if (block.type === 'heading' && ctx.lesson) {
+      ctx.sub = block.text
     }
     html.push(renderBlock(block, ctx))
   }
   close(0)
-  return { html: html.join('\n'), jump: renderJump(parts) }
+  return { html: html.join('\n'), jump: renderJump(parts), cards: cardData(ctx) }
 }

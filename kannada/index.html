@@ -21,6 +21,10 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
 
+  <!-- The quizzes' cards, a file of their own: the kannada-note plugin
+       in vite.config.js writes it and names it here. -->
+  <!--cards-->
+
   <link rel="stylesheet" href="/kannada/style.css" />
   <script type="module" src="/kannada/main.js"></script>
 </head>
@@ -71,5 +75,17 @@
     </div>
     <!--lessons-->
   </div>
+
+  <!-- Quizzes and reviews, a card at a time: full screen on phones, a
+       panel in the middle on wider screens. main.js fills it. -->
+  <dialog class="deck" id="deck" aria-labelledby="deck-title">
+    <div class="deck-head">
+      <p class="deck-title" id="deck-title">Quiz</p>
+      <p class="deck-count" id="deck-count"></p>
+      <button class="bar-button" type="button" id="deck-close">Close</button>
+    </div>
+    <progress class="deck-progress" id="deck-progress" max="1" value="0"></progress>
+    <div class="deck-body" id="deck-body"></div>
+  </dialog>
 </body>
 </html>
