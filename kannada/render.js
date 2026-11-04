@@ -126,8 +126,9 @@ function parseBlocks(lines) {
 
 /* ---------- Headings ----------
    Each heading gets an id: lesson-N for a lesson, lesson-N-name for a
-   heading inside one (Lessons 29 and 33 both have a "Speak"), and the
-   heading's words for the rest. Wiki-links find them by text. */
+   heading inside one (two lessons can share a heading's words, as
+   Lesson 33's "Speak" once did Lesson 29's), and the heading's words
+   for the rest. Wiki-links find them by text. */
 
 function assignIds(blocks) {
   const used = new Set()

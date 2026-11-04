@@ -296,32 +296,18 @@ Spoken and written Kannada differ mostly in the verb ending, and the two registe
 |English|Kannada|
 |---|---|
 |hello|namaskaara|
-|good morning|shubhOdaya|
-|good afternoon|shubha madhyaana|
-|good evening|shubha sanje|
-|good night|shubha raatri|
-|good day|shubha dina|
 |welcome, please come in|banni|
-|welcome, formal|suswaagata|
 |thank you|dhanyavaada|
-|many thanks, more formal|dhanyavaadagaLu|
-|wishes|shubhaashayagaLu|
-|congratulations|abhinandanegaLu|
-|well done|shabhaash|
-|all the best|shubhavaagali|
-|take care|hushaaru|
 |no problem, it is alright|paravaagilla|
 |how are you?|hEg-iddIra?|
 |I am fine.|chennaag-iddEne|
 |goodbye|hOgi bartEne|
 
-`shabhaash` is well done to a person; `abhinandanegaLu` is congratulations on an occasion. `paravaagilla` is the standard answer to an apology, and it also means not bad. It contracts to `parvaagilla` in speech.
-
-`dhanyavaadagaLu` is `dhanyavaada` plus the plural ending `-gaLu` from Lesson 7. The plural is the more formal of the two.
+`paravaagilla` is the standard answer to an apology, and it also means not bad. It contracts to `parvaagilla` in speech.
 
 Three of these are literal and worth taking apart. `hEg-iddIra` is *how you-are*. `chennaag-iddEne` is *good I-am*. And `hOgi bartEne` is *I will go and come* — Kannada has no goodbye that only means goodbye, because announcing you are leaving for good is rude, so you say you will be back. `bartEne` on its own does the same job.
 
-The `shubha` greetings are the written register, the kind that arrive on a card or a WhatsApp forward. Out loud, Bangalore says *good morning* and *good night* in English, and the greeting you will actually be given is a question about food.
+The `shubha` greetings, kept for later below, are the written register, the kind that arrive on a card or a WhatsApp forward. Out loud, Bangalore says *good morning* and *good night* in English, and the greeting you will actually be given is a question about food.
 
 |English|Kannada|
 |---|---|
@@ -331,20 +317,6 @@ The `shubha` greetings are the written register, the kind that arrive on a card 
 
 It is not an invitation and it is not really about food. Answer `aaytu` and ask it back, the way English answers *how are you* with *fine*. Lesson 26 takes the words apart.
 
-Wishing someone on a festival is one formula: the name of the festival, then `habbada shubhaashayagaLu`. `habba` is festival.
-
-|English|Kannada|
-|---|---|
-|happy Diwali|deepaavaLi habbada shubhaashayagaLu|
-|happy Christmas|Christmas habbada shubhaashayagaLu|
-|happy Holi|hOLi habbada shubhaashayagaLu|
-|happy birthday|huTTuhabbada shubhaashayagaLu|
-|happy Ugadi, the Kannada new year|yugaadi habbada shubhaashayagaLu|
-|happy new year|hosa varshada shubhaashayagaLu|
-|happy Kannada Rajyotsava, 1 November|Kannada raajyOtsavada shubhaashayagaLu|
-
-The new year and Kannada Rajyotsava, the day Karnataka was formed, are not a `habba`, so the ending goes straight onto their own names.
-
 > [!say] Say it today
 > |English|Kannada|
 > |---|---|
@@ -352,6 +324,40 @@ The new year and Kannada Rajyotsava, the day Karnataka was formed, are not a `ha
 > |put the meter.|meter haaki|
 >
 > The first is from this lesson. The second is the first thing to say in an auto, from Lesson 60.
+
+> [!later]- For later, the written greetings and the festival wishes
+> |English|Kannada|
+> |---|---|
+> |good morning|shubhOdaya|
+> |good afternoon|shubha madhyaana|
+> |good evening|shubha sanje|
+> |good night|shubha raatri|
+> |good day|shubha dina|
+> |welcome, formal|suswaagata|
+> |many thanks, more formal|dhanyavaadagaLu|
+> |wishes|shubhaashayagaLu|
+> |congratulations|abhinandanegaLu|
+> |well done|shabhaash|
+> |all the best|shubhavaagali|
+> |take care|hushaaru|
+>
+> `shabhaash` is well done to a person; `abhinandanegaLu` is congratulations on an occasion.
+>
+> `dhanyavaadagaLu` is `dhanyavaada` plus the plural ending `-gaLu` from Lesson 7. The plural is the more formal of the two.
+>
+> Wishing someone on a festival is one formula: the name of the festival, then `habbada shubhaashayagaLu`. `habba` is festival.
+>
+> |English|Kannada|
+> |---|---|
+> |happy Diwali|deepaavaLi habbada shubhaashayagaLu|
+> |happy Christmas|Christmas habbada shubhaashayagaLu|
+> |happy Holi|hOLi habbada shubhaashayagaLu|
+> |happy birthday|huTTuhabbada shubhaashayagaLu|
+> |happy Ugadi, the Kannada new year|yugaadi habbada shubhaashayagaLu|
+> |happy new year|hosa varshada shubhaashayagaLu|
+> |happy Kannada Rajyotsava, 1 November|Kannada raajyOtsavada shubhaashayagaLu|
+>
+> The new year and Kannada Rajyotsava, the day Karnataka was formed, are not a `habba`, so the ending goes straight onto their own names.
 
 ## Lesson 4 — Yes, No, Please and Sorry
 
@@ -449,16 +455,6 @@ Every third person pronoun comes in a far form and a near form. The far form sta
 
 `avaru` is both the plural they and the polite singular. Use it for one person you respect, the same way `neevu` works in the second person. A parent always takes it.
 
-|English|Kannada|
-|---|---|
-|he is my friend.|ivanu nanna friend|
-|that is his bag.|adu avana bag|
-|this is a charger.|idu charger|
-|that is a wall.|adu gODe|
-|she is Geeta.|avaLu Geeta|
-|she is Sunita, formal|avaru Sunita|
-|this is the Vidhana Soudha.|idu Vidhana Soudha|
-
 In front of a noun, `idu` and `adu` shrink to `ee` and `aa`, and the near and far split holds. `idu charger` is a whole sentence, *this is a charger*, while `ee charger` is only *this charger* and still needs a sentence around it.
 
 |English|Kannada|
@@ -476,6 +472,17 @@ In front of a noun, `idu` and `adu` shrink to `ee` and `aa`, and the near and fa
 >
 > `illi`, here, is this lesson's, and `idanna` is `idu`, this, as the thing shown. From Lessons 60 and 58.
 
+> [!later]- For later, more sentences with the pronouns
+> |English|Kannada|
+> |---|---|
+> |he is my friend.|ivanu nanna friend|
+> |that is his bag.|adu avana bag|
+> |this is a charger.|idu charger|
+> |that is a wall.|adu gODe|
+> |she is Geeta.|avaLu Geeta|
+> |she is Sunita, formal|avaru Sunita|
+> |this is the Vidhana Soudha.|idu Vidhana Soudha|
+
 ## Lesson 7 — Plurals
 
 Things take `-gaLu`. People usually take `-ru`. The ending does the work of s or es in English.
@@ -484,11 +491,8 @@ Things take `-gaLu`. People usually take `-ru`. The ending does the work of s or
 |---|---|---|
 |pustaka|pustakagaLu|books|
 |mane|manegaLu|houses|
-|haNNu|haNNugaLu|fruits|
-|hesaru|hesarugaLu|names|
 |huDuga|huDugaru|boys|
 |huDugi|huDugiyaru|girls|
-|shikshaka|shikshakaru|teachers|
 |vidyaarthi|vidyaarthigaLu|students|
 
 `-gaLu` also works for people and nobody will blink at it. In speech it shortens to `-gLu` — `pustakagLu`.
@@ -513,6 +517,13 @@ Things take `-gaLu`. People usually take `-ru`. The ending does the work of s or
 >
 > The opening line in an auto, from Lesson 60, with your own stop in place of Jayanagar, and the answer to its price, from Lesson 58.
 
+> [!later]- For later, three more plurals
+> |Singular|Plural|English|
+> |---|---|---|
+> |haNNu|haNNugaLu|fruits|
+> |hesaru|hesarugaLu|names|
+> |shikshaka|shikshakaru|teachers|
+
 ## Lesson 8 — Possessives
 
 Two tips carry the whole lesson. Any possessive about the first party — I, me, we — starts with `na`. Any possessive about the second party — you — starts with `ni`.
@@ -534,91 +545,108 @@ For a third person pronoun the final `u` becomes `a`. `adu` is the odd one and b
 |avaLu|avaLa|her|
 |avaru|avara|their, and his or her respectfully|
 |adu|adara|its|
-|ivanu|ivana|his, near|
-|ivaLu|ivaLa|her, near|
-|ivaru|ivara|their, near|
-|idu|idara|its, near|
 
 |English|Kannada|
 |---|---|
 |this is his bag.|idu avana bag|
-|this is her purse.|idu avaLa purse|
 |this is our Bengaluru.|idu namma Bengaluru|
 |you are my friend.|neenu nanna friend|
 |it is mine.|idu nannadu|
-|this is ours.|idu nammadu|
-|give it to me.|idu nanage koDi|
 |who are you?|neevu yaaru?|
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |this is our Bengaluru.|idu namma Bengaluru|
+>
+> `namma` is our, and the city's own word for itself: the metro is Namma Metro.
+
+> [!later]- For later, the near forms and three more sentences
+> |Pronoun|Possessive|English|
+> |---|---|---|
+> |ivanu|ivana|his, near|
+> |ivaLu|ivaLa|her, near|
+> |ivaru|ivara|their, near|
+> |idu|idara|its, near|
+>
+> |English|Kannada|
+> |---|---|
+> |this is her purse.|idu avaLa purse|
+> |this is ours.|idu nammadu|
+> |give it to me.|idu nanage koDi|
 
 ## Lesson 9 — The Possessive Formula Sheet
 
 Every pronoun is a root plus a case ending, so learning the seven endings covers all four parties. The root is `naa` for the first party, `nee` for the second and `ava` for the third. The case names read as: subject is *I*, possessive is *my*, standalone is *mine*, dative is *to me*, ablative is *from me*, locative is *at me* or *with me*, and benefactive is *for me*. Lesson 35 does the same thing for ordinary nouns and Lesson 37 puts every pronoun through every ending again.
 
-### Singular
-
-|Case|First Party|Second Party|Third Party Male|Third Party Female|
-|---|---|---|---|---|
-|Root|naa|nee|ava|ava|
-|Subject|naanu|neenu|avanu|avaLu|
-|Possessive|nanna|ninna|avana|avaLa|
-|Standalone|nannadu (nandu)|ninnadu (nindu)|avanadu|avaLadu|
-|Dative|nanage (nange)|ninage (ninge)|avanige|avaLige|
-|Ablative|nanninda|ninninda|avaninda|avaLinda|
-|Locative|nannalli|ninnalli|avanalli|avaLalli|
-|Benefactive|nanagaagi|ninagaagi|avanigaagi|avaLigaagi|
-
-The ablative is the possessive plus `inda`, and the locative is the possessive plus `alli`.
-
-### Plural
-
-The third party male and female forms are identical in the plural, so they share one column.
-
-|Case|First Party|Second Party|Third Party|
-|---|---|---|---|
-|Subject|naavu|neevu|avaru|
-|Possessive|namma|nimma|avara|
-|Standalone|nammadu|nimmadu|avaradu|
-|Dative|namage|nimage|avarige|
-|Ablative|namminda|nimminda|avarinda|
-|Locative|nammalli|nimmalli|avaralli|
-|Benefactive|namagaagi|nimagaagi|avarigaagi|
-
-### Notes on the Locative
-
-The singular locative — *with me* — is used to talk about a quality held within someone.
+Today, learn the first party through all seven, the column you will use most. The other roots take the same endings, and the whole sheet is folded below for when you need it.
 
 |English|Kannada|
 |---|---|
-|I have a good quality within me.|nannalli oLLeya guNa ide|
+|I|naanu|
+|my|nanna|
+|mine|nannadu (nandu)|
+|to me|nanage (nange)|
+|from me|nanninda|
+|at me, with me|nannalli|
+|for me|nanagaagi|
 
-The plural locative — *at us*, *with us* — usually tells about availability or presence.
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |where do I get it?|elli sigutte?|
+>
+> From the end of the sheet below: `sigutte` is the spoken *is available*, and the question is worth having ready for every shop.
 
-|English|Kannada|
-|---|---|
-|milk is available at us.|nammalli haalu doreyuttade|
-
-`doreyuttade` is the written word. Out loud it is `sigutte`, so the same line is `nammalli haalu sigutte`, and `elli sigutte?`, where do I get it, is worth having ready for every shop.
+> [!later]- For later, the whole formula sheet
+> **Singular**
+>
+> |Case|First Party|Second Party|Third Party Male|Third Party Female|
+> |---|---|---|---|---|
+> |Root|naa|nee|ava|ava|
+> |Subject|naanu|neenu|avanu|avaLu|
+> |Possessive|nanna|ninna|avana|avaLa|
+> |Standalone|nannadu (nandu)|ninnadu (nindu)|avanadu|avaLadu|
+> |Dative|nanage (nange)|ninage (ninge)|avanige|avaLige|
+> |Ablative|nanninda|ninninda|avaninda|avaLinda|
+> |Locative|nannalli|ninnalli|avanalli|avaLalli|
+> |Benefactive|nanagaagi|ninagaagi|avanigaagi|avaLigaagi|
+>
+> The ablative is the possessive plus `inda`, and the locative is the possessive plus `alli`.
+>
+> **Plural**
+>
+> The third party male and female forms are identical in the plural, so they share one column.
+>
+> |Case|First Party|Second Party|Third Party|
+> |---|---|---|---|
+> |Subject|naavu|neevu|avaru|
+> |Possessive|namma|nimma|avara|
+> |Standalone|nammadu|nimmadu|avaradu|
+> |Dative|namage|nimage|avarige|
+> |Ablative|namminda|nimminda|avarinda|
+> |Locative|nammalli|nimmalli|avaralli|
+> |Benefactive|namagaagi|nimagaagi|avarigaagi|
+>
+> **Notes on the Locative**
+>
+> The singular locative — *with me* — is used to talk about a quality held within someone.
+>
+> |English|Kannada|
+> |---|---|
+> |I have a good quality within me.|nannalli oLLeya guNa ide|
+>
+> The plural locative — *at us*, *with us* — usually tells about availability or presence.
+>
+> |English|Kannada|
+> |---|---|
+> |milk is available at us.|nammalli haalu doreyuttade|
+>
+> `doreyuttade` is the written word. Out loud it is `sigutte`, so the same line is `nammalli haalu sigutte`, and `elli sigutte?`, where do I get it, is worth having ready for every shop.
 
 ## Lesson 10 — Introduce Yourself
 
 Introducing yourself is the same handful of sentences every time: name, work, age, nationality, hometown, and where you have come from. Only the last one needs a verb.
-
-|English|Kannada|
-|---|---|
-|name|hesaru|
-|age|vayassu|
-|hometown|ooru|
-|mother tongue|maatru-bhaashe|
-|person|manushya|
-|boy|huDuga|
-|girl|huDugi|
-|student|vidyaarthi|
-|teacher|shikshaka|
-|engineer|abhiyantara|
-|doctor|vaidya|
-|scientist|vignyaani|
-|India|Bharata|
-|Indian|Bharatiya|
 
 Many English words have entered spoken Kannada. The pure Kannada word is preferred in a formal setting such as news or education; the English word is normal in everyday speech, above all in a city. So `naanu shikshaka` and `naanu teacher` are both correct, and for a job you have no word for, use the English noun — `naanu web designer`.
 
@@ -638,32 +666,6 @@ Many English words have entered spoken Kannada. The pure Kannada word is preferr
 
 `-inda` is from, and it hangs on the end of the place name — `Bengalur-inda`, `England-inda`. Lesson 35 has the rest of that ending.
 
-Here is a whole introduction, worked twice.
-
-|Kannada|English|
-|---|---|
-|namaskaara!|Hello!|
-|nanna hesaru Anil Kumble|My name is Anil Kumble.|
-|naanu cricketer|I am a cricketer.|
-|naanu Bharatiya, mattu Kannadiga|I am Indian, and a Kannadiga.|
-|nanna maatru-bhaashe Kannada|My mother tongue is Kannada.|
-|nanna ooru Bengaluru|My hometown is Bengaluru.|
-|Rahul Dravid nanna snEhita|Rahul Dravid is my friend.|
-|avanu kooDa obba cricketer|He is also a cricketer.|
-
-|Kannada|English|
-|---|---|
-|namaskaara!|Hello!|
-|nanna hesaru Deepika Padukone|My name is Deepika Padukone.|
-|naanu Bollywood actress|I am a Bollywood actress.|
-|nanna ooru Bengaluru|My hometown is Bengaluru.|
-|Prakash Padukone nanna appa|Prakash Padukone is my father.|
-|avaru doDDa badminton player|He is a great badminton player.|
-|Ranveer Singh nanna ganDa|Ranveer Singh is my husband.|
-|avanu Bollywood actor|He is a Bollywood actor.|
-
-Three new words come out of those: `mattu` is and, `kooDa` is also, and `doDDa` is big or great.
-
 Fill in the eight blanks and you have your own.
 
 - namaskaara
@@ -674,6 +676,57 @@ Fill in the eight blanks and you have your own.
 - nanna ooru — your hometown
 - naanu — place name plus `-inda bandiddEne`
 - nanna maatru-bhaashe — your mother tongue
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |my name is Sourav.|nanna hesaru Sourav|
+>
+> With your own name, said as one word: `nan-hesaru`.
+
+> [!later]- For later, the word list and two whole introductions
+> |English|Kannada|
+> |---|---|
+> |name|hesaru|
+> |age|vayassu|
+> |hometown|ooru|
+> |mother tongue|maatru-bhaashe|
+> |person|manushya|
+> |boy|huDuga|
+> |girl|huDugi|
+> |student|vidyaarthi|
+> |teacher|shikshaka|
+> |engineer|abhiyantara|
+> |doctor|vaidya|
+> |scientist|vignyaani|
+> |India|Bharata|
+> |Indian|Bharatiya|
+>
+> Here is a whole introduction, worked twice.
+>
+> |Kannada|English|
+> |---|---|
+> |namaskaara!|Hello!|
+> |nanna hesaru Anil Kumble|My name is Anil Kumble.|
+> |naanu cricketer|I am a cricketer.|
+> |naanu Bharatiya, mattu Kannadiga|I am Indian, and a Kannadiga.|
+> |nanna maatru-bhaashe Kannada|My mother tongue is Kannada.|
+> |nanna ooru Bengaluru|My hometown is Bengaluru.|
+> |Rahul Dravid nanna snEhita|Rahul Dravid is my friend.|
+> |avanu kooDa obba cricketer|He is also a cricketer.|
+>
+> |Kannada|English|
+> |---|---|
+> |namaskaara!|Hello!|
+> |nanna hesaru Deepika Padukone|My name is Deepika Padukone.|
+> |naanu Bollywood actress|I am a Bollywood actress.|
+> |nanna ooru Bengaluru|My hometown is Bengaluru.|
+> |Prakash Padukone nanna appa|Prakash Padukone is my father.|
+> |avaru doDDa badminton player|He is a great badminton player.|
+> |Ranveer Singh nanna ganDa|Ranveer Singh is my husband.|
+> |avanu Bollywood actor|He is a Bollywood actor.|
+>
+> Three new words come out of those: `mattu` is and, `kooDa` is also, and `doDDa` is big or great.
 
 ## Lesson 11 — Family and Kinship
 
@@ -688,79 +741,101 @@ Kannada names a relative more exactly than English does. A sibling term carries 
 |younger brother|tamma|
 |elder sister|akka|
 |younger sister|tangi|
-|grandmother|ajji|
-|grandfather|taata / ajja|
-
-Both sets of grandparents take the same two words. Kannada does not split maternal from paternal there.
-
-`doDDa` is big and `chikka` is small, and both work as a prefix. `doDD-amma` is big mother and `chikk-amma` is small mother, which marks the aunt as older or younger than your own mother.
-
-|English|Kannada|
-|---|---|
-|mother's elder sister|doDD-amma|
-|mother's younger sister|chikk-amma|
-|mother's brother|maava|
-|father's elder brother|doDD-appa|
-|father's younger brother|chikk-appa|
-|father's sister|atte|
-
-|English|Kannada|
-|---|---|
-|wife|henDati|
-|husband|ganDa|
-|mother-in-law|atte|
-|father-in-law|maava|
-
-`atte` and `maava` do double duty. They name the father's sister and the mother's brother from a child's view, and the mother-in-law and father-in-law from a married person's view. Both husband and wife use them for their own in-laws.
 
 |English|Kannada|
 |---|---|
 |children|makkaLu|
 |son|maga|
 |daughter|magaLu|
-|son-in-law|aLiya|
-|daughter-in-law|sose|
-|grandchildren|mommakkaLu|
-|grandson|mommaga|
-|granddaughter|mommagaLu|
 |friend, male|snEhita|
 |friend, female|snEhite|
 
-`makkaLu` is children, the irregular plural of `magu`, a child, so it follows neither ending from Lesson 7. `momma-` is the prefix that drops a generation, so `maga` becomes `mommaga` and `makkaLu` becomes `mommakkaLu`. `snEhita` and `snEhite` differ by one letter, and the ending marks the friend's gender, not yours.
+`makkaLu` is children, the irregular plural of `magu`, a child, so it follows neither ending from Lesson 7. `snEhita` and `snEhite` differ by one letter, and the ending marks the friend's gender, not yours.
 
 |English|Kannada|
 |---|---|
 |this is my mother.|ivaru nanna amma|
-|he is my father.|avaru nanna appa|
-|she is my friend.|avaLu nanna snEhite|
-|my father is a teacher.|nanna appa obba teacher|
 |how many people are in your family?|nimma kuTumbadalli eshTu jana iddaare?|
 
 Note `ivaru` and `iddaare` for one person. An elder always takes the plural verb — that is the respect, and Lesson 66 has the rest of it. A friend takes plain `avanu` or `avaLu`. A husband traditionally takes `avaru` from his wife too; many younger couples use `avanu`, and Lessons 10 and 21 do. In speech the ending vowels drop and the words run together, so `avaLu nanna snEhite` comes out as `avaL-nann-snEhite`.
-
-Here is a family introduced in one go.
-
-|Kannada|English|
-|---|---|
-|namaskaara! nanna hesaru Raj|Hello! My name is Raj.|
-|avanu nanna best friend. avana hesaru Peter|He is my best friend. His name is Peter.|
-|avaLu nanna classmate. avaLa hesaru Geeta|She is my classmate. Her name is Geeta.|
-|avaLu nanna akka. avaLa hesaru Divya|She is my elder sister. Her name is Divya.|
-|avanu nanna aNNa. avana hesaru Gopal|He is my elder brother. His name is Gopal.|
-|avaru nanna appa. avara hesaru Murthy|He is my father. His name is Murthy.|
-|avaru nanna amma. avara hesaru Sunita|She is my mother. Her name is Sunita.|
-|adu nanna bekku. adara hesaru Fluffy|That is my cat. Its name is Fluffy.|
-
-The parents take `avaru` and `avara`. The siblings, the friends and the cat take the plain forms. `hesaru Enu` is said as `hesar-Enu` every time.
 
 |English|Kannada|
 |---|---|
 |what is your name? Formal.|nimma hesaru Enu?|
 |what is your name? Informal.|ninna hesaru Enu?|
-|what is his name?|avana hesaru Enu?|
-|what is her name?|avaLa hesaru Enu?|
-|what is its name?|adara hesaru Enu?|
-|our names are Divya, Sunita and Raj.|namma hesarugaLu Divya, Sunita, mattu Raj|
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |what is your name? Formal.|nimma hesaru Enu?|
+>
+> The polite one, for anyone you do not know. `hesaru Enu` runs together as `hesar-Enu`.
+
+> [!later]- For later, the wider family and a family introduced
+> |English|Kannada|
+> |---|---|
+> |grandmother|ajji|
+> |grandfather|taata / ajja|
+>
+> Both sets of grandparents take the same two words. Kannada does not split maternal from paternal there.
+>
+> `doDDa` is big and `chikka` is small, and both work as a prefix. `doDD-amma` is big mother and `chikk-amma` is small mother, which marks the aunt as older or younger than your own mother.
+>
+> |English|Kannada|
+> |---|---|
+> |mother's elder sister|doDD-amma|
+> |mother's younger sister|chikk-amma|
+> |mother's brother|maava|
+> |father's elder brother|doDD-appa|
+> |father's younger brother|chikk-appa|
+> |father's sister|atte|
+>
+> |English|Kannada|
+> |---|---|
+> |wife|henDati|
+> |husband|ganDa|
+> |mother-in-law|atte|
+> |father-in-law|maava|
+>
+> `atte` and `maava` do double duty. They name the father's sister and the mother's brother from a child's view, and the mother-in-law and father-in-law from a married person's view. Both husband and wife use them for their own in-laws.
+>
+> |English|Kannada|
+> |---|---|
+> |son-in-law|aLiya|
+> |daughter-in-law|sose|
+> |grandchildren|mommakkaLu|
+> |grandson|mommaga|
+> |granddaughter|mommagaLu|
+>
+> `momma-` is the prefix that drops a generation, so `maga` becomes `mommaga` and `makkaLu` becomes `mommakkaLu`.
+>
+> |English|Kannada|
+> |---|---|
+> |he is my father.|avaru nanna appa|
+> |she is my friend.|avaLu nanna snEhite|
+> |my father is a teacher.|nanna appa obba teacher|
+>
+> Here is a family introduced in one go.
+>
+> |Kannada|English|
+> |---|---|
+> |namaskaara! nanna hesaru Raj|Hello! My name is Raj.|
+> |avanu nanna best friend. avana hesaru Peter|He is my best friend. His name is Peter.|
+> |avaLu nanna classmate. avaLa hesaru Geeta|She is my classmate. Her name is Geeta.|
+> |avaLu nanna akka. avaLa hesaru Divya|She is my elder sister. Her name is Divya.|
+> |avanu nanna aNNa. avana hesaru Gopal|He is my elder brother. His name is Gopal.|
+> |avaru nanna appa. avara hesaru Murthy|He is my father. His name is Murthy.|
+> |avaru nanna amma. avara hesaru Sunita|She is my mother. Her name is Sunita.|
+> |adu nanna bekku. adara hesaru Fluffy|That is my cat. Its name is Fluffy.|
+>
+> The parents take `avaru` and `avara`. The siblings, the friends and the cat take the plain forms. `hesaru Enu` is said as `hesar-Enu` every time.
+>
+> |English|Kannada|
+> |---|---|
+> |what is his name?|avana hesaru Enu?|
+> |what is her name?|avaLa hesaru Enu?|
+> |what is its name?|adara hesaru Enu?|
+> |our names are Divya, Sunita and Raj.|namma hesarugaLu Divya, Sunita, mattu Raj|
 
 ## Lesson 12 — Numbers 1 to 100
 
@@ -789,69 +864,77 @@ Every ten is its unit from the first table, shortened, plus a form of `hattu`. T
 
 Eleven and twelve are `han-` plus the unit. Thirteen through eighteen are `hadi-` plus the unit, `hadin-` before a vowel. Nineteen breaks both patterns and is `hattombattu`, ten plus nine, the same shape as `ippattombattu` for twenty-nine. From twenty-one up, every number is the ten plus the unit, in that order, with the units keeping the forms from the first table.
 
-|Number|Kannada|Number|Kannada|
-|---|---|---|---|
-|1|ondu|51|aivattondu|
-|2|eraDu|52|aivatteraDu|
-|3|mooru|53|aivatmooru|
-|4|naalku|54|aivatnaalku|
-|5|aidu|55|aivattaidu|
-|6|aaru|56|aivattaaru|
-|7|ELu|57|aivattELu|
-|8|enTu|58|aivattenTu|
-|9|ombattu|59|aivattombattu|
-|10|hattu|60|aravattu|
-|11|hannondu|61|aravattondu|
-|12|hanneraDu|62|aravatteraDu|
-|13|hadimooru|63|aravatmooru|
-|14|hadinaalku|64|aravatnaalku|
-|15|hadinaidu|65|aravattaidu|
-|16|hadinaaru|66|aravattaaru|
-|17|hadinELu|67|aravattELu|
-|18|hadinenTu|68|aravattenTu|
-|19|hattombattu|69|aravattombattu|
-|20|ippattu|70|eppattu|
-|21|ippattondu|71|eppattondu|
-|22|ippatteraDu|72|eppatteraDu|
-|23|ippatmooru|73|eppatmooru|
-|24|ippatnaalku|74|eppatnaalku|
-|25|ippattaidu|75|eppattaidu|
-|26|ippattaaru|76|eppattaaru|
-|27|ippattELu|77|eppattELu|
-|28|ippattenTu|78|eppattenTu|
-|29|ippattombattu|79|eppattombattu|
-|30|moovattu|80|embattu|
-|31|moovattondu|81|embattondu|
-|32|moovatteraDu|82|embatteraDu|
-|33|moovatmooru|83|embatmooru|
-|34|moovatnaalku|84|embatnaalku|
-|35|moovattaidu|85|embattaidu|
-|36|moovattaaru|86|embattaaru|
-|37|moovattELu|87|embattELu|
-|38|moovattenTu|88|embattenTu|
-|39|moovattombattu|89|embattombattu|
-|40|nalavattu|90|tombattu|
-|41|nalavattondu|91|tombattondu|
-|42|nalavatteraDu|92|tombatteraDu|
-|43|nalavatmooru|93|tombatmooru|
-|44|nalavatnaalku|94|tombatnaalku|
-|45|nalavattaidu|95|tombattaidu|
-|46|nalavattaaru|96|tombattaaru|
-|47|nalavattELu|97|tombattELu|
-|48|nalavattenTu|98|tombattenTu|
-|49|nalavattombattu|99|tombattombattu|
-|50|aivattu|100|nooru|
-
 The ten drops one `t` before `mooru` and before `naalku` — `ippatmooru`, `nalavatnaalku` — and keeps both everywhere else. Forty is also heard as `nalvattu` and four as `naaku`.
 
-Ordinals take `-anE`.
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |one to ten|ondu, eraDu, mooru, naalku, aidu, aaru, ELu, enTu, ombattu, hattu|
+>
+> Count out loud on the way somewhere, then backwards.
 
-|English|Kannada|
-|---|---|
-|first|modalanE|
-|second|eraDanE|
-|third|mooranE|
-|the first bus|modalanE bus|
+> [!later]- For later, every number to a hundred, and first, second, third
+> |Number|Kannada|Number|Kannada|
+> |---|---|---|---|
+> |1|ondu|51|aivattondu|
+> |2|eraDu|52|aivatteraDu|
+> |3|mooru|53|aivatmooru|
+> |4|naalku|54|aivatnaalku|
+> |5|aidu|55|aivattaidu|
+> |6|aaru|56|aivattaaru|
+> |7|ELu|57|aivattELu|
+> |8|enTu|58|aivattenTu|
+> |9|ombattu|59|aivattombattu|
+> |10|hattu|60|aravattu|
+> |11|hannondu|61|aravattondu|
+> |12|hanneraDu|62|aravatteraDu|
+> |13|hadimooru|63|aravatmooru|
+> |14|hadinaalku|64|aravatnaalku|
+> |15|hadinaidu|65|aravattaidu|
+> |16|hadinaaru|66|aravattaaru|
+> |17|hadinELu|67|aravattELu|
+> |18|hadinenTu|68|aravattenTu|
+> |19|hattombattu|69|aravattombattu|
+> |20|ippattu|70|eppattu|
+> |21|ippattondu|71|eppattondu|
+> |22|ippatteraDu|72|eppatteraDu|
+> |23|ippatmooru|73|eppatmooru|
+> |24|ippatnaalku|74|eppatnaalku|
+> |25|ippattaidu|75|eppattaidu|
+> |26|ippattaaru|76|eppattaaru|
+> |27|ippattELu|77|eppattELu|
+> |28|ippattenTu|78|eppattenTu|
+> |29|ippattombattu|79|eppattombattu|
+> |30|moovattu|80|embattu|
+> |31|moovattondu|81|embattondu|
+> |32|moovatteraDu|82|embatteraDu|
+> |33|moovatmooru|83|embatmooru|
+> |34|moovatnaalku|84|embatnaalku|
+> |35|moovattaidu|85|embattaidu|
+> |36|moovattaaru|86|embattaaru|
+> |37|moovattELu|87|embattELu|
+> |38|moovattenTu|88|embattenTu|
+> |39|moovattombattu|89|embattombattu|
+> |40|nalavattu|90|tombattu|
+> |41|nalavattondu|91|tombattondu|
+> |42|nalavatteraDu|92|tombatteraDu|
+> |43|nalavatmooru|93|tombatmooru|
+> |44|nalavatnaalku|94|tombatnaalku|
+> |45|nalavattaidu|95|tombattaidu|
+> |46|nalavattaaru|96|tombattaaru|
+> |47|nalavattELu|97|tombattELu|
+> |48|nalavattenTu|98|tombattenTu|
+> |49|nalavattombattu|99|tombattombattu|
+> |50|aivattu|100|nooru|
+>
+> Ordinals take `-anE`.
+>
+> |English|Kannada|
+> |---|---|
+> |first|modalanE|
+> |second|eraDanE|
+> |third|mooranE|
+> |the first bus|modalanE bus|
 
 ## Lesson 13 — Hundreds, Thousands and Money
 
@@ -880,6 +963,14 @@ The digits are grouped the Indian way above one thousand: two at a time, not thr
 
 Bangalore says prices and phone numbers in English as often as in Kannada, so both `aivattu rupaayi` and *fifty rupees* are normal. Lesson 84 has the rest of that habit.
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |give me the change.|chillare koDi|
+> |I do not have change.|nanna hattira chillare illa|
+>
+> Both from this lesson: the two lines a ride or a shop so often ends on.
+
 ## Lesson 14 — Commands and Requests
 
 The root verb by itself is the command. One suffix on the root raises or lowers the register.
@@ -907,20 +998,12 @@ A negative command takes `-bEDa` for the informal and `-bEDi` for the formal or 
 |English|Root|Negative, informal|Negative, formal|
 |---|---|---|---|
 |do|maaDu|maaD-bEDa|maaD-bEDi|
-|say|hELu|hEL-bEDa|hEL-bEDi|
-|speak|maataaDu|maataaD-bEDa|maataaD-bEDi|
-|eat|tinnu|tin-bEDa|tin-bEDi|
-|drink|kuDi|kuDi-bEDa|kuDi-bEDi|
 |go|hOgu|hOg-bEDa|hOg-bEDi|
 |come|baa|bar-bEDa|bar-bEDi|
 
 |English|Kannada|
 |---|---|
-|play the guitar.|guitar nuDisu|
-|do not play the guitar.|guitar nuDis-bEDa|
-|read the newspaper. Respectful.|newspaper Odi|
 |drink water.|neeru kuDi|
-|have lunch.|ooTa maaDu|
 |do not go.|hOg-bEDa|
 |do not go. Respectful.|hOg-bEDi|
 |do not go anywhere.|elloo hOg-bEDi|
@@ -938,6 +1021,29 @@ Welcoming a guest is four polite imperatives and nothing else.
 
 Tacking `-ri` onto a plain command softens it too: `barri`, `hELri`, `kELri`, `swalpa irri`.
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |please come in!|banni|
+> |please have a seat!|kootukOLi|
+>
+> For anyone at your door.
+
+> [!later]- For later, more negative commands and sentences
+> |English|Root|Negative, informal|Negative, formal|
+> |---|---|---|---|
+> |say|hELu|hEL-bEDa|hEL-bEDi|
+> |speak|maataaDu|maataaD-bEDa|maataaD-bEDi|
+> |eat|tinnu|tin-bEDa|tin-bEDi|
+> |drink|kuDi|kuDi-bEDa|kuDi-bEDi|
+>
+> |English|Kannada|
+> |---|---|
+> |play the guitar.|guitar nuDisu|
+> |do not play the guitar.|guitar nuDis-bEDa|
+> |read the newspaper. Respectful.|newspaper Odi|
+> |have lunch.|ooTa maaDu|
+
 ## Lesson 15 — Root Verbs
 
 The root verb is the form every other form is built from, so this is the table to come back to. The polite column is the request from Lesson 14, and the roots whose written form differs from the spoken one are listed after the table.
@@ -948,65 +1054,76 @@ The root verb is the form every other form is built from, so this is the table t
 |work|kelsa maaDu|kelsa maaDi|
 |bathe|snaana maaDu|snaana maaDi|
 |sleep|nidde maaDu|nidde maaDi|
-|sleep, lie down|malkO|malkOLi|
 |eat|tinnu|tinni|
 |drink|kuDi|kuDiyiri|
 |come|baa|banni|
 |go|hOgu|hOgi|
-|reach, arrive|talupu|talupi|
-|sit|kootukO|kootukOLi|
-|stand, stop|nillu|nilli|
-|wake up|eddELu|eddELi|
-|sing|haaDu|haaDi|
-|dance|kuNi|kuNiyiri|
-|play a sport|aaDu|aaDi|
-|play music|nuDisu|nuDisi|
-|listen, hear, ask|kELu|kELi|
 |see, watch|nODu|nODi|
 |read, study|Odu|Odi|
-|write|bari|bariyiri|
-|walk|naDi|naDiyiri|
-|run|ODu|ODi|
-|drive|ODisu|ODisi|
-|hit|hoDi|hoDiyiri|
-|throw|esi|esiyiri|
-|jump|jigi|jigiyiri|
-|hold, catch|hiDi|hiDiyiri|
-|fly|haaru|haari|
-|love|preetisu|preetisi|
 |give|koDu|koDi|
-|take|tagO|tagOLi|
-|speak|maataaDu|maataaDi|
-|tell|hELu|hELi|
-|learn|kali|kaliyiri|
-|teach|hELi-koDu|hELi-koDi|
-|teach|kalisu|kalisi|
 |wait, be, stay|iru|iri|
 
 Read is `Odu` and run is `ODu`, and only the retroflex `D` separates them. Drive is `ODisu`, literally *make it run*.
 
 The three rows after the first are a noun plus `maaDu`, and that is a pattern rather than three separate verbs.
 
-|English|Kannada|
-|---|---|
-|work|kelsa|
-|bath|snaana|
-|sleep|nidde|
-|cooking|aDige|
-|dance|nrutya|
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |wait a moment.|swalpa iri|
+>
+> `iri` is the polite form of `iru`, the last row above, and `swalpa` is a little. The line is from Lesson 65.
 
-Eight roots have a written form that differs from the spoken one. Use the spoken column when you talk and expect the written column in print.
-
-|Spoken|Written|English|
-|---|---|---|
-|bari|bare|write|
-|naDi|naDe|walk|
-|hoDi|hoDe|hit|
-|esi|ese|throw|
-|malkO|malagikO, malagu|sleep|
-|kootukO|kuLitukoLLu|sit|
-|maataaDu|maatanaaDu|speak|
-|tagO|tegedukoLLu|take|
+> [!later]- For later, the rest of the verbs and their written forms
+> |English|Root|Polite|
+> |---|---|---|
+> |sleep, lie down|malkO|malkOLi|
+> |reach, arrive|talupu|talupi|
+> |sit|kootukO|kootukOLi|
+> |stand, stop|nillu|nilli|
+> |wake up|eddELu|eddELi|
+> |sing|haaDu|haaDi|
+> |dance|kuNi|kuNiyiri|
+> |play a sport|aaDu|aaDi|
+> |play music|nuDisu|nuDisi|
+> |listen, hear, ask|kELu|kELi|
+> |write|bari|bariyiri|
+> |walk|naDi|naDiyiri|
+> |run|ODu|ODi|
+> |drive|ODisu|ODisi|
+> |hit|hoDi|hoDiyiri|
+> |throw|esi|esiyiri|
+> |jump|jigi|jigiyiri|
+> |hold, catch|hiDi|hiDiyiri|
+> |fly|haaru|haari|
+> |love|preetisu|preetisi|
+> |take|tagO|tagOLi|
+> |speak|maataaDu|maataaDi|
+> |tell|hELu|hELi|
+> |learn|kali|kaliyiri|
+> |teach|hELi-koDu|hELi-koDi|
+> |teach|kalisu|kalisi|
+>
+> |English|Kannada|
+> |---|---|
+> |work|kelsa|
+> |bath|snaana|
+> |sleep|nidde|
+> |cooking|aDige|
+> |dance|nrutya|
+>
+> Eight roots have a written form that differs from the spoken one. Use the spoken column when you talk and expect the written column in print.
+>
+> |Spoken|Written|English|
+> |---|---|---|
+> |bari|bare|write|
+> |naDi|naDe|walk|
+> |hoDi|hoDe|hit|
+> |esi|ese|throw|
+> |malkO|malagikO, malagu|sleep|
+> |kootukO|kuLitukoLLu|sit|
+> |maataaDu|maatanaaDu|speak|
+> |tagO|tegedukoLLu|take|
 
 ## Lesson 16 — The maaDi Trick
 
@@ -1038,6 +1155,13 @@ There is a second half to the trick. For something that happens to you rather th
 |we got late.|late aaytu|
 
 Lesson 84 has the rest of this, including which words stay English and which stay Kannada.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |it is not working.|work aagtilla|
+>
+> For anything that has stopped: the phone, the lift, the card machine.
 
 ## Lesson 17 — The Verb Iru
 
@@ -1071,21 +1195,8 @@ Saying where you are is `iru` plus `-alli`, in.
 |---|---|
 |I am at home.|naanu mane-alli iddEne|
 |I am in Bengaluru.|naanu Bengalur-alli iddEne|
-|we are in Bengaluru.|naavu Bengalur-alli iddEve|
 |where are you?|neevu elli iddIra?|
 |she is at the office.|avaLu office-alli iddaaLe|
-|they are in Bengaluru.|avaru Bengalur-alli iddaare|
-
-Saying how you are is `iru` plus `chennaagi`, fine.
-
-|English|Kannada|
-|---|---|
-|I am fine.|naanu chennaagi iddEne|
-|we are fine.|naavu chennaagi iddEve|
-|you are fine. Informal.|neenu chennaagi iddIya|
-|you are fine. Formal or plural.|neevu chennaagi iddIra|
-|he is fine.|avanu chennaagi iddaane|
-|she is fine.|avaLu chennaagi iddaaLe|
 
 Speech runs the last word into the `iru` form and drops the vowel at the join.
 
@@ -1094,6 +1205,30 @@ Speech runs the last word into the `iru` form and drops the vowel at the join.
 |naanu Bengalur-alli iddEne|naanu Bengalur-all-iddEne|
 |naanu chennaagi iddEne|naanu chennaag-iddEne|
 |neevu elli iddIra|ell-iddIra|
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |where are you?|neevu elli iddIra?|
+>
+> The first line of a phone call. Lesson 31 has the other question words.
+
+> [!later]- For later, how everyone is, and two more places
+> |English|Kannada|
+> |---|---|
+> |we are in Bengaluru.|naavu Bengalur-alli iddEve|
+> |they are in Bengaluru.|avaru Bengalur-alli iddaare|
+>
+> Saying how you are is `iru` plus `chennaagi`, fine.
+>
+> |English|Kannada|
+> |---|---|
+> |I am fine.|naanu chennaagi iddEne|
+> |we are fine.|naavu chennaagi iddEve|
+> |you are fine. Informal.|neenu chennaagi iddIya|
+> |you are fine. Formal or plural.|neevu chennaagi iddIra|
+> |he is fine.|avanu chennaagi iddaane|
+> |she is fine.|avaLu chennaagi iddaaLe|
 
 ## Lesson 18 — Present Continuous
 
@@ -1109,43 +1244,22 @@ The written form of the marker is `-utta`, so `maaDutta iddEne` and `maaDtaa idd
 |English|Root|Present continuous|
 |---|---|---|
 |do|maaDu|maaD-taa iddEne|
-|play a sport|aaDu|aaD-taa iddEne|
 |drink|kuDi|kuDi-taa iddEne|
 |eat|tinnu|tin-taa iddEne|
-|work|kelsa maaDu|kelsa maaD-taa iddEne|
 |learn|kali|kali-taa iddEne|
-|speak|maataaDu|maataaD-taa iddEne|
-|read, study|Odu|Od-taa iddEne|
 |go|hOgu|hOg-taa iddEne|
 |come|baa|bar-taa iddEne|
-|watch|nODu|nOD-taa iddEne|
-|sleep|nidde maaDu|nidde maaD-taa iddEne|
-|sing|haaDu|haaD-taa iddEne|
-|run|ODu|OD-taa iddEne|
 
 Come is the odd one. `baa` becomes `bar-` before the ending, the same stem that gave `bar-bEDa` in Lesson 14.
 
 |English|Kannada|
 |---|---|
 |I am drinking coffee.|naanu kaafi kuDi-taa iddEne|
-|I am drinking coffee right now.|naanu eega kaafi kuDi-taa iddEne|
-|I am doing yoga.|naanu yOga maaD-taa iddEne|
-|I am playing tennis.|naanu tennis aaD-taa iddEne|
 |I am eating breakfast.|naanu tinDi tin-taa iddEne|
-|I am having lunch.|naanu ooTa maaD-taa iddEne|
 |I am working.|naanu kelsa maaD-taa iddEne|
-|I am working in Bengaluru.|naanu Bengalur-alli kelsa maaD-taa iddEne|
 |I am learning Kannada.|naanu Kannada kali-taa iddEne|
-|I am speaking with Emily.|naanu Emily-jote maataaD-taa iddEne|
-|I am reading a book.|naanu pustaka Od-taa iddEne|
-|I am going to Chennai.|naanu Chennai-ge hOg-taa iddEne|
 |I am going home.|naanu mane-ge hOg-taa iddEne|
 |I am coming home.|naanu mane-ge bar-taa iddEne|
-|I am watching a movie.|naanu sinima nOD-taa iddEne|
-|I am running.|naanu OD-taa iddEne|
-|I am sleeping.|naanu nidde maaD-taa iddEne|
-
-Lunch is `ooTa maaDu`, do a meal, and not a verb of its own.
 
 The negative puts `illa` in place of the `iru` form. The root and the `-taa` do not change, and `illa` is the same for every pronoun.
 
@@ -1156,22 +1270,57 @@ The negative puts `illa` in place of the `iru` form. The root and the `-taa` do 
 |not eating|tin-taa illa|
 |not drinking|kuDi-taa illa|
 
-|English|Kannada|
-|---|---|
-|now, right now|eega|
-|in, at|-alli|
-|to, for|-ge|
-|with|-jote|
-|water|neeru|
-|coffee|kaafi|
-|book|pustaka|
-|home|mane|
-|movie, cinema|sinima|
-|work|kelsa|
-|light meal, breakfast|tinDi|
-|full meal, lunch|ooTa|
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I am learning Kannada.|naanu Kannada kali-taa iddEne|
+>
+> For whenever someone hears you try.
 
-`-alli`, `-ge` and `-jote` attach to the end of the word, where English puts them in front. Lessons 35 and 36 have all of them.
+> [!later]- For later, more verbs, more sentences and the words they use
+> |English|Root|Present continuous|
+> |---|---|---|
+> |play a sport|aaDu|aaD-taa iddEne|
+> |work|kelsa maaDu|kelsa maaD-taa iddEne|
+> |speak|maataaDu|maataaD-taa iddEne|
+> |read, study|Odu|Od-taa iddEne|
+> |watch|nODu|nOD-taa iddEne|
+> |sleep|nidde maaDu|nidde maaD-taa iddEne|
+> |sing|haaDu|haaD-taa iddEne|
+> |run|ODu|OD-taa iddEne|
+>
+> |English|Kannada|
+> |---|---|
+> |I am drinking coffee right now.|naanu eega kaafi kuDi-taa iddEne|
+> |I am doing yoga.|naanu yOga maaD-taa iddEne|
+> |I am playing tennis.|naanu tennis aaD-taa iddEne|
+> |I am having lunch.|naanu ooTa maaD-taa iddEne|
+> |I am working in Bengaluru.|naanu Bengalur-alli kelsa maaD-taa iddEne|
+> |I am speaking with Emily.|naanu Emily-jote maataaD-taa iddEne|
+> |I am reading a book.|naanu pustaka Od-taa iddEne|
+> |I am going to Chennai.|naanu Chennai-ge hOg-taa iddEne|
+> |I am watching a movie.|naanu sinima nOD-taa iddEne|
+> |I am running.|naanu OD-taa iddEne|
+> |I am sleeping.|naanu nidde maaD-taa iddEne|
+>
+> Lunch is `ooTa maaDu`, do a meal, and not a verb of its own.
+>
+> |English|Kannada|
+> |---|---|
+> |now, right now|eega|
+> |in, at|-alli|
+> |to, for|-ge|
+> |with|-jote|
+> |water|neeru|
+> |coffee|kaafi|
+> |book|pustaka|
+> |home|mane|
+> |movie, cinema|sinima|
+> |work|kelsa|
+> |light meal, breakfast|tinDi|
+> |full meal, lunch|ooTa|
+>
+> `-alli`, `-ge` and `-jote` attach to the end of the word, where English puts them in front. Lessons 35 and 36 have all of them.
 
 ## Lesson 19 — Present Continuous for Every Pronoun
 
@@ -1199,16 +1348,6 @@ The verb takes `-taa`, then the form of `iru` for the person. Nothing else moves
 |they are doing work.|avaru kelsa maaD-taa iddaare|
 |it is doing work.|adu kelsa maaD-taa ide|
 
-|English|Kannada|
-|---|---|
-|I am learning Kannada.|naanu Kannada kali-taa iddEne|
-|we are learning Kannada.|naavu Kannada kali-taa iddEve|
-|you are learning Kannada. Informal.|neenu Kannada kali-taa iddIya|
-|you are learning Kannada. Formal or plural.|neevu Kannada kali-taa iddIra|
-|he is learning Kannada.|avanu Kannada kali-taa iddaane|
-|she is learning Kannada.|avaLu Kannada kali-taa iddaaLe|
-|they are learning Kannada.|avaru Kannada kali-taa iddaare|
-
 The negative is `-taa illa` for every pronoun, so only the pronoun changes.
 
 |English|Kannada|
@@ -1220,13 +1359,34 @@ The negative is `-taa illa` for every pronoun, so only the pronoun changes.
 |English|Kannada|
 |---|---|
 |she is singing a song.|avaLu haaDu haaD-taa iddaaLe|
-|he is going to MG Road.|avanu MG Road-ge hOg-taa iddaane|
-|they are going to MG Road.|avaru MG Road-ge hOg-taa iddaare|
 |Murthy is working.|Murthy kelsa maaD-taa iddaare|
 |you are speaking Kannada. Formal.|neevu Kannada maataaD-taa iddIra|
-|you are speaking Kannada. Informal.|neenu Kannada maataaD-taa iddIya|
 
 `haaDu` is both the noun song and the root verb sing, so the song sentence says the word twice. Murthy takes `iddaare`, the plural form, because he is an older person — the respect rule from Lesson 6 and Lesson 11.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |Murthy is working.|Murthy kelsa maaD-taa iddaare|
+>
+> With a colleague's name in place of Murthy's, and the respectful ending that an elder or a colleague gets.
+
+> [!later]- For later, Kannada for every pronoun, and more sentences
+> |English|Kannada|
+> |---|---|
+> |I am learning Kannada.|naanu Kannada kali-taa iddEne|
+> |we are learning Kannada.|naavu Kannada kali-taa iddEve|
+> |you are learning Kannada. Informal.|neenu Kannada kali-taa iddIya|
+> |you are learning Kannada. Formal or plural.|neevu Kannada kali-taa iddIra|
+> |he is learning Kannada.|avanu Kannada kali-taa iddaane|
+> |she is learning Kannada.|avaLu Kannada kali-taa iddaaLe|
+> |they are learning Kannada.|avaru Kannada kali-taa iddaare|
+>
+> |English|Kannada|
+> |---|---|
+> |he is going to MG Road.|avanu MG Road-ge hOg-taa iddaane|
+> |they are going to MG Road.|avaru MG Road-ge hOg-taa iddaare|
+> |you are speaking Kannada. Informal.|neenu Kannada maataaD-taa iddIya|
 
 ## Lesson 20 — Story, Geeta Explains That She Is Busy
 
@@ -1252,6 +1412,13 @@ The third line is literally *the entire syllabus is coming in the exam*, with `b
 
 `-ge` means both to and for.
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |Do not disturb me!|disturb maaD-bEDa!|
+>
+> The negative command of Lesson 14 on an English verb, the maaDi trick of Lesson 16.
+
 ## Lesson 21 — Story, Sunita Says What Her Family Is Doing
 
 |Kannada|English|
@@ -1271,6 +1438,13 @@ Every line is Lesson 19, and `nanna` is the possessive from Lesson 8. The dog ta
 |dog|naayi|
 |happily|santOshav-aagi|
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |We are very happy.|naavu tumbaa santOshav-aagi iddEve|
+>
+> `santOshav-aagi`, happily, is in the word list above.
+
 ## Lesson 22 — Habitual and Future
 
 Kannada uses one ending for the habit and for the future. Context decides which is meant, and a time word usually does the deciding. `naanu cricket aaDtEne` is both *I play cricket* and *I will play cricket*.
@@ -1280,20 +1454,9 @@ Add `-tEne` to the root verb. There is no separate tense marker as in the presen
 |English|Root|Habitual and future|
 |---|---|---|
 |do|maaDu|maaDtEne|
-|play a sport|aaDu|aaDtEne|
-|drink|kuDi|kuDitEne|
-|eat|tinnu|tintEne|
 |go|hOgu|hOgtEne|
-|read, study|Odu|OdtEne|
 |come|baa|bartEne|
-|see, look|nODu|nODtEne|
-|say, tell|hELu|hELtEne|
-|ask, hear|kELu|kELtEne|
-|give|koDu|koDtEne|
-|learn|kali|kalitEne|
-|be, exist, stay|iru|irtEne|
 |work|kelsa maaDu|kelsa maaDtEne|
-|sleep|nidde maaDu|nidde maaDtEne|
 
 `baa` changes shape before the ending and becomes `bar-`, so it is `bartEne` and never `baatEne`.
 
@@ -1311,43 +1474,20 @@ Two sets of time words settle the ambiguity.
 |English|Kannada|English|Kannada|
 |---|---|---|---|
 |every day|dina, prati dina|tomorrow|naaLe|
-|every week|prati vaara|day after tomorrow|naaDiddu|
-|every month|prati tingaLu|next week|mundina vaara|
-|every year|prati varsha|next month|mundina tingaLu|
-|morning|beLigge|next year|mundina varsha|
-|afternoon|madhyaana|today|ivattu|
-|evening|sanje|later|aamEle|
-|night|raatri|now|eega|
 
 |English|Kannada|
 |---|---|
 |I play cricket every day.|naanu prati dina cricket aaDtEne|
-|I play cricket every morning.|naanu prati dina beLigge cricket aaDtEne|
 |I will play cricket tomorrow.|naanu naaLe cricket aaDtEne|
-|I will play cricket next week.|naanu mundina vaara cricket aaDtEne|
-|I drink tea every day.|naanu prati dina tea kuDitEne|
-|I do yoga every morning.|naanu dina beLigge yOga maaDtEne|
-|I have lunch at home every afternoon.|naanu prati madhyaana mane-alli ooTa maaDtEne|
-|I go to the temple every week.|naanu prati vaara dEvasthaana-kke hOgtEne|
-|I read one book every month.|naanu prati tingaLu ondu pustaka OdtEne|
-|I come back home in the evening.|naanu sanje mane-ge bartEne|
-|I sleep well every night.|naanu prati raatri chennaagi nidde maaDtEne|
 |I will come tomorrow.|naanu naaLe bartEne|
-|we will go in the evening.|naavu sanje hOgtEve|
-|I will do it later.|naanu aamEle maaDtEne|
 |let us go.|hOgONa|
-|let us eat.|tinnONa|
 
 The same ending says where you live, where you work and where you come in from every day.
 
 |English|Kannada|
 |---|---|
 |I live in Bengaluru.|naanu Bengalur-alli irtEne|
-|I live in New York.|naanu New York-alli irtEne|
 |I work in IT.|naanu IT-alli kelsa maaDtEne|
-|I work at Google.|naanu Google-alli kelsa maaDtEne|
-|I study at Bangalore University.|naanu Bangalore University-alli OdtEne|
-|I come in from Whitefield every day.|naanu dina Whitefield-inda bartEne|
 
 `iru` here means live or stay, where in Lesson 17 it meant am. And `bartEne` after a place is the daily trip, never where you are from. *I am from Mumbai* keeps the `bandiddEne` of Lesson 10: `naanu Mumbai-inda bandiddEne`.
 
@@ -1356,20 +1496,77 @@ The negative is `-olla`, and you will also hear and see it written `-alla`. `maa
 |English|Kannada|
 |---|---|
 |I do not work.|naanu kelsa maaDolla|
-|I do not play cricket.|naanu cricket aaDolla|
-|I do not drink tea.|naanu tea kuDiyolla|
 |he is not coming.|avanu barolla|
-|I will not drink tea today.|naanu ivattu tea kuDiyolla|
-|I do not play cricket. I play badminton.|naanu cricket aaDolla. naanu badminton aaDtEne|
 
-The written future does exist — `maaDuvenu` for I will do, `maaDuvaru` for they will do. Learn to recognise it in print and keep using this ending when you speak.
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I will come tomorrow.|naanu naaLe bartEne|
+>
+> Lesson 3's goodbye, `hOgi bartEne`, is this ending too: I will go and come.
 
-|English|Kannada|
-|---|---|
-|temple|dEvasthaana|
-|to|-kke, -ge|
-|tea|chaa, tea|
-|book|pustaka|
+> [!later]- For later, more verbs, time words and sentences
+> |English|Root|Habitual and future|
+> |---|---|---|
+> |play a sport|aaDu|aaDtEne|
+> |drink|kuDi|kuDitEne|
+> |eat|tinnu|tintEne|
+> |read, study|Odu|OdtEne|
+> |see, look|nODu|nODtEne|
+> |say, tell|hELu|hELtEne|
+> |ask, hear|kELu|kELtEne|
+> |give|koDu|koDtEne|
+> |learn|kali|kalitEne|
+> |be, exist, stay|iru|irtEne|
+> |sleep|nidde maaDu|nidde maaDtEne|
+>
+> |English|Kannada|English|Kannada|
+> |---|---|---|---|
+> |every week|prati vaara|day after tomorrow|naaDiddu|
+> |every month|prati tingaLu|next week|mundina vaara|
+> |every year|prati varsha|next month|mundina tingaLu|
+> |morning|beLigge|next year|mundina varsha|
+> |afternoon|madhyaana|today|ivattu|
+> |evening|sanje|later|aamEle|
+> |night|raatri|now|eega|
+>
+> |English|Kannada|
+> |---|---|
+> |I play cricket every morning.|naanu prati dina beLigge cricket aaDtEne|
+> |I will play cricket next week.|naanu mundina vaara cricket aaDtEne|
+> |I drink tea every day.|naanu prati dina tea kuDitEne|
+> |I do yoga every morning.|naanu dina beLigge yOga maaDtEne|
+> |I have lunch at home every afternoon.|naanu prati madhyaana mane-alli ooTa maaDtEne|
+> |I go to the temple every week.|naanu prati vaara dEvasthaana-kke hOgtEne|
+> |I read one book every month.|naanu prati tingaLu ondu pustaka OdtEne|
+> |I come back home in the evening.|naanu sanje mane-ge bartEne|
+> |I sleep well every night.|naanu prati raatri chennaagi nidde maaDtEne|
+> |we will go in the evening.|naavu sanje hOgtEve|
+> |I will do it later.|naanu aamEle maaDtEne|
+> |let us eat.|tinnONa|
+>
+> |English|Kannada|
+> |---|---|
+> |I live in New York.|naanu New York-alli irtEne|
+> |I work at Google.|naanu Google-alli kelsa maaDtEne|
+> |I study at Bangalore University.|naanu Bangalore University-alli OdtEne|
+> |I come in from Whitefield every day.|naanu dina Whitefield-inda bartEne|
+>
+> |English|Kannada|
+> |---|---|
+> |I do not play cricket.|naanu cricket aaDolla|
+> |I do not drink tea.|naanu tea kuDiyolla|
+> |I will not drink tea today.|naanu ivattu tea kuDiyolla|
+> |I do not play cricket. I play badminton.|naanu cricket aaDolla. naanu badminton aaDtEne|
+>
+> The written future does exist — `maaDuvenu` for I will do, `maaDuvaru` for they will do. Learn to recognise it in print and keep using this ending when you speak.
+>
+> |English|Kannada|
+> |---|---|
+> |temple|dEvasthaana|
+> |to|-kke, -ge|
+> |tea|chaa, tea|
+> |book|pustaka|
 
 ## Lesson 23 — Habitual and Future for Every Pronoun
 
@@ -1399,35 +1596,46 @@ The neuter ending is `-utte`. It keeps the `u` of the stem where the other endin
 
 |English|Kannada|
 |---|---|
-|I drink tea.|naanu tea kuDitEne|
-|we drink tea.|naavu tea kuDitEve|
-|you drink tea. Informal.|neenu tea kuDitIya|
-|you drink tea. Formal or plural.|neevu tea kuDitIra|
-|he drinks tea.|avanu tea kuDitaane|
-|she drinks tea.|avaLu tea kuDitaaLe|
-|they drink tea.|avaru tea kuDitaare|
-
-|English|Kannada|
-|---|---|
-|I will go to the airport.|naanu airport-ge hOgtEne|
-|we will go to the airport.|naavu airport-ge hOgtEve|
-|you will go to the airport. Informal.|neenu airport-ge hOgtIya|
-|you will go to the airport. Formal or plural.|neevu airport-ge hOgtIra|
-|he will go to the airport.|avanu airport-ge hOgtaane|
-|she will go to the airport.|avaLu airport-ge hOgtaaLe|
-|they will go to the airport.|avaru airport-ge hOgtaare|
-|it will go to the airport.|adu airport-ge hOgutte|
-
-|English|Kannada|
-|---|---|
-|he sings every day.|avanu prati dina haaDtaane|
-|he does not sing every day.|avanu prati dina haaDolla|
 |Murthy works at Google.|Murthy Google-alli kelsa maaDtaare|
 |the bus goes to Majestic.|bassu Majestic-ge hOgutte|
-|she will go to Majestic tomorrow.|avaLu naaLe Majestic-ge hOgtaaLe|
 |you speak Kannada. Formal.|neevu Kannada maataaDtIra|
 
 Murthy takes `-taare` out of respect and the bus takes the neuter `-utte`. Majestic is the main bus station of Bengaluru.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |the bus goes to Majestic.|bassu Majestic-ge hOgutte|
+>
+> With your own stop in place of Majestic. Lesson 30 turns it into the question to ask at the bus door.
+
+> [!later]- For later, two more verbs through every pronoun
+> |English|Kannada|
+> |---|---|
+> |I drink tea.|naanu tea kuDitEne|
+> |we drink tea.|naavu tea kuDitEve|
+> |you drink tea. Informal.|neenu tea kuDitIya|
+> |you drink tea. Formal or plural.|neevu tea kuDitIra|
+> |he drinks tea.|avanu tea kuDitaane|
+> |she drinks tea.|avaLu tea kuDitaaLe|
+> |they drink tea.|avaru tea kuDitaare|
+>
+> |English|Kannada|
+> |---|---|
+> |I will go to the airport.|naanu airport-ge hOgtEne|
+> |we will go to the airport.|naavu airport-ge hOgtEve|
+> |you will go to the airport. Informal.|neenu airport-ge hOgtIya|
+> |you will go to the airport. Formal or plural.|neevu airport-ge hOgtIra|
+> |he will go to the airport.|avanu airport-ge hOgtaane|
+> |she will go to the airport.|avaLu airport-ge hOgtaaLe|
+> |they will go to the airport.|avaru airport-ge hOgtaare|
+> |it will go to the airport.|adu airport-ge hOgutte|
+>
+> |English|Kannada|
+> |---|---|
+> |he sings every day.|avanu prati dina haaDtaane|
+> |he does not sing every day.|avanu prati dina haaDolla|
+> |she will go to Majestic tomorrow.|avaLu naaLe Majestic-ge hOgtaaLe|
 
 ## Lesson 24 — Story, a Day in the Life of Geeta
 
@@ -1455,6 +1663,13 @@ Every verb in it takes the one ending from Lesson 22 that carries both a habit a
 |rise, get up|eddELu|
 |daily|dina|
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I work at a software company.|ondu software company-alli kelsa maaDtEne|
+>
+> Geeta's line, and very likely yours.
+
 ## Lesson 25 — Story, Raj Will Go to Agra Tomorrow
 
 |Kannada|English|
@@ -1478,6 +1693,13 @@ The ending is the same as in Lesson 24. Only `naaLe` makes the story a future on
 |catch, hold|hiDi|
 |take a photo|photo tegi|
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I will go to Agra tomorrow.|naanu naaLe Agra-ge hOgtEne|
+>
+> With wherever you are going: tomorrow's plan, told to someone today.
+
 ## Lesson 26 — Past Tense
 
 Add `-de` to the root verb. It is the `-ed` of English. The written form is `-ide`, so `maaDide` and `maaDde` are the same word, and the short one is what you hear.
@@ -1485,35 +1707,20 @@ Add `-de` to the root verb. It is the `-ed` of English. The written form is `-id
 |English|Root|Past|
 |---|---|---|
 |do|maaDu|maaDde|
-|play a sport|aaDu|aaDde|
-|drink|kuDi|kuDide|
 |eat|tinnu|tinde|
 |go|hOgu|hOde|
 |come|baa|bande|
-|speak|maataaDu|maataaDde|
 |give|koDu|koTTe|
 |be, live, stay|iru|idde|
-|see, watch|nODu|nODde|
-|sing|haaDu|haaDde|
-|say, tell|hELu|hELde|
 |happen, become|aagu|aaytu|
 
 Four break the rule. Come is `bande` and not `baade`, give is `koTTe` and not `koDde`, go drops its `g` — `hOde` and not `hOgde` — and be is `idde` and not `irde`. `aagu` is given in its *it* form, `aaytu`, it happened, because that is the one you will say most.
 
 |English|Kannada|
 |---|---|
-|I drank coffee in the morning.|naanu beLigge kaafi kuDide|
-|I did yoga yesterday.|naanu nenne yOga maaDde|
-|afterwards, I ate breakfast.|aamEle, naanu tinDi tinde|
 |I went to the office yesterday.|naanu nenne office-ge hOde|
-|I worked in the office.|naanu office-alli kelsa maaDde|
-|I had lunch in the afternoon.|naanu madhyaana ooTa maaDde|
 |I came back home from the office.|naanu office-inda mane-ge bande|
-|I spoke with Geeta on the phone.|naanu phone-alli Geeta-jote maataaDde|
 |I gave the money to the driver.|naanu driver-ge duDDu koTTe|
-|I was in Bengaluru.|naanu Bengalur-alli idde|
-|I watched the match at night.|naanu raatri match nODde|
-|afterwards, I slept.|aamEle, naanu nidde maaDde|
 |I finished lunch.|ooTa aaytu|
 |did you finish lunch?|ooTa aaytaa?|
 
@@ -1523,10 +1730,7 @@ The negative puts `-lilla` after the root in place of `-de`. Its written form is
 
 |English|Kannada|
 |---|---|
-|I did not play.|naanu aaDlilla|
 |I did not do the work.|naanu kelsa maaDlilla|
-|I did not play basketball yesterday.|naanu nenne basketball aaDlilla|
-|I did not read my book.|naanu nanna pustaka Odlilla|
 |he did not come.|avanu bandilla|
 |I did not eat breakfast.|naanu tinDi tindilla|
 
@@ -1534,21 +1738,56 @@ The last two lines have no `l`. That is a second negative, the chained verb of L
 
 Watch the pair `-lilla` makes with Lesson 22. `maaDolla` is *I do not*, and `maaDlilla` is *I did not*. Only the `o` against the `li` separates them.
 
-|English|Kannada|
-|---|---|
-|yesterday|nenne, ninne|
-|coffee|kaafi|
-|afterwards, later|aamEle|
-|money|duDDu|
-|from|-inda|
-|with|-jote|
-
 Say what you did yesterday. Put a past verb in each blank.
 
 - naanu beLigge ___ -de
 - naanu madhyaana ___ -de
 - naanu sanje ___ -de
 - naanu raatri ___ -de
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I did not eat breakfast.|naanu tinDi tindilla|
+>
+> The honest answer to Lesson 3's `tinDi aaytaa?`
+
+> [!later]- For later, more verbs, sentences and words
+> |English|Root|Past|
+> |---|---|---|
+> |play a sport|aaDu|aaDde|
+> |drink|kuDi|kuDide|
+> |speak|maataaDu|maataaDde|
+> |see, watch|nODu|nODde|
+> |sing|haaDu|haaDde|
+> |say, tell|hELu|hELde|
+>
+> |English|Kannada|
+> |---|---|
+> |I drank coffee in the morning.|naanu beLigge kaafi kuDide|
+> |I did yoga yesterday.|naanu nenne yOga maaDde|
+> |afterwards, I ate breakfast.|aamEle, naanu tinDi tinde|
+> |I worked in the office.|naanu office-alli kelsa maaDde|
+> |I had lunch in the afternoon.|naanu madhyaana ooTa maaDde|
+> |I spoke with Geeta on the phone.|naanu phone-alli Geeta-jote maataaDde|
+> |I was in Bengaluru.|naanu Bengalur-alli idde|
+> |I watched the match at night.|naanu raatri match nODde|
+> |afterwards, I slept.|aamEle, naanu nidde maaDde|
+>
+> |English|Kannada|
+> |---|---|
+> |I did not play.|naanu aaDlilla|
+> |I did not play basketball yesterday.|naanu nenne basketball aaDlilla|
+> |I did not read my book.|naanu nanna pustaka Odlilla|
+>
+> |English|Kannada|
+> |---|---|
+> |yesterday|nenne, ninne|
+> |coffee|kaafi|
+> |afterwards, later|aamEle|
+> |money|duDDu|
+> |from|-inda|
+> |with|-jote|
 
 ## Lesson 27 — Past Tense for Every Pronoun
 
@@ -1578,40 +1817,51 @@ Hold the `-da` of *he did* short. Lengthen it and you have asked a question inst
 |they worked.|avaru kelsa maaDdru|
 |it worked.|adu kelsa maaDitu|
 
-|English|Kannada|
-|---|---|
-|I came home.|naanu mane-ge bande|
-|we came home.|naavu mane-ge bandvi|
-|you came home. Formal or plural.|neevu mane-ge bandri|
-|he came home.|avanu mane-ge banda|
-|she came home.|avaLu mane-ge bandaLu|
-|they came home.|avaru mane-ge bandru|
-
-|English|Kannada|
-|---|---|
-|I went to the airport.|naanu airport-ge hOde|
-|we went to the airport.|naavu airport-ge hOdvi|
-|you went to the airport. Formal or plural.|neevu airport-ge hOdri|
-|he went to the airport.|avanu airport-ge hOda|
-|she went to the airport.|avaLu airport-ge hOdaLu|
-|they went to the airport.|avaru airport-ge hOdru|
-
 Come switches to a `ban-` stem and go drops its `g`, so neither root shows up whole in the past.
 
 The negative is `-lilla` for all eight pronouns, so every line reads the same but for the pronoun.
 
 |English|Kannada|
 |---|---|
-|he sang every day.|avanu prati dina haaDda|
-|he did not sing every day.|avanu prati dina haaDlilla|
 |Murthy worked at Google.|Murthy Google-alli kelsa maaDdru|
-|the bus went to Majestic.|bassu Majestic-ge hOytu|
-|she went to Majestic yesterday.|avaLu nenne Majestic-ge hOdaLu|
 |you spoke well. Formal.|neevu chennaagi maataaDdri|
-|you spoke well. Informal.|neenu chennaagi maataaDde|
 |you went.|hOdri|
 
 `hOdri` is `hOdiri` at full speed, and it is the first contraction worth learning by heart. Lesson 68 has the rest.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |you spoke well. Formal.|neevu chennaagi maataaDdri|
+>
+> For anyone who has just helped you along in Kannada.
+
+> [!later]- For later, two more verbs and more sentences
+> |English|Kannada|
+> |---|---|
+> |I came home.|naanu mane-ge bande|
+> |we came home.|naavu mane-ge bandvi|
+> |you came home. Formal or plural.|neevu mane-ge bandri|
+> |he came home.|avanu mane-ge banda|
+> |she came home.|avaLu mane-ge bandaLu|
+> |they came home.|avaru mane-ge bandru|
+>
+> |English|Kannada|
+> |---|---|
+> |I went to the airport.|naanu airport-ge hOde|
+> |we went to the airport.|naavu airport-ge hOdvi|
+> |you went to the airport. Formal or plural.|neevu airport-ge hOdri|
+> |he went to the airport.|avanu airport-ge hOda|
+> |she went to the airport.|avaLu airport-ge hOdaLu|
+> |they went to the airport.|avaru airport-ge hOdru|
+>
+> |English|Kannada|
+> |---|---|
+> |he sang every day.|avanu prati dina haaDda|
+> |he did not sing every day.|avanu prati dina haaDlilla|
+> |the bus went to Majestic.|bassu Majestic-ge hOytu|
+> |she went to Majestic yesterday.|avaLu nenne Majestic-ge hOdaLu|
+> |you spoke well. Informal.|neenu chennaagi maataaDde|
 
 ## Lesson 28 — Story, Murthy Says What His Family Did Yesterday
 
@@ -1637,171 +1887,16 @@ Every ending comes from Lesson 27. `koTTe` is the give exception from Lesson 26,
 |cat|bekku|
 |milk|haalu|
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |Yesterday, I went to the office in the morning.|nenne, naanu beLigge office-ge hOde|
+>
+> Your own yesterday, a line at a time, as Murthy tells his.
+
 ## Lesson 29 — All Three Tenses Side by Side
 
-The endings, with no verb attached.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|-de|-taa iddEne|-tEne|
-|we|-dvi|-taa iddEve|-tEve|
-|you, informal|-de|-taa iddIya|-tIya|
-|you, formal or plural|-dri|-taa iddIra|-tIra|
-|he|-da|-taa iddaane|-taane|
-|she|-daLu|-taa iddaaLe|-taaLe|
-|they|-dru|-taa iddaare|-taare|
-|it|-itu|-taa ide|-utte|
-|negative, every pronoun|-lilla|-taa illa|-olla|
-
-The third column carries the future and the habit together. The negative row has no person suffix, so one form serves all eight pronouns, and in the past column it is always the `-lilla` of Lesson 26.
-
-Now the same three columns on nine verbs. Four of them are irregular and they are the four you use most.
-
-### Do
-
-The root verb is `maaDu`.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|maaDde|maaD-taa iddEne|maaDtEne|
-|we|maaDdvi|maaD-taa iddEve|maaDtEve|
-|you, informal|maaDde|maaD-taa iddIya|maaDtIya|
-|you, formal or plural|maaDdri|maaD-taa iddIra|maaDtIra|
-|he|maaDda|maaD-taa iddaane|maaDtaane|
-|she|maaDdaLu|maaD-taa iddaaLe|maaDtaaLe|
-|they|maaDdru|maaD-taa iddaare|maaDtaare|
-|it|maaDitu|maaD-taa ide|maaDutte|
-|negative, every pronoun|maaDlilla|maaD-taa illa|maaDolla|
-
-### Eat
-
-The root verb is `tinnu`. The double `n` shortens before a consonant — `tinde`, `tintEne` — and stays before a vowel: `tinnutte`, `tinnolla`.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|tinde|tin-taa iddEne|tintEne|
-|we|tindvi|tin-taa iddEve|tintEve|
-|you, informal|tinde|tin-taa iddIya|tintIya|
-|you, formal or plural|tindri|tin-taa iddIra|tintIra|
-|he|tinda|tin-taa iddaane|tintaane|
-|she|tindaLu|tin-taa iddaaLe|tintaaLe|
-|they|tindru|tin-taa iddaare|tintaare|
-|it|tinditu|tin-taa ide|tinnutte|
-|negative, every pronoun|tinlilla|tin-taa illa|tinnolla|
-
-### Speak
-
-The root verb is `maataaDu`.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|maataaDde|maataaD-taa iddEne|maataaDtEne|
-|we|maataaDdvi|maataaD-taa iddEve|maataaDtEve|
-|you, informal|maataaDde|maataaD-taa iddIya|maataaDtIya|
-|you, formal or plural|maataaDdri|maataaD-taa iddIra|maataaDtIra|
-|he|maataaDda|maataaD-taa iddaane|maataaDtaane|
-|she|maataaDdaLu|maataaD-taa iddaaLe|maataaDtaaLe|
-|they|maataaDdru|maataaD-taa iddaare|maataaDtaare|
-|it|maataaDitu|maataaD-taa ide|maataaDutte|
-|negative, every pronoun|maataaDlilla|maataaD-taa illa|maataaDolla|
-
-### See or Watch
-
-The root verb is `nODu`.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|nODde|nOD-taa iddEne|nODtEne|
-|we|nODdvi|nOD-taa iddEve|nODtEve|
-|you, informal|nODde|nOD-taa iddIya|nODtIya|
-|you, formal or plural|nODdri|nOD-taa iddIra|nODtIra|
-|he|nODda|nOD-taa iddaane|nODtaane|
-|she|nODdaLu|nOD-taa iddaaLe|nODtaaLe|
-|they|nODdru|nOD-taa iddaare|nODtaare|
-|it|nODitu|nOD-taa ide|nODutte|
-|negative, every pronoun|nODlilla|nOD-taa illa|nODolla|
-
-### Go
-
-The root verb is `hOgu`. The past drops the `g` and the other two tenses keep it.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|hOde|hOg-taa iddEne|hOgtEne|
-|we|hOdvi|hOg-taa iddEve|hOgtEve|
-|you, informal|hOde|hOg-taa iddIya|hOgtIya|
-|you, formal or plural|hOdri|hOg-taa iddIra|hOgtIra|
-|he|hOda|hOg-taa iddaane|hOgtaane|
-|she|hOdaLu|hOg-taa iddaaLe|hOgtaaLe|
-|they|hOdru|hOg-taa iddaare|hOgtaare|
-|it|hOytu|hOg-taa ide|hOgutte|
-|negative, every pronoun|hOglilla|hOg-taa illa|hOgolla|
-
-### Drink
-
-The root verb is `kuDi`.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|kuDide|kuDi-taa iddEne|kuDitEne|
-|we|kuDidvi|kuDi-taa iddEve|kuDitEve|
-|you, informal|kuDide|kuDi-taa iddIya|kuDitIya|
-|you, formal or plural|kuDidri|kuDi-taa iddIra|kuDitIra|
-|he|kuDida|kuDi-taa iddaane|kuDitaane|
-|she|kuDidaLu|kuDi-taa iddaaLe|kuDitaaLe|
-|they|kuDidru|kuDi-taa iddaare|kuDitaare|
-|it|kuDiditu|kuDi-taa ide|kuDiyutte|
-|negative, every pronoun|kuDililla|kuDi-taa illa|kuDiyolla|
-
-### Take
-
-The root verb is `tagO`. The stem is `tagon-` in the past and `tagOL-` in the other two tenses.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|tagonDe|tagOL-taa iddEne|tagOLtEne|
-|we|tagonDvi|tagOL-taa iddEve|tagOLtEve|
-|you, informal|tagonDe|tagOL-taa iddIya|tagOLtIya|
-|you, formal or plural|tagonDri|tagOL-taa iddIra|tagOLtIra|
-|he|tagonDa|tagOL-taa iddaane|tagOLtaane|
-|she|tagonDaLu|tagOL-taa iddaaLe|tagOLtaaLe|
-|they|tagonDru|tagOL-taa iddaare|tagOLtaare|
-|it|tagonDitu|tagOL-taa ide|tagOLutte|
-|negative, every pronoun|tagOLlilla|tagOL-taa illa|tagOLolla|
-
-### Come
-
-The root verb is `baa`. The stem is `ban-` in the past and `bar-` in the other two tenses.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|bande|bar-taa iddEne|bartEne|
-|we|bandvi|bar-taa iddEve|bartEve|
-|you, informal|bande|bar-taa iddIya|bartIya|
-|you, formal or plural|bandri|bar-taa iddIra|bartIra|
-|he|banda|bar-taa iddaane|bartaane|
-|she|bandaLu|bar-taa iddaaLe|bartaaLe|
-|they|bandru|bar-taa iddaare|bartaare|
-|it|banditu, bantu|bar-taa ide|barutte|
-|negative, every pronoun|barlilla|bar-taa illa|barolla|
-
-### Be or Stay
-
-The root verb is `iru`. The stem is `id-` in the past and `ir-` in the other two tenses.
-
-|English|Past|Present|Future or Habit|
-|---|---|---|---|
-|I|idde|ir-taa iddEne|irtEne|
-|we|iddvi|ir-taa iddEve|irtEve|
-|you, informal|idde|ir-taa iddIya|irtIya|
-|you, formal or plural|iddri|ir-taa iddIra|irtIra|
-|he|idda|ir-taa iddaane|irtaane|
-|she|iddaLu|ir-taa iddaaLe|irtaaLe|
-|they|iddru|ir-taa iddaare|irtaare|
-|it|ittu|ir-taa ide|irutte|
-|negative, every pronoun|iralilla|ir-taa illa|irolla|
-
-The neuter past is the past stem plus `-itu`, so it follows whatever the stem does: `maaDitu`, `maataaDitu` and `nODitu`, then `tinditu`, `kuDiditu`, `tagonDitu` and `banditu` on the stems that end in `d`. Go squeezes to `hOytu`, come is as often `bantu`, and `iru` is the one true exception, `ittu`. Keep the single `t`: `nODittu` is a different tense, *it had seen*.
+This lesson is the eight lines below: two verbs through four tenses. The endings on their own, and nine verbs in all three tenses, four of them irregular and the four you use most, are folded under them for the day a form will not come.
 
 Four tenses meet in these eight lines. Say them until they come out without thinking.
 
@@ -1816,6 +1911,178 @@ Four tenses meet in these eight lines. Say them until they come out without thin
 |I drank coffee.|naanu kaafi kuDide|
 |I did not drink coffee.|naanu kaafi kuDililla|
 
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I am drinking coffee.|naanu kaafi kuDi-taa iddEne|
+>
+> Over a coffee with anyone, then the same line in the other tenses.
+
+> [!later]- For later, the endings on their own and nine verbs in all three tenses
+> The endings, with no verb attached.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|-de|-taa iddEne|-tEne|
+> |we|-dvi|-taa iddEve|-tEve|
+> |you, informal|-de|-taa iddIya|-tIya|
+> |you, formal or plural|-dri|-taa iddIra|-tIra|
+> |he|-da|-taa iddaane|-taane|
+> |she|-daLu|-taa iddaaLe|-taaLe|
+> |they|-dru|-taa iddaare|-taare|
+> |it|-itu|-taa ide|-utte|
+> |negative, every pronoun|-lilla|-taa illa|-olla|
+>
+> The third column carries the future and the habit together. The negative row has no person suffix, so one form serves all eight pronouns, and in the past column it is always the `-lilla` of Lesson 26.
+>
+> Now the same three columns on nine verbs. Four of them are irregular and they are the four you use most.
+>
+> **Do**
+>
+> The root verb is `maaDu`.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|maaDde|maaD-taa iddEne|maaDtEne|
+> |we|maaDdvi|maaD-taa iddEve|maaDtEve|
+> |you, informal|maaDde|maaD-taa iddIya|maaDtIya|
+> |you, formal or plural|maaDdri|maaD-taa iddIra|maaDtIra|
+> |he|maaDda|maaD-taa iddaane|maaDtaane|
+> |she|maaDdaLu|maaD-taa iddaaLe|maaDtaaLe|
+> |they|maaDdru|maaD-taa iddaare|maaDtaare|
+> |it|maaDitu|maaD-taa ide|maaDutte|
+> |negative, every pronoun|maaDlilla|maaD-taa illa|maaDolla|
+>
+> **Eat**
+>
+> The root verb is `tinnu`. The double `n` shortens before a consonant — `tinde`, `tintEne` — and stays before a vowel: `tinnutte`, `tinnolla`.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|tinde|tin-taa iddEne|tintEne|
+> |we|tindvi|tin-taa iddEve|tintEve|
+> |you, informal|tinde|tin-taa iddIya|tintIya|
+> |you, formal or plural|tindri|tin-taa iddIra|tintIra|
+> |he|tinda|tin-taa iddaane|tintaane|
+> |she|tindaLu|tin-taa iddaaLe|tintaaLe|
+> |they|tindru|tin-taa iddaare|tintaare|
+> |it|tinditu|tin-taa ide|tinnutte|
+> |negative, every pronoun|tinlilla|tin-taa illa|tinnolla|
+>
+> **Speak**
+>
+> The root verb is `maataaDu`.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|maataaDde|maataaD-taa iddEne|maataaDtEne|
+> |we|maataaDdvi|maataaD-taa iddEve|maataaDtEve|
+> |you, informal|maataaDde|maataaD-taa iddIya|maataaDtIya|
+> |you, formal or plural|maataaDdri|maataaD-taa iddIra|maataaDtIra|
+> |he|maataaDda|maataaD-taa iddaane|maataaDtaane|
+> |she|maataaDdaLu|maataaD-taa iddaaLe|maataaDtaaLe|
+> |they|maataaDdru|maataaD-taa iddaare|maataaDtaare|
+> |it|maataaDitu|maataaD-taa ide|maataaDutte|
+> |negative, every pronoun|maataaDlilla|maataaD-taa illa|maataaDolla|
+>
+> **See or Watch**
+>
+> The root verb is `nODu`.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|nODde|nOD-taa iddEne|nODtEne|
+> |we|nODdvi|nOD-taa iddEve|nODtEve|
+> |you, informal|nODde|nOD-taa iddIya|nODtIya|
+> |you, formal or plural|nODdri|nOD-taa iddIra|nODtIra|
+> |he|nODda|nOD-taa iddaane|nODtaane|
+> |she|nODdaLu|nOD-taa iddaaLe|nODtaaLe|
+> |they|nODdru|nOD-taa iddaare|nODtaare|
+> |it|nODitu|nOD-taa ide|nODutte|
+> |negative, every pronoun|nODlilla|nOD-taa illa|nODolla|
+>
+> **Go**
+>
+> The root verb is `hOgu`. The past drops the `g` and the other two tenses keep it.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|hOde|hOg-taa iddEne|hOgtEne|
+> |we|hOdvi|hOg-taa iddEve|hOgtEve|
+> |you, informal|hOde|hOg-taa iddIya|hOgtIya|
+> |you, formal or plural|hOdri|hOg-taa iddIra|hOgtIra|
+> |he|hOda|hOg-taa iddaane|hOgtaane|
+> |she|hOdaLu|hOg-taa iddaaLe|hOgtaaLe|
+> |they|hOdru|hOg-taa iddaare|hOgtaare|
+> |it|hOytu|hOg-taa ide|hOgutte|
+> |negative, every pronoun|hOglilla|hOg-taa illa|hOgolla|
+>
+> **Drink**
+>
+> The root verb is `kuDi`.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|kuDide|kuDi-taa iddEne|kuDitEne|
+> |we|kuDidvi|kuDi-taa iddEve|kuDitEve|
+> |you, informal|kuDide|kuDi-taa iddIya|kuDitIya|
+> |you, formal or plural|kuDidri|kuDi-taa iddIra|kuDitIra|
+> |he|kuDida|kuDi-taa iddaane|kuDitaane|
+> |she|kuDidaLu|kuDi-taa iddaaLe|kuDitaaLe|
+> |they|kuDidru|kuDi-taa iddaare|kuDitaare|
+> |it|kuDiditu|kuDi-taa ide|kuDiyutte|
+> |negative, every pronoun|kuDililla|kuDi-taa illa|kuDiyolla|
+>
+> **Take**
+>
+> The root verb is `tagO`. The stem is `tagon-` in the past and `tagOL-` in the other two tenses.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|tagonDe|tagOL-taa iddEne|tagOLtEne|
+> |we|tagonDvi|tagOL-taa iddEve|tagOLtEve|
+> |you, informal|tagonDe|tagOL-taa iddIya|tagOLtIya|
+> |you, formal or plural|tagonDri|tagOL-taa iddIra|tagOLtIra|
+> |he|tagonDa|tagOL-taa iddaane|tagOLtaane|
+> |she|tagonDaLu|tagOL-taa iddaaLe|tagOLtaaLe|
+> |they|tagonDru|tagOL-taa iddaare|tagOLtaare|
+> |it|tagonDitu|tagOL-taa ide|tagOLutte|
+> |negative, every pronoun|tagOLlilla|tagOL-taa illa|tagOLolla|
+>
+> **Come**
+>
+> The root verb is `baa`. The stem is `ban-` in the past and `bar-` in the other two tenses.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|bande|bar-taa iddEne|bartEne|
+> |we|bandvi|bar-taa iddEve|bartEve|
+> |you, informal|bande|bar-taa iddIya|bartIya|
+> |you, formal or plural|bandri|bar-taa iddIra|bartIra|
+> |he|banda|bar-taa iddaane|bartaane|
+> |she|bandaLu|bar-taa iddaaLe|bartaaLe|
+> |they|bandru|bar-taa iddaare|bartaare|
+> |it|banditu, bantu|bar-taa ide|barutte|
+> |negative, every pronoun|barlilla|bar-taa illa|barolla|
+>
+> **Be or Stay**
+>
+> The root verb is `iru`. The stem is `id-` in the past and `ir-` in the other two tenses.
+>
+> |English|Past|Present|Future or Habit|
+> |---|---|---|---|
+> |I|idde|ir-taa iddEne|irtEne|
+> |we|iddvi|ir-taa iddEve|irtEve|
+> |you, informal|idde|ir-taa iddIya|irtIya|
+> |you, formal or plural|iddri|ir-taa iddIra|irtIra|
+> |he|idda|ir-taa iddaane|irtaane|
+> |she|iddaLu|ir-taa iddaaLe|irtaaLe|
+> |they|iddru|ir-taa iddaare|irtaare|
+> |it|ittu|ir-taa ide|irutte|
+> |negative, every pronoun|iralilla|ir-taa illa|irolla|
+>
+> The neuter past is the past stem plus `-itu`, so it follows whatever the stem does: `maaDitu`, `maataaDitu` and `nODitu`, then `tinditu`, `kuDiditu`, `tagonDitu` and `banditu` on the stems that end in `d`. Go squeezes to `hOytu`, come is as often `bantu`, and `iru` is the one true exception, `ittu`. Keep the single `t`: `nODittu` is a different tense, *it had seen*.
+
 ## Lesson 30 — Yes and No Questions
 
 There are two ways to ask a question. This is the easy one: take the plain sentence, change nothing in it, and put `-aa` on the very end. The word order stays, and the tense stays.
@@ -1828,10 +2095,6 @@ There are two ways to ask a question. This is the easy one: take the plain sente
 |are you fine?|neevu chennaag-iddIraa?|
 |he is a doctor|avanu doctor|
 |is he a doctor?|avanu doctor-aa?|
-|Raj speaks Kannada|Raj Kannada maataaDtaane|
-|does Raj speak Kannada?|Raj Kannada maataaDtaanaa?|
-|they did the work|avaru kelsa maaDdru|
-|did they do the work?|avaru kelsa maaDdraa?|
 
 The `-aa` replaces the last vowel of the verb, so `iddIra` becomes `iddIraa`, `taane` becomes `taanaa` and `maaDdru` becomes `maaDdraa`. Watch the third person past from Lesson 27, where the statement already ends in that vowel: `maaDda` is he did and `maaDdaa` is did he do it, and only the length separates them. After an English noun the noun stays whole and the ending hangs off the end — `Indian-aa`, `doctor-aa`.
 
@@ -1841,10 +2104,7 @@ The `-aa` replaces the last vowel of the verb, so `iddIra` becomes `iddIraa`, `t
 |is lunch done?|ooTa aaytaa?|
 |do you know Kannada?|nimage Kannada gottaa?|
 |is this right?|idu sariyaa?|
-|is he at home?|avanu mane-alli iddaanaa?|
 |do you want water?|nimage neeru bEkaa?|
-|did you see this?|idanna nODdraa?|
-|shall we go?|hOgONaa?|
 
 The ending glues onto the last vowel: `sari` becomes `sariyaa`, `ide` becomes `ideyaa`, `bEku` becomes `bEkaa`.
 
@@ -1858,15 +2118,36 @@ Answers are short. Nobody repeats the verb.
 |I do not know|gottilla|
 |okay|sari|
 
-A tag on the end asks the listener to agree, the way English uses *right* or *isn't it*.
-
-|English|Kannada|
-|---|---|
-|you are coming, right?|neevu bartIra, alva?|
-|this is your house, isn't it?|idu nimma mane taane?|
-|it is done, right?|aaytu alva?|
-
 One rule saves you from the commonest learner mistake: **a question that already has a question word never takes `-aa`.** It is `neevu elli iddIra?` and never `iddIraa?`.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |do you know Kannada?|nimage Kannada gottaa?|
+>
+> Ask it first, and Lesson 4's `nanage Kannada gottilla` is ready for the answer you will give back.
+
+> [!later]- For later, more questions and the tags
+> |English|Kannada|
+> |---|---|
+> |Raj speaks Kannada|Raj Kannada maataaDtaane|
+> |does Raj speak Kannada?|Raj Kannada maataaDtaanaa?|
+> |they did the work|avaru kelsa maaDdru|
+> |did they do the work?|avaru kelsa maaDdraa?|
+>
+> |English|Kannada|
+> |---|---|
+> |is he at home?|avanu mane-alli iddaanaa?|
+> |did you see this?|idanna nODdraa?|
+> |shall we go?|hOgONaa?|
+>
+> A tag on the end asks the listener to agree, the way English uses *right* or *isn't it*.
+>
+> |English|Kannada|
+> |---|---|
+> |you are coming, right?|neevu bartIra, alva?|
+> |this is your house, isn't it?|idu nimma mane taane?|
+> |it is done, right?|aaytu alva?|
 
 ## Lesson 31 — Question Words
 
@@ -1877,44 +2158,17 @@ The other way to ask. The question word stands where the answer would stand — 
 |how|hEge|
 |what|Enu|
 |where|elli|
-|from where|ell-inda|
 |who|yaaru|
-|whom|yaaranna|
-|to whom|yaarige|
-|whose|yaaradu, yaar-du|
 |when|yaavaaga|
 |why|yaake, Eke|
-|what for|Enakke|
 |how much, how many|eshTu|
-|how long|eshTu hottu|
-|which|yaavudu, yaava|
-|everyone|ellaru|
 
 `hEge` is how, and the how-are-you question is the one to have ready.
 
 |English|Kannada|
 |---|---|
 |how are you? Plural or polite.|neevu hEge iddIra?|
-|how are you? Singular.|neenu hEge iddIya?|
-|how are you, pronoun dropped|hEge iddIra?|
-|how are you, spoken fast|hEg-iddIra?|
 |I am fine.|naanu chennaagi iddEne|
-|we are fine.|naavu chennaagi iddEve|
-|it is good.|chennaagide|
-
-The pronoun is optional because the verb ending already names the person. The same word asks after somebody else, and the verb then agrees with the person asked about, not with the owner.
-
-|English|Kannada|
-|---|---|
-|how is your father?|nimma appa hEge iddaare?|
-|how is your mother?|nimma amma hEge iddaare?|
-|how are your kids?|nimma makkaLu hEge iddaare?|
-|how is your son?|nimma maga hEge iddaane?|
-|how is your daughter?|nimma magaLu hEge iddaaLe?|
-|how is your cat?|nimma bekku hEge ide?|
-|how is your new car?|nimma hosa kaaru hEge ide?|
-
-Father and mother take the respectful ending although each is one person.
 
 `Enu` is what.
 
@@ -1923,9 +2177,6 @@ Father and mother take the respectful ending although each is one person.
 |what is your name?|nimma hesaru Enu?|
 |what do you do for a living?|neevu Enu kelsa maaDtIra?|
 |what are you doing?|neevu Enu maaD-taa iddIra?|
-|what are you doing? Singular.|neenu Enu maaD-taa iddIya?|
-|what are you eating?|Enu tin-taa iddIra?|
-|which is that book?|adu yaava pustaka?|
 
 The job question takes the habitual `maaDtIra` and the doing-now question takes the continuous `maaD-taa iddIra`.
 
@@ -1933,80 +2184,133 @@ The job question takes the habitual `maaDtIra` and the doing-now question takes 
 
 |English|Kannada|
 |---|---|
-|where is the Vidhana Soudha?|Vidhana Soudha elli ide?|
 |where are you?|neevu elli iddIra?|
 |where are you going?|neevu elli hOg-taa iddIra?|
-|where do you work?|neevu elli kelsa maaDtIra?|
-|where is he coming from?|avanu ell-inda bar-taa iddaane?|
-|where are you coming from?|neevu ell-inda bar-taa iddIra?|
-|where do you come in from every day?|neevu dina ell-inda bartIra?|
 |where are you from?|nimma ooru yaavudu?|
-
-The last three are worth the difference. The continuous `bar-taa iddIra` asks about this one trip and the habitual `bartIra` asks about the daily one. Where a person is from is neither, so you ask which their `ooru` is, the hometown of Lesson 10.
 
 `yaavaaga` is when, `yaaru` is who, `eshTu` is how much and how many at once, and `yaake` is why.
 
 |English|Kannada|
 |---|---|
 |when are you coming?|neevu yaavaaga bar-taa iddIra?|
-|when will the train come?|railu yaavaaga barutte?|
-|who is coming? Respectful or plural.|yaaru bar-taa iddaare?|
-|who is coming? One man.|yaaru bar-taa iddaane?|
-|who are you?|neevu yaaru?|
-|who is he? Formal.|avaru yaaru?|
-|whom to ask?|yaaranna kELbEku?|
 |how much is this?|idu eshTu?|
-|how much water is there?|eshTu neeru ide?|
-|how many people are there?|eshTu jana iddaare?|
-|what is your age?|nimma vayasu eshTu?|
-|how much are the vegetables?|tarakaari eshTu?|
 |why are you going?|neevu yaake hOg-taa iddIra?|
-|why are you crying?|neevu yaake aL-taa iddIra?|
-|why is the sky blue?|aakaasha yaake neeli-aagi ide?|
 |which restaurant is good here?|illi yaava hoTel chennaag-ide?|
-|which is our room?|namma room yaavudu?|
-|hello everyone.|ellarigoo namaskaara|
 
-`yaaru` itself never changes, so the verb ending carries who is asked about. The age question is literally *how many is your age*. The full word `yaavudu` goes at the end of a sentence and the short `yaava` goes in front of a noun, as an adjective.
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |which restaurant is good here?|illi yaava hoTel chennaag-ide?|
+>
+> The question that gets you lunch and a conversation.
 
-Each question word has a matching pair of answer words. The near answer has an `i` where the far one has an `a`, and the rest of the word barely moves.
-
-|English question|Kannada|English answer|Kannada|
-|---|---|---|---|
-|how|hEge|like this, like that|hIge, haage|
-|where|elli|here, there|illi, alli|
-|when|yaavaaga|now, then|eega, aaga|
-|how much|eshTu|this much, that much|ishTu, ashTu|
-|why|yaake|this is why, that is why|idakkE, adakkE|
-|which|yaavudu|this, that|idu, adu|
-|who|yaaru|him, her, them|the personal pronouns|
-
-|English|Kannada|
-|---|---|
-|how do you eat a dosa?|dOse hEge tintaare?|
-|you eat a dosa like this.|dOse hIge tintaare!|
-|where is the hotel?|hoTel elli ide?|
-|the hotel is there.|hoTel alli ide!|
-|when will the train come?|railu yaavaaga barutte?|
-|the train will come now.|railu eega barutte!|
-|how much is the rent?|rent eshTu?|
-|the rent is this much.|rent ishTu|
-|which one is good, this or that?|yaavudu chennaag-ide? idaa, adaa?|
-|this is good.|idu chennaag-ide|
-|that is not good.|adu chennaag-illa|
-
-The question and its answer differ by one vowel — `hEge` against `hIge`, `eshTu` against `ishTu`. The `idaa` and `adaa` are `idu` and `adu` carrying the `-aa` of Lesson 30.
-
-|English|Kannada|
-|---|---|
-|people|jana|
-|age|vayasu, vayassu|
-|cry|aLu|
-|sky|aakaasha|
-|train|railu|
-|car|kaaru|
-|room|room|
-|rent|rent|
+> [!later]- For later, the rest of the question words, and their answers
+> |English|Kannada|
+> |---|---|
+> |from where|ell-inda|
+> |whom|yaaranna|
+> |to whom|yaarige|
+> |whose|yaaradu, yaar-du|
+> |what for|Enakke|
+> |how long|eshTu hottu|
+> |which|yaavudu, yaava|
+> |everyone|ellaru|
+>
+> |English|Kannada|
+> |---|---|
+> |how are you? Singular.|neenu hEge iddIya?|
+> |how are you, pronoun dropped|hEge iddIra?|
+> |how are you, spoken fast|hEg-iddIra?|
+> |we are fine.|naavu chennaagi iddEve|
+> |it is good.|chennaagide|
+>
+> The pronoun is optional because the verb ending already names the person. The same word asks after somebody else, and the verb then agrees with the person asked about, not with the owner.
+>
+> |English|Kannada|
+> |---|---|
+> |how is your father?|nimma appa hEge iddaare?|
+> |how is your mother?|nimma amma hEge iddaare?|
+> |how are your kids?|nimma makkaLu hEge iddaare?|
+> |how is your son?|nimma maga hEge iddaane?|
+> |how is your daughter?|nimma magaLu hEge iddaaLe?|
+> |how is your cat?|nimma bekku hEge ide?|
+> |how is your new car?|nimma hosa kaaru hEge ide?|
+>
+> Father and mother take the respectful ending although each is one person.
+>
+> |English|Kannada|
+> |---|---|
+> |what are you doing? Singular.|neenu Enu maaD-taa iddIya?|
+> |what are you eating?|Enu tin-taa iddIra?|
+> |which is that book?|adu yaava pustaka?|
+>
+> |English|Kannada|
+> |---|---|
+> |where is the Vidhana Soudha?|Vidhana Soudha elli ide?|
+> |where do you work?|neevu elli kelsa maaDtIra?|
+> |where is he coming from?|avanu ell-inda bar-taa iddaane?|
+> |where are you coming from?|neevu ell-inda bar-taa iddIra?|
+> |where do you come in from every day?|neevu dina ell-inda bartIra?|
+>
+> The last three are worth the difference. The continuous `bar-taa iddIra` asks about this one trip and the habitual `bartIra` asks about the daily one. Where a person is from is neither, so you ask which their `ooru` is, the hometown of Lesson 10.
+>
+> |English|Kannada|
+> |---|---|
+> |when will the train come?|railu yaavaaga barutte?|
+> |who is coming? Respectful or plural.|yaaru bar-taa iddaare?|
+> |who is coming? One man.|yaaru bar-taa iddaane?|
+> |who are you?|neevu yaaru?|
+> |who is he? Formal.|avaru yaaru?|
+> |whom to ask?|yaaranna kELbEku?|
+> |how much water is there?|eshTu neeru ide?|
+> |how many people are there?|eshTu jana iddaare?|
+> |what is your age?|nimma vayasu eshTu?|
+> |how much are the vegetables?|tarakaari eshTu?|
+> |why are you crying?|neevu yaake aL-taa iddIra?|
+> |why is the sky blue?|aakaasha yaake neeli-aagi ide?|
+> |which is our room?|namma room yaavudu?|
+> |hello everyone.|ellarigoo namaskaara|
+>
+> `yaaru` itself never changes, so the verb ending carries who is asked about. The age question is literally *how many is your age*. The full word `yaavudu` goes at the end of a sentence and the short `yaava` goes in front of a noun, as an adjective.
+>
+> Each question word has a matching pair of answer words. The near answer has an `i` where the far one has an `a`, and the rest of the word barely moves.
+>
+> |English question|Kannada|English answer|Kannada|
+> |---|---|---|---|
+> |how|hEge|like this, like that|hIge, haage|
+> |where|elli|here, there|illi, alli|
+> |when|yaavaaga|now, then|eega, aaga|
+> |how much|eshTu|this much, that much|ishTu, ashTu|
+> |why|yaake|this is why, that is why|idakkE, adakkE|
+> |which|yaavudu|this, that|idu, adu|
+> |who|yaaru|him, her, them|the personal pronouns|
+>
+> |English|Kannada|
+> |---|---|
+> |how do you eat a dosa?|dOse hEge tintaare?|
+> |you eat a dosa like this.|dOse hIge tintaare!|
+> |where is the hotel?|hoTel elli ide?|
+> |the hotel is there.|hoTel alli ide!|
+> |when will the train come?|railu yaavaaga barutte?|
+> |the train will come now.|railu eega barutte!|
+> |how much is the rent?|rent eshTu?|
+> |the rent is this much.|rent ishTu|
+> |which one is good, this or that?|yaavudu chennaag-ide? idaa, adaa?|
+> |this is good.|idu chennaag-ide|
+> |that is not good.|adu chennaag-illa|
+>
+> The question and its answer differ by one vowel — `hEge` against `hIge`, `eshTu` against `ishTu`. The `idaa` and `adaa` are `idu` and `adu` carrying the `-aa` of Lesson 30.
+>
+> |English|Kannada|
+> |---|---|
+> |people|jana|
+> |age|vayasu, vayassu|
+> |cry|aLu|
+> |sky|aakaasha|
+> |train|railu|
+> |car|kaaru|
+> |room|room|
+> |rent|rent|
 
 ## Lesson 32 — Directions
 
@@ -2014,26 +2318,38 @@ The question and its answer differ by one vowel — `hEge` against `hIge`, `eshT
 |---|---|
 |left|eDa|
 |right|bala|
-|left side|eDa-gaDe|
-|right side|bala-gaDe|
 |straight|nEra|
 |back, behind|hinde|
 |front, ahead|munde|
-|up, above|mEle|
-|down, below|keLage|
-|inside|oLage|
-|outside|horage|
-|beside|pakkadalli|
-|around|suttaloo|
 |there|alli|
 |here|illi|
-|that side|aa kaDe|
-|this side|ee kaDe|
 |far|doora|
 |near|hattira|
 |way, road|daari|
 
 Lesson 60 puts these in an auto, and Lesson 36 hangs them on a noun.
+
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |turn left.|eDagaDe tirugi|
+> |turn right.|balagaDe tirugi|
+>
+> From the auto, Lesson 60: this lesson's left and right, put to work.
+
+> [!later]- For later, ten more directions
+> |English|Kannada|
+> |---|---|
+> |left side|eDa-gaDe|
+> |right side|bala-gaDe|
+> |up, above|mEle|
+> |down, below|keLage|
+> |inside|oLage|
+> |outside|horage|
+> |beside|pakkadalli|
+> |around|suttaloo|
+> |that side|aa kaDe|
+> |this side|ee kaDe|
 
 ## Lesson 33 — Beginner Checkpoint
 
