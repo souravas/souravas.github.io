@@ -336,11 +336,16 @@ function renderTable(block, ctx) {
   return `<div class="table"><table${classes.length ? ` class="${classes.join(' ')}"` : ''}><thead><tr>${head}</tr></thead><tbody>\n${rows}\n</tbody></table></div>`
 }
 
+// Two kinds are the page's own, and Obsidian draws them as plain notes:
+// > [!say] Say it today, the line to use on a real person that day, and
+// > [!later]- For later, a lesson's look-up material, folded so the
+// lesson itself stays a day's work.
 function renderCallout(block, ctx) {
   const title = block.title ? inline(block.title, ctx) : block.kind[0].toUpperCase() + block.kind.slice(1)
   const body = block.body.map((b) => renderBlock(b, ctx)).join('\n')
-  if (!block.fold) return `<div class="callout"><p class="callout-title">${title}</p><div class="callout-body">${body}</div></div>`
-  return `<details class="callout"${block.fold === '+' ? ' open' : ''}><summary>${title}</summary><div class="callout-body">${body}</div></details>`
+  const kind = /^[a-z]+$/.test(block.kind) ? ` callout-${block.kind}` : ''
+  if (!block.fold) return `<div class="callout${kind}"><p class="callout-title">${title}</p><div class="callout-body">${body}</div></div>`
+  return `<details class="callout${kind}"${block.fold === '+' ? ' open' : ''}><summary>${title}</summary><div class="callout-body">${body}</div></details>`
 }
 
 function renderBlock(block, ctx) {

@@ -710,6 +710,39 @@ td:last-child {
   margin-bottom: 0;
 }
 
+/* A table in a callout scrolls inside its box, edge to edge, rather
+   than bleeding to the page's edges as a table on the page does. */
+.callout .table {
+  margin-inline: -14px;
+  padding-inline: 14px;
+}
+
+@media (min-width: 760px) {
+  .callout .table {
+    margin-inline: -4px;
+    padding-inline: 0;
+  }
+}
+
+/* Say it today: the one line to use on a real person, lit in the
+   accent so the lesson ends on it. It holds a table, so it takes the
+   text column's width, as the tables do. */
+.callout-say {
+  max-width: none;
+  border-color: rgb(184 177 255 / 0.3);
+}
+
+.callout-say .callout-title {
+  color: var(--accent);
+}
+
+/* For later: a lesson's look-up material, folded. It holds the wide
+   tables, so it takes the whole text column. */
+.callout-later {
+  max-width: none;
+  border-style: dashed;
+}
+
 /* ---------- Cover ----------
    The note's routine: cover the Kannada and say each line from the
    English. Covered cells keep their size, so nothing moves; a tap

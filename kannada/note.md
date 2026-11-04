@@ -178,20 +178,9 @@ Lesson 1 to Lesson 33. The sounds, the words and the three tenses. At the end of
 
 ## Lesson 1 — Sounds That Change the Meaning
 
-You do not need the script. You do need the sounds, because Kannada separates pairs that English runs together, and a wrong one turns a word into a different word. Learn this lesson before the word lists start, or you will learn half the vocabulary wrong.
+Today is one rule and five pairs of words, about ten minutes. You do not need the script. You do need the sounds, because Kannada separates pairs that English runs together, and a wrong one turns a word into a different word. Learn this lesson before the word lists start, or you will learn half the vocabulary wrong.
 
-Retroflex against dental. For a retroflex sound curl the tongue back and touch the roof of the mouth well behind the teeth. For a dental sound put the tongue tip against the back of the top teeth. This note writes the retroflex one with a capital.
-
-|Letter|This note writes|Sound|Example|
-|---|---|---|---|
-|ಟ|T|retroflex t|ooTa — meal|
-|ತ|t|dental t|tande — father|
-|ಡ|D|retroflex d|koDi — give|
-|ದ|d|dental d|dina — day|
-|ಣ|N|retroflex n|haNNu — fruit|
-|ನ|n|dental n|nanna — my|
-|ಳ|L|retroflex l|haaLu — ruined|
-|ಲ|l|plain l|haalu — milk|
+**The rule.** A capital `T`, `D`, `N` or `L` inside a word is retroflex: curl the tongue back and touch the roof of the mouth, well behind the teeth. The small letter is dental: the tongue tip against the back of the top teeth. A capital vowel, `E`, `I` or `O`, or a doubled one, `aa`, `ee` or `oo`, is held about twice as long.
 
 `L` and `l` are the pair that trips up a beginner most, because English has only one l. These are not fine distinctions. They are separate words.
 
@@ -203,34 +192,59 @@ Retroflex against dental. For a retroflex sound curl the tongue back and touch t
 |kallu / kaLLa|stone / thief|
 |Odu / ODu|read / run|
 
-Eight more pairs arrive later and catch people the same way. Learn each one as a pair on the day it turns up.
+Say each pair out loud, slowly and then fast, until the words in it sound different to you. Then cover the meanings and say which is which. That is the whole lesson.
 
-|Pair|Meaning|Lesson|
-|---|---|---|
-|sEbu / seebe|apple / guava|50|
-|kOLi / kOti|chicken / monkey|52, 53|
-|aNNa / anna|elder brother / cooked rice|11, 52|
-|haNNu / haNa|fruit / money|50, 72|
-|kai / kaayi|hand / unripe fruit|54, 50|
-|kaalu / kallu|leg / stone|54, 1|
-|hattu / hattira|ten / near|12, 36|
-|maga / magaLu|son / daughter|11|
+> [!say] Say it today
+> |English|Kannada|
+> |---|---|
+> |I do not know Kannada.|nanage Kannada gottilla|
+>
+> The phrase this course is named after, and the most useful sentence you own this week. Lesson 4 takes it apart.
 
-Vowel length is the other half. A long vowel is held about twice as long, and this note writes it either doubled or as a capital.
-
-|Letter|Short|Letter|Long|
-|---|---|---|---|
-|ಅ|a — mane, house|ಆ|aa — maatu, word|
-|ಇ|i — idu, this|ಈ|ee — neeru, water; also written I, as in iddIra|
-|ಉ|u — kuDi, drink|ಊ|oo — ooTa, meal|
-|ಎ|e — keLage, below|ಏ|E — kELu, ask|
-|ಒ|o — hoge, smoke|ಓ|O — hOgu, go|
-
-Two more vowels come up often enough to name: `ai` as in `aidu`, five, and `au` as in `aushadhi`, medicine.
-
-A doubled consonant is held long the same way. `kate` is a story and `katte` is a donkey. `hattu` is ten and `hatu` is nothing.
-
-Three things you can stop worrying about. The aspirated consonants in `dhanyavaada`, `bhaashe` and `shubha` are barely aspirated in Bangalore speech, so under-doing them costs you nothing. The two sh sounds have merged for most speakers. And a light English accent on the rest is fine, as long as the retroflex sounds and the vowel lengths are right, because those are the two that carry meaning.
+> [!later]- For later, the full set of sounds
+> Come back to this when a word trips you up. None of it needs learning today.
+>
+> Retroflex against dental, letter by letter. This note writes the retroflex one with a capital.
+>
+> |Letter|This note writes|Sound|Example|
+> |---|---|---|---|
+> |ಟ|T|retroflex t|ooTa — meal|
+> |ತ|t|dental t|tande — father|
+> |ಡ|D|retroflex d|koDi — give|
+> |ದ|d|dental d|dina — day|
+> |ಣ|N|retroflex n|haNNu — fruit|
+> |ನ|n|dental n|nanna — my|
+> |ಳ|L|retroflex l|haaLu — ruined|
+> |ಲ|l|plain l|haalu — milk|
+>
+> Eight more pairs arrive later and catch people the same way. Learn each one as a pair on the day it turns up.
+>
+> |Pair|Meaning|Lesson|
+> |---|---|---|
+> |sEbu / seebe|apple / guava|50|
+> |kOLi / kOti|chicken / monkey|52, 53|
+> |aNNa / anna|elder brother / cooked rice|11, 52|
+> |haNNu / haNa|fruit / money|50, 72|
+> |kai / kaayi|hand / unripe fruit|54, 50|
+> |kaalu / kallu|leg / stone|54, 1|
+> |hattu / hattira|ten / near|12, 36|
+> |maga / magaLu|son / daughter|11|
+>
+> Vowel length is the other half. A long vowel is held about twice as long, and this note writes it either doubled or as a capital.
+>
+> |Letter|Short|Letter|Long|
+> |---|---|---|---|
+> |ಅ|a — mane, house|ಆ|aa — maatu, word|
+> |ಇ|i — idu, this|ಈ|ee — neeru, water; also written I, as in iddIra|
+> |ಉ|u — kuDi, drink|ಊ|oo — ooTa, meal|
+> |ಎ|e — keLage, below|ಏ|E — kELu, ask|
+> |ಒ|o — hoge, smoke|ಓ|O — hOgu, go|
+>
+> Two more vowels come up often enough to name: `ai` as in `aidu`, five, and `au` as in `aushadhi`, medicine.
+>
+> A doubled consonant is held long the same way. `kate` is a story and `katte` is a donkey. `hattu` is ten and `hatu` is nothing.
+>
+> Three things you can stop worrying about. The aspirated consonants in `dhanyavaada`, `bhaashe` and `shubha` are barely aspirated in Bangalore speech, so under-doing them costs you nothing. The two sh sounds have merged for most speakers. And a light English accent on the rest is fine, as long as the retroflex sounds and the vowel lengths are right, because those are the two that carry meaning.
 
 ## Lesson 2 — Word Order and the Missing Verb
 
