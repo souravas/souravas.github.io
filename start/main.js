@@ -1,20 +1,22 @@
 /* ---------- Quick launch ----------
-   Type anywhere (or press /) to focus the prompt. The links filter in
-   place: matches stay lit with the typed text highlighted, the rest dim.
-   A link matches on an alias (its data-alias: "lc" finds LeetCode), then
-   on its name, where the start of a word ("Ready" in Interview Ready) beats the
-   name's initials ("dp" finds Design Patterns), which beat the inside of a
-   word, then on its site's name ("headway" finds Books). An
+   Type or paste anywhere (or press /) to fill the prompt. The links
+   filter in place: matches stay lit with the typed text highlighted,
+   the rest dim. A link matches on an alias (its data-alias: "lc" finds
+   LeetCode), then on its name, where the start of a word ("Ready" in
+   Interview Ready) beats the name's initials ("dp" finds Design
+   Patterns), which beat the inside of a word, then on its addresses:
+   its site's name ("headway" finds Books), or the start of any other
+   word in them ("drive" finds Cloud, "kannada" finds Language). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then "open
-   all" for a matching group, then "visit" when the query looks like an
-   address, then a Google search. ↑/↓ cycle through them, the
-   prompt shows what Enter will open, Esc clears. Links and Enter open
-   in this tab, since /start is the browser's homepage; a link with
-   data-also (Coursera, Downloads) opens its href and those URLs in new
-   tabs, on a click or a middle click, and clicking a group's heading
-   opens all of its links in new tabs. */
+   all" for a group whose name the query starts, then "visit" when the
+   query looks like an address, then a Google search. ↑/↓ cycle through
+   them, the prompt shows what Enter will open, Esc clears. Links and
+   Enter open in this tab, since /start is the browser's homepage; a
+   link with data-also (Coursera, Downloads) opens its href and those
+   URLs in new tabs, on a click or a middle click, and clicking a
+   group's heading opens all of its links in new tabs. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
@@ -40,16 +42,28 @@
     const initials = starts.map((i) => label[i]).join("").toLowerCase();
     // Everything the link opens, in order: its href, then data-also.
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
+    // The other words in all of those addresses, which a query has to
+    // start, so "me" doesn't find Drime: each host's labels but the TLD
+    // ("drive" in drive.google.com, "koofr" from data-also), and for a
+    // page on this site the first segment of its path ("kannada").
+    // www, app and web name no site.
+    const words = hrefs.flatMap((href) => {
+      const url = new URL(href, location.href);
+      if (!url.protocol.startsWith("http")) return [];
+      if (url.origin === location.origin) return url.pathname.split("/").filter(Boolean).slice(0, 1);
+      return url.hostname.split(".").slice(0, -1).filter((part) => !["www", "app", "web"].includes(part));
+    });
     const { search } = a.dataset;
     // Named in the prompt by host: "youtube.com", "claude.ai".
     const searchHost = search ? new URL(search.replace("%s", "")).hostname.replace(/^www\./, "") : "";
-    return { a, name, label, key: label.toLowerCase(), site, aliases, starts, initials, hrefs, search, searchHost };
+    return { a, name, label, key: label.toLowerCase(), site, words, aliases, starts, initials, hrefs, search, searchHost };
   });
 
   // How well a link matches the lowercased query, and the [from, to)
   // ranges of its name to mark. Rank 0 is an alias, 1 the start of a word
-  // in the name, 2 its initials, 3 the inside of a word, 4 the site's
-  // name; no match is Infinity.
+  // in the name, 2 its initials, 3 the inside of a word, 4 its addresses
+  // (the site's name, or the start of another word in them); no match
+  // is Infinity.
   const match = (link, needle) => {
     const first = link.key.indexOf(needle);
     let at = first;
@@ -65,7 +79,7 @@
     } else if (first !== -1) {
       rank = 3;
       marks = [[first, first + needle.length]];
-    } else if (link.site.includes(needle)) {
+    } else if (link.site.includes(needle) || link.words.some((word) => word.startsWith(needle))) {
       rank = 4;
     }
     // An alias outranks the rest, but its name is still marked.
@@ -167,8 +181,10 @@
       const href = owner.search.replace("%s", encodeURIComponent(query));
       candidates.unshift({ link: owner, hrefs: [href], label: `search ${owner.searchHost}` });
     }
+    // A group's name is one word, so only its start counts: "de" offers
+    // Design, not Code.
     for (const group of groups) {
-      if (q && group.key.includes(needle)) {
+      if (q && group.key.startsWith(needle)) {
         candidates.push({ group, hrefs: group.hrefs, label: `open all ${group.hrefs.length} in ${group.title}` });
       }
     }
@@ -194,6 +210,18 @@
     e.preventDefault();
     input.focus();
     if (e.key !== "/") input.value += e.key;
+    update();
+  });
+
+  // Pasting anywhere fills the prompt too, as one line: a pasted address
+  // or "lc two sum" is then an Enter away.
+  document.addEventListener("paste", (e) => {
+    if (e.target === input) return;
+    const text = e.clipboardData?.getData("text").replace(/\s+/g, " ").trim();
+    if (!text) return;
+    e.preventDefault();
+    input.focus();
+    input.value += text;
     update();
   });
 
