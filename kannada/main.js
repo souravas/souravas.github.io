@@ -237,6 +237,45 @@ async function startDrill(key) {
   });
 })();
 
+/* ---------- Checkpoints ----------
+   Lessons 33, 69 and 89 are tests. Each exercise with answers has a
+   Run as cards button above its answers: its lines to say (or, for
+   Lesson 33's matching, to pick), and the results go into the review
+   like a quiz's. */
+async function startCheck(key) {
+  const n = Number.parseInt(key, 10);
+  let cards;
+  try {
+    cards = await loadCards();
+  } catch (error) {
+    deckMessage(`Lesson ${n} test`, `${error.message} Check the connection and try again.`);
+    return;
+  }
+  const check = cards.check(key);
+  if (!check?.cards.length) return;
+  const title = check.title === "Test" ? `Lesson ${n} test` : `Lesson ${n}: ${check.title}`;
+  openDeck({
+    title,
+    items: check.cards.map((card) => ({ card, mode: check.mode })),
+    pool: (card) => (check.mode === "recognise" ? [...check.cards, ...cards.near(n)] : cards.near(card.lesson)),
+    onDone(results, ended) {
+      schedule(results);
+      if (ended) setStep(n, "quiz", true);
+    },
+    note: () => "These join your review. Misses come back tomorrow.",
+  });
+}
+
+(() => {
+  const rows = document.querySelectorAll(".check-row");
+  if (!rows.length || !document.getElementById("deck")) return;
+  for (const row of rows) row.hidden = false;
+  document.addEventListener("click", (e) => {
+    const check = e.target.closest("[data-check]");
+    if (check) startCheck(check.dataset.check);
+  });
+})();
+
 /* ---------- Review ----------
    The cards due today, thirty at a time, from the Review button. A
    card in its first two boxes is asked to recognise, a later one to

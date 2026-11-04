@@ -379,6 +379,38 @@ function tableCards(block, ctx) {
   return ids
 }
 
+// The checkpoints' exercises as cards (Lessons 33, 69 and 89): a numbered
+// list against the numbered answers in the callout after it, item for
+// item, its note after " — " as the hint ("ten, and koTTe is gave"), or
+// Lesson 33's shuffled table against the pairs its answers name, "`ooTa`
+// meals". A prompt that weighs as Kannada (a line to fill in, a line to
+// decode) is marked so, to be shown as Kannada.
+function checkCards(block, answers, ctx) {
+  const ids = []
+  if (block.type === 'list') {
+    const list = answers.body.find((b) => b.type === 'list')
+    if (!list || list.items.length !== block.items.length) return { ids }
+    block.items.forEach((item, i) => {
+      const at = dashAt(item)
+      const ask = stripInline(at === -1 ? item : item.slice(0, at))
+      const hint = at === -1 ? '' : stripInline(item.slice(at + 3))
+      const kn = stripInline(list.items[i])
+      if (!ask || !kn) return
+      const knPrompt = /_{3,}/.test(ask) || weigh(ask, ctx.lexicon).share >= 0.5
+      ids.push(addCard(ctx, cardId(ask, kn), { en: ask, kn, hint, lesson: ctx.lesson.n, knPrompt }))
+    })
+    return { ids, mode: 'recall' }
+  }
+  if (block.type === 'table') {
+    const text = answers.body.filter((b) => b.type === 'paragraph').map((b) => b.text).join(' ')
+    for (const [, kn, en] of text.matchAll(/`([^`]+)`\s+([^,`.]+)/g)) {
+      ids.push(addCard(ctx, cardId(en.trim(), kn), { en: en.trim(), kn, hint: '', lesson: ctx.lesson.n }))
+    }
+    return { ids, mode: 'recognise' }
+  }
+  return { ids }
+}
+
 // A table or list that an Answers callout follows is an exercise.
 function markExercises(blocks) {
   blocks.forEach((block, i) => {
@@ -391,14 +423,16 @@ function markExercises(blocks) {
 // The cards as the page reads them: each card once, by id; each table's
 // card ids, by the key in its data-deck ("12.3", Lesson 12's third table
 // with cards), the lesson's own tables in decks, which together are its
-// cards, and its For later tables in drills; and each lesson's Say it
-// today lines.
+// cards, and its For later tables in drills; each checkpoint exercise's,
+// by the key on its Run as cards button ("33.c2"), with its title and
+// how its cards are asked; and each lesson's Say it today lines.
 function cardData(ctx) {
   const cards = {}
-  for (const [id, c] of ctx.cards) cards[id] = [c.en, c.kn, c.hint ?? '', c.lesson, c.pair ? 1 : 0]
+  // The last field is flags: 1 a sound pair, 2 a prompt in Kannada.
+  for (const [id, c] of ctx.cards) cards[id] = [c.en, c.kn, c.hint ?? '', c.lesson, (c.pair ? 1 : 0) | (c.knPrompt ? 2 : 0)]
   const say = {}
   for (const [n, l] of ctx.lessonCards) if (l.say.length) say[n] = l.say
-  return { cards, decks: ctx.decks, drills: ctx.drills, say }
+  return { cards, decks: ctx.decks, drills: ctx.drills, checks: ctx.checks, say }
 }
 
 /* ---------- Rendering ---------- */
@@ -549,6 +583,7 @@ export function renderNote(markdown, { warn = () => {} } = {}) {
     lessonCards: new Map(),
     decks: {},
     drills: {},
+    checks: {},
   }
   const html = []
   const open = []
@@ -572,19 +607,30 @@ export function renderNote(markdown, { warn = () => {} } = {}) {
       open.pop()
     }
   }
-  for (const block of blocks) {
+  blocks.forEach((block, i) => {
     if (block.type === 'heading' && block.level <= 2) {
       close(block.level)
       ctx.lesson = block.lesson ?? null
       ctx.sub = null
-      if (ctx.lesson) ctx.lessonCards.set(ctx.lesson.n, { cards: [], say: [], tables: 1 })
+      if (ctx.lesson) ctx.lessonCards.set(ctx.lesson.n, { cards: [], say: [], tables: 1, checks: 1 })
       html.push(`<section class="${block.level === 1 ? 'part' : block.lesson ? 'lesson' : 'sub'}">`)
       open.push(block.level)
     } else if (block.type === 'heading' && ctx.lesson) {
       ctx.sub = block.text
     }
     html.push(renderBlock(block, ctx))
-  }
+    // An exercise with answers can run as cards, before its answers
+    // are opened (main.js shows the button).
+    const next = blocks[i + 1]
+    if (ctx.lesson && block.exercise && next?.type === 'callout' && next.kind === 'success') {
+      const { ids, mode } = checkCards(block, next, ctx)
+      if (ids.length) {
+        const key = `${ctx.lesson.n}.c${ctx.lessonCards.get(ctx.lesson.n).checks++}`
+        ctx.checks[key] = { ids, mode, title: ctx.sub ?? 'Test' }
+        html.push(`<div class="check-row" hidden><button class="action" type="button" data-check="${key}">Run as cards</button><p class="lesson-end-note">${ids.length} cards, then the answers</p></div>`)
+      }
+    }
+  })
   close(0)
   return { html: html.join('\n'), jump: renderJump(parts), cards: cardData(ctx) }
 }

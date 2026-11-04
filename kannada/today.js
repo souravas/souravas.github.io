@@ -149,9 +149,15 @@ function plan(n) {
   );
 
   const quizButton = section(n)?.querySelector("[data-quiz]");
+  const isTest = Boolean(section(n)?.querySelector("[data-check]"));
+  const quizNote = quizButton
+    ? `${quizButton.dataset.size} cards from this lesson.`
+    : isTest
+      ? "This lesson is the test: each part runs as cards, above its answers."
+      : "This lesson has no cards to quiz.";
   list.append(
-    step(n, "quiz", "Quiz", noteOf(quizButton ? `${quizButton.dataset.size} cards from this lesson.` : "This lesson has no cards to quiz."), {
-      checked: quizButton ? undefined : true,
+    step(n, "quiz", isTest ? "Test" : "Quiz", noteOf(quizNote), {
+      checked: quizButton || isTest ? undefined : true,
       action: quizButton ? actionButton("Quiz", () => hooks.startQuiz?.(n)) : undefined,
     }),
   );

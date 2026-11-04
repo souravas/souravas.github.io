@@ -1100,6 +1100,20 @@ td:last-child {
   display: none;
 }
 
+/* A checkpoint exercise's Run as cards, between its lines and its
+   answers. */
+.check-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin: 4px 0 16px;
+}
+
+.check-row[hidden] {
+  display: none;
+}
+
 .lesson-end-note {
   margin: 0;
   color: var(--muted);
@@ -1600,7 +1614,8 @@ body:has(.deck[open]) {
   .lesson-end,
   .today,
   .start,
-  .drill-row {
+  .drill-row,
+  .check-row {
     display: none;
   }
 

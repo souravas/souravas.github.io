@@ -51,10 +51,12 @@ export function shuffle(list) {
 export const label = (card) =>
   card.pair ? card.en.join(" / ") : card.hint ? `${card.en} (${card.hint})` : card.en;
 
-function index({ cards, decks, drills = {}, say }) {
+function index({ cards, decks, drills = {}, checks = {}, say }) {
   const byId = new Map();
-  for (const [id, [en, kn, hint, lesson, pair]] of Object.entries(cards)) {
-    byId.set(id, { id, en, kn, hint, lesson, pair: pair === 1 });
+  // flags: 1 a sound pair (Lesson 1), 2 a prompt in Kannada (a line to
+  // fill in or to decode, in the checkpoints).
+  for (const [id, [en, kn, hint, lesson, flags]] of Object.entries(cards)) {
+    byId.set(id, { id, en, kn, hint, lesson, pair: (flags & 1) === 1, knPrompt: (flags & 2) === 2 });
   }
   // A lesson's cards are its tables' ("12.3" is Lesson 12's), once each.
   const lessonCards = new Map();
@@ -79,6 +81,11 @@ function index({ cards, decks, drills = {}, say }) {
     // A table's cards, by the key in its data-deck: a lesson's own table
     // or one of its For later ones.
     deck: (key) => (decks[key] ?? drills[key] ?? []).map((id) => byId.get(id)).filter(Boolean),
+    // A checkpoint exercise: its cards, its title and how they are asked.
+    check(key) {
+      const c = checks[key];
+      return c && { title: c.title, mode: c.mode, cards: c.ids.map((id) => byId.get(id)).filter(Boolean) };
+    },
     // The cards of a lesson, then of the lessons before it, nearest
     // first, then of the ones after: where a quiz finds its wrong answers,
     // so they are lines already met wherever there are enough.

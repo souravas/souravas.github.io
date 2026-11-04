@@ -161,16 +161,17 @@ export function markDone(n) {
   save();
 }
 
-// Today's ticks, for one lesson: a new day or another lesson starts clean.
+// Today's ticks, lesson by lesson (a quiz taken on another lesson ticks
+// that one): a new day starts clean.
 export function steps(lesson) {
   const t = state.today;
-  return t && t.day === today() && t.lesson === lesson ? t.steps : {};
+  return (t?.day === today() && t.lessons?.[lesson]) || {};
 }
 
 export function setStep(lesson, step, on) {
   const day = today();
-  if (state.today?.day !== day || state.today?.lesson !== lesson) state.today = { day, lesson, steps: {} };
-  state.today.steps[step] = on;
+  if (state.today?.day !== day || !state.today.lessons) state.today = { day, lessons: {} };
+  state.today.lessons[lesson] = { ...state.today.lessons[lesson], [step]: on };
   if (on) markActive();
   save();
 }

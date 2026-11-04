@@ -178,12 +178,16 @@ function recognise(item) {
   show([ask("What does it mean?"), el("p", "deck-prompt kn", card.kn), group, after.feedback, after.row]);
 }
 
+// What a recall card asks: the checkpoints' Kannada prompts are a line
+// to fill in or a fast line to say in full.
+function recallAsk(card) {
+  if (card.knPrompt) return /_{3,}/.test(card.en) ? "Fill the blank and say the line" : "Say it in full, and what it means";
+  return card.kn.startsWith("-") ? "Say the ending, out loud" : "Say it in Kannada, out loud";
+}
+
 function recall(item) {
   const { card } = item;
-  const nodes = [
-    ask(card.kn.startsWith("-") ? "Say the ending, out loud" : "Say it in Kannada, out loud"),
-    el("p", "deck-prompt", card.en),
-  ];
+  const nodes = [ask(recallAsk(card)), el("p", card.knPrompt ? "deck-prompt kn" : "deck-prompt", card.en)];
   if (card.hint) nodes.push(el("p", "deck-hint", card.hint));
   const reveal = el("div", "deck-reveal");
   reveal.hidden = true;
