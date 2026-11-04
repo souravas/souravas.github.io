@@ -175,8 +175,8 @@ const buildStamps = () => ({
   },
 })
 
-// The Kannada page's content is kannada/note.md, a copy of the Obsidian
-// note "70 - Learn/Language/Kannada Gottilla.md". kannada/render.js turns
+// The Kannada page's content is kannada/note.md, the lessons note itself;
+// the hope vault's note only links to the page. kannada/render.js turns
 // it into HTML at kannada/index.html's <!--note--> marker, and into the
 // Lessons sheet's grid at <!--lessons-->, in dev as well as the build;
 // dev reloads the page when the note changes. Every in-page link has to

@@ -56,7 +56,7 @@ souravas.github.io/
 │   └── style.css
 ├── kannada/                # Kannada lessons, served at /kannada
 │   ├── index.html          # page shell: title, bar, lessons sheet
-│   ├── note.md             # copy of the Obsidian note: the page's content
+│   ├── note.md             # the lessons note, edited here: the page's content
 │   ├── render.js           # note.md → HTML, run at build time by vite.config.js
 │   ├── main.js             # lesson on screen, lessons sheet, Cover
 │   └── style.css

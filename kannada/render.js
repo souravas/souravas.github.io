@@ -1,8 +1,8 @@
 /* ============================================================
    SOURAV — /kannada, build-time renderer
-   Turns the Obsidian note (kannada/note.md, a copy of "70 - Learn/
-   Language/Kannada Gottilla.md" in the hope vault) into the page's
-   HTML. vite.config.js imports this; the browser never loads it.
+   Turns the lessons note (kannada/note.md, the note itself; the
+   hope vault's note only links to the page) into the page's HTML.
+   vite.config.js imports this; the browser never loads it.
    It reads the Markdown the note uses — headings, paragraphs, pipe
    tables, lists, callouts, inline code, bold, italics, links and
    wiki-links — and nothing more.
@@ -11,8 +11,8 @@
 import { createHash } from 'node:crypto'
 import { toScript } from './script.js'
 
-// The vault the note lives in, the one /start's Obsidian link opens. A
-// wiki-link to another note in it opens that note in Obsidian.
+// The vault the note's wiki-links point into, the one /start's Obsidian
+// link opens. A wiki-link to a note in it opens that note in Obsidian.
 const VAULT = 'hope'
 
 // "## Lesson 12 — Numbers 1 to 100" is a lesson; its id is lesson-12.
@@ -265,7 +265,7 @@ function inline(text, ctx, { links = true } = {}) {
 }
 
 // [[#Heading|alias]] links within the note; [[Folder/Note|alias]] opens
-// another note of the vault in Obsidian.
+// a note of the vault in Obsidian.
 function wikiLink(target, alias, ctx) {
   const label = escapeHtml(alias ?? target.replace(/^#/, ''))
   if (target.startsWith('#')) {
