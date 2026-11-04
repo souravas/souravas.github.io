@@ -16,16 +16,19 @@ import {
   LAST_LESSON,
   lastView,
   markDone,
+  markStarted,
   onProgress,
   reviewedToday,
   setStep,
   setView,
   steps,
+  started,
   streak,
   today,
 } from "./store.js";
 
 const panel = document.getElementById("today");
+const start = document.getElementById("start-here");
 const strip = document.querySelector(".bar-links");
 
 const root = document.documentElement;
@@ -35,6 +38,8 @@ let viewing = 1;
 // A lesson opened by its number shows even when it is the day's lesson
 // and done: Read it again.
 let reading = false;
+// Start here, opened again from the bar.
+let starting = false;
 let hooks = {};
 
 const el = (tag, className, text) => {
@@ -231,6 +236,12 @@ function apply() {
   root.dataset.viewing = isToday ? String(viewing) : "";
   for (const s of document.querySelectorAll(".is-viewed, .has-viewed")) s.classList.remove("is-viewed", "has-viewed");
   if (panel) panel.hidden = !isToday;
+  if (start) {
+    start.hidden = !isToday || !(starting || !started());
+    const go = start.querySelector("#start-go");
+    const n = dayLesson();
+    if (go) go.textContent = n === 1 && !doneLessons()[1] ? "Start Lesson 1" : n > LAST_LESSON ? "Back to today" : `Back to Lesson ${n}`;
+  }
   if (isToday) {
     const day = dayLesson();
     const showLesson = viewing <= LAST_LESSON && (reading || !(viewing === day && finishedToday(day)));
@@ -248,10 +259,11 @@ function apply() {
   dispatchEvent(new Event("kannada:view"));
 }
 
-function show(n, target, { read = false } = {}) {
+function show(n, target, { read = false, intro = false } = {}) {
   mode = "today";
   viewing = n;
   reading = read;
+  starting = intro;
   apply();
   if (target && target !== heading(n)) target.scrollIntoView();
   else scrollTo(0, 0);
@@ -260,6 +272,7 @@ function show(n, target, { read = false } = {}) {
 function openNote(target) {
   mode = "note";
   reading = false;
+  starting = false;
   apply();
   target?.scrollIntoView();
 }
@@ -304,29 +317,36 @@ export function initToday(options) {
   if (!panel || !strip) return;
   hooks = options;
 
-  // Today and Whole note lead the bar's links; the note's own links show
-  // only in the whole note.
+  // Today, Start here and Whole note lead the bar's links; the note's
+  // own links show only in the whole note.
   const item = (text, view) => {
     const li = el("li", "view-link");
-    if (view === "note") li.classList.add("only-today");
+    if (view !== "today") li.classList.add("only-today");
     const a = el("a", null, text);
-    a.href = view === "today" ? "#today" : "#lesson-index";
+    a.href = view === "note" ? "#lesson-index" : "#today";
     a.dataset.view = view;
     a.addEventListener("click", (e) => {
       e.preventDefault();
-      setView(view);
-      if (view === "today") {
-        if (location.hash) history.pushState(null, "", location.pathname);
-        show(dayLesson());
-      } else {
-        const back = mode === "today" ? section(viewing) : null;
-        openNote(back);
+      if (view === "note") {
+        setView("note");
+        openNote(mode === "today" ? section(viewing) : null);
+        return;
       }
+      setView("today");
+      if (location.hash) history.pushState(null, "", location.pathname);
+      show(dayLesson(), null, { intro: view === "start" });
     });
     li.append(a);
     return li;
   };
-  strip.prepend(item("Today", "today"), item("Whole note", "note"));
+  strip.prepend(item("Today", "today"), item("Start here", "start"), item("Whole note", "note"));
+
+  start?.querySelector("#start-go")?.addEventListener("click", () => {
+    markStarted();
+    starting = false;
+    apply();
+    (panel ?? document.body).scrollIntoView();
+  });
 
   document.addEventListener("click", (e) => {
     const button = e.target.closest("[data-done]");

@@ -20,7 +20,7 @@ Order of work (numbers are the ones Sourav picked from):
 - [x] 1. Today screen: only the current lesson, a daily checklist (review,
       read aloud, quiz, listen 5 min, say one line), Done moves you on,
       Whole note mode, progress in the Lessons sheet.
-- [ ] 2. Start here: the three spelling rules and how a day works, first
+- [x] 2. Start here: the three spelling rules and how a day works, first
       visit and from the bar.
 - [ ] 5. Street phrases in week one: Lessons 2 to 7 get `[!say]` lines
       from Lessons 58 and 60, flagged as not yet checked by a speaker.

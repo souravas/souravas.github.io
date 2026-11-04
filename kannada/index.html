@@ -72,6 +72,31 @@
   <!-- The note, kannada/note.md, rendered in at build time (and on each
        request in dev) by the kannada-note plugin in vite.config.js. -->
   <main class="page" id="content">
+    <!-- Start here: what a first visit needs before Lesson 1. The today
+         view shows it until you start, and its bar link brings it back. -->
+    <section class="start" id="start-here" aria-labelledby="start-title" hidden>
+      <p class="today-kicker">Start here</p>
+      <h2 class="today-title" id="start-title">One lesson a day, about twenty minutes</h2>
+      <p class="today-note">This page is Sourav's Kannada note, turned into lessons you can finish. It opens on the lesson you are on, under a plan for the day, and remembers where you are.</p>
+
+      <h3 class="start-heading">Reading the spelling</h3>
+      <p class="today-note">Kannada is written here in English letters. Every Kannada line starts lowercase, so a capital letter is always a sound, never the start of a sentence. Names keep their capitals.</p>
+      <ol class="start-rules">
+        <li><strong>A capital <i class="kn">T</i>, <i class="kn">D</i>, <i class="kn">N</i> or <i class="kn">L</i></strong>: curl the tongue back to touch the roof of the mouth. <i class="kn">haaLu</i> is ruined, <i class="kn">haalu</i> is milk.</li>
+        <li><strong>A capital <i class="kn">E</i>, <i class="kn">I</i> or <i class="kn">O</i>, or a doubled <i class="kn">aa</i>, <i class="kn">ee</i> or <i class="kn">oo</i></strong>: hold the vowel twice as long, as in <i class="kn">bEku</i>, want, and <i class="kn">neeru</i>, water.</li>
+        <li><strong>A doubled consonant</strong> is held long too: <i class="kn">katte</i> is a donkey, <i class="kn">kate</i> a story.</li>
+      </ol>
+      <p class="today-note">A hyphen only shows where an ending joins a word: <i class="kn">maaD-taa</i> is said as one word, <i class="kn">maaDtaa</i>. The note's <a href="#how-this-note-writes-kannada">Notation</a> has the whole of it.</p>
+
+      <h3 class="start-heading">How a day goes</h3>
+      <p class="today-note">Review what is due, read the lesson out loud, take its quiz, listen to five minutes of real Kannada, and say one line to someone. Done, at the end of the lesson, moves you on, and the next lesson waits for tomorrow. Cover, in the bar, hides the Kannada so you can say it from the English. Lessons opens any lesson, and Whole note has everything.</p>
+      <p class="today-note">Your progress stays in this browser, on this device.</p>
+
+      <div class="today-actions">
+        <button class="action" id="start-go" type="button">Start Lesson 1</button>
+      </div>
+    </section>
+
     <!-- The day's plan, above the day's lesson. today.js fills it. -->
     <section class="today" id="today" aria-label="Today" hidden></section>
     <!--note-->

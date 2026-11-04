@@ -853,6 +853,47 @@ td:last-child {
   text-transform: uppercase;
 }
 
+/* Start here: the first visit's page, above the plan. */
+.start {
+  padding-top: 40px;
+}
+
+.start[hidden] {
+  display: none;
+}
+
+.start-heading {
+  margin: 32px 0 0;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.start-rules {
+  margin: 12px 0 0;
+}
+
+.start-rules li + li {
+  margin-top: 10px;
+}
+
+.start + .today:not([hidden]) {
+  margin-top: 48px;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 760px) {
+  .start {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    padding-top: 56px;
+  }
+
+  .start > * {
+    grid-column: 2;
+  }
+}
+
 /* The plan: a tick, the step and what it asks, and a button to start it. */
 .plan {
   max-width: none;
@@ -1505,7 +1546,8 @@ body:has(.deck[open]) {
   .foot,
   .deck,
   .lesson-end,
-  .today {
+  .today,
+  .start {
     display: none;
   }
 

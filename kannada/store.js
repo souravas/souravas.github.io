@@ -199,3 +199,12 @@ export function setView(view) {
   state.view = view;
   save();
 }
+
+// Start here shows until you start: its button, a lesson done or a card
+// in review all count.
+export const started = () => Boolean(state.started) || Object.keys(state.done ?? {}).length > 0 || Object.keys(state.cards).length > 0;
+
+export function markStarted() {
+  state.started = true;
+  save();
+}
