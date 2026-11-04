@@ -302,6 +302,8 @@ const HINT_SKIP = new Set(['Formula', 'Follows', 'Lesson', 'Lessons'])
 const MAX_CARD = 140
 // How many cards a lesson's quiz asks, at most.
 const QUIZ_SIZE = 8
+// The fewest cards a table needs for a Drill button.
+const DRILL_MIN = 3
 
 const cardId = (...parts) => createHash('sha1').update(parts.join('\n')).digest('hex').slice(0, 10)
 
@@ -317,17 +319,18 @@ const stripInline = (s) =>
 
 const KANNADA_SCRIPT = /\p{Script=Kannada}/u
 
+// A card the note has more than once is kept once, with the lesson it
+// first turns up in.
 function addCard(ctx, id, card) {
   if (!ctx.cards.has(id)) ctx.cards.set(id, card)
-  const lesson = ctx.lessonCards.get(ctx.lesson.n)
-  if (!lesson.cards.includes(id)) lesson.cards.push(id)
-  if (ctx.say && !lesson.say.includes(id)) lesson.say.push(id)
   return id
 }
 
-// The cards of one table, as their ids, or none.
+// The cards of one table, as their ids, or none. A table under For later
+// gives cards too, for drilling it on its own, though they stay out of
+// the lesson's quiz and the review.
 function tableCards(block, ctx) {
-  if (!ctx.lesson || ctx.later || block.exercise) return []
+  if (!ctx.lesson || block.exercise) return []
   const headers = block.header.map(plainText)
   const ids = []
 
@@ -386,15 +389,16 @@ function markExercises(blocks) {
 }
 
 // The cards as the page reads them: each card once, by id; each table's
-// card ids, by the key in its data-deck ("12.3", Lesson 12's third
-// table with cards), which together are its lesson's; and each lesson's
-// Say it today lines.
+// card ids, by the key in its data-deck ("12.3", Lesson 12's third table
+// with cards), the lesson's own tables in decks, which together are its
+// cards, and its For later tables in drills; and each lesson's Say it
+// today lines.
 function cardData(ctx) {
   const cards = {}
   for (const [id, c] of ctx.cards) cards[id] = [c.en, c.kn, c.hint ?? '', c.lesson, c.pair ? 1 : 0]
   const say = {}
   for (const [n, l] of ctx.lessonCards) if (l.say.length) say[n] = l.say
-  return { cards, decks: ctx.decks, say }
+  return { cards, decks: ctx.decks, drills: ctx.drills, say }
 }
 
 /* ---------- Rendering ---------- */
@@ -454,15 +458,30 @@ function renderTable(block, ctx) {
   const head = block.header.map((h) => `<th scope="col">${inline(h, ctx, { links: false })}</th>`).join('')
   const rows = block.rows.map((row) => `<tr>${headers.map((_, i) => cell(row[i] ?? '', i)).join('')}</tr>`).join('\n')
   // A table that gives cards gets a key, lesson and table number, that
-  // names its cards in the cards file: for drilling it on its own.
+  // names its cards in the cards file, for drilling it on its own, and
+  // data-size, how many. A lesson's own tables (not its For later ones)
+  // are its cards: its quiz and its review.
   const ids = tableCards(block, ctx)
   let deck = ''
   if (ids.length) {
-    const key = `${ctx.lesson.n}.${ctx.lessonCards.get(ctx.lesson.n).tables++}`
-    ctx.decks[key] = ids
-    deck = ` data-deck="${key}"`
+    const lesson = ctx.lessonCards.get(ctx.lesson.n)
+    const key = `${ctx.lesson.n}.${lesson.tables++}`
+    if (ctx.later) {
+      ctx.drills[key] = ids
+    } else {
+      ctx.decks[key] = ids
+      for (const id of ids) {
+        if (!lesson.cards.includes(id)) lesson.cards.push(id)
+        if (ctx.say && !lesson.say.includes(id)) lesson.say.push(id)
+      }
+    }
+    deck = ` data-deck="${key}" data-size="${ids.length}"`
   }
-  return `<div class="table"${deck}><table${classes.length ? ` class="${classes.join(' ')}"` : ''}><thead><tr>${head}</tr></thead><tbody>\n${rows}\n</tbody></table></div>`
+  const table = `<div class="table"${deck}><table${classes.length ? ` class="${classes.join(' ')}"` : ''}><thead><tr>${head}</tr></thead><tbody>\n${rows}\n</tbody></table></div>`
+  // A table of three cards or more can be drilled on its own (main.js
+  // shows the button; it needs JS).
+  if (ids.length < DRILL_MIN) return table
+  return `${table}<div class="drill-row" hidden><button class="drill" type="button" data-drill="${deck.match(/data-deck="([^"]+)"/)[1]}">Drill ${ids.length}</button></div>`
 }
 
 // Two kinds are the page's own, and Obsidian draws them as plain notes:
@@ -529,6 +548,7 @@ export function renderNote(markdown, { warn = () => {} } = {}) {
     cards: new Map(),
     lessonCards: new Map(),
     decks: {},
+    drills: {},
   }
   const html = []
   const open = []

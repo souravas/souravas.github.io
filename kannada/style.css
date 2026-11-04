@@ -1037,6 +1037,53 @@ td:last-child {
   outline-offset: 2px;
 }
 
+/* ---------- Drill ----------
+   A quiet label under a table, at its right edge: Drill 12. */
+.drill-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: -14px 0 20px;
+}
+
+.drill-row[hidden] {
+  display: none;
+}
+
+.drill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 2px 0 10px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: 400 11px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease;
+}
+
+.drill::before {
+  content: '↻' / '';
+  margin-right: 6px;
+  color: var(--accent);
+  font-size: 13px;
+}
+
+@media (hover: hover) {
+  .drill:hover {
+    color: var(--text);
+  }
+}
+
+.drill:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ---------- Lesson end ----------
    A lesson's last line: its quiz, and Done. */
 .lesson-end {
@@ -1524,6 +1571,7 @@ body:has(.deck[open]) {
   .chip,
   .callout summary,
   .action,
+  .drill,
   .deck-option,
   .deck-progress::-webkit-progress-value {
     transition: none;
@@ -1551,7 +1599,8 @@ body:has(.deck[open]) {
   .deck,
   .lesson-end,
   .today,
-  .start {
+  .start,
+  .drill-row {
     display: none;
   }
 

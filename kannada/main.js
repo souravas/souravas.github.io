@@ -197,6 +197,46 @@ async function startQuiz(n) {
   });
 })();
 
+/* ---------- Drill ----------
+   A Drill button under a table runs just that table: every card in it,
+   shuffled, to say out loud (Lesson 1's pairs to pick), twenty-five at
+   a time. It is practice, so it moves nothing in the review. For later
+   tables have one too. */
+const DRILL_SIZE = 25;
+
+async function startDrill(key) {
+  const n = Number.parseInt(key, 10);
+  let cards;
+  try {
+    cards = await loadCards();
+  } catch (error) {
+    deckMessage(`Lesson ${n} drill`, `${error.message} Check the connection and try again.`);
+    return;
+  }
+  const order = shuffle(cards.deck(key).slice());
+  const run = (from) =>
+    openDeck({
+      title: `Lesson ${n} drill`,
+      items: order.slice(from, from + DRILL_SIZE).map((card) => ({ card, mode: card.pair ? "pair" : "recall" })),
+      pool: () => cards.near(n),
+      more() {
+        const left = order.length - from - DRILL_SIZE;
+        return left > 0 ? { text: `Keep going, ${left} more`, start: () => run(from + DRILL_SIZE) } : null;
+      },
+    });
+  run(0);
+}
+
+(() => {
+  const rows = document.querySelectorAll(".drill-row");
+  if (!rows.length || !document.getElementById("deck")) return;
+  for (const row of rows) row.hidden = false;
+  document.addEventListener("click", (e) => {
+    const drill = e.target.closest("[data-drill]");
+    if (drill) startDrill(drill.dataset.drill);
+  });
+})();
+
 /* ---------- Review ----------
    The cards due today, thirty at a time, from the Review button. A
    card in its first two boxes is asked to recognise, a later one to

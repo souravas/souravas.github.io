@@ -2,9 +2,10 @@
    The lessons' cards. The build writes them to a file of their own,
    named in the page's <meta name="cards">: each card's English,
    Kannada, hint and lesson by id, each table's card ids by the key in
-   its data-deck (together, its lesson's cards), and each lesson's Say
-   it today lines. Fetched once, when the page is idle or when a quiz
-   first asks. */
+   its data-deck (a lesson's own tables in decks, together its cards,
+   and its For later ones in drills), and each lesson's Say it today
+   lines. Fetched once, when the page is idle or when a quiz first
+   asks. */
 
 let loading = null;
 
@@ -50,7 +51,7 @@ export function shuffle(list) {
 export const label = (card) =>
   card.pair ? card.en.join(" / ") : card.hint ? `${card.en} (${card.hint})` : card.en;
 
-function index({ cards, decks, say }) {
+function index({ cards, decks, drills = {}, say }) {
   const byId = new Map();
   for (const [id, [en, kn, hint, lesson, pair]] of Object.entries(cards)) {
     byId.set(id, { id, en, kn, hint, lesson, pair: pair === 1 });
@@ -75,8 +76,9 @@ function index({ cards, decks, say }) {
     byId,
     card: (id) => byId.get(id),
     lesson: (n) => lessonCards.get(n) ?? { cards: [], say: [] },
-    // A table's cards, by the key in its data-deck.
-    deck: (key) => (decks[key] ?? []).map((id) => byId.get(id)).filter(Boolean),
+    // A table's cards, by the key in its data-deck: a lesson's own table
+    // or one of its For later ones.
+    deck: (key) => (decks[key] ?? drills[key] ?? []).map((id) => byId.get(id)).filter(Boolean),
     // The cards of a lesson, then of the lessons before it, nearest
     // first, then of the ones after: where a quiz finds its wrong answers,
     // so they are lines already met wherever there are enough.
