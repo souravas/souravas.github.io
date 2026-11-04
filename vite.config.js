@@ -187,16 +187,22 @@ const KANNADA_NOTE = 'kannada/note.md'
 // own (/kannada/cards.<hash>.json, named in the page's <!--cards--> meta)
 // so the page stays light; main.js fetches it once the page is idle. The
 // hash changes with the cards, so a cached page never meets new cards.
+// The same cards as an Anki deck go to /kannada/anki.txt, a name that
+// stays put, for the page's Anki deck links to download.
+const KANNADA_ANKI = 'kannada/anki.txt'
+
 const kannadaNote = () => {
   let root = process.cwd()
   let logger = console
   let cards = null
+  let anki = ''
   const warn = (message) => logger.warn(`[kannada-note] ${message}`)
   const render = () => {
     const note = renderNote(readFileSync(resolve(root, KANNADA_NOTE), 'utf8'), { warn })
     const json = JSON.stringify(note.cards)
     const hash = createHash('sha1').update(json).digest('hex').slice(0, 8)
     cards = { fileName: `kannada/cards.${hash}.json`, source: json }
+    anki = note.anki
     return note
   }
   return {
@@ -211,9 +217,16 @@ const kannadaNote = () => {
       server.watcher.on('change', (file) => {
         if (resolve(file) === note) server.ws.send({ type: 'full-reload' })
       })
-      // Dev serves the cards of the note as it is now, whatever the hash.
+      // Dev serves the cards of the note as it is now, whatever the hash,
+      // and the Anki deck.
       server.middlewares.use((req, res, next) => {
-        if (!/^\/kannada\/cards\.[0-9a-f]+\.json$/.test(req.url.split('?')[0])) return next()
+        const path = req.url.split('?')[0]
+        if (path === `/${KANNADA_ANKI}`) {
+          render()
+          res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+          return res.end(anki)
+        }
+        if (!/^\/kannada\/cards\.[0-9a-f]+\.json$/.test(path)) return next()
         render()
         res.setHeader('Content-Type', 'application/json')
         res.end(cards.source)
@@ -221,6 +234,7 @@ const kannadaNote = () => {
     },
     generateBundle() {
       if (cards) this.emitFile({ type: 'asset', fileName: cards.fileName, source: cards.source })
+      if (anki) this.emitFile({ type: 'asset', fileName: KANNADA_ANKI, source: anki })
     },
     transformIndexHtml: {
       order: 'pre',
