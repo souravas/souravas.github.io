@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Kannada Gottilla</title>
   <meta name="description" content="Spoken Bangalore Kannada in 89 lessons, one a day." />
@@ -20,6 +20,18 @@
 
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
+
+  <!-- The Today view before first paint (today.js has the rest): the
+       page opens on one lesson unless the whole note was last open or
+       the address names another heading. The build swaps the CSP's
+       'unsafe-inline' for this script's hash. -->
+  <script>
+    try {
+      var saved = JSON.parse(localStorage.getItem("kannada") || "{}");
+      var id = location.hash.slice(1);
+      if (saved.view !== "note" && (!id || id === "today" || /^lesson-\d/.test(id))) document.documentElement.classList.add("is-today");
+    } catch (e) {}
+  </script>
 
   <!-- The quizzes' cards, a file of their own: the kannada-note plugin
        in vite.config.js writes it and names it here. -->
@@ -60,6 +72,8 @@
   <!-- The note, kannada/note.md, rendered in at build time (and on each
        request in dev) by the kannada-note plugin in vite.config.js. -->
   <main class="page" id="content">
+    <!-- The day's plan, above the day's lesson. today.js fills it. -->
+    <section class="today" id="today" aria-label="Today" hidden></section>
     <!--note-->
   </main>
 

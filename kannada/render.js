@@ -531,14 +531,18 @@ export function renderNote(markdown, { warn = () => {} } = {}) {
   }
   const html = []
   const open = []
-  // A lesson with cards ends on its quiz, which main.js shows (it needs
-  // JS, so it starts hidden). data-size is how many cards a quiz asks.
+  // A lesson ends on its quiz, if it has cards, and a Done button, which
+  // main.js shows (they need JS, so they start hidden). data-size is how
+  // many cards the quiz asks.
   const end = () => {
-    const cards = ctx.lesson && ctx.lessonCards.get(ctx.lesson.n).cards
-    if (!cards?.length) return
+    if (!ctx.lesson) return
     const n = ctx.lesson.n
+    const cards = ctx.lessonCards.get(n).cards
     const size = Math.min(QUIZ_SIZE, cards.length)
-    html.push(`<div class="lesson-end" hidden><button class="action" type="button" data-quiz="${n}" data-size="${size}">Quiz</button><p class="lesson-end-note">${size} cards from Lesson ${n}</p></div>`)
+    const quiz = size
+      ? `<button class="action" type="button" data-quiz="${n}" data-size="${size}">Quiz</button><p class="lesson-end-note">${size} cards from Lesson ${n}</p>`
+      : ''
+    html.push(`<div class="lesson-end" hidden>${quiz}<button class="action quiet lesson-done" type="button" data-done="${n}">Done with Lesson ${n}</button></div>`)
   }
   const close = (level) => {
     while (open.length && open.at(-1) >= level) {

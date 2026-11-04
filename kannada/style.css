@@ -768,6 +768,165 @@ td:last-child {
   }
 }
 
+/* ---------- Today ----------
+   The today view (today.js) shows the day's plan and one lesson: every
+   part but the lesson's is gone, and in it every block but the lesson.
+   The bar keeps only Today and Whole note. Until today.js has picked
+   the lesson, the note stays out of sight, so it never flashes up on
+   the way; should the script never run, it shows after three seconds.
+   Screens only: paper gets the whole note, whichever view is open. */
+@media screen {
+  .is-today.is-ready .part:not(.has-viewed),
+  .is-today.is-ready .part > :not(.is-viewed) {
+    display: none;
+  }
+
+  .is-today .part {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .is-today:not(.is-ready) .page {
+    visibility: hidden;
+    animation: kannada-reveal 0s 3s forwards;
+  }
+}
+
+@keyframes kannada-reveal {
+  to {
+    visibility: visible;
+  }
+}
+
+.is-today .bar-links li:not(.view-link),
+:root:not(.is-today) .only-today {
+  display: none;
+}
+
+.today {
+  padding-top: 40px;
+}
+
+.today[hidden] {
+  display: none;
+}
+
+.today-kicker {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.today-title {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.today-note {
+  max-width: 68ch;
+  margin: 12px 0 0;
+}
+
+.today-hint {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.today-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 20px;
+}
+
+.today-link {
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* The plan: a tick, the step and what it asks, and a button to start it. */
+.plan {
+  max-width: none;
+  margin: 20px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  column-gap: 14px;
+  align-items: start;
+  margin: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.step input {
+  grid-row: 1 / span 2;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.step-name {
+  grid-column: 2;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.step-note {
+  grid-column: 2;
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.step-note .kn {
+  color: var(--body);
+}
+
+.step .action {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+  min-height: 36px;
+  padding: 0 14px;
+}
+
+.step.is-ticked .step-name {
+  color: var(--muted);
+}
+
+@media (min-width: 760px) {
+  .today {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    padding-top: 56px;
+  }
+
+  .today > * {
+    grid-column: 2;
+  }
+
+  .today-title {
+    font-size: 30px;
+  }
+}
+
 /* ---------- Actions ----------
    The page's few real buttons: Quiz, and the moves inside a card. The
    bar's mono labels, a thumb's height, lit in the accent. Quiet ones
@@ -805,13 +964,20 @@ td:last-child {
   opacity: 0.6;
 }
 
+/* A lesson already done keeps its button as a label: Done 4 Nov. */
+.action:disabled {
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: default;
+}
+
 @media (hover: hover) {
-  .action:hover {
+  .action:not(:disabled):hover {
     background: rgb(184 177 255 / 0.08);
     color: var(--text);
   }
 
-  .action.quiet:hover {
+  .action.quiet:not(:disabled):hover {
     border-color: #3a3a3a;
     background: var(--hover);
   }
@@ -827,7 +993,7 @@ td:last-child {
 }
 
 /* ---------- Lesson end ----------
-   A lesson's last line: its quiz. */
+   A lesson's last line: its quiz, and Done. */
 .lesson-end {
   display: flex;
   flex-wrap: wrap;
@@ -1251,6 +1417,18 @@ body:has(.deck[open]) {
   color: var(--accent);
 }
 
+/* Lessons done are filled in; the one you are on has a dashed edge. */
+.jump a.is-done {
+  background: #141414;
+  color: var(--muted);
+}
+
+.jump a.is-next:not([aria-current]) {
+  border-style: dashed;
+  border-color: #4a4a4a;
+  color: var(--text);
+}
+
 @media (hover: hover) {
   .jump a:hover {
     border-color: #3a3a3a;
@@ -1326,9 +1504,11 @@ body:has(.deck[open]) {
   .jump,
   .foot,
   .deck,
-  .lesson-end {
+  .lesson-end,
+  .today {
     display: none;
   }
+
 
   .page {
     padding-bottom: 0;

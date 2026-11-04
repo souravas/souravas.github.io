@@ -17,7 +17,7 @@ Order of work (numbers are the ones Sourav picked from):
       Lesson 1's sound pairs. No typed answers, on purpose.
 - [x] 7. Spaced review: Leitner boxes in localStorage (1, 3, 7, 14, 30, 60
       days), a missed card back to tomorrow, "Review (N due)".
-- [ ] 1. Today screen: only the current lesson, a daily checklist (review,
+- [x] 1. Today screen: only the current lesson, a daily checklist (review,
       read aloud, quiz, listen 5 min, say one line), Done moves you on,
       Whole note mode, progress in the Lessons sheet.
 - [ ] 2. Start here: the three spelling rules and how a day works, first

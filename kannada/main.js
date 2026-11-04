@@ -1,12 +1,15 @@
 import { loadCards, preloadCards, shuffle } from "./cards.js";
 import { deckMessage, openDeck } from "./deck.js";
-import { dueCards, enter, onProgress, progress, schedule } from "./store.js";
+import { dueCards, enter, markReviewed, onProgress, progress, schedule, setStep } from "./store.js";
+import { initToday } from "./today.js";
 
 /* ---------- Where you are ----------
    The bar lights the part on screen, the Lessons button names the
    lesson on screen, and the Lessons sheet lights that lesson's number.
    "On screen" is the last heading above a line a third of the way
-   down, worked out once a frame while the page scrolls. */
+   down, worked out once a frame while the page scrolls. The today view
+   shows one lesson, so it names that one (today.js keeps its number on
+   the root element). */
 (() => {
   const bar = document.querySelector(".bar");
   const strip = document.querySelector(".bar-links");
@@ -41,10 +44,14 @@ import { dueCards, enter, onProgress, progress, schedule } from "./store.js";
 
   let part = null;
   let lesson = null;
+  const root = document.documentElement;
   const update = () => {
+    const today = root.classList.contains("is-today");
     const line = bar.offsetHeight + innerHeight / 3;
-    const nextPart = lastAbove(parts, line);
-    const nextLesson = lastAbove(lessons, line, (heading) => heading.parentElement);
+    const nextPart = today ? null : lastAbove(parts, line);
+    const nextLesson = today
+      ? document.getElementById(`lesson-${root.dataset.viewing}`)
+      : lastAbove(lessons, line, (heading) => heading.parentElement);
     if (nextPart !== part) {
       links.get(part?.id)?.removeAttribute("aria-current");
       part = nextPart;
@@ -65,7 +72,7 @@ import { dueCards, enter, onProgress, progress, schedule } from "./store.js";
   };
 
   let queued = false;
-  const schedule = () => {
+  const soon = () => {
     if (queued) return;
     queued = true;
     requestAnimationFrame(() => {
@@ -73,8 +80,9 @@ import { dueCards, enter, onProgress, progress, schedule } from "./store.js";
       update();
     });
   };
-  addEventListener("scroll", schedule, { passive: true });
-  addEventListener("resize", schedule);
+  addEventListener("scroll", soon, { passive: true });
+  addEventListener("resize", soon);
+  addEventListener("kannada:view", soon);
   update();
 
   /* ---------- Lessons sheet ----------
@@ -149,36 +157,43 @@ function lessonQuiz(cards, n, size) {
   ];
 }
 
+async function startQuiz(n) {
+  const quiz = document.querySelector(`[data-quiz="${n}"]`);
+  if (!quiz || quiz.getAttribute("aria-busy") === "true") return;
+  quiz.setAttribute("aria-busy", "true");
+  try {
+    const cards = await loadCards();
+    openDeck({
+      title: `Lesson ${n} quiz`,
+      items: lessonQuiz(cards, n, Number(quiz.dataset.size) || 8),
+      pool: () => cards.near(n),
+      // The answers set each card's place in the review; a quiz seen
+      // through brings the rest of the lesson in behind them, and ticks
+      // the day's plan.
+      onDone(results, ended) {
+        schedule(results);
+        if (ended) {
+          enter(cards.lesson(n).cards);
+          setStep(n, "quiz", true);
+        }
+      },
+      note: () => `Lesson ${n}'s cards join your review. Misses come back tomorrow.`,
+    });
+  } catch (error) {
+    deckMessage(`Lesson ${n} quiz`, `${error.message} Check the connection and try again.`);
+  } finally {
+    quiz.removeAttribute("aria-busy");
+  }
+}
+
 (() => {
   const ends = document.querySelectorAll(".lesson-end");
   if (!ends.length || !document.getElementById("deck")) return;
   for (const end of ends) end.hidden = false;
   preloadCards();
-
-  document.addEventListener("click", async (e) => {
+  document.addEventListener("click", (e) => {
     const quiz = e.target.closest("[data-quiz]");
-    if (!quiz || quiz.getAttribute("aria-busy") === "true") return;
-    const n = Number(quiz.dataset.quiz);
-    quiz.setAttribute("aria-busy", "true");
-    try {
-      const cards = await loadCards();
-      openDeck({
-        title: `Lesson ${n} quiz`,
-        items: lessonQuiz(cards, n, Number(quiz.dataset.size) || 8),
-        pool: () => cards.near(n),
-        // The answers set each card's place in the review; a quiz seen
-        // through brings the rest of the lesson in behind them.
-        onDone(results, ended) {
-          schedule(results);
-          if (ended) enter(cards.lesson(n).cards);
-        },
-        note: () => `Lesson ${n}'s cards join your review. Misses come back tomorrow.`,
-      });
-    } catch (error) {
-      deckMessage(`Lesson ${n} quiz`, `${error.message} Check the connection and try again.`);
-    } finally {
-      quiz.removeAttribute("aria-busy");
-    }
+    if (quiz) startQuiz(Number(quiz.dataset.quiz));
   });
 })();
 
@@ -208,7 +223,10 @@ async function startReview() {
       mode: card.pair ? "pair" : box <= 1 ? "recognise" : "recall",
     })),
     pool: (card) => cards.near(card.lesson),
-    onDone: (results) => schedule(results),
+    onDone(results, ended) {
+      schedule(results);
+      if (ended) markReviewed();
+    },
     note: (results) =>
       results.some((r) => !r.correct)
         ? "Misses come back tomorrow. The rest wait longer each time you get them right."
@@ -244,3 +262,22 @@ async function startReview() {
   if ("requestIdleCallback" in window) requestIdleCallback(refresh, { timeout: 4000 });
   else setTimeout(refresh, 1500);
 })();
+
+/* ---------- Today ----------
+   The plan's Review and Quiz run the same decks as the buttons, and a
+   lesson marked done brings all its cards into the review. */
+initToday({
+  startQuiz,
+  startReview,
+  // Cards due today, or null with nothing in review (then no fetch).
+  async dueCount() {
+    if (!Object.keys(progress().cards).length) return null;
+    const cards = await loadCards();
+    return dueCards(cards.byId).length;
+  },
+  onDone(n) {
+    loadCards()
+      .then((cards) => enter(cards.lesson(n).cards))
+      .catch(() => {});
+  },
+});

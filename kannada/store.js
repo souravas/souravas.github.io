@@ -120,3 +120,82 @@ export function enter(cards) {
   }
   if (added) save();
 }
+
+/* ---------- The day ----------
+   The Today screen's memory: the lesson you are on (the first not yet
+   done, in order), when each lesson was done, today's checklist for
+   the lesson in hand, the day the review was last seen through, the
+   days anything was done (for the streak), and which view was last
+   open. */
+
+export const LAST_LESSON = 89;
+
+export const currentLesson = () => Math.min(state.lesson ?? 1, LAST_LESSON + 1);
+export const doneLessons = () => state.done ?? {};
+
+function markActive() {
+  const day = today();
+  const days = state.active ?? [];
+  if (!days.includes(day)) state.active = [...days, day].slice(-120);
+}
+
+// Days in a row with something done, up to today (or yesterday, so a
+// streak still shows in the morning before anything is done).
+export function streak() {
+  const days = new Set(state.active ?? []);
+  let day = today();
+  if (!days.has(day)) day -= 1;
+  let count = 0;
+  while (days.has(day)) {
+    count++;
+    day--;
+  }
+  return count;
+}
+
+// A lesson done moves you past it, unless you were already past it.
+export function markDone(n) {
+  state.done = { ...doneLessons(), [n]: today() };
+  if (currentLesson() <= n) state.lesson = n + 1;
+  markActive();
+  save();
+}
+
+// Today's ticks, for one lesson: a new day or another lesson starts clean.
+export function steps(lesson) {
+  const t = state.today;
+  return t && t.day === today() && t.lesson === lesson ? t.steps : {};
+}
+
+export function setStep(lesson, step, on) {
+  const day = today();
+  if (state.today?.day !== day || state.today?.lesson !== lesson) state.today = { day, lesson, steps: {} };
+  state.today.steps[step] = on;
+  if (on) markActive();
+  save();
+}
+
+export const reviewedToday = () => state.reviewed === today();
+
+export function markReviewed() {
+  state.reviewed = today();
+  markActive();
+  save();
+}
+
+// Going on to the next lesson on the day one was done.
+export const aheadToday = () => state.ahead === today();
+
+export function goAhead() {
+  state.ahead = today();
+  save();
+}
+
+// "today" (the default) or "note", the whole note.
+export const lastView = () => (state.view === "note" ? "note" : "today");
+
+export function setView(view) {
+  if (state.view === view) return;
+  state.view = view;
+  save();
+}
