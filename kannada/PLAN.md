@@ -30,7 +30,7 @@ Order of work (numbers are the ones Sourav picked from):
 - [x] 9. Checkpoints (Lessons 33, 69, 89) as cards that feed the review.
 - [x] 11. Play Kannada lines with the device's Kannada voice: the note's
       spelling turned into Kannada script, tap a line to hear it.
-- [ ] 10. Anki deck: the build writes `/kannada/anki.txt`.
+- [x] 10. Anki deck: the build writes `/kannada/anki.txt`.
 
 Content edits keep to what the note already says: no new Kannada beyond
 lines already in it. `note.md` now differs from the vault's copy, so it
