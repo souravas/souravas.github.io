@@ -10,6 +10,7 @@
    reports each card's first try, when it ends or the dialog closes. */
 
 import { label, norm, shuffle } from "./cards.js";
+import { canSpeak, speak } from "./speech.js";
 
 const dialog = document.getElementById("deck");
 const heading = document.getElementById("deck-title");
@@ -40,6 +41,12 @@ const actions = (...buttons) => {
 };
 
 const ask = (text) => el("p", "deck-ask", text);
+
+// Hear it: the line in the device's Kannada voice, where it has one.
+function hear(text, label = "Hear it") {
+  const b = button(label, "hear", () => speak(text));
+  return b;
+}
 
 // Put a card on show, and focus where the next move is.
 function show(nodes, focus) {
@@ -175,7 +182,9 @@ function recognise(item) {
     answer(right);
     after.done(right ? "Right." : `It means: ${label(card)}`);
   });
-  show([ask("What does it mean?"), el("p", "deck-prompt kn", card.kn), group, after.feedback, after.row]);
+  const prompt = [ask("What does it mean?"), el("p", "deck-prompt kn", card.kn)];
+  if (canSpeak()) prompt.push(hear(card.kn));
+  show([...prompt, group, after.feedback, after.row]);
 }
 
 // What a recall card asks: the checkpoints' Kannada prompts are a line
@@ -192,6 +201,7 @@ function recall(item) {
   const reveal = el("div", "deck-reveal");
   reveal.hidden = true;
   reveal.append(el("p", "deck-answer kn", card.kn));
+  if (canSpeak()) reveal.append(hear(card.kn, "Hear it again"));
   const also = alsoRight(card);
   if (also.length) {
     const line = el("p", "deck-also", "Also right: ");
@@ -209,29 +219,39 @@ function recall(item) {
   });
   miss.dataset.key = "1";
   hit.dataset.key = "2";
+  // Showing the answer says it too: your try, then the voice.
   const showButton = button("Show", "action", () => {
     reveal.hidden = false;
     row.replaceChildren(miss, hit);
     hit.focus({ preventScroll: true });
+    speak(card.kn);
   });
   row.append(showButton);
   show([...nodes, reveal, row], showButton);
 }
 
-// Which of the pair means this? A card asked again asks another word.
+// Which of the pair is it? With a Kannada voice, the one you hear, played
+// as the card opens: the test Lesson 1 is about. Without one, the one
+// that means a thing. A card asked again asks another word.
 function pair(item) {
   const { card } = item;
   const words = card.kn;
   let asked = Math.floor(Math.random() * words.length);
   if (item.last !== undefined && words.length > 1 && asked === item.last) asked = (asked + 1) % words.length;
   item.asked = asked;
+  const listening = canSpeak();
   const after = afterChoice();
   const group = choices(shuffle(words.map((_, i) => i)), (i) => i === asked, (i) => words[i], (right) => {
     answer(right);
     after.done(words.map((w, i) => `${w} is ${card.en[i]}`).join(", "));
   });
   group.classList.add("is-pair");
-  show([ask("Which one means"), el("p", "deck-prompt", card.en[asked]), group, after.feedback, after.row]);
+  if (listening) {
+    show([ask("Which one did you hear?"), hear(words[asked], "Play it again"), group, after.feedback, after.row], group.querySelector("button"));
+    speak(words[asked]);
+  } else {
+    show([ask("Which one means"), el("p", "deck-prompt", card.en[asked]), group, after.feedback, after.row]);
+  }
 }
 
 function finish() {

@@ -1,6 +1,7 @@
 import { loadCards, preloadCards, shuffle } from "./cards.js";
 import { deckMessage, openDeck } from "./deck.js";
 import { dueCards, enter, markReviewed, onProgress, progress, schedule, setStep } from "./store.js";
+import { canSpeak, initSpeech, onVoice, speak } from "./speech.js";
 import { initToday } from "./today.js";
 
 /* ---------- Where you are ----------
@@ -360,3 +361,32 @@ initToday({
       .catch(() => {});
   },
 });
+
+/* ---------- Hearing ----------
+   With a Kannada voice on the device, a tap on any Kannada in the note
+   (a table cell, a word in the text, Lesson 1's letters) says it, and
+   the word lights while it does. In Cover, a tap that shows a cell says
+   it, and the tap that hides it again says nothing. Start here says
+   whether this device can. */
+initSpeech();
+
+document.addEventListener("click", (e) => {
+  if (!canSpeak()) return;
+  const target = e.target.closest(".page .kn, .page [lang='kn'], .masthead [lang='kn']");
+  if (!target || e.target.closest("a, button, summary, input, label")) return;
+  const cell = target.closest("td.c");
+  if (cell && document.body.classList.contains("is-covering") && !cell.classList.contains("is-shown")) return;
+  if (!speak(target.textContent)) return;
+  target.classList.add("is-speaking");
+  setTimeout(() => target.classList.remove("is-speaking"), 900);
+});
+
+(() => {
+  const note = document.getElementById("voice-note");
+  if (!note) return;
+  onVoice((ok) => {
+    note.textContent = ok
+      ? "Tap any Kannada line to hear it in this device's Kannada voice, and a quiz says each answer as you show it. It is a machine's voice: right for the sounds, stiff for the tune."
+      : "This browser has no Kannada voice, so the page cannot read lines out here. Android has one in Google's speech engine (the Kannada voice may need downloading in the text-to-speech settings), and so does Edge on Windows.";
+  });
+})();

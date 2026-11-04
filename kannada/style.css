@@ -1037,6 +1037,69 @@ td:last-child {
   outline-offset: 2px;
 }
 
+/* ---------- Hearing ----------
+   With a Kannada voice on the device (speech.js), the note's Kannada
+   can be tapped to hear, and lights while it is said. Inside a card,
+   Hear it is a quiet label like Drill. */
+.can-speak .page :is(.kn, [lang='kn']),
+.can-speak .masthead [lang='kn'] {
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .can-speak .page :is(.kn, [lang='kn']):hover {
+    text-decoration: underline dotted rgb(184 177 255 / 0.6);
+    text-underline-offset: 0.25em;
+  }
+}
+
+.is-speaking,
+.is-speaking * {
+  color: var(--accent) !important;
+}
+
+.hear {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 36px;
+  margin-top: 12px;
+  padding: 0 10px 0 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: 400 11px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hear::before {
+  content: '▶' / '';
+  margin-right: 8px;
+  color: var(--accent);
+  font-size: 10px;
+}
+
+@media (hover: hover) {
+  .hear:hover {
+    color: var(--text);
+  }
+}
+
+.hear:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* A pair to hear: the Play button stands where the word would. */
+.deck-ask + .hear {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
 /* ---------- Drill ----------
    A quiet label under a table, at its right edge: Drill 12. */
 .drill-row {

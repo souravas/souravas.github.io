@@ -26,6 +26,7 @@ import {
   streak,
   today,
 } from "./store.js";
+import { canSpeak, onVoice } from "./speech.js";
 
 const panel = document.getElementById("today");
 const start = document.getElementById("start-here");
@@ -53,7 +54,7 @@ const heading = (n) => document.getElementById(`lesson-${n}`);
 const section = (n) => heading(n)?.closest(".lesson");
 
 // "Yes, No, Please and Sorry", from the lesson's heading.
-const title = (n) => heading(n)?.textContent.replace(/^Lesson \d+\s*—\s*/, "").trim() ?? "";
+const title = (n) => heading(n)?.textContent.replace(/^Lesson \d+\s*\u2014\s*/, "").trim() ?? "";
 
 // The lesson the day is about: the one you are on, or the one you
 // finished today, until you choose to go ahead.
@@ -144,8 +145,9 @@ function plan(n) {
     }
   });
 
+  const first = canSpeak() ? "Tap a line to hear it first. " : "";
   list.append(
-    step(n, "read", "Read it out loud", noteOf("Every Kannada line said, never read in your head. Then Cover the Kannada and say each line from the English.")),
+    step(n, "read", "Read it out loud", noteOf(`${first}Every Kannada line said, never read in your head. Then Cover the Kannada and say each line from the English.`)),
   );
 
   const quizButton = section(n)?.querySelector("[data-quiz]");
@@ -375,6 +377,13 @@ export function initToday(options) {
   addEventListener("hashchange", route);
   onProgress(() => {
     syncDone();
+    if (mode === "today") render();
+  });
+  // A voice that turns up after the page loads earns the plan its tip.
+  let voiced = canSpeak();
+  onVoice((ok) => {
+    if (ok === voiced) return;
+    voiced = ok;
     if (mode === "today") render();
   });
   syncDone();

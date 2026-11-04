@@ -28,7 +28,7 @@ Order of work (numbers are the ones Sourav picked from):
       to learn, look-up tables folded, nothing deleted.
 - [x] 8. Drill any table: a button under each table runs just that table.
 - [x] 9. Checkpoints (Lessons 33, 69, 89) as cards that feed the review.
-- [ ] 11. Play Kannada lines with the device's Kannada voice: the note's
+- [x] 11. Play Kannada lines with the device's Kannada voice: the note's
       spelling turned into Kannada script, tap a line to hear it.
 - [ ] 10. Anki deck: the build writes `/kannada/anki.txt`.
 

@@ -359,7 +359,7 @@ function tableCards(block, ctx) {
       const raw = row[k] ?? ''
       const en = stripInline(row[e] ?? '')
       const kn = stripInline(raw)
-      if (!en || !kn || kn === '—' || en === '—' || raw.includes('`')) continue
+      if (!en || !kn || kn === '\u2014' || en === '\u2014' || raw.includes('`')) continue
       if (KANNADA_SCRIPT.test(en) || !/[a-z]/i.test(kn) || en.length > MAX_CARD || kn.length > MAX_CARD) continue
       // The rest of the row's English says which form it is: Lesson 2's
       // "spoken", Lesson 13's "100", a speaker in a conversation.
@@ -381,7 +381,8 @@ function tableCards(block, ctx) {
 
 // The checkpoints' exercises as cards (Lessons 33, 69 and 89): a numbered
 // list against the numbered answers in the callout after it, item for
-// item, its note after " — " as the hint ("ten, and koTTe is gave"), or
+// item, its note after a spaced dash as the hint ("ten, and koTTe is
+// gave"), or
 // Lesson 33's shuffled table against the pairs its answers name, "`ooTa`
 // meals". A prompt that weighs as Kannada (a line to fill in, a line to
 // decode) is marked so, to be shown as Kannada.
