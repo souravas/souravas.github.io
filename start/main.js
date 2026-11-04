@@ -6,7 +6,7 @@
    Interview Ready) beats the name's initials ("dp" finds Design
    Patterns), which beat the inside of a word, then on its addresses:
    its site's name ("headway" finds Books), or the start of any other
-   word in them ("drive" finds Cloud, "kannada" finds Language). An
+   word in them ("drive" or "photos" finds Cloud). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then "open
