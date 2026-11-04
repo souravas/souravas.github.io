@@ -14,7 +14,7 @@
    query looks like an address, then a Google search. ↑/↓ cycle through
    them, the prompt shows what Enter will open, Esc clears. Links and
    Enter open in this tab, since /start is the browser's homepage; a
-   link with data-also (Coursera, Downloads) opens its href and those
+   link with data-also (TickTick, Downloads) opens its href and those
    URLs in new tabs, on a click or a middle click, and clicking a
    group's heading opens all of its links in new tabs. */
 (() => {
