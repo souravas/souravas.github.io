@@ -51,10 +51,11 @@ function show(nodes, focus) {
 /* Open a run. items: [{ card, mode }]. pool(card): the cards to find
    wrong answers among, its own lesson's first. onDone(results, ended):
    results are [{ card, mode, correct }], one per card, first try. note:
-   a line for the end screen, from the results. */
-export function openDeck({ title, items, pool = () => [], onDone, note }) {
+   a line for the end screen, from the results. more(): after onDone,
+   a next run to offer, { text, start }, or nothing. */
+export function openDeck({ title, items, pool = () => [], onDone, note, more }) {
   if (!dialog || !items.length) return;
-  run = { title, pool, onDone, note, queue: items.slice(), first: new Map(), tries: new Map(), total: items.length, reported: false };
+  run = { title, pool, onDone, note, more, queue: items.slice(), first: new Map(), tries: new Map(), total: items.length, reported: false };
   heading.textContent = title;
   if (!dialog.open) dialog.showModal();
   next();
@@ -230,6 +231,7 @@ function pair(item) {
 }
 
 function finish() {
+  report(true);
   const results = [...run.first.values()];
   const right = results.filter((r) => r.correct).length;
   bar.value = bar.max;
@@ -257,10 +259,11 @@ function finish() {
       ),
     );
   }
+  const more = run.more?.();
+  if (more) row.append(button(more.text, "action quiet", more.start));
   const close = button("Close", "action", () => dialog.close());
   row.append(close);
   nodes.push(row);
-  report(true);
   show(nodes, close);
 }
 

@@ -36,8 +36,9 @@
 
   <!-- Sticks to the top once the title scrolls away. The links are the
        note's top-level headings; the build warns if one stops matching.
-       main.js names the lesson on screen in the Lessons button and
-       un-hides Cover, which hides the Kannada in the tables. -->
+       main.js names the lesson on screen in the Lessons button, shows
+       Review when cards are due, and un-hides Cover, which hides the
+       Kannada in the tables. -->
   <nav class="bar" aria-label="Sections">
     <div class="bar-inner">
       <ul class="bar-links">
@@ -50,6 +51,7 @@
         <li><a href="#intermediate">Intermediate</a></li>
         <li><a href="#advanced">Advanced</a></li>
       </ul>
+      <button class="bar-button" id="review-button" type="button" title="The cards due today" hidden>Review</button>
       <button class="bar-button" id="cover" type="button" aria-pressed="false" title="Hide the Kannada in the tables; tap a cell to show it" hidden>Cover</button>
       <button class="bar-button" id="jump-button" type="button" popovertarget="jump">Lessons</button>
     </div>

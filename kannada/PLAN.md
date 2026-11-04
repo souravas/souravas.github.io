@@ -15,7 +15,7 @@ Order of work (numbers are the ones Sourav picked from):
       tables), run in a dialog. Recognise (Kannada shown, pick the English
       of 4), recall (English shown, say it, reveal, Got it / Not yet), and
       Lesson 1's sound pairs. No typed answers, on purpose.
-- [ ] 7. Spaced review: Leitner boxes in localStorage (1, 3, 7, 14, 30, 60
+- [x] 7. Spaced review: Leitner boxes in localStorage (1, 3, 7, 14, 30, 60
       days), a missed card back to tomorrow, "Review (N due)".
 - [ ] 1. Today screen: only the current lesson, a daily checklist (review,
       read aloud, quiz, listen 5 min, say one line), Done moves you on,

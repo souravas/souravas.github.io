@@ -231,7 +231,8 @@ body {
   outline-offset: 2px;
 }
 
-.bar-button[aria-pressed='true'] {
+.bar-button[aria-pressed='true'],
+#review-button {
   border-color: rgb(184 177 255 / 0.45);
   color: var(--accent);
 }

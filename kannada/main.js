@@ -1,5 +1,6 @@
 import { loadCards, preloadCards, shuffle } from "./cards.js";
 import { deckMessage, openDeck } from "./deck.js";
+import { dueCards, enter, onProgress, progress, schedule } from "./store.js";
 
 /* ---------- Where you are ----------
    The bar lights the part on screen, the Lessons button names the
@@ -165,6 +166,13 @@ function lessonQuiz(cards, n, size) {
         title: `Lesson ${n} quiz`,
         items: lessonQuiz(cards, n, Number(quiz.dataset.size) || 8),
         pool: () => cards.near(n),
+        // The answers set each card's place in the review; a quiz seen
+        // through brings the rest of the lesson in behind them.
+        onDone(results, ended) {
+          schedule(results);
+          if (ended) enter(cards.lesson(n).cards);
+        },
+        note: () => `Lesson ${n}'s cards join your review. Misses come back tomorrow.`,
       });
     } catch (error) {
       deckMessage(`Lesson ${n} quiz`, `${error.message} Check the connection and try again.`);
@@ -172,4 +180,67 @@ function lessonQuiz(cards, n, size) {
       quiz.removeAttribute("aria-busy");
     }
   });
+})();
+
+/* ---------- Review ----------
+   The cards due today, thirty at a time, from the Review button. A
+   card in its first two boxes is asked to recognise, a later one to
+   say: recognising comes first, saying is what lasts. */
+const REVIEW_SIZE = 30;
+
+async function startReview() {
+  let cards;
+  try {
+    cards = await loadCards();
+  } catch (error) {
+    deckMessage("Review", `${error.message} Check the connection and try again.`);
+    return;
+  }
+  const due = dueCards(cards.byId);
+  if (!due.length) {
+    deckMessage("Review", "Nothing is due today. A lesson's quiz adds its cards, and they start coming back tomorrow.");
+    return;
+  }
+  openDeck({
+    title: "Review",
+    items: shuffle(due.slice(0, REVIEW_SIZE)).map(({ card, box }) => ({
+      card,
+      mode: card.pair ? "pair" : box <= 1 ? "recognise" : "recall",
+    })),
+    pool: (card) => cards.near(card.lesson),
+    onDone: (results) => schedule(results),
+    note: (results) =>
+      results.some((r) => !r.correct)
+        ? "Misses come back tomorrow. The rest wait longer each time you get them right."
+        : "Each one waits longer now, up to two months, each time you get it right.",
+    more() {
+      const left = dueCards(cards.byId).length;
+      return left ? { text: `Keep going, ${left} more`, start: startReview } : null;
+    },
+  });
+}
+
+(() => {
+  const button = document.getElementById("review-button");
+  if (!button || !document.getElementById("deck")) return;
+  // The count needs the cards file, so a browser with nothing in review
+  // never fetches it for this, and one with cards waits for the page
+  // to settle first.
+  const refresh = () => {
+    if (!Object.keys(progress().cards).length) {
+      button.hidden = true;
+      return;
+    }
+    loadCards()
+      .then((cards) => {
+        const n = dueCards(cards.byId).length;
+        button.hidden = n === 0;
+        button.textContent = `Review ${n}`;
+      })
+      .catch(() => {});
+  };
+  button.addEventListener("click", startReview);
+  onProgress(refresh);
+  if ("requestIdleCallback" in window) requestIdleCallback(refresh, { timeout: 4000 });
+  else setTimeout(refresh, 1500);
 })();
