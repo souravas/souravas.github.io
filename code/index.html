@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+
+  <title>Python Coding Interview Prep</title>
+  <meta name="description" content="Algorithm patterns and a syntax cheatsheet, in Python, for reading before a round." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
+  <link rel="icon" href="/favicon-32x32.png?v=3" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
+
+  <link rel="stylesheet" href="/code/style.css" />
+  <script type="module" src="/code/main.js"></script>
+</head>
+<body>
+  <header class="masthead" id="top">
+    <h1>Python Coding Interview Prep</h1>
+    <p>The <a href="https://github.com/souravas/code">solutions</a> are the practice; the references are what gets read before a round.</p>
+  </header>
+
+  <!-- Sticks to the top once the title scrolls away. On a phone it holds
+       the section on screen, which opens the sheet of them all, and the
+       sheet leads to the documents. main.js names the section and un-hides
+       Cover and Search, which need it. -->
+  <nav class="bar" aria-label="Documents">
+    <div class="bar-inner">
+      <ul class="bar-links">
+        <li><a href="#patterns">Patterns</a></li>
+        <li><a href="#cheatsheet">Cheatsheet</a></li>
+        <li><a href="#overview">Overview</a></li>
+      </ul>
+      <button class="bar-button bar-where" id="jump-button" type="button" popovertarget="jump">Sections</button>
+      <button class="bar-button" id="cover" type="button" aria-pressed="false" title="Hide the code and keep its comments; tap a line to show it" hidden>Cover</button>
+      <button class="bar-button" id="search-button" type="button" title="Search everything, or just start typing" hidden>Search</button>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <!-- Every section. A bottom sheet on phones, a panel in the middle on
+         wider screens, and on the widest a rail beside the page. -->
+    <nav class="jump" id="jump" popover aria-label="Sections">
+      <div class="jump-head">
+        <p class="jump-label" id="jump-label">Sections</p>
+        <button class="bar-button" type="button" popovertarget="jump" popovertargetaction="hide">Close</button>
+      </div>
+      <!--sections-->
+    </nav>
+
+    <!-- The documents in this folder, rendered in at build time (and on
+         each request in dev) by the code-docs plugin in vite.config.js. -->
+    <main class="page" id="content">
+      <!--docs-->
+    </main>
+  </div>
+
+  <footer class="foot">
+    <a href="#top">Top</a>
+    <a href="https://github.com/souravas/code">Solutions on GitHub</a>
+  </footer>
+
+  <!-- Search: the whole screen on phones, a panel on wider screens.
+       search.js fills it. -->
+  <dialog class="find" id="find" aria-label="Search">
+    <div class="find-head">
+      <input class="find-input" id="find-input" type="search" placeholder="Search" aria-label="Search" aria-controls="find-results" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" />
+      <button class="bar-button" id="find-close" type="button">Close</button>
+    </div>
+    <p class="find-status" id="find-status" role="status"></p>
+    <ol class="find-results" id="find-results"></ol>
+  </dialog>
+</body>
+</html>

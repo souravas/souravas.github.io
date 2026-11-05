@@ -22,6 +22,7 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 - Page versions: `/` serves v1 by default; `/v1`, `/v2`, `/v3`, and `/v4` open each design explicitly, and each names `/` as its canonical
 - Start page: `/start` — personal bookmarks dashboard (noindex)
 - Kannada: `/kannada` — the Kannada Gottilla lessons note as a page (noindex), rendered from `kannada/note.md` at build time
+- Code: `/code` — the Python interview references as a page (noindex), rendered from the Markdown in `code/` at build time
 - Exercises: `/exercises` — exercise videos behind the start page's Exercises link (noindex)
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 - Sitemap: `/sitemap.xml`, generated at build time
@@ -60,6 +61,15 @@ souravas.github.io/
 │   ├── render.js           # note.md → HTML, run at build time by vite.config.js
 │   ├── main.js             # lesson on screen, lessons sheet, Cover
 │   └── style.css
+├── code/                   # Python interview references, served at /code
+│   ├── index.html          # page shell: title, bar, sections sheet, search
+│   ├── PATTERNS.md         # algorithm templates, edited here: the page's content
+│   ├── CHEATSHEET.md       # syntax and idioms, likewise
+│   ├── README.md           # the page's Overview, likewise
+│   ├── render.js           # the documents → HTML, run at build time by vite.config.js
+│   ├── main.js             # section on screen, sheet, Cover, Copy
+│   ├── search.js           # search over the page's own text
+│   └── style.css
 ├── exercises/              # exercise videos, served at /exercises
 │   ├── index.html
 │   └── style.css
@@ -73,12 +83,12 @@ souravas.github.io/
 │   ├── robots.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
-│   ├── fonts/              # shared by v1, /start, /kannada, /exercises, and 404.html
+│   ├── fonts/              # shared by v1, /start, /kannada, /code, /exercises, and 404.html
 │   └── assets/             # images, social cards (og-cover, og-cover-v4), resume.pdf
 ├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
 │                           # CSP hashing, HTML minify, build-time values
 │                           # (years, sitemap, security.txt), the Kannada
-│                           # note, dev routes
+│                           # note, the code documents, dev routes
 └── .github/
     ├── dependabot.yml      # weekly npm and Actions updates
     └── workflows/

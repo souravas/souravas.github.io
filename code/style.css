@@ -1,0 +1,1269 @@
+/* ============================================================
+   SOURAV — /code
+   The Python interview references as one long page, on /start's
+   pure black with /kannada's greys, lavender accent, fonts, bar and
+   sheet. Built for a phone first: code wraps under its own indent
+   rather than running off the edge, and a comment on the end of a
+   line drops below it when it does not fit. From 1180px the sheet
+   stays open as a rail beside the page.
+   ============================================================ */
+
+/* ---------- Fonts ----------
+   Shared with v1, /start and /kannada (public/fonts/). The few
+   symbols outside these ranges (→, ≤, ⁿ) fall through to the
+   system's fonts. */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-tight.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------- Tokens ----------
+   /start's neutral greys on #000 and v1's lavender accent. In code,
+   names being defined take the near-white, keywords the accent and
+   literals a quiet green; comments stay readable (6.5:1 on black),
+   because they carry the reason for each step. */
+:root {
+  --bg: #000;
+  --line: #1c1c1c;
+  --rule: #2a2a2a;
+  --hover: #0f0f0f;
+  --cover: #1c1c1c;
+  --text: #f5f5f5;
+  --body: #a3a3a3;
+  --muted: #767676;
+  --accent: #b8b1ff;
+  --code-bg: #0a0a0a;
+  --code: #d4d4d4;
+  --comment: #8f8f8f;
+  --literal: #a9c9a4;
+  --radius: 6px;
+  --width: 840px;
+  --rail: 220px;
+  --bar: 48px;
+  --edge: max(16px, env(safe-area-inset-left));
+  --edge-end: max(16px, env(safe-area-inset-right));
+  --font-sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+  background: var(--bg);
+  /* A jump to a heading lands below the sticky bar. */
+  scroll-padding-top: calc(var(--bar) + 24px);
+  /* Search stops the page scrolling behind it; this keeps the column still
+     where a scrollbar takes up room. */
+  scrollbar-gutter: stable;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--body);
+  font: 400 16px/1.6 var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+::selection {
+  background: rgb(184 177 255 / 0.35);
+  color: var(--text);
+}
+
+/* ---------- Layout ----------
+   One column, the full width less 16px each side (and any notch) on
+   phones and at most 840px wide above that. */
+.masthead,
+.bar-inner,
+.layout,
+.foot {
+  width: 100%;
+  max-width: calc(var(--width) + 80px);
+  margin-inline: auto;
+  padding-inline: var(--edge) var(--edge-end);
+}
+
+@media (min-width: 760px) {
+  body {
+    font-size: 17px;
+  }
+
+  .masthead,
+  .bar-inner,
+  .layout,
+  .foot {
+    padding-inline: 40px;
+  }
+}
+
+/* ---------- Masthead ---------- */
+.masthead {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.masthead h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.masthead p {
+  max-width: 60ch;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+@media (min-width: 760px) {
+  .masthead {
+    padding-top: 72px;
+    padding-bottom: 28px;
+  }
+
+  .masthead h1 {
+    font-size: 40px;
+  }
+
+  .masthead p {
+    font-size: 17px;
+  }
+}
+
+/* ---------- Bar ----------
+   On a phone, the section on screen (it opens the sheet), then Cover
+   and Search. From 760px the documents lead the row, and from 1180px
+   the rail names the section instead. */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--bar);
+}
+
+.bar-links {
+  display: none;
+  flex: 1;
+  min-width: 0;
+  margin: 0 0 0 -8px;
+  padding: 0;
+  list-style: none;
+}
+
+.bar-links a {
+  display: block;
+  padding: 8px;
+  border-radius: var(--radius);
+  color: var(--muted);
+  font: 400 11px/16px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease;
+}
+
+.bar-links a[aria-current='true'] {
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .bar-links a:hover {
+    color: var(--text);
+  }
+}
+
+.bar-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.bar-button {
+  flex: none;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--body);
+  font: 400 11px/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+
+.bar-button[hidden] {
+  display: none;
+}
+
+@media (hover: hover) {
+  .bar-button:hover {
+    border-color: #3a3a3a;
+    color: var(--text);
+  }
+}
+
+.bar-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.bar-button[aria-pressed='true'] {
+  border-color: rgb(184 177 255 / 0.45);
+  color: var(--accent);
+}
+
+/* The section on screen, by its name: it takes the rest of the row, and
+   its words keep their case, since some are code. */
+.bar-where {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding-right: 24px;
+  overflow: hidden;
+  color: var(--text);
+  font: 400 14px/30px var(--font-sans);
+  letter-spacing: 0;
+  text-align: left;
+  text-overflow: ellipsis;
+  text-transform: none;
+}
+
+.bar-where::after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid var(--muted);
+  border-bottom: 1px solid var(--muted);
+  transform: rotate(45deg);
+}
+
+@media (min-width: 760px) {
+  .bar-inner {
+    gap: 8px;
+  }
+
+  .bar-links {
+    display: flex;
+  }
+
+  .bar-button {
+    padding: 0 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .bar-where {
+    flex: 0 1 240px;
+    padding-right: 24px;
+    letter-spacing: 0;
+  }
+}
+
+/* ---------- The documents ---------- */
+.page {
+  min-width: 0;
+  padding-bottom: 96px;
+}
+
+.doc {
+  padding-top: 40px;
+}
+
+.doc + .doc {
+  margin-top: 72px;
+  border-top: 1px solid var(--rule);
+}
+
+h2,
+h3,
+h4 {
+  color: var(--text);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.doc > h2 {
+  margin: 0 0 12px;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+/* A section off screen is skipped until it scrolls near, so a phone lays
+   out the screenful it shows rather than 4,000 lines of code. Skipping
+   clips a section to its box, so the box reaches over the page's side
+   padding, where the code and the tables bleed. */
+.sec {
+  margin-top: 40px;
+  margin-inline: calc(-1 * var(--edge)) calc(-1 * var(--edge-end));
+  padding-inline: var(--edge) var(--edge-end);
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 1500px;
+}
+
+/* That also keeps a section's last margin inside it. */
+.sec > :last-child {
+  margin-bottom: 0;
+}
+
+.sec > h3,
+.doc > h3 {
+  margin: 0 0 14px;
+  font-size: 21px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+h4 {
+  margin: 36px 0 10px;
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+}
+
+.sec > h3 + .sub-toc + h4,
+.sec > h3 + h4 {
+  margin-top: 24px;
+}
+
+/* :where() keeps these at element weight, so any class beats them. */
+:where(.page) :is(p, ul, ol) {
+  max-width: 68ch;
+  margin: 0 0 16px;
+  text-wrap: pretty;
+}
+
+:where(.page) :is(ul, ol) {
+  padding-left: 1.4em;
+}
+
+:where(.page) li + li {
+  margin-top: 6px;
+}
+
+:where(.page) li::marker {
+  color: var(--muted);
+}
+
+strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: #3d3d3d;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.12s ease, text-decoration-color 0.12s ease;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--text);
+    text-decoration-color: var(--accent);
+  }
+}
+
+a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Inline code. There is one weight of the mono, so bold around it stays out
+   of it rather than smearing a bold. A stretch too long for the line may
+   break, so it never pushes past a phone's edge. */
+code {
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+
+/* The mono's ligatures would draw <= as a single sign, and this page is read
+   in order to type it. */
+code,
+pre,
+.find-input,
+.hit-code .hit-text,
+.hit-name .hit-text {
+  font-variant-ligatures: none;
+}
+
+:is(p, li, td, th, h2, h3, h4) code {
+  color: var(--text);
+  font-size: 0.88em;
+  overflow-wrap: break-word;
+}
+
+/* A section's list of what is in it, and a document's contents. */
+.sub-toc ul {
+  max-width: none;
+  margin: 0 0 20px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+  list-style: none;
+}
+
+.sub-toc li {
+  display: inline;
+  margin: 0;
+}
+
+.sub-toc li + li::before {
+  content: ' · ';
+  white-space: pre;
+}
+
+.sub-toc a {
+  color: var(--body);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+  .sub-toc a:hover {
+    color: var(--text);
+    text-decoration-line: underline;
+  }
+}
+
+.label {
+  margin: 28px 0 10px;
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.doc > .contents > h3 {
+  font-size: 11px;
+}
+
+.toc {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 16px;
+  max-width: none;
+  padding: 0;
+  list-style: none;
+}
+
+.toc li,
+.toc li + li {
+  margin: 0;
+}
+
+.toc a {
+  display: block;
+  padding: 5px 0;
+  color: var(--body);
+  font-size: 15px;
+  line-height: 1.3;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+  .toc a:hover {
+    color: var(--text);
+  }
+}
+
+@media (min-width: 760px) {
+  .doc > h2 {
+    font-size: 30px;
+  }
+
+  .sec {
+    margin-top: 56px;
+    margin-inline: -12px;
+    padding-inline: 12px;
+    padding-top: 40px;
+  }
+
+  .sec > h3,
+  .doc > h3 {
+    font-size: 23px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  .toc {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Code ----------
+   On a phone, a band from edge to edge. Wider, a box in the column,
+   wide enough that the longest line never wraps. */
+.code {
+  position: relative;
+  margin: 4px calc(-1 * var(--edge-end)) 20px calc(-1 * var(--edge));
+  border-block: 1px solid var(--line);
+  background: var(--code-bg);
+}
+
+pre {
+  margin: 0;
+  padding: 12px var(--edge-end) 12px var(--edge);
+  overflow-x: auto;
+  color: var(--code);
+  font: 400 13px/20px var(--font-mono);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+pre:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.c {
+  color: var(--comment);
+}
+
+.k {
+  color: var(--accent);
+}
+
+.s,
+.n {
+  color: var(--literal);
+}
+
+.f {
+  color: var(--text);
+}
+
+.c a {
+  color: inherit;
+}
+
+.i4 { --i: 4; }
+.i8 { --i: 8; }
+.i12 { --i: 12; }
+.i16 { --i: 16; }
+.i20 { --i: 20; }
+.i24 { --i: 24; }
+.i28 { --i: 28; }
+
+/* Below 900px the longest lines no longer fit, so code wraps: a line goes
+   on under its own indent, plus two. A line with a comment on its end is a
+   row that may wrap: the comment stays beside its code while it fits and
+   goes under it when it does not, and the margin and padding on .a and .t
+   place it at the hanging indent there without moving it when it stays
+   beside. */
+@media (max-width: 899px) {
+  .wrap pre {
+    overflow-x: visible;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  .wrap .l {
+    --h: calc((var(--i, 0) * var(--indent, 1) + 2) * 1ch);
+
+    display: block;
+    padding-left: var(--h);
+    text-indent: calc(-1 * var(--h));
+  }
+
+  .wrap .l.e {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    text-indent: 0;
+  }
+
+  .wrap .a {
+    min-width: 0;
+    max-width: 100%;
+    margin-right: calc(-1 * var(--h));
+    padding-left: var(--h);
+    text-indent: calc(-1 * var(--h));
+  }
+
+  .wrap .t {
+    min-width: 0;
+    padding-left: var(--h);
+  }
+
+  /* A comment lined up under another keeps going at the hanging indent. */
+  .wrap .cc {
+    text-indent: 0;
+  }
+
+  .wrap .cc .w {
+    display: none;
+  }
+}
+
+/* Phones draw indents at half their width, for more code on a line: each
+   space is half a character wide, and still a space to copy. */
+@media (max-width: 759px) {
+  .wrap {
+    --indent: 0.5;
+  }
+
+  .wrap .w {
+    letter-spacing: -0.5ch;
+  }
+}
+
+@media (min-width: 760px) {
+  pre {
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 21px;
+  }
+
+  .code {
+    margin-inline: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+}
+
+/* Where a pointer can hover, a block offers its text. */
+.copy {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--body);
+  font: 400 10.5px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.code:hover .copy,
+.copy:focus-visible {
+  opacity: 1;
+}
+
+.copy:hover {
+  border-color: #3a3a3a;
+  color: var(--text);
+}
+
+.copy:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Tables ----------
+   Rows ruled like /start's prompt line. Wider: each row's hover band
+   bleeds 10px past the column, as /start's links do. Phones: a table
+   too wide for the screen scrolls sideways, edge to edge. */
+.table {
+  margin: 4px 0 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+th {
+  padding: 0 16px 8px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font: 400 10.5px/16px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+td {
+  padding: 8px 16px 8px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+@media (min-width: 760px) {
+  .table {
+    margin-inline: -10px;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 10px;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 10px;
+  }
+}
+
+@media (hover: hover) {
+  tbody tr:hover {
+    background: var(--hover);
+  }
+}
+
+@media (max-width: 759px) {
+  .table {
+    margin-inline: calc(-1 * var(--edge)) calc(-1 * var(--edge-end));
+    padding-inline: var(--edge) var(--edge-end);
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding-right: 12px;
+  }
+}
+
+/* ---------- Cover ----------
+   The code goes and its comments stay, so you can write it from them.
+   Covered code keeps its size as a bar, so nothing moves; a tap shows it. */
+.is-covering .py .l {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.is-covering .py .l:not(.is-shown) .x {
+  border-radius: 2px;
+  background: var(--cover);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.is-covering .py .l:not(.is-shown) .x,
+.is-covering .py .l:not(.is-shown) .x * {
+  color: transparent;
+}
+
+@media (hover: hover) {
+  .is-covering .py .l:not(.is-shown):hover .x {
+    background: #262626;
+  }
+}
+
+.is-covering .copy {
+  display: none;
+}
+
+/* A search result's line, lit for a moment. */
+.is-found {
+  animation: code-found 1.6s ease-out;
+}
+
+@keyframes code-found {
+  0%,
+  45% {
+    background-color: rgb(184 177 255 / 0.3);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* ---------- Sections sheet ----------
+   Phones: a sheet from the bottom, in reach of a thumb. Wider: a panel in
+   the middle. The widest: open all the time, as a rail beside the page. */
+.jump {
+  inset: auto 0 0;
+  width: 100%;
+  max-height: min(88dvh, 720px);
+  margin: 0;
+  padding: 0 var(--edge-end) max(20px, env(safe-area-inset-bottom)) var(--edge);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-radius: 14px 14px 0 0;
+  background: var(--bg);
+  color: var(--body);
+}
+
+.jump::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+
+.jump-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0 12px;
+  background: var(--bg);
+}
+
+.jump-label {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jump section + section {
+  margin-top: 20px;
+}
+
+.jump h2 {
+  margin: 0 0 4px;
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.jump h2 a {
+  display: block;
+  padding: 4px 0;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.jump ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jump ol a {
+  display: block;
+  padding: 8px 0;
+  color: var(--body);
+  font-size: 15px;
+  line-height: 1.25;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.jump a[aria-current] {
+  color: var(--accent);
+}
+
+@media (hover: hover) {
+  .jump a:hover {
+    color: var(--text);
+  }
+}
+
+.jump a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+@media (min-width: 760px) {
+  .jump {
+    inset: 0;
+    width: 600px;
+    height: fit-content;
+    max-height: 84vh;
+    margin: auto;
+    padding: 0 20px 20px;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+}
+
+@media (min-width: 1180px) {
+  .masthead,
+  .bar-inner,
+  .layout,
+  .foot {
+    max-width: calc(var(--rail) + 40px + var(--width) + 80px);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    column-gap: 40px;
+    align-items: start;
+  }
+
+  /* Open whatever the popover's state, in the page's flow. */
+  .jump {
+    position: sticky;
+    inset: auto;
+    top: calc(var(--bar) + 1px);
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: calc(100vh - var(--bar) - 1px);
+    margin: 0;
+    padding: 40px 12px 40px 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+
+  .jump-head,
+  .bar-where {
+    display: none;
+  }
+
+  .jump ol {
+    display: block;
+  }
+
+  .jump ol a {
+    padding: 3px 0;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+}
+
+/* A browser without popovers would show the sheet at the foot of the
+   page, under a button that does nothing: drop both, and keep the bar's
+   documents on a phone instead. */
+@supports not selector(:popover-open) {
+  @media (max-width: 1179px) {
+    .jump,
+    .bar-where {
+      display: none;
+    }
+
+    .bar-links {
+      display: flex;
+    }
+  }
+}
+
+/* ---------- Search ----------
+   Phones: the whole screen, its results above the keyboard. Wider: a panel
+   near the top. */
+.find {
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  border: 0;
+  background: var(--bg);
+  color: var(--body);
+}
+
+.find[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.find::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+
+body:has(.find[open]) {
+  overflow: hidden;
+}
+
+.find-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  padding: max(8px, env(safe-area-inset-top)) var(--edge-end) 8px var(--edge);
+  border-bottom: 1px solid var(--rule);
+  transition: border-color 0.12s ease;
+}
+
+.find-head:focus-within {
+  border-bottom-color: rgb(184 177 255 / 0.45);
+}
+
+.find-input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--text);
+  /* At 16px iOS leaves the page's zoom alone. */
+  font: 400 16px/1 var(--font-mono);
+  appearance: none;
+}
+
+.find-input::placeholder {
+  color: var(--muted);
+}
+
+.find-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.find-status {
+  flex: none;
+  margin: 0;
+  padding: 10px var(--edge-end) 6px var(--edge);
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
+.find-results {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+}
+
+@media (hover: none) {
+  .find-results {
+    padding-bottom: 45dvh;
+  }
+}
+
+.hit {
+  display: block;
+  padding: 9px var(--edge-end) 9px var(--edge);
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hit[aria-current='true'] {
+  background: var(--hover);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+@media (hover: hover) {
+  .hit:hover {
+    background: var(--hover);
+    color: var(--text);
+  }
+}
+
+.hit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.hit-text {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.hit-prose .hit-text {
+  color: var(--body);
+}
+
+.hit-code .hit-text,
+.hit-name .hit-text {
+  color: var(--code);
+  font: 400 13px/1.45 var(--font-mono);
+  white-space: pre-wrap;
+}
+
+.hit-heading .hit-text {
+  font-weight: 600;
+}
+
+.hit-path {
+  display: block;
+  margin-top: 2px;
+  color: var(--comment);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+mark {
+  border-radius: 2px;
+  background: rgb(184 177 255 / 0.28);
+  color: var(--text);
+}
+
+@media (min-width: 760px) {
+  .find {
+    width: 660px;
+    height: fit-content;
+    max-height: 76vh;
+    margin: 10vh auto auto;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+
+  .find-head {
+    padding: 8px 12px 8px 16px;
+  }
+
+  .find-status,
+  .hit {
+    padding-inline: 16px;
+  }
+}
+
+/* ---------- Footer ---------- */
+.foot {
+  display: flex;
+  gap: 24px;
+  padding-top: 8px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+}
+
+.foot a {
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-links a,
+  .bar-button,
+  a,
+  .copy,
+  .find-head {
+    transition: none;
+  }
+
+  .is-found {
+    background-color: rgb(184 177 255 / 0.2);
+    animation: none;
+  }
+}
+
+/* ---------- Print ----------
+   Black on white, the whole of it, without the bar, the sheet or the
+   footer. */
+@media print {
+  :root {
+    --bg: #fff;
+    --line: #ddd;
+    --rule: #bbb;
+    --text: #000;
+    --body: #222;
+    --muted: #555;
+    --accent: #3b2fb5;
+    --code-bg: #fff;
+    --code: #000;
+    --comment: #555;
+    --literal: #1d6b2a;
+
+    color-scheme: light;
+  }
+
+  .bar,
+  .jump,
+  .foot,
+  .find,
+  .copy,
+  .sub-toc {
+    display: none;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .page {
+    padding-bottom: 0;
+  }
+
+  .sec {
+    content-visibility: visible;
+  }
+
+  pre {
+    font-size: 9.5pt;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  tr,
+  li {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+}

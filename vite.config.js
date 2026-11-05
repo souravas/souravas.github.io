@@ -3,13 +3,14 @@ import { createHash } from 'node:crypto'
 import { copyFileSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { renderNote } from './kannada/render.js'
+import { DOCS as CODE_DOCS, renderDocs } from './code/render.js'
 
 const SITE_ORIGIN = 'https://souravas.com'
 // Only / is listed. The design versions (/v1/–/v4/) show the same
 // résumé, so each names / as its canonical rather than competing with
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
 // the PDF and would just be deindexed, and the /start/ pages are a
-// personal start page (noindex), as are /kannada/ and /exercises/.
+// personal start page (noindex), as are /kannada/, /code/ and /exercises/.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
@@ -254,6 +255,47 @@ const kannadaNote = () => {
   }
 }
 
+// The code page's content is the Markdown in code/, the documents themselves.
+// code/render.js turns them into HTML at code/index.html's <!--docs--> marker,
+// and into the Sections sheet at <!--sections-->, in dev as well as the build;
+// dev reloads the page when one changes. A link that lands on no id, such as
+// one to a renamed heading, shows up as a warning.
+const codeDocs = () => {
+  let root = process.cwd()
+  let logger = console
+  const warn = (message) => logger.warn(`[code-docs] ${message}`)
+  const path = (doc) => resolve(root, 'code', doc.file)
+  return {
+    name: 'code-docs',
+    configResolved(config) {
+      root = config.root
+      logger = config.logger
+    },
+    configureServer(server) {
+      const files = new Set(CODE_DOCS.map(path))
+      for (const file of files) server.watcher.add(file)
+      server.watcher.on('change', (file) => {
+        if (files.has(resolve(file))) server.ws.send({ type: 'full-reload' })
+      })
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        if (!html.includes('<!--docs-->')) return html
+        const sources = Object.fromEntries(CODE_DOCS.map((doc) => [doc.file, readFileSync(path(doc), 'utf8')]))
+        const docs = renderDocs(sources, { warn })
+        const out = html
+          .replace('<!--docs-->', () => docs.html)
+          .replace('<!--sections-->', () => docs.sections)
+        const ids = new Set([...out.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]))
+        const missing = new Set([...out.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]).filter((id) => !ids.has(id)))
+        for (const id of missing) warn(`#${id} links to nothing`)
+        return out
+      },
+    },
+  }
+}
+
 // Collapse whitespace inside JSON-LD blocks so they minify alongside the rest
 // of the HTML. Runs before csp-inline-hashes so the SHA-256 matches the body
 // the browser sees.
@@ -304,7 +346,7 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Seven separate pages (v1–v4, start, kannada, exercises), no SPA
+  // Eight separate pages (v1–v4, start, kannada, code, exercises), no SPA
   // fallback.
   appType: 'mpa',
   build: {
@@ -325,6 +367,7 @@ export default defineConfig({
         v4: 'v4/index.html',
         start: 'start/index.html',
         kannada: 'kannada/index.html',
+        code: 'code/index.html',
         exercises: 'exercises/index.html',
       },
       output: {
@@ -360,6 +403,8 @@ export default defineConfig({
             req.url = '/start/index.html'
           } else if (path === '/kannada' || path === '/kannada/') {
             req.url = '/kannada/index.html'
+          } else if (path === '/code' || path === '/code/') {
+            req.url = '/code/index.html'
           } else if (path === '/exercises' || path === '/exercises/') {
             req.url = '/exercises/index.html'
           } else if (path === '/cv' || path === '/cv/') {
@@ -373,7 +418,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/v4', '/start', '/kannada', '/exercises'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/v4', '/start', '/kannada', '/code', '/exercises'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
@@ -386,6 +431,7 @@ export default defineConfig({
     },
     buildStamps(),
     kannadaNote(),
+    codeDocs(),
     jsonLdMinify(),
     inlineCss(),
     cspInlineHashes(),
