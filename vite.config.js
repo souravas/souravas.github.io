@@ -10,7 +10,8 @@ const SITE_ORIGIN = 'https://souravas.com'
 // résumé, so each names / as its canonical rather than competing with
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
 // the PDF and would just be deindexed, and the /start/ pages are a
-// personal start page (noindex), as are /kannada/, /code/ and /exercises/.
+// personal start page (noindex), as are /kannada/, /code/, /exercises/ and
+// /pomodoro/.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
@@ -346,8 +347,8 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Seven separate pages (v1–v3, start, kannada, code, exercises), no SPA
-  // fallback.
+  // Eight separate pages (v1–v3, start, kannada, code, exercises, pomodoro),
+  // no SPA fallback.
   appType: 'mpa',
   build: {
     outDir: 'dist',
@@ -368,6 +369,7 @@ export default defineConfig({
         kannada: 'kannada/index.html',
         code: 'code/index.html',
         exercises: 'exercises/index.html',
+        pomodoro: 'pomodoro/index.html',
       },
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
@@ -404,6 +406,8 @@ export default defineConfig({
             req.url = '/code/index.html'
           } else if (path === '/exercises' || path === '/exercises/') {
             req.url = '/exercises/index.html'
+          } else if (path === '/pomodoro' || path === '/pomodoro/') {
+            req.url = '/pomodoro/index.html'
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
           } else if (path === '/resume' || path === '/resume/') {
@@ -415,7 +419,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/kannada', '/code', '/exercises'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/kannada', '/code', '/exercises', '/pomodoro'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'

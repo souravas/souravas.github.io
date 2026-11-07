@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+
+  <title>Pomodoro</title>
+  <meta name="description" content="A focus and break timer, set by dragging its dial." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
+  <link rel="icon" href="/favicon-32x32.png?v=3" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
+
+  <link rel="stylesheet" href="/pomodoro/style.css" />
+  <script type="module" src="/pomodoro/main.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="head">
+      <a class="back" href="/start/"><span aria-hidden="true">‹ </span>Start</a>
+      <h1>Pomodoro</h1>
+    </header>
+
+    <!-- One dial for both timers. Focus and Break each keep their own
+         length; the one pressed is the one the dial shows and sets.
+         main.js fills in the lengths, the time and the labels. -->
+    <div class="timer" id="timer" data-mode="focus" data-phase="idle">
+      <div class="modes" role="group" aria-label="Timer">
+        <button class="mode" type="button" data-mode="focus" aria-pressed="true">Focus <span class="mode-len" id="focus-len">25</span></button>
+        <button class="mode" type="button" data-mode="break" aria-pressed="false">Break <span class="mode-len" id="break-len">5</span></button>
+      </div>
+
+      <!-- A 60-minute face, like a kitchen timer: the coloured arc runs
+           clockwise from twelve to the time set, and drains back to
+           twelve as it runs. Drag anywhere on the ring to set it. The
+           ticks are dashed circles, one dash a minute and a longer one
+           every five; pathLength puts them in minutes, and the arc's in
+           seconds. -->
+      <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Focus length" aria-valuemin="1" aria-valuemax="60" aria-valuenow="25" aria-valuetext="25 minutes">
+        <svg viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+          <g transform="rotate(-90 150 150)">
+            <circle class="tick" cx="150" cy="150" r="141" pathLength="60" stroke-dasharray="0.1 0.9" stroke-dashoffset="0.05" />
+            <circle class="tick tick-5" cx="150" cy="150" r="140" pathLength="12" stroke-dasharray="0.03 0.97" stroke-dashoffset="0.015" />
+            <circle class="track" cx="150" cy="150" r="118" />
+            <circle class="arc" id="arc" cx="150" cy="150" r="118" pathLength="3600" stroke-dasharray="1500 3600" />
+          </g>
+          <circle class="knob" id="knob" cx="150" cy="32" r="13" />
+        </svg>
+        <div class="readout">
+          <span class="time" id="time">25:00</span>
+          <span class="state" id="state" aria-live="polite">Drag to set</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="action" id="go" type="button" title="Start or pause (Space)">Start</button>
+        <button class="action quiet" id="reset" type="button" hidden>Reset</button>
+      </div>
+
+      <p class="tally" id="tally" hidden></p>
+    </div>
+  </main>
+</body>
+</html>
