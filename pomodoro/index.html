@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-mode="focus" data-phase="idle">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Pomodoro</title>
   <meta name="description" content="A focus and break timer, set by dragging its dial." />
@@ -21,6 +21,22 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
 
+  <!-- Puts on the chosen colours, background and mode before the first
+       paint, so the page never flashes the defaults first. main.js does
+       the rest. Hashed into the CSP at build. -->
+  <script>
+    try {
+      var root = document.documentElement;
+      var hex = /^#[0-9a-f]{6}$/i;
+      var s = JSON.parse(localStorage.getItem("pomodoro-settings") || "{}");
+      var t = JSON.parse(localStorage.getItem("pomodoro") || "{}");
+      if (hex.test(s.focusColor)) root.style.setProperty("--focus", s.focusColor);
+      if (hex.test(s.breakColor)) root.style.setProperty("--break", s.breakColor);
+      if (s.background === "tint") root.dataset.bg = "tint";
+      if (t.mode === "break" || t.mode === "long") root.dataset.mode = t.mode;
+    } catch (e) {}
+  </script>
+
   <link rel="stylesheet" href="/pomodoro/style.css" />
   <script type="module" src="/pomodoro/main.js"></script>
 </head>
@@ -29,15 +45,18 @@
     <header class="head">
       <a class="back" href="/start/"><span aria-hidden="true">‹ </span>Start</a>
       <h1>Pomodoro</h1>
+      <button class="head-button" type="button" popovertarget="settings">Settings</button>
     </header>
 
-    <!-- One dial for both timers. Focus and Break each keep their own
-         length; the one pressed is the one the dial shows and sets.
-         main.js fills in the lengths, the time and the labels. -->
-    <div class="timer" id="timer" data-mode="focus" data-phase="idle">
+    <!-- One dial for every timer. Focus, Break and Long each keep their
+         own length; the one pressed is the one the dial shows and sets.
+         main.js fills in the lengths, the time and the labels, and hides
+         Long when long breaks are off. -->
+    <div class="timer" id="timer">
       <div class="modes" role="group" aria-label="Timer">
         <button class="mode" type="button" data-mode="focus" aria-pressed="true">Focus <span class="mode-len" id="focus-len">25</span></button>
         <button class="mode" type="button" data-mode="break" aria-pressed="false">Break <span class="mode-len" id="break-len">5</span></button>
+        <button class="mode" type="button" data-mode="long" aria-pressed="false">Long <span class="mode-len" id="long-len">15</span></button>
       </div>
 
       <!-- A 60-minute face, like a kitchen timer: the coloured arc runs
@@ -62,13 +81,103 @@
         </div>
       </div>
 
+      <!-- Start keeps the middle, so it never moves when Reset and +5
+           show either side of it. -->
       <div class="controls">
-        <button class="action" id="go" type="button" title="Start or pause (Space)">Start</button>
         <button class="action quiet" id="reset" type="button" hidden>Reset</button>
+        <button class="action" id="go" type="button" title="Start or pause (Space)">Start</button>
+        <button class="action quiet" id="more" type="button" title="Add five minutes (+)" hidden>+5 min</button>
       </div>
 
-      <p class="tally" id="tally" hidden></p>
+      <!-- A dot per focus session in the round to a long break, and the
+           day's sessions and minutes. -->
+      <div class="tally">
+        <span class="rounds" id="rounds" role="img" hidden></span>
+        <span class="tally-text" id="tally-text" hidden></span>
+      </div>
     </div>
   </main>
+
+  <!-- Settings: a sheet from the bottom on phones, a panel in the middle
+       wider. Every change is kept at once, and a sound plays as it is
+       picked, so it can be heard before a timer ends. main.js fills in the
+       colour swatches and ticks what is chosen. -->
+  <div class="sheet" id="settings" popover role="dialog" aria-labelledby="settings-title">
+    <div class="sheet-head">
+      <h2 id="settings-title">Settings</h2>
+      <button class="head-button" type="button" popovertarget="settings" popovertargetaction="hide">Close</button>
+    </div>
+
+    <section class="group" aria-labelledby="colours-title">
+      <h3 id="colours-title">Colours</h3>
+      <fieldset class="field">
+        <legend class="field-label">Focus</legend>
+        <div class="swatches" data-setting="focusColor"></div>
+      </fieldset>
+      <fieldset class="field">
+        <legend class="field-label">Breaks</legend>
+        <div class="swatches" data-setting="breakColor"></div>
+      </fieldset>
+      <fieldset class="field">
+        <legend class="field-label">Background</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="background" value="black" /><span>Black</span></label>
+          <label class="chip"><input type="radio" name="background" value="tint" /><span>Tinted</span></label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="group" aria-labelledby="sound-title">
+      <h3 id="sound-title">Sound</h3>
+      <fieldset class="field">
+        <legend class="field-label">When a timer ends</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="alarm" value="chime" /><span>Chime</span></label>
+          <label class="chip"><input type="radio" name="alarm" value="bell" /><span>Bell</span></label>
+          <label class="chip"><input type="radio" name="alarm" value="digital" /><span>Digital</span></label>
+          <label class="chip"><input type="radio" name="alarm" value="marimba" /><span>Marimba</span></label>
+          <label class="chip"><input type="radio" name="alarm" value="off" /><span>Off</span></label>
+        </div>
+      </fieldset>
+      <label class="field range">
+        <span class="field-label">Alarm volume</span>
+        <input type="range" name="alarmVolume" min="0" max="100" step="5" />
+      </label>
+      <fieldset class="field">
+        <legend class="field-label">While you focus</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="ambient" value="off" /><span>Off</span></label>
+          <label class="chip"><input type="radio" name="ambient" value="clock" /><span>Clock</span></label>
+          <label class="chip"><input type="radio" name="ambient" value="brown" /><span>Brown noise</span></label>
+          <label class="chip"><input type="radio" name="ambient" value="pink" /><span>Pink noise</span></label>
+        </div>
+      </fieldset>
+      <label class="field range">
+        <span class="field-label">Its volume</span>
+        <input type="range" name="ambientVolume" min="0" max="100" step="5" />
+      </label>
+    </section>
+
+    <section class="group" aria-labelledby="timer-title">
+      <h3 id="timer-title">Timer</h3>
+      <fieldset class="field">
+        <legend class="field-label">Long break after every</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="every" value="0" /><span>Never</span></label>
+          <label class="chip"><input type="radio" name="every" value="2" /><span>2</span></label>
+          <label class="chip"><input type="radio" name="every" value="3" /><span>3</span></label>
+          <label class="chip"><input type="radio" name="every" value="4" /><span>4</span></label>
+          <label class="chip"><input type="radio" name="every" value="5" /><span>5</span></label>
+          <label class="chip"><input type="radio" name="every" value="6" /><span>6</span></label>
+        </div>
+        <p class="field-note">focus sessions</p>
+      </fieldset>
+      <label class="check"><input type="checkbox" name="autoBreak" /><span>Start breaks on their own</span></label>
+      <label class="check"><input type="checkbox" name="autoFocus" /><span>Start focus on its own after a break</span></label>
+      <label class="check" id="wake-row" hidden><input type="checkbox" name="wake" /><span>Keep the screen on while a timer runs</span></label>
+    </section>
+
+    <p class="keys"><kbd>Space</kbd> starts and pauses. <kbd>+</kbd> adds five minutes.</p>
+  </div>
 </body>
 </html>
