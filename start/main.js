@@ -15,7 +15,7 @@
    address, then a Google search. ↑/↓ cycle through
    them, the prompt shows what Enter will open, Esc clears. Links and
    Enter open in this tab, since /start is the browser's homepage; a
-   link with data-also (Cloud, Downloads) opens its href and
+   link with data-also opens its href and
    those URLs in new tabs, on a click or a middle click, and clicking a
    group's heading opens all of its links in new tabs. So does Now, the
    bolt at the prompt's end, for every link marked data-now, wherever

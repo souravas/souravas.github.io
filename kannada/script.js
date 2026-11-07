@@ -1,6 +1,6 @@
 /* ---------- Kannada script ----------
    The note's spelling, turned back into Kannada script: for the
-   device's Kannada voice (main.js), which reads script and not English
+   device's Kannada voice (speech.js), which reads script and not English
    letters, and for the Anki deck (the build). The spelling is the
    note's "How This Note Writes Kannada": a capital T, D, N or L is
    retroflex, a capital E, I or O or a doubled vowel is long, a hyphen

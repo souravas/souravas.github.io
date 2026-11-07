@@ -23,7 +23,8 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 - Start page: `/start` — personal bookmarks dashboard (noindex)
 - Kannada: `/kannada` — the Kannada Gottilla lessons note as a page (noindex), rendered from `kannada/note.md` at build time
 - Code: `/code` — the Python interview references as a page (noindex), rendered from the Markdown in `code/` at build time
-- Exercises: `/exercises` — exercise videos behind the start page's Exercises link (noindex)
+- Exercises: `/exercises` — exercise videos behind the start page's Exercise link (noindex)
+- Pomodoro: `/pomodoro` — focus and break timers on a dial (noindex)
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 - Sitemap: `/sitemap.xml`, generated at build time
 - Security contact: `/.well-known/security.txt`, generated at build time
@@ -53,8 +54,14 @@ souravas.github.io/
 ├── kannada/                # Kannada lessons, served at /kannada
 │   ├── index.html          # page shell: title, bar, lessons sheet
 │   ├── note.md             # the lessons note, edited here: the page's content
-│   ├── render.js           # note.md → HTML, run at build time by vite.config.js
+│   ├── render.js           # note.md → HTML, cards and Anki deck, run at build time by vite.config.js
 │   ├── main.js             # lesson on screen, lessons sheet, Cover
+│   ├── today.js            # the Today view: the day's plan and current lesson
+│   ├── deck.js             # quizzes and the review
+│   ├── cards.js            # loads the cards file
+│   ├── store.js            # progress and Leitner review, in localStorage
+│   ├── speech.js           # the device's Kannada voice
+│   ├── script.js           # the note's spelling → Kannada script
 │   └── style.css
 ├── code/                   # Python interview references, served at /code
 │   ├── index.html          # page shell: title, bar, sections sheet, search
@@ -68,6 +75,12 @@ souravas.github.io/
 ├── exercises/              # exercise videos, served at /exercises
 │   ├── index.html
 │   └── style.css
+├── pomodoro/               # focus and break timers, served at /pomodoro
+│   ├── index.html
+│   ├── main.js             # timer, settings, localStorage
+│   ├── sound.js            # every sound, made with Web Audio
+│   ├── themes.js           # colour themes
+│   └── style.css
 ├── public/                 # copied verbatim into the build
 │   ├── CNAME               # custom domain
 │   ├── 404.html            # static 404 served by GitHub Pages
@@ -78,7 +91,7 @@ souravas.github.io/
 │   ├── robots.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
-│   ├── fonts/              # shared by v1, /start, /kannada, /code, /exercises, and 404.html
+│   ├── fonts/              # shared by v1, /start, /kannada, /code, /exercises, /pomodoro, and 404.html
 │   └── assets/             # images, social card (og-cover), resume.pdf
 ├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
 │                           # CSP hashing, HTML minify, build-time values
