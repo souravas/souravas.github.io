@@ -95,7 +95,7 @@ svg {
    is a row instead (see the groups below): its heading in the gutter,
    its links in six columns, so they read left to right in their order.
    That step comes once a sixth of the row still holds the longest
-   name (Interview Ready, 151px with its icon) beside the 96px gutter.
+   name (MyAnonamouse, 153px with its icon) beside the 96px gutter.
    The rows (--row) and the gaps around the groups (--gap) grow with
    the window's height: 32px and 24px in a 640px-tall window, rows
    reaching 40px at 720px and gaps 40px at 800px, so the page fills
@@ -302,8 +302,8 @@ svg {
 
 /* Negative margins let each link's hover box bleed past the column
    edge, so the icons line up with the group heading above. Two
-   columns at every width but the narrowest, since the groups hold 4
-   or 6 links: an even count fills its last row. Six from 1120px,
+   columns at every width but the narrowest: an even count fills its
+   last row, an odd one ends on a link alone. Six from 1120px,
    where a group is a row, with a narrower gap to fit them. */
 .links {
   display: grid;

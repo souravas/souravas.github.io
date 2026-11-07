@@ -5,8 +5,8 @@
    LeetCode), then on its name, where the start of a word ("Ready" in
    Interview Ready) beats the name's initials ("dp" finds Design
    Patterns), which beat the inside of a word, then on its addresses:
-   its site's name ("headway" finds Books), or the start of any other
-   word in them ("drive" or "photos" finds Cloud). An
+   its site's name ("zerodha" finds Kite), or the start of any other
+   word in them ("docs" finds Cashflow, "kannada" finds Language). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then "open
@@ -14,8 +14,8 @@
    query looks like an address, then a Google search. ↑/↓ cycle through
    them, the prompt shows what Enter will open, Esc clears. Links and
    Enter open in this tab, since /start is the browser's homepage; a
-   link with data-also (TickTick, Downloads) opens its href and those
-   URLs in new tabs, on a click or a middle click, and clicking a
+   link with data-also (none has one at the moment) opens its href and
+   those URLs in new tabs, on a click or a middle click, and clicking a
    group's heading opens all of its links in new tabs. */
 (() => {
   const input = document.getElementById("q");
@@ -43,8 +43,8 @@
     // Everything the link opens, in order: its href, then data-also.
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
     // The other words in all of those addresses, which a query has to
-    // start, so "me" doesn't find Drime: each host's labels but the TLD
-    // ("drive" in drive.google.com, "koofr" from data-also), and for a
+    // start, so "view" doesn't find LLD: each host's labels but the TLD
+    // ("docs" in docs.google.com, and any from data-also), and for a
     // page on this site the first segment of its path ("kannada").
     // www, app and web name no site.
     const words = hrefs.flatMap((href) => {
