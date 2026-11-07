@@ -6,7 +6,7 @@ import { renderNote } from './kannada/render.js'
 import { DOCS as CODE_DOCS, renderDocs } from './code/render.js'
 
 const SITE_ORIGIN = 'https://souravas.com'
-// Only / is listed. The design versions (/v1/–/v4/) show the same
+// Only / is listed. The design versions (/v1/–/v3/) show the same
 // résumé, so each names / as its canonical rather than competing with
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
 // the PDF and would just be deindexed, and the /start/ pages are a
@@ -346,7 +346,7 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Eight separate pages (v1–v4, start, kannada, code, exercises), no SPA
+  // Seven separate pages (v1–v3, start, kannada, code, exercises), no SPA
   // fallback.
   appType: 'mpa',
   build: {
@@ -364,7 +364,6 @@ export default defineConfig({
         v1: 'v1/index.html',
         v2: 'v2/index.html',
         v3: 'v3/index.html',
-        v4: 'v4/index.html',
         start: 'start/index.html',
         kannada: 'kannada/index.html',
         code: 'code/index.html',
@@ -397,8 +396,6 @@ export default defineConfig({
             req.url = '/v2/index.html'
           } else if (path === '/v3' || path === '/v3/') {
             req.url = '/v3/index.html'
-          } else if (path === '/v4' || path === '/v4/') {
-            req.url = '/v4/index.html'
           } else if (path === '/start' || path === '/start/') {
             req.url = '/start/index.html'
           } else if (path === '/kannada' || path === '/kannada/') {
@@ -418,7 +415,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/v4', '/start', '/kannada', '/code', '/exercises'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/kannada', '/code', '/exercises'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'

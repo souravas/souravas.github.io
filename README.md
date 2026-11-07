@@ -19,7 +19,7 @@ Pushes to `main` are built and deployed automatically via [.github/workflows/dep
 
 - Local dev: <http://localhost:5173>
 - Production: <https://souravas.com>
-- Page versions: `/` serves v1 by default; `/v1`, `/v2`, `/v3`, and `/v4` open each design explicitly, and each names `/` as its canonical
+- Page versions: `/` serves v1 by default; `/v1`, `/v2`, and `/v3` open each design explicitly, and each names `/` as its canonical
 - Start page: `/start` — personal bookmarks dashboard (noindex)
 - Kannada: `/kannada` — the Kannada Gottilla lessons note as a page (noindex), rendered from `kannada/note.md` at build time
 - Code: `/code` — the Python interview references as a page (noindex), rendered from the Markdown in `code/` at build time
@@ -45,11 +45,6 @@ souravas.github.io/
 │   ├── index.html
 │   ├── main.js
 │   ├── style.css
-│   └── fonts/
-├── v4/                     # "Plain" design, served at /v4
-│   ├── index.html
-│   ├── main.js
-│   ├── style.css           # includes a print stylesheet that prints the page as a CV
 │   └── fonts/
 ├── start/                  # personal start page, served at /start
 │   ├── index.html          # bookmarks + inline SVG icon sprite
@@ -84,7 +79,7 @@ souravas.github.io/
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
 │   ├── fonts/              # shared by v1, /start, /kannada, /code, /exercises, and 404.html
-│   └── assets/             # images, social cards (og-cover, og-cover-v4), resume.pdf
+│   └── assets/             # images, social card (og-cover), resume.pdf
 ├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
 │                           # CSP hashing, HTML minify, build-time values
 │                           # (years, sitemap, security.txt), the Kannada
