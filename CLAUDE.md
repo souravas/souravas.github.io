@@ -72,7 +72,7 @@ Each design is self-contained; v2 and v3 bundle their own `fonts/`, and v1 uses 
 - `data-also`: more URLs, space-separated, opened in new tabs along with the href.
 - `data-now`: adds the link to Now, the bolt at the prompt's end (or `now` typed into it), which opens every marked link in new tabs in page order. The bolt is `hidden` in the markup until `main.js` finds a marked link.
 
-The header comment in [start/main.js](start/main.js) describes how the prompt matches and ranks. Links open in the same tab because the page is the browser homepage. Clicking a group heading (a button injected by `main.js`) opens the whole group in new tabs; browsers block every tab after the first until the site is allowed pop-ups.
+The header comment in [start/main.js](start/main.js) describes how the prompt matches and ranks. Links open in the same tab because the page is the browser homepage. Set as a browser search engine, `https://souravas.com/start/?q=%s` takes the prompt's queries from the address bar: the page replaces itself with what Enter would open, or, when that opens several tabs (which needs a click or key press), leaves the query in the prompt. Clicking a group heading (a button injected by `main.js`) opens the whole group in new tabs; browsers block every tab after the first until the site is allowed pop-ups.
 
 **Layout**: below 760px the groups stack in one column, each with its links in two columns. From 760px the groups run in four newspaper-style columns that the browser balances, and the group order in the page is chosen so the four columns end close together. After moving a group or adding links, check where the columns end. Rows and gaps grow with the window's height, and the page fits without scrolling in a window about 870px tall.
 

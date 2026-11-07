@@ -4,7 +4,8 @@
    the rest dim. A link matches on an alias (its data-alias: "lc" finds
    LeetCode), then on its name, where the start of a word ("Ready" in
    Interview Ready) beats the name's initials ("dp" finds Design
-   Patterns), which beat the inside of a word, then on its addresses:
+   Patterns) or the starts of its words in order ("sys des" finds
+   System Design), which beat the inside of a word, then on its addresses:
    its site's name ("zerodha" finds Kite), or the start of any other
    word in them ("docs" finds Cashflow, "kannada" finds Language). An
    alias, a space and a query ("lc two sum") opens that link's
@@ -19,7 +20,9 @@
    those URLs in new tabs, on a click or a middle click, and clicking a
    group's heading opens all of its links in new tabs. So does Now, the
    bolt at the prompt's end, for every link marked data-now, wherever
-   it sits; pointing at it lights those links. */
+   it sits; pointing at it lights those links.
+   Set https://souravas.com/start/?q=%s as a search engine and the
+   address bar takes the same queries: the page opens what Enter would. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
@@ -37,8 +40,12 @@
     const name = a.querySelector(".name");
     const label = name.textContent.trim();
     // The label left of the TLD: "docs.google.com" → "google". A link
-    // that opens an app names it in its scheme: "obsidian://…".
-    const site = a.protocol.startsWith("http") ? a.hostname.split(".").at(-2) ?? "" : a.protocol.slice(0, -1);
+    // that opens an app names it in its scheme: "obsidian://…". A page
+    // on this site has none, or "sou" would find them all; its path
+    // names it instead (words, below).
+    const site = a.origin === location.origin ? ""
+      : a.protocol.startsWith("http") ? a.hostname.split(".").at(-2) ?? ""
+      : a.protocol.slice(0, -1);
     const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
     const starts = [...label.matchAll(WORD_START)].map((m) => m.index + m[0].length);
     // The first letter of each word: "dp" for Design Patterns.
@@ -62,15 +69,32 @@
     return { a, name, label, key: label.toLowerCase(), site, words, aliases, starts, initials, hrefs, search, searchHost };
   });
 
+  // The [from, to) ranges of a link's name where each word of a query
+  // of several starts a word, in order ("sys des" in System Design), or
+  // null.
+  const wordStarts = (link, words) => {
+    const marks = [];
+    let from = 0;
+    for (const word of words) {
+      const at = link.starts.find((i) => i >= from && link.key.startsWith(word, i));
+      if (at === undefined) return null;
+      marks.push([at, at + word.length]);
+      from = at + word.length;
+    }
+    return marks;
+  };
+
   // How well a link matches the lowercased query, and the [from, to)
   // ranges of its name to mark. Rank 0 is an alias, 1 the start of a word
-  // in the name, 2 its initials, 3 the inside of a word, 4 its addresses
-  // (the site's name, or the start of another word in them); no match
-  // is Infinity.
+  // in the name, 2 its initials or its words' starts, 3 the inside of a
+  // word, 4 its addresses (the site's name, or the start of another word
+  // in them); no match is Infinity.
   const match = (link, needle) => {
     const first = link.key.indexOf(needle);
     let at = first;
     while (at !== -1 && !link.starts.includes(at)) at = link.key.indexOf(needle, at + 1);
+    const words = needle.split(/\s+/);
+    const starts = words.length > 1 ? wordStarts(link, words) : null;
     let rank = Infinity;
     let marks = [];
     if (at !== -1) {
@@ -79,6 +103,9 @@
     } else if (link.initials.startsWith(needle)) {
       rank = 2;
       marks = link.starts.slice(0, needle.length).map((i) => [i, i + 1]);
+    } else if (starts) {
+      rank = 2;
+      marks = starts;
     } else if (first !== -1) {
       rank = 3;
       marks = [[first, first + needle.length]];
@@ -89,7 +116,7 @@
     if (link.aliases.includes(needle)) rank = 0;
     return { rank, marks };
   };
-  const URLISH = /^(?<scheme>https?:\/\/)?(?<host>localhost|(?:\d{1,3}\.){3}\d{1,3}|(?:[\w-]+\.)+[a-z]{2,})(?<port>:\d+)?(?<path>\/\S*)?$/i;
+  const URLISH = /^(?<scheme>https?:\/\/)?(?<host>localhost|(?:\d{1,3}\.){3}\d{1,3}|(?:[\w-]+\.)+[a-z]{2,})(?<port>:\d+)?(?<path>[/?#]\S*)?$/i;
   // "os.path" and "node.js" are URL-shaped too. Without a scheme, www.,
   // port or path, only a familiar TLD puts "visit" ahead of the search.
   const KNOWN_TLD = /\.(com|org|net|io|dev|app|ai|co|in|me|gg|xyz|edu|gov|info|tv|fm|to|ly|page|site|tech|cloud|uk|us|eu|de)$/i;
@@ -159,16 +186,31 @@
     link.name.replaceChildren(...parts, link.label.slice(end));
   };
 
+  // Whether q is a whole address with its scheme, whatever its host:
+  // "http://nas:5000", "http://[::1]:3000/".
+  const isAddress = (q) => {
+    if (!/^https?:\/\/\S+$/i.test(q)) return false;
+    try {
+      new URL(q);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   // A candidate that opens q itself, or null. Addresses on the local
-  // network are rarely served over HTTPS, so those default to http.
+  // network are rarely served over HTTPS, so those default to http. A
+  // query or fragment right after the host ("example.com?ref=x") counts
+  // only with a familiar TLD, so "node.js?" stays a search.
   const visit = (q) => {
+    if (isAddress(q)) return { hrefs: [q], label: `visit ${q}`, sure: true };
     const url = URLISH.exec(q)?.groups;
     if (!url) return null;
     const local = /^(localhost|[\d.]+)$/i.test(url.host);
     return {
       hrefs: [url.scheme ? q : `${local ? "http" : "https"}://${q}`],
       label: `visit ${q}`,
-      sure: Boolean(url.scheme || url.port || url.path || local || /^www\./i.test(url.host) || KNOWN_TLD.test(url.host)),
+      sure: Boolean(url.scheme || url.port || url.path?.startsWith("/") || local || /^www\./i.test(url.host) || KNOWN_TLD.test(url.host)),
     };
   };
 
@@ -275,26 +317,25 @@
     }
   });
 
-  // A link to several places opens them all in new tabs, on a click or a
-  // middle click; the browser alone would open only its href.
-  const openLinks = (e) => {
+  // Opening a link with the mouse, by a click or a middle click, returns
+  // the page to rest mid-search. A link to several places opens them all
+  // in new tabs; the browser alone would open only its href. The link is
+  // found before reset() redraws the names, which detaches a <mark> that
+  // was clicked, and reset() goes first so a pop-up warning from openAll
+  // stays on screen.
+  const openLink = (e) => {
     const a = e.target.closest(".links a");
     if (!a) return;
+    if (input.value) reset();
     const { hrefs } = links.find((link) => link.a === a);
     if (hrefs.length > 1) {
       e.preventDefault();
       openAll(hrefs);
     }
   };
-
-  // Opening a link with the mouse mid-search returns the page to rest,
-  // before openLinks so a pop-up warning from openAll stays on screen.
-  document.addEventListener("click", (e) => {
-    if (input.value && e.target.closest(".links a")) reset();
-    openLinks(e);
-  });
+  document.addEventListener("click", openLink);
   document.addEventListener("auxclick", (e) => {
-    if (e.button === 1) openLinks(e);
+    if (e.button === 1) openLink(e);
   });
 
   // With the prompt empty, pointing at a link or tabbing to it names its
@@ -321,6 +362,11 @@
   document.addEventListener("pointerover", (e) => {
     if (e.pointerType === "mouse") nameAlias(e.target, true);
   });
+  // The pointer leaving the window, as it does from the bolt up to the
+  // tab strip, enters nothing here, so clear what it lit.
+  document.addEventListener("pointerout", (e) => {
+    if (e.pointerType === "mouse" && !e.relatedTarget) nameAlias(null, true);
+  });
   document.addEventListener("focusin", (e) => nameAlias(e.target));
   // Clears the hint first, so a pop-up warning from openAll stays.
   nowButton?.addEventListener("click", () => {
@@ -332,6 +378,21 @@
   document.addEventListener("focusout", (e) => {
     if (!e.relatedTarget) nameAlias(null);
   });
+
+  // The address bar: /start/?q=lc+two+sum opens what Enter would, in
+  // place of this page, so Back skips it. Opening several tabs takes a
+  // click or a key press, which loading a page isn't, so a candidate
+  // that opens more than one waits in the prompt for Enter. The query
+  // leaves the address either way, so a reload doesn't repeat it.
+  const asked = new URLSearchParams(location.search).get("q")?.trim();
+  if (asked) {
+    history.replaceState(null, "", location.pathname + location.hash);
+    input.value = asked;
+    update();
+    const { hrefs } = candidates[0];
+    if (hrefs.length === 1) location.replace(hrefs[0]);
+    else input.focus();
+  }
 })();
 
 /* ---------- Offline ----------

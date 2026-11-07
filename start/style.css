@@ -110,7 +110,7 @@ svg {
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   :root {
     --row: clamp(32px, 10vh - 32px, 40px);
     --gap: clamp(24px, 10vh - 40px, 40px);
@@ -124,7 +124,7 @@ svg {
   }
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   .page {
     padding-right: 40px;
     padding-left: 40px;
@@ -153,7 +153,7 @@ svg {
   border-bottom-color: rgb(184 177 255 / 0.45);
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   .prompt {
     grid-template-columns: 28px minmax(0, 1fr) auto auto;
     margin-bottom: var(--gap);
@@ -197,7 +197,7 @@ svg {
 }
 
 /* Wider, the row has room for Now's hint to name its links. */
-@media (min-width: 760px) {
+@media (width >= 760px) {
   .prompt-hint {
     max-width: 44ch;
   }
@@ -297,7 +297,7 @@ svg {
   outline-offset: 2px;
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   .group {
     break-inside: avoid;
   }
@@ -335,13 +335,13 @@ svg {
   list-style: none;
 }
 
-@media (min-width: 340px) {
+@media (width >= 340px) {
   .links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   .links {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -398,8 +398,10 @@ svg {
   color: var(--text);
 }
 
-/* The link Enter will open. */
+/* The link Enter will open. The first content is for browsers that
+   can't read the second's empty alt text (Safari before 17.4). */
 .links a.is-selected::after {
+  content: '↵';
   content: '↵' / '';
   color: var(--accent);
   font-family: var(--font-mono);
@@ -441,7 +443,7 @@ svg {
 /* Phones: a long name wraps to a second line instead of truncating.
    The padding only shows on a two-line row, keeping it clear of the
    rows around it; one-line rows stay 36px. */
-@media (max-width: 759px) {
+@media (width < 760px) {
   .links a {
     padding-top: 4px;
     padding-bottom: 4px;
