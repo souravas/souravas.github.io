@@ -1,10 +1,11 @@
 /* ============================================================
    SOURAV — /pomodoro
    Focus and break timers on /start's pure black with its greys
-   and fonts. One dial sets and shows them all: a 60-minute face
-   whose arc is the time left, in Focus's colour or the breaks'.
-   Both colours are the reader's to pick (Settings), and the
-   page's accent follows Focus's.
+   and fonts, or another theme's ground and greys. One dial sets
+   and shows them all: a 60-minute face whose arc is the time
+   left, in Focus's colour or the breaks'. Both colours are the
+   reader's to pick (Settings), and the page's accent follows
+   Focus's.
    ============================================================ */
 
 /* ---------- Fonts ----------
@@ -27,22 +28,31 @@
 }
 
 /* ---------- Tokens ----------
-   /start's neutral greys on #000. --focus and --break start as v1's
-   lavender and /code's green; main.js (and the inline script, before
-   the first paint) put on the ones chosen. --mode is the colour of
-   the timer pressed, and a tinted background is 12% of it on black. */
+   The Black theme: /start's neutral greys on #000, with v1's
+   lavender for Focus and /code's green for the breaks. main.js (and
+   the inline script, before the first paint) put on the theme and
+   colours chosen (themes.js), as the --base-* greys, --edge, --text,
+   --body, --focus and --break. --mode is the colour of the timer
+   pressed. A tinted background is 12% of it on the theme's ground,
+   with the quiet text lifted toward the body's grey so it still
+   reads at 4.5:1 on every theme's colours. */
 :root {
   --focus: #b8b1ff;
   --break: #a9c9a4;
   --mode: var(--focus);
   --accent: var(--focus);
-  --bg: #000;
-  --line: #1c1c1c;
-  --rule: #2a2a2a;
+  --base-bg: #000;
+  --base-line: #1c1c1c;
+  --base-rule: #2a2a2a;
+  --base-muted: #767676;
+  --bg: var(--base-bg);
+  --line: var(--base-line);
+  --rule: var(--base-rule);
+  --edge: #3a3a3a;
   --hover: rgb(255 255 255 / 0.04);
   --text: #f5f5f5;
   --body: #a3a3a3;
-  --muted: #767676;
+  --muted: var(--base-muted);
   --radius: 6px;
   --gutter: 120px;
   --font-sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -58,9 +68,10 @@
 }
 
 :root[data-bg='tint'] {
-  --bg: color-mix(in srgb, var(--mode) 12%, #000);
-  --line: color-mix(in srgb, var(--mode) 14%, #1c1c1c);
-  --rule: color-mix(in srgb, var(--mode) 16%, #2a2a2a);
+  --bg: color-mix(in srgb, var(--mode) 12%, var(--base-bg));
+  --line: color-mix(in srgb, var(--mode) 14%, var(--base-line));
+  --rule: color-mix(in srgb, var(--mode) 16%, var(--base-rule));
+  --muted: color-mix(in srgb, var(--base-muted) 40%, var(--body));
 }
 
 *,
@@ -195,7 +206,7 @@ h1 {
 
 @media (hover: hover) {
   .head-button:hover {
-    border-color: #3a3a3a;
+    border-color: var(--edge);
     color: var(--text);
   }
 }
@@ -266,6 +277,13 @@ h1 {
   --c: var(--break);
 }
 
+/* Long break is just Long where three would not fit on a line. */
+@media (max-width: 359px) {
+  .wide {
+    display: none;
+  }
+}
+
 .mode-len {
   color: var(--body);
   letter-spacing: 0;
@@ -280,7 +298,7 @@ h1 {
 
 @media (hover: hover) {
   .mode:hover {
-    border-color: #3a3a3a;
+    border-color: var(--edge);
     color: var(--text);
   }
 }
@@ -488,7 +506,7 @@ h1 {
   }
 
   .action.quiet:not(:disabled):hover {
-    border-color: #3a3a3a;
+    border-color: var(--edge);
     background: var(--hover);
   }
 }
@@ -504,7 +522,7 @@ h1 {
 
 /* ---------- Tally ----------
    A dot per focus session in the round to a long break, lit as each
-   is done, over the day's count. */
+   is done, beside how many are left; under them, the day's count. */
 .tally {
   display: flex;
   flex-direction: column;
@@ -513,12 +531,21 @@ h1 {
   min-height: 16px;
 }
 
+.round {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 12px;
+  margin: 0;
+}
+
 .rounds {
   display: flex;
   gap: 8px;
 }
 
-.rounds[hidden],
+.round[hidden],
 .tally-text[hidden] {
   display: none;
 }
@@ -535,6 +562,7 @@ h1 {
   background: var(--focus);
 }
 
+.round,
 .tally-text {
   color: var(--muted);
   font: 400 12px/16px var(--font-mono);
@@ -701,7 +729,7 @@ h1 {
 
 @media (hover: hover) {
   .chip:hover span {
-    border-color: #3a3a3a;
+    border-color: var(--edge);
     color: var(--text);
   }
 }
@@ -714,6 +742,85 @@ h1 {
 .chip input:focus-visible + span {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* Themes: a sample of each, its ground with its two colours and its
+   name in its own text colour, ringed when chosen. Three to a row
+   where they fit, else two. The radio covers it, unseen. */
+.themes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (min-width: 420px) {
+  .themes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.theme {
+  position: relative;
+  display: flex;
+}
+
+.theme input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.theme-face {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--t-rule);
+  border-radius: var(--radius);
+  background: var(--t-bg);
+  color: var(--t-text);
+  font-size: 13px;
+}
+
+.theme-name {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.theme-dots {
+  display: flex;
+  flex: none;
+}
+
+.theme-dots i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--t-focus);
+  box-shadow: 0 0 0 2px var(--t-bg);
+}
+
+.theme-dots i + i {
+  margin-left: -3px;
+  background: var(--t-break);
+}
+
+.theme input:checked + .theme-face {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text);
+}
+
+.theme input:focus-visible + .theme-face {
+  outline: 2px solid var(--muted);
+  outline-offset: 6px;
 }
 
 /* Colours: a round swatch each, ringed when chosen. The last is any

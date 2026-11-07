@@ -10,9 +10,13 @@
 //
 // When Focus ends, a break follows: a long one after every few focus
 // sessions (Settings), else a short one. Breaks start on their own and
-// Focus waits for Start, unless Settings say otherwise. Each end rings
-// the chosen alarm and, when the page is not in front, shows a
-// notification. A sound can play while Focus runs (sound.js).
+// Focus waits for Start, unless Settings say otherwise. Start and Resume
+// make the chosen cue; each end rings the chosen alarm and, when the
+// page is not in front, shows a notification. A sound can play while
+// Focus runs (sound.js).
+//
+// The page takes its greys from the chosen theme (themes.js), and Focus
+// and the breaks take a colour each, from the theme's or any other.
 //
 // localStorage keeps the timer under `pomodoro` (the lengths, the mode,
 // a running or paused timer, the round to a long break and today's
@@ -20,6 +24,7 @@
 // closed tab picks up where it was. The page works without it.
 
 import * as sound from './sound.js'
+import { THEMES } from './themes.js'
 
 const KEY = 'pomodoro'
 const SETTINGS_KEY = 'pomodoro-settings'
@@ -33,23 +38,12 @@ const CAP = 120
 const LATE = 60_000
 const LABEL = { focus: 'Focus', break: 'Break', long: 'Long break' }
 
-// Colours that read well on black, the first for Focus and the fourth
-// for breaks to begin with; any other can be picked as a custom one.
-const PALETTE = [
-  ['Lavender', '#b8b1ff'],
-  ['Blue', '#82b4ff'],
-  ['Teal', '#6fd3c8'],
-  ['Green', '#a9c9a4'],
-  ['Amber', '#f4c06a'],
-  ['Tomato', '#ff7d66'],
-  ['Rose', '#f59ac0'],
-  ['White', '#e5e5e5'],
-]
-
 const SETTINGS = {
-  focusColor: '#b8b1ff',
-  breakColor: '#a9c9a4',
-  background: 'black',
+  theme: 'black',
+  focusColor: THEMES.black.focus,
+  breakColor: THEMES.black.break,
+  background: 'plain',
+  start: 'wind',
   alarm: 'chime',
   alarmVolume: 70,
   ambient: 'off',
@@ -60,7 +54,9 @@ const SETTINGS = {
   wake: false,
 }
 const CHOICES = {
-  background: ['black', 'tint'],
+  theme: Object.keys(THEMES),
+  background: ['plain', 'tint'],
+  start: [...sound.CUE_NAMES, 'off'],
   alarm: [...sound.ALARM_NAMES, 'off'],
   ambient: ['off', ...sound.AMBIENT_NAMES],
   every: [0, 2, 3, 4, 5, 6],
@@ -77,7 +73,9 @@ const stateLabel = $('state')
 const go = $('go')
 const reset = $('reset')
 const more = $('more')
+const round = $('round')
 const rounds = $('rounds')
+const roundText = $('round-text')
 const tallyText = $('tally-text')
 const sheet = $('settings')
 const themeColor = document.querySelector('meta[name="theme-color"]')
@@ -125,6 +123,8 @@ const loadState = () => {
 
 const loadSettings = () => {
   const s = read(SETTINGS_KEY)
+  // The plain background was called black before there were themes.
+  if (s.background === 'black') s.background = 'plain'
   const out = {}
   for (const [key, fallback] of Object.entries(SETTINGS)) {
     const v = s[key]
@@ -141,7 +141,9 @@ const loadSettings = () => {
 const state = loadState()
 const settings = loadSettings()
 const save = () => write(KEY, state)
-const saveSettings = () => write(SETTINGS_KEY, settings)
+// The colours go with the settings, for the head's script to put on
+// before the first paint.
+const saveSettings = () => write(SETTINGS_KEY, { ...settings, paint: paint() })
 
 const phase = () => (state.endsAt != null ? 'running' : state.left != null ? 'paused' : 'idle')
 const fullLength = (mode = state.mode) => state[mode] * 60_000
@@ -308,7 +310,8 @@ const settle = () => {
 
 const start = () => {
   sound.unlock()
-  sound.stopAlarm()
+  if (settings.start !== 'off') sound.cue(settings.start, settings.alarmVolume)
+  else sound.stopAlarm()
   askToNotify()
   if (state.left == null) state.total = fullLength()
   state.endsAt = Date.now() + (state.left ?? fullLength())
@@ -378,7 +381,7 @@ const at = (ms) => new Date(ms).toLocaleTimeString([], { hour: 'numeric', minute
 const hours = (m) => (m < 60 ? `${m}m` : `${Math.floor(m / 60)}h${m % 60 ? ` ${pad(m % 60)}m` : ''}`)
 
 let lastLabel = ''
-let lastRounds = ''
+let lastRound = ''
 
 const render = () => {
   const p = phase()
@@ -418,14 +421,16 @@ const render = () => {
   more.hidden = p === 'idle'
   more.disabled = ms >= CAP * 60_000 - 1000
 
-  // The round to a long break, as dots: one lit for each focus done.
+  // The round to a long break, as dots: one lit for each focus done,
+  // and how many are left.
   const today = state.day === dayKey()
   const every = settings.every
   const filled = today ? Math.min(state.round, every) : 0
-  const roundsKey = `${every}|${filled}`
-  if (roundsKey !== lastRounds) {
-    lastRounds = roundsKey
-    rounds.hidden = !every
+  const roundKey = `${every}|${filled}|${mode === 'long'}`
+  if (roundKey !== lastRound) {
+    lastRound = roundKey
+    const left = every - filled
+    round.hidden = !every
     rounds.replaceChildren(
       ...Array.from({ length: every }, (_, i) => {
         const dot = document.createElement('span')
@@ -433,56 +438,114 @@ const render = () => {
         return dot
       }),
     )
-    rounds.setAttribute('aria-label', `${filled} of ${every} focus sessions before a long break`)
+    roundText.textContent =
+      mode === 'long'
+        ? 'long break now'
+        : left > 0
+          ? `${left} session${left === 1 ? '' : 's'} to a long break`
+          : 'long break next'
   }
   const done = today ? state.done : 0
   tallyText.hidden = done === 0
   tallyText.textContent = `${done} session${done === 1 ? '' : 's'} · ${hours(today ? state.minutes : 0)} today`
 
   document.title = p === 'idle' ? 'Pomodoro' : `${p === 'paused' ? 'Paused' : clock(ms)} · ${LABEL[mode]}`
-  const bar = settings.background === 'tint' ? tint(mode === 'focus' ? settings.focusColor : settings.breakColor) : '#000000'
+  const ground = THEMES[settings.theme].bg
+  const bar =
+    settings.background === 'tint' ? tint(mode === 'focus' ? settings.focusColor : settings.breakColor, ground) : ground
   if (themeColor.getAttribute('content') !== bar) themeColor.setAttribute('content', bar)
   syncSide()
 }
 
 // ---------- Settings ----------
 
+const themeList = $('themes')
 const swatchGroups = [...document.querySelectorAll('.swatches')]
 
-// The palette as radio buttons, then a custom colour, for each group.
-for (const group of swatchGroups) {
-  const name = group.dataset.setting
-  const who = name === 'focusColor' ? 'Focus' : 'Breaks'
-  for (const [label, hex] of PALETTE) {
-    const input = document.createElement('input')
-    input.type = 'radio'
-    input.className = 'swatch'
-    input.name = name
-    input.value = hex
-    input.title = label
-    input.setAttribute('aria-label', label)
-    input.style.setProperty('--swatch', hex)
-    group.append(input)
+// Each theme as a radio button: a sample of its ground with its two
+// colours, and its name in its own text colour.
+for (const [key, t] of Object.entries(THEMES)) {
+  const label = document.createElement('label')
+  label.className = 'theme'
+  for (const [prop, value] of Object.entries({ bg: t.bg, rule: t.rule, text: t.text, focus: t.focus, break: t.break })) {
+    label.style.setProperty(`--t-${prop}`, value)
   }
-  const custom = document.createElement('label')
-  custom.className = 'swatch swatch-custom'
-  custom.title = 'Any colour'
-  const picker = document.createElement('input')
-  picker.type = 'color'
-  picker.dataset.custom = name
-  picker.setAttribute('aria-label', `Any colour for ${who}`)
-  custom.append(picker)
-  group.append(custom)
+  const input = document.createElement('input')
+  input.type = 'radio'
+  input.name = 'theme'
+  input.value = key
+  const face = document.createElement('span')
+  face.className = 'theme-face'
+  const dots = document.createElement('span')
+  dots.className = 'theme-dots'
+  dots.setAttribute('aria-hidden', 'true')
+  dots.append(document.createElement('i'), document.createElement('i'))
+  const title = document.createElement('span')
+  title.className = 'theme-name'
+  title.textContent = t.name
+  face.append(dots, title)
+  label.append(input, face)
+  themeList.append(label)
 }
 
-// The tinted background is the mode's colour at 12% on black, as in the
-// stylesheet; render() gives the browser's bar the same.
-const tint = (hex) =>
-  `#${[1, 3, 5].map((i) => pad(Math.round(parseInt(hex.slice(i, i + 2), 16) * 0.12).toString(16))).join('')}`
+// The theme's colours as radio buttons, then any colour, for Focus and
+// for the breaks. Made again when the theme changes.
+const buildSwatches = () => {
+  const { colors } = THEMES[settings.theme]
+  for (const group of swatchGroups) {
+    const name = group.dataset.setting
+    const who = name === 'focusColor' ? 'Focus' : 'Breaks'
+    const swatches = colors.map(([label, hex]) => {
+      const input = document.createElement('input')
+      input.type = 'radio'
+      input.className = 'swatch'
+      input.name = name
+      input.value = hex
+      input.title = label
+      input.setAttribute('aria-label', label)
+      input.style.setProperty('--swatch', hex)
+      return input
+    })
+    const custom = document.createElement('label')
+    custom.className = 'swatch swatch-custom'
+    custom.title = 'Any colour'
+    const picker = document.createElement('input')
+    picker.type = 'color'
+    picker.dataset.custom = name
+    picker.setAttribute('aria-label', `Any colour for ${who}`)
+    custom.append(picker)
+    group.replaceChildren(...swatches, custom)
+  }
+}
+
+// The theme's greys and the two colours, as the stylesheet's tokens.
+const paint = () => {
+  const t = THEMES[settings.theme]
+  return {
+    '--base-bg': t.bg,
+    '--base-line': t.line,
+    '--base-rule': t.rule,
+    '--edge': t.edge,
+    '--text': t.text,
+    '--body': t.body,
+    '--base-muted': t.muted,
+    '--focus': settings.focusColor,
+    '--break': settings.breakColor,
+  }
+}
+
+// The tinted background is the mode's colour at 12% on the theme's
+// ground, as in the stylesheet; render() gives the browser's bar the same.
+const tint = (hex, ground) =>
+  `#${[1, 3, 5]
+    .map((i) => {
+      const c = parseInt(hex.slice(i, i + 2), 16) * 0.12 + parseInt(ground.slice(i, i + 2), 16) * 0.88
+      return pad(Math.round(c).toString(16))
+    })
+    .join('')}`
 
 const applySettings = () => {
-  root.style.setProperty('--focus', settings.focusColor)
-  root.style.setProperty('--break', settings.breakColor)
+  for (const [prop, value] of Object.entries(paint())) root.style.setProperty(prop, value)
   if (settings.background === 'tint') root.dataset.bg = 'tint'
   else delete root.dataset.bg
 }
@@ -495,9 +558,10 @@ const showSettings = () => {
     else if (input.type === 'radio') input.checked = String(v).toLowerCase() === input.value.toLowerCase()
     else if (input.type === 'range') input.value = String(v)
   }
+  const { colors } = THEMES[settings.theme]
   for (const picker of sheet.querySelectorAll('input[data-custom]')) {
     const v = settings[picker.dataset.custom]
-    const preset = PALETTE.some(([, hex]) => hex === v.toLowerCase())
+    const preset = colors.some(([, hex]) => hex === v.toLowerCase())
     picker.value = v
     picker.parentElement.classList.toggle('is-on', !preset)
     picker.parentElement.style.setProperty('--swatch', v)
@@ -505,8 +569,14 @@ const showSettings = () => {
   $('wake-row').hidden = !('wakeLock' in navigator)
 }
 
+// A new theme brings its own two colours.
 const change = (name, value) => {
   settings[name] = value
+  if (name === 'theme') {
+    settings.focusColor = THEMES[value].focus
+    settings.breakColor = THEMES[value].break
+    buildSwatches()
+  }
   saveSettings()
   applySettings()
   showSettings()
@@ -527,8 +597,11 @@ sheet.addEventListener('change', (event) => {
     return
   }
   change(name, name === 'every' ? Number(input.value) : input.value)
-  if (name === 'alarm' && input.value !== 'off') sound.alarm(input.value, 'rest', settings.alarmVolume, 1)
-  if (name === 'alarm' && input.value === 'off') sound.stopAlarm()
+  if (name === 'start' || name === 'alarm') {
+    if (input.value === 'off') sound.stopAlarm()
+    else if (name === 'start') sound.cue(input.value, settings.alarmVolume)
+    else sound.alarm(input.value, 'rest', settings.alarmVolume, 1)
+  }
   if (name === 'ambient') previewAmbient()
 })
 
@@ -684,6 +757,8 @@ document.addEventListener('visibilitychange', () => {
   syncWake()
 })
 
+buildSwatches()
 applySettings()
 showSettings()
+saveSettings()
 settle()

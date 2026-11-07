@@ -1,6 +1,6 @@
 // /pomodoro's sounds, all made on the spot with Web Audio, so there is
-// nothing to download: the alarms that ring when a timer ends, and the
-// sounds that can play while you focus.
+// nothing to download: a cue when a timer starts, the alarms that ring
+// when one ends, and the sounds that can play while you focus.
 //
 // A page may only make sound after a tap or a key. unlock() opens the
 // audio on one; until then everything here stays quiet.
@@ -104,19 +104,27 @@ export const ALARM_NAMES = Object.keys(ALARMS)
 
 let ringing = null
 
-// Rings the alarm `name` at `volume`, cutting short one still ringing.
-// A preview rings once; a timer's end, twice.
-export const alarm = (name, to, volume, rounds = 2) => {
+// Plays what `make` schedules at `volume`, cutting short a cue or an
+// alarm still sounding. `now` says the call comes from a tap or a key,
+// so audio the browser is still opening plays once it is open; an alarm
+// on its own never waits, or it could ring long after its time.
+const play = (make, volume, now) => {
   stopAlarm()
-  if (!ALARMS[name] || !open()) return
+  if (ctx == null || !(open() || (now && ctx.state === 'suspended'))) return
   const out = ctx.createGain()
   out.gain.value = level(volume) * ALARM_GAIN
   out.connect(ctx.destination)
-  const length = ALARMS[name](out, ctx.currentTime + 0.05, to, rounds)
+  const length = make(out, ctx.currentTime + 0.03)
   ringing = out
   setTimeout(() => {
     if (ringing === out) ringing = null
   }, (length + 2) * 1000)
+}
+
+// Rings the alarm `name` at `volume`. A preview, picked with a tap,
+// rings once; a timer's end, twice.
+export const alarm = (name, to, volume, rounds = 2) => {
+  if (ALARMS[name]) play((out, t) => ALARMS[name](out, t, to, rounds), volume, rounds === 1)
 }
 
 export const stopAlarm = () => {
@@ -125,6 +133,78 @@ export const stopAlarm = () => {
   ringing = null
   out.gain.setTargetAtTime(0, ctx.currentTime, 0.03)
   setTimeout(() => out.disconnect(), 300)
+}
+
+// ---------- When a timer starts ----------
+// Shorter and softer than the alarms (measured at volume 100: peaks
+// of about half of full scale, where the alarms come close to it): a
+// sign the time is running, made on Start or Resume, never when a break
+// starts on its own (the alarm has just rung).
+
+let noise = null
+
+// A click: a burst of noise through a band, gone in a few milliseconds.
+const snap = (out, t, { freq = 3000, q = 3, peak = 1, decay = 0.015 } = {}) => {
+  if (!noise) {
+    noise = ctx.createBuffer(1, Math.round(0.06 * ctx.sampleRate), ctx.sampleRate)
+    const x = noise.getChannelData(0)
+    for (let i = 0; i < x.length; i++) x[i] = Math.random() * 2 - 1
+  }
+  const src = ctx.createBufferSource()
+  src.buffer = noise
+  const band = ctx.createBiquadFilter()
+  band.type = 'bandpass'
+  band.frequency.value = freq
+  band.Q.value = q
+  const env = ctx.createGain()
+  env.gain.setValueAtTime(peak, t)
+  env.gain.exponentialRampToValueAtTime(0.0001, t + decay)
+  src.connect(band).connect(env).connect(out)
+  src.start(t)
+  src.stop(t + decay + 0.01)
+}
+
+const CUES = {
+  // A kitchen timer wound up: its ratchet, over two turns of the knob.
+  wind(out, t) {
+    let s = t
+    for (let turn = 0; turn < 2; turn++) {
+      for (let i = 0; i < 7; i++) {
+        snap(out, s, { freq: 2700 + Math.random() * 700, peak: 0.7 + Math.random() * 0.25, decay: 0.014 })
+        s += 0.03 + Math.random() * 0.01
+      }
+      s += 0.13
+    }
+    return s - t
+  },
+  // A stopwatch's button, pressed and let go.
+  click(out, t) {
+    snap(out, t, { freq: 2100, q: 1.5, peak: 1.05, decay: 0.03 })
+    note(out, t, 1250, { peak: 0.09, attack: 0.001, decay: 0.05 })
+    snap(out, t + 0.075, { freq: 2600, q: 1.5, peak: 0.6, decay: 0.02 })
+    return 0.15
+  },
+  // A singing bowl, struck once: each partial twice, a breath apart in
+  // pitch, so it beats slowly as it fades.
+  bowl(out, t) {
+    for (const [ratio, peak, decay] of [[1, 0.065, 6], [2.71, 0.035, 4.5], [5.15, 0.0125, 2.5]]) {
+      for (const shift of [0, 1.3]) note(out, t, 262 * ratio + shift, { peak, decay, attack: 0.006 })
+    }
+    return 6
+  },
+  // Two quick notes, rising.
+  rise(out, t) {
+    note(out, t, 587, { peak: 0.2, attack: 0.006, decay: 0.3 })
+    note(out, t + 0.1, 880, { peak: 0.2, attack: 0.006, decay: 0.45 })
+    return 0.6
+  },
+}
+
+export const CUE_NAMES = Object.keys(CUES)
+
+// Plays the cue `name`, from a tap or a key.
+export const cue = (name, volume) => {
+  if (CUES[name]) play(CUES[name], volume, true)
 }
 
 // ---------- While you focus ----------

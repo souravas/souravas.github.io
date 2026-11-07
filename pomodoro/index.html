@@ -21,7 +21,8 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
 
-  <!-- Puts on the chosen colours, background and mode before the first
+  <!-- Puts on the chosen theme and colours (main.js keeps them with the
+       settings, as `paint`), the background and the mode before the first
        paint, so the page never flashes the defaults first. main.js does
        the rest. Hashed into the CSP at build. -->
   <script>
@@ -30,8 +31,10 @@
       var hex = /^#[0-9a-f]{6}$/i;
       var s = JSON.parse(localStorage.getItem("pomodoro-settings") || "{}");
       var t = JSON.parse(localStorage.getItem("pomodoro") || "{}");
-      if (hex.test(s.focusColor)) root.style.setProperty("--focus", s.focusColor);
-      if (hex.test(s.breakColor)) root.style.setProperty("--break", s.breakColor);
+      var paint = s.paint || {};
+      for (var k in paint) {
+        if (/^--[a-z-]+$/.test(k) && hex.test(paint[k])) root.style.setProperty(k, paint[k]);
+      }
       if (s.background === "tint") root.dataset.bg = "tint";
       if (t.mode === "break" || t.mode === "long") root.dataset.mode = t.mode;
     } catch (e) {}
@@ -48,15 +51,16 @@
       <button class="head-button" type="button" popovertarget="settings">Settings</button>
     </header>
 
-    <!-- One dial for every timer. Focus, Break and Long each keep their
-         own length; the one pressed is the one the dial shows and sets.
-         main.js fills in the lengths, the time and the labels, and hides
-         Long when long breaks are off. -->
+    <!-- One dial for every timer. Focus, Break and Long break each keep
+         their own length; the one pressed is the one the dial shows and
+         sets. main.js fills in the lengths, the time and the labels, and
+         hides Long break when long breaks are off. On the narrowest
+         phones it is just Long, to keep the three on one line. -->
     <div class="timer" id="timer">
       <div class="modes" role="group" aria-label="Timer">
         <button class="mode" type="button" data-mode="focus" aria-pressed="true">Focus <span class="mode-len" id="focus-len">25</span></button>
         <button class="mode" type="button" data-mode="break" aria-pressed="false">Break <span class="mode-len" id="break-len">5</span></button>
-        <button class="mode" type="button" data-mode="long" aria-pressed="false">Long <span class="mode-len" id="long-len">15</span></button>
+        <button class="mode" type="button" data-mode="long" aria-pressed="false"><span>Long<span class="wide"> break</span></span> <span class="mode-len" id="long-len">15</span></button>
       </div>
 
       <!-- A 60-minute face, like a kitchen timer: the coloured arc runs
@@ -89,10 +93,11 @@
         <button class="action quiet" id="more" type="button" title="Add five minutes (+)" hidden>+5 min</button>
       </div>
 
-      <!-- A dot per focus session in the round to a long break, and the
-           day's sessions and minutes. -->
+      <!-- A dot per focus session in the round to a long break, lit as
+           each is done, with how many are left; then the day's sessions
+           and minutes. -->
       <div class="tally">
-        <span class="rounds" id="rounds" role="img" hidden></span>
+        <p class="round" id="round" hidden><span class="rounds" id="rounds" aria-hidden="true"></span> <span id="round-text"></span></p>
         <span class="tally-text" id="tally-text" hidden></span>
       </div>
     </div>
@@ -101,7 +106,7 @@
   <!-- Settings: a sheet from the bottom on phones, a panel in the middle
        wider. Every change is kept at once, and a sound plays as it is
        picked, so it can be heard before a timer ends. main.js fills in the
-       colour swatches and ticks what is chosen. -->
+       themes and the theme's colours, and ticks what is chosen. -->
   <div class="sheet" id="settings" popover role="dialog" aria-labelledby="settings-title">
     <div class="sheet-head">
       <h2 id="settings-title">Settings</h2>
@@ -110,6 +115,10 @@
 
     <section class="group" aria-labelledby="colours-title">
       <h3 id="colours-title">Colours</h3>
+      <fieldset class="field">
+        <legend class="field-label">Theme</legend>
+        <div class="themes" id="themes"></div>
+      </fieldset>
       <fieldset class="field">
         <legend class="field-label">Focus</legend>
         <div class="swatches" data-setting="focusColor"></div>
@@ -121,7 +130,7 @@
       <fieldset class="field">
         <legend class="field-label">Background</legend>
         <div class="chips">
-          <label class="chip"><input type="radio" name="background" value="black" /><span>Black</span></label>
+          <label class="chip"><input type="radio" name="background" value="plain" /><span>Plain</span></label>
           <label class="chip"><input type="radio" name="background" value="tint" /><span>Tinted</span></label>
         </div>
       </fieldset>
@@ -129,6 +138,16 @@
 
     <section class="group" aria-labelledby="sound-title">
       <h3 id="sound-title">Sound</h3>
+      <fieldset class="field">
+        <legend class="field-label">When a timer starts</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="start" value="wind" /><span>Wind-up</span></label>
+          <label class="chip"><input type="radio" name="start" value="click" /><span>Click</span></label>
+          <label class="chip"><input type="radio" name="start" value="bowl" /><span>Bowl</span></label>
+          <label class="chip"><input type="radio" name="start" value="rise" /><span>Rise</span></label>
+          <label class="chip"><input type="radio" name="start" value="off" /><span>Off</span></label>
+        </div>
+      </fieldset>
       <fieldset class="field">
         <legend class="field-label">When a timer ends</legend>
         <div class="chips">
@@ -140,7 +159,7 @@
         </div>
       </fieldset>
       <label class="field range">
-        <span class="field-label">Alarm volume</span>
+        <span class="field-label">Start and end volume</span>
         <input type="range" name="alarmVolume" min="0" max="100" step="5" />
       </label>
       <fieldset class="field">
