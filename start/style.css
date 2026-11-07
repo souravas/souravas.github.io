@@ -95,7 +95,7 @@ svg {
    is a row instead (see the groups below): its heading in the gutter,
    its links in six columns, so they read left to right in their order.
    That step comes once a sixth of the row still holds the longest
-   name (MyAnonamouse, 153px with its icon) beside the 96px gutter.
+   name (Interview Ready, 151px with its icon) beside the 96px gutter.
    The rows (--row) and the gaps around the groups (--gap) grow with
    the window's height: 32px and 24px in a 640px-tall window, rows
    reaching 40px at 720px and gaps 40px at 800px, so the page fills

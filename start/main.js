@@ -14,7 +14,7 @@
    query looks like an address, then a Google search. ↑/↓ cycle through
    them, the prompt shows what Enter will open, Esc clears. Links and
    Enter open in this tab, since /start is the browser's homepage; a
-   link with data-also (none has one at the moment) opens its href and
+   link with data-also (Cloud, Downloads) opens its href and
    those URLs in new tabs, on a click or a middle click, and clicking a
    group's heading opens all of its links in new tabs. */
 (() => {
@@ -44,7 +44,7 @@
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
     // The other words in all of those addresses, which a query has to
     // start, so "view" doesn't find LLD: each host's labels but the TLD
-    // ("docs" in docs.google.com, and any from data-also), and for a
+    // ("docs" in docs.google.com, "koofr" from data-also), and for a
     // page on this site the first segment of its path ("kannada").
     // www, app and web name no site.
     const words = hrefs.flatMap((href) => {
