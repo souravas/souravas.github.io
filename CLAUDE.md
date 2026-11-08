@@ -15,9 +15,19 @@ npm run preview   # preview the production build
 
 ## Deployment
 
-- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) builds pushes and pull requests to `main`, and deploys pushes (and *Run workflow*) to GitHub Pages with `actions/deploy-pages`. Pull requests only build.
+- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) builds pushes and pull requests to `main`, and deploys pushes (and *Run workflow*) to GitHub Pages with `actions/deploy-pages`. Pull requests only build. The upload sets `include-hidden-files: true`: without it `upload-pages-artifact` drops dot-folders, and `/.well-known/security.txt` never ships.
 - [.github/workflows/rebuild.yml](.github/workflows/rebuild.yml) starts that workflow on the 1st of each month, so the build-time values roll over without a push. It is its own file because GitHub switches off a scheduled workflow after 60 days without repository activity, and that must never stop deploys on push.
 - Dependabot opens weekly npm and Actions update PRs.
+
+### Cloudflare
+
+The domain is registered at Cloudflare and its DNS is there. The site's records (the apex's four GitHub Pages `A` and four `AAAA` records, and `www` as a `CNAME` to `souravas.github.io`) are proxied, with SSL/TLS on Full (strict). GitHub keeps its own Let's Encrypt certificate behind the proxy; renewals get through because Cloudflare passes `/.well-known/acme-challenge/` to GitHub over plain HTTP. A Cloudflare 526 error means that certificate lapsed: set the records to DNS only until GitHub renews it. Mail runs through SimpleLogin (MX, SPF, DKIM `CNAME`s, and DMARC reporting to Cloudflare's DMARC Management), so Cloudflare Email Routing stays off.
+
+- **No HTML rewriting.** Pages must reach visitors byte for byte as GitHub serves them, because `csp-inline-hashes` pins every inline script and style. So these stay off: Email Address Obfuscation, Automatic HTTPS Rewrites, Rocket Loader, Bot Fight Mode (its JavaScript Detections inject an inline script the CSP blocks) and Web Analytics' automatic setup (the pages load the beacon themselves). To check, compare `curl -s https://souravas.com/v1/` with `curl -s --resolve souravas.com:443:185.199.108.153 https://souravas.com/v1/`.
+- **Headers**: the Managed Transform *Add security headers* adds `x-content-type-options`, `x-frame-options` and `referrer-policy`. GitHub's HSTS passes through.
+- **Caching**: Browser Cache TTL respects GitHub's `max-age=600`. The cache rule *Hashed build files* gives `.js`, `.css` and `.woff2` under `/assets/` a year at the edge and in browsers. The cache rule *Fixed-name fonts and images* gives `/fonts/` and the `.webp` files in `/assets/` (except `og-cover`) a year in browsers, while the edge keeps GitHub's 10 minutes. **So never replace one of those files in place**: save the new version under a new name and update every reference, including the `profile.webp` URLs in v1–v3's JSON-LD. `og-cover` and `resume.pdf` keep their names and their 10 minutes.
+- **Redirects**: the redirect rule *CV to PDF* sends `/cv`, `/cv.html`, `/resume` and `/resume.html` to `/assets/resume.pdf` with a 301, so the `public/` stubs answer only if the rule is removed.
+- Search, agent and training crawlers are all allowed, and Cloudflare leaves `robots.txt` as it is.
 
 ## Pages
 
@@ -31,13 +41,13 @@ npm run preview   # preview the production build
 | `/code` | `code/` | Python interview references rendered from the Markdown in `code/` |
 | `/exercises` | `exercises/` | exercise video links; `index.html` and `style.css`, no script |
 | `/pomodoro` | `pomodoro/` | focus and break timers on a dial |
-| `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | meta-refresh to `/assets/resume.pdf` |
+| `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | 301 to `/assets/resume.pdf` from a Cloudflare redirect rule; the stubs meta-refresh there if the rule is gone |
 | any unknown route | `public/404.html` | self-contained static 404 |
 | `/sitemap.xml`, `/.well-known/security.txt` | build output | see Build |
 
 Every page other than the portfolio is personal: `noindex`, left out of the sitemap, on /start's pure black and tokens, and set in the shared `public/fonts/` (Inter Tight, JetBrains Mono). /exercises and /pomodoro have a "‹ Start" link back, in a 120px gutter on wider screens.
 
-`public/` is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs, `start-sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`).
+`public/` is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs, `start-sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Browsers cache `fonts/` and the `.webp` images for a year, so a changed one needs a new file name (see Cloudflare).
 
 ### Adding a page
 

@@ -15,6 +15,8 @@ npm run preview   # preview the production build
 
 Pushes to `main` are built and deployed automatically via [.github/workflows/deploy.yml](.github/workflows/deploy.yml) using `actions/deploy-pages`. Pull requests run the build only. To trigger a deploy manually, use *Run workflow* on the Actions tab. [.github/workflows/rebuild.yml](.github/workflows/rebuild.yml) redeploys on the 1st of each month, so the values filled in at build time (years of experience, the `security.txt` expiry) stay current without a push.
 
+The domain and its DNS are on Cloudflare, which proxies the site in front of GitHub Pages: it adds security headers, caches the fonts and images for a year, and redirects `/cv` and `/resume`. It is set not to rewrite any HTML, since each page's CSP pins its inline scripts and styles by hash. [CLAUDE.md](CLAUDE.md#cloudflare) lists the settings.
+
 ## URLs
 
 - Local dev: <http://localhost:5173>
