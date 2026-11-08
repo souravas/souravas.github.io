@@ -48,6 +48,9 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
+          # The upload leaves out dot-folders by default, which would drop
+          # /.well-known/security.txt from the site.
+          include-hidden-files: true
 
   deploy:
     if: github.event_name != 'pull_request'
