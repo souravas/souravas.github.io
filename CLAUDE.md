@@ -41,7 +41,7 @@ Every page other than the portfolio is personal: `noindex`, left out of the site
 
 ### Adding a page
 
-1. Create `<name>/index.html`, `main.js` and `style.css`, copying the head (CSP meta, favicons with the current `?v=`, font preloads, `noindex`) from a sibling page.
+1. Create `<name>/index.html`, `main.js` and `style.css`, copying the head (CSP meta, favicons with the current `?v=`, font preloads, `noindex`) and the Cloudflare Web Analytics script before `</body>` from a sibling page.
 2. In [vite.config.js](vite.config.js), add it to `rolldownOptions.input` and to both rewrites in the `html-routes` plugin (dev and preview), and update the page lists in the comments above `appType` and `SITEMAP_URLS`.
 3. Add it to the Pages table above and to [README.md](README.md).
 
@@ -55,7 +55,9 @@ Plugins, in order:
 - `json-ld-minify`, `inline-css` (each page's CSS bundle is inlined as a `<style>`, so there is no render-blocking stylesheet request), `csp-inline-hashes`, `html-minify`.
 - `sitemap` (lists only `/`, with the build date as `lastmod`), `security-txt` (`Expires` 364 days out, since RFC 9116 wants under a year; contact `SECURITY_CONTACT`), `root-default`.
 
-**CSP**: every page carries a CSP `<meta>`. At build time `csp-inline-hashes` swaps `'unsafe-inline'` for SHA-256 hashes of the page's inline `<script>`s and `<style>`s; dev keeps `'unsafe-inline'` so HMR works. A page with an inline script (v1–v3, /kannada, /pomodoro) has `script-src 'self' 'unsafe-inline'` in its source for that swap; the others have `script-src 'self'`.
+**CSP**: every page carries a CSP `<meta>`. At build time `csp-inline-hashes` swaps `'unsafe-inline'` for SHA-256 hashes of the page's inline `<script>`s and `<style>`s; dev keeps `'unsafe-inline'` so HMR works. A page with an inline script (v1–v3, /kannada, /pomodoro) has `script-src 'self' 'unsafe-inline'` in its source for that swap; the others have `script-src 'self'`. That literal `'self' 'unsafe-inline'` prefix is what the swap matches, so add other sources after it.
+
+**Analytics**: the eight built pages (v1–v3, /start, /kannada, /code, /exercises, /pomodoro) load Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
 
 **Favicons** are shared by every page and linked with a `?v=` query. When the icons change, bump it on every page, `public/404.html` included, or browsers keep showing the cached ones.
 

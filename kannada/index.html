@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Kannada Gottilla</title>
   <meta name="description" content="Spoken Bangalore Kannada in 89 lessons, one a day." />
@@ -130,5 +130,6 @@
     <progress class="deck-progress" id="deck-progress" max="1" value="0"></progress>
     <div class="deck-body" id="deck-body"></div>
   </dialog>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40e800aeadd0416d922cd4df15f80f38"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
