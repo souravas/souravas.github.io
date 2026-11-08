@@ -70,13 +70,12 @@ Each design is self-contained; v2 and v3 bundle their own `fonts/`, and v1 uses 
 - `data-alias`: space-separated short codes the prompt matches first.
 - `data-search`: a search URL with `%s`; an alias plus a query (`lc two sum`) opens it.
 - `data-also`: more URLs, space-separated, opened in new tabs along with the href.
-- `data-now`: adds the link to Now, the bolt at the prompt's end (or `now` typed into it), which opens every marked link in new tabs in page order. The bolt is `hidden` in the markup until `main.js` finds a marked link.
 
-The most used links sit above the groups in `ul.links.top`, as larger icons with their names visually hidden (still matched by the prompt, shown as a `title` tooltip); they belong to no group.
+The most used links are pinned above the groups in `ul.links.top`, as tiles across the page with their names; they belong to no group. Now, the bolt at the prompt's end (or `now` typed into it), opens every pinned link in new tabs in page order, so pinning a link adds it to Now. The bolt is `hidden` in the markup until `main.js` finds a pinned link.
 
 The header comment in [start/main.js](start/main.js) describes how the prompt matches and ranks. Links open in the same tab because the page is the browser homepage. Set as a browser search engine, `https://souravas.com/start/?q=%s` takes the prompt's queries from the address bar: the page replaces itself with what Enter would open, or, when that opens several tabs (which needs a click or key press), leaves the query in the prompt. Clicking a group heading (a button injected by `main.js`) opens the whole group in new tabs; browsers block every tab after the first until the site is allowed pop-ups.
 
-**Layout**: below 760px the groups stack in one column, each with its links in two columns. From 760px the groups run in four newspaper-style columns that the browser balances, and the group order in the page is chosen so the four columns end close together. After moving a group or adding links, check where the columns end. Rows and gaps grow with the window's height, and the page fits without scrolling in a window about 870px tall.
+**Layout**: below 760px the pinned tiles sit three to a row and the groups stack in one column, each with its links in two columns. From 760px the tiles make one row and the groups run in four newspaper-style columns that the browser balances. The most used groups come first, so they sit on the left: Plan, Code and Practice, then Design and Learn, then Read, Media and Fitness, then Finance and Social, an order that also makes the four columns end close together. After moving a group or adding links, check where the columns end. Rows and gaps grow with the window's height, and the page fits without scrolling in a window about 870px tall.
 
 [public/start-sw.js](public/start-sw.js) is registered by `main.js` in production with scope `/start`. It serves `/start` and `/start/` from cache and refreshes the cache in the background, so a deploy shows up on the second open.
 

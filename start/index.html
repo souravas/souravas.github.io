@@ -104,8 +104,8 @@
   <main class="page">
     <!-- Quick launch: type anywhere to filter the links below in place,
          jump by alias, search a site by keyword, open a URL, or search
-         Google. The bolt is Now, which opens every link marked data-now;
-         main.js shows it, since only a script can open them. -->
+         Google. The bolt is Now, which opens every pinned link; main.js
+         shows it, since only a script can open them. -->
     <div class="prompt">
       <span class="prompt-mark" aria-hidden="true">›</span>
       <input class="prompt-input" id="q" type="text" placeholder="type anywhere to search" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-label="Search bookmarks, open a URL, or search Google" aria-describedby="hint" />
@@ -113,16 +113,16 @@
       <button class="prompt-now" id="now" type="button" aria-label="Now" hidden><svg aria-hidden="true"><use href="#mdi-lightning-bolt-outline" /></svg></button>
     </div>
 
-    <!-- Frequent: the most used links as larger icons, above the
-         groups. Their names stay in the markup, hidden, so the prompt
-         still finds them, and show as tooltips. -->
-    <ul class="links top" aria-label="Frequent">
-      <li><a title="Claude" href="https://claude.ai/new#settings/usage" data-alias="c" data-search="https://claude.ai/new?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-claude" /></svg></span><span class="name">Claude</span></a></li>
-      <li><a title="Tasks" href="https://ticktick.com/webapp/#q/all/tasks" data-now><span class="icon"><svg aria-hidden="true"><use href="#mdi-check-circle-outline" /></svg></span><span class="name">Tasks</span></a></li>
-      <li><a title="Calendar" href="https://ticktick.com/webapp/#c/all/calendar/w" data-now><span class="icon"><svg aria-hidden="true"><use href="#mdi-calendar-blank-outline" /></svg></span><span class="name">Calendar</span></a></li>
-      <li><a title="Habits" href="https://ticktick.com/webapp/#q/all/habit"><span class="icon"><svg aria-hidden="true"><use href="#mdi-repeat" /></svg></span><span class="name">Habits</span></a></li>
-      <li><a title="Pomodoro" href="/pomodoro/" data-now><span class="icon"><svg aria-hidden="true"><use href="#mdi-timer-outline" /></svg></span><span class="name">Pomodoro</span></a></li>
-      <li><a title="Warmup" href="https://www.youtube.com/watch?v=c0VxUFHdYzs&amp;list=PL5mKbkRfXiOqTq7QCK7Y8b24D-hmhiEd-&amp;index=2"><span class="icon"><svg aria-hidden="true"><use href="#mdi-arm-flex" /></svg></span><span class="name">Warmup</span></a></li>
+    <!-- Pinned: the most used links, as tiles across the page above
+         the groups. Now opens all of them, so pin a link here to add it
+         to Now. -->
+    <ul class="links top" aria-label="Pinned">
+      <li><a href="https://claude.ai/new#settings/usage" data-alias="c" data-search="https://claude.ai/new?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-claude" /></svg></span><span class="name">Claude</span></a></li>
+      <li><a href="https://ticktick.com/webapp/#q/all/tasks"><span class="icon"><svg aria-hidden="true"><use href="#mdi-check-circle-outline" /></svg></span><span class="name">Tasks</span></a></li>
+      <li><a href="https://ticktick.com/webapp/#c/all/calendar/w"><span class="icon"><svg aria-hidden="true"><use href="#mdi-calendar-blank-outline" /></svg></span><span class="name">Calendar</span></a></li>
+      <li><a href="https://ticktick.com/webapp/#q/all/habit"><span class="icon"><svg aria-hidden="true"><use href="#mdi-repeat" /></svg></span><span class="name">Habits</span></a></li>
+      <li><a href="/pomodoro/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-timer-outline" /></svg></span><span class="name">Pomodoro</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=c0VxUFHdYzs&amp;list=PL5mKbkRfXiOqTq7QCK7Y8b24D-hmhiEd-&amp;index=2"><span class="icon"><svg aria-hidden="true"><use href="#mdi-arm-flex" /></svg></span><span class="name">Warmup</span></a></li>
     </ul>
 
     <!-- Bookmarks. Copy an <li> to add one; the icon is the <use> href
@@ -131,65 +131,17 @@
          ("lc" opens LeetCode), and data-search, a URL with %s where a
          query goes, which "alias query" opens ("lc two sum"), and
          data-also, space-separated URLs that open in new tabs along
-         with the href, in order (Cloud, Downloads, Coursera, IPO), and data-now,
-         which adds the link to Now as well: the bolt in the prompt, or
-         "now" typed into it, opens every such link in new tabs, in page
-         order. The groups are in the order that lets four columns end
-         close together; moving one, or adding links, can change that. -->
+         with the href, in order (Cloud, Downloads, Coursera, IPO).
+         The groups fill four columns top to bottom: Plan, Code and
+         Practice, then Design and Learn, then Read, Media and Fitness,
+         then Finance and Social, an order that keeps the most used
+         groups on the left and lets the columns end close together;
+         moving a group, or adding links, can change that. -->
     <section class="group" aria-labelledby="group-plan">
       <h2 id="group-plan">Plan</h2>
       <ul class="links">
         <li><a href="obsidian://open?vault=hope"><span class="icon"><svg aria-hidden="true"><use href="#si-obsidian" /></svg></span><span class="name">Obsidian</span></a></li>
         <li><a href="https://ticktick.com/webapp/#countdown"><span class="icon"><svg aria-hidden="true"><use href="#mdi-timer-sand" /></svg></span><span class="name">Countdown</span></a></li>
-      </ul>
-    </section>
-
-    <section class="group" aria-labelledby="group-fitness">
-      <h2 id="group-fitness">Fitness</h2>
-      <ul class="links">
-        <li><a href="/exercises/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-dumbbell" /></svg></span><span class="name">Exercise</span></a></li>
-        <li><a href="https://app.fitonapp.com/"><span class="icon"><svg aria-hidden="true"><use href="#logo-fiton" /></svg></span><span class="name">FitOn</span></a></li>
-        <li><a href="https://www.hybridcalisthenics.com/"><span class="icon"><svg aria-hidden="true"><use href="#logo-hybridcalisthenics" /></svg></span><span class="name">Calisthenics</span></a></li>
-      </ul>
-    </section>
-
-    <section class="group" aria-labelledby="group-media">
-      <h2 id="group-media">Media</h2>
-      <ul class="links">
-        <li><a href="https://www.youtube.com/feed/playlists" data-alias="yt" data-search="https://www.youtube.com/results?search_query=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-youtube" /></svg></span><span class="name">YouTube</span></a></li>
-        <li><a href="https://music.youtube.com/" data-alias="ytm" data-search="https://music.youtube.com/search?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-music" /></svg></span><span class="name">Music</span></a></li>
-        <li><a href="https://comix.to/"><span class="icon"><svg aria-hidden="true"><use href="#logo-comix" /></svg></span><span class="name">Comix</span></a></li>
-        <li><a href="https://drive.google.com/" data-also="https://photos.google.com/ https://app.koofr.net/ https://app.drime.cloud/ https://drive.proton.me/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-cloud" /></svg></span><span class="name">Cloud</span></a></li>
-        <li><a href="https://www.myanonamouse.net/" data-also="https://ext.to/ https://fora.snahp.eu/ https://www.torrentleech.org/ https://hawke.uno/ https://bwtorrents.cc/home.php https://yts.gg/home https://app.trakt.tv/calendar?mode=media"><span class="icon"><svg aria-hidden="true"><use href="#mdi-download" /></svg></span><span class="name">Downloads</span></a></li>
-      </ul>
-    </section>
-
-    <section class="group" aria-labelledby="group-practice">
-      <h2 id="group-practice">Practice</h2>
-      <ul class="links">
-        <li><a href="https://www.chess.com/home"><span class="icon"><svg aria-hidden="true"><use href="#si-chessdotcom" /></svg></span><span class="name">Chess</span></a></li>
-        <li><a href="https://monkeytype.com/" data-alias="mt"><span class="icon"><svg aria-hidden="true"><use href="#si-monkeytype" /></svg></span><span class="name">Typing</span></a></li>
-      </ul>
-    </section>
-
-    <section class="group" aria-labelledby="group-read">
-      <h2 id="group-read">Read</h2>
-      <ul class="links">
-        <li><a href="https://freedium-mirror.cfd/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-glasses" /></svg></span><span class="name">Reader</span></a></li>
-        <li><a href="https://news.ycombinator.com/"><span class="icon"><svg aria-hidden="true"><use href="#si-ycombinator" /></svg></span><span class="name">Hacker News</span></a></li>
-        <li><a href="https://app.makeheadway.com/discover"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-open-page-variant-outline" /></svg></span><span class="name">Headway</span></a></li>
-        <li><a href="https://web.12min.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-clock-outline" /></svg></span><span class="name">12min</span></a></li>
-      </ul>
-    </section>
-
-    <section class="group" aria-labelledby="group-learn">
-      <h2 id="group-learn">Learn</h2>
-      <ul class="links">
-        <li><a href="https://www.udemy.com/home/my-courses/learning/"><span class="icon"><svg aria-hidden="true"><use href="#si-udemy" /></svg></span><span class="name">Udemy</span></a></li>
-        <li><a href="/kannada/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-translate" /></svg></span><span class="name">Language</span></a></li>
-        <li><a href="https://www.coursera.org/learn/learning-how-to-learn" data-also="https://www.coursera.org/learn/the-science-of-well-being"><span class="icon"><svg aria-hidden="true"><use href="#si-coursera" /></svg></span><span class="name">Coursera</span></a></li>
-        <li><a href="https://roadmap.sh/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#si-roadmapdotsh" /></svg></span><span class="name">Roadmap</span></a></li>
-        <li><a href="https://www.techinterviewhandbook.org/software-engineering-interview-guide/" data-alias="tih"><span class="icon"><svg aria-hidden="true"><use href="#logo-techinterviewhandbook" /></svg></span><span class="name">Tech Interview</span></a></li>
       </ul>
     </section>
 
@@ -207,15 +159,11 @@
       </ul>
     </section>
 
-    <section class="group" aria-labelledby="group-finance">
-      <h2 id="group-finance">Finance</h2>
+    <section class="group" aria-labelledby="group-practice">
+      <h2 id="group-practice">Practice</h2>
       <ul class="links">
-        <li><a href="https://kite.zerodha.com/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-kite" /></svg></span><span class="name">Kite</span></a></li>
-        <li><a href="https://coin.zerodha.com/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-coin" /></svg></span><span class="name">Coin</span></a></li>
-        <li><a href="https://ipowatch.in/ipo-grey-market-premium-latest-ipo-gmp/" data-also="https://www.chittorgarh.com/ https://www.investorgain.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-rocket-launch-outline" /></svg></span><span class="name">IPO</span></a></li>
-        <li><a href="https://zerodha.com/varsity/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-chart-line" /></svg></span><span class="name">Varsity</span></a></li>
-        <li><a href="https://console.zerodha.com/portfolio/holdings"><span class="icon"><svg aria-hidden="true"><use href="#mdi-chart-donut" /></svg></span><span class="name">Console</span></a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1JxNt4t5sVCGtolwqwPLUYdpJOdQ4zJAQTau1O5H7ZXE/edit?gid=1258976699#gid=1258976699" data-alias="cf"><span class="icon"><svg aria-hidden="true"><use href="#mdi-cash-multiple" /></svg></span><span class="name">Cashflow</span></a></li>
+        <li><a href="https://www.chess.com/home"><span class="icon"><svg aria-hidden="true"><use href="#si-chessdotcom" /></svg></span><span class="name">Chess</span></a></li>
+        <li><a href="https://monkeytype.com/" data-alias="mt"><span class="icon"><svg aria-hidden="true"><use href="#si-monkeytype" /></svg></span><span class="name">Typing</span></a></li>
       </ul>
     </section>
 
@@ -230,6 +178,59 @@
         <li><a href="https://interview.lldcoding.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-sitemap" /></svg></span><span class="name">LLD</span></a></li>
         <li><a href="https://www.greatfrontend.com/"><span class="icon"><svg aria-hidden="true"><use href="#logo-greatfrontend" /></svg></span><span class="name">Frontend</span></a></li>
         <li><a href="https://refactoring.guru/design-patterns"><span class="icon"><svg aria-hidden="true"><use href="#mdi-shape-outline" /></svg></span><span class="name">Design Patterns</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="group-learn">
+      <h2 id="group-learn">Learn</h2>
+      <ul class="links">
+        <li><a href="https://www.udemy.com/home/my-courses/learning/"><span class="icon"><svg aria-hidden="true"><use href="#si-udemy" /></svg></span><span class="name">Udemy</span></a></li>
+        <li><a href="/kannada/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-translate" /></svg></span><span class="name">Language</span></a></li>
+        <li><a href="https://www.coursera.org/learn/learning-how-to-learn" data-also="https://www.coursera.org/learn/the-science-of-well-being"><span class="icon"><svg aria-hidden="true"><use href="#si-coursera" /></svg></span><span class="name">Coursera</span></a></li>
+        <li><a href="https://roadmap.sh/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#si-roadmapdotsh" /></svg></span><span class="name">Roadmap</span></a></li>
+        <li><a href="https://www.techinterviewhandbook.org/software-engineering-interview-guide/" data-alias="tih"><span class="icon"><svg aria-hidden="true"><use href="#logo-techinterviewhandbook" /></svg></span><span class="name">Tech Interview</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="group-read">
+      <h2 id="group-read">Read</h2>
+      <ul class="links">
+        <li><a href="https://freedium-mirror.cfd/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-glasses" /></svg></span><span class="name">Reader</span></a></li>
+        <li><a href="https://news.ycombinator.com/"><span class="icon"><svg aria-hidden="true"><use href="#si-ycombinator" /></svg></span><span class="name">Hacker News</span></a></li>
+        <li><a href="https://app.makeheadway.com/discover"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-open-page-variant-outline" /></svg></span><span class="name">Headway</span></a></li>
+        <li><a href="https://web.12min.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-clock-outline" /></svg></span><span class="name">12min</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="group-media">
+      <h2 id="group-media">Media</h2>
+      <ul class="links">
+        <li><a href="https://www.youtube.com/feed/playlists" data-alias="yt" data-search="https://www.youtube.com/results?search_query=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-youtube" /></svg></span><span class="name">YouTube</span></a></li>
+        <li><a href="https://music.youtube.com/" data-alias="ytm" data-search="https://music.youtube.com/search?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-music" /></svg></span><span class="name">Music</span></a></li>
+        <li><a href="https://comix.to/"><span class="icon"><svg aria-hidden="true"><use href="#logo-comix" /></svg></span><span class="name">Comix</span></a></li>
+        <li><a href="https://drive.google.com/" data-also="https://photos.google.com/ https://app.koofr.net/ https://app.drime.cloud/ https://drive.proton.me/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-cloud" /></svg></span><span class="name">Cloud</span></a></li>
+        <li><a href="https://www.myanonamouse.net/" data-also="https://ext.to/ https://fora.snahp.eu/ https://www.torrentleech.org/ https://hawke.uno/ https://bwtorrents.cc/home.php https://yts.gg/home https://app.trakt.tv/calendar?mode=media"><span class="icon"><svg aria-hidden="true"><use href="#mdi-download" /></svg></span><span class="name">Downloads</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="group-fitness">
+      <h2 id="group-fitness">Fitness</h2>
+      <ul class="links">
+        <li><a href="/exercises/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-dumbbell" /></svg></span><span class="name">Exercise</span></a></li>
+        <li><a href="https://app.fitonapp.com/"><span class="icon"><svg aria-hidden="true"><use href="#logo-fiton" /></svg></span><span class="name">FitOn</span></a></li>
+        <li><a href="https://www.hybridcalisthenics.com/"><span class="icon"><svg aria-hidden="true"><use href="#logo-hybridcalisthenics" /></svg></span><span class="name">Calisthenics</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="group-finance">
+      <h2 id="group-finance">Finance</h2>
+      <ul class="links">
+        <li><a href="https://kite.zerodha.com/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-kite" /></svg></span><span class="name">Kite</span></a></li>
+        <li><a href="https://coin.zerodha.com/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#logo-coin" /></svg></span><span class="name">Coin</span></a></li>
+        <li><a href="https://ipowatch.in/ipo-grey-market-premium-latest-ipo-gmp/" data-also="https://www.chittorgarh.com/ https://www.investorgain.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-rocket-launch-outline" /></svg></span><span class="name">IPO</span></a></li>
+        <li><a href="https://zerodha.com/varsity/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-chart-line" /></svg></span><span class="name">Varsity</span></a></li>
+        <li><a href="https://console.zerodha.com/portfolio/holdings"><span class="icon"><svg aria-hidden="true"><use href="#mdi-chart-donut" /></svg></span><span class="name">Console</span></a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1JxNt4t5sVCGtolwqwPLUYdpJOdQ4zJAQTau1O5H7ZXE/edit?gid=1258976699#gid=1258976699" data-alias="cf"><span class="icon"><svg aria-hidden="true"><use href="#mdi-cash-multiple" /></svg></span><span class="name">Cashflow</span></a></li>
       </ul>
     </section>
 

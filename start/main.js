@@ -19,8 +19,8 @@
    link with data-also opens its href and
    those URLs in new tabs, on a click or a middle click, and clicking a
    group's heading opens all of its links in new tabs. So does Now, the
-   bolt at the prompt's end, for every link marked data-now, wherever
-   it sits; pointing at it lights those links.
+   bolt at the prompt's end, for the pinned links, the row of tiles
+   above the groups; pointing at it lights those links.
    Set https://souravas.com/start/?q=%s as a search engine and the
    address bar takes the same queries: the page opens what Enter would. */
 (() => {
@@ -156,9 +156,10 @@
     return { section, title, key: title.toLowerCase(), hrefs };
   });
 
-  // Now: the links marked data-now, in page order. Its bolt stays hidden
-  // until a link is marked.
-  const now = links.filter(({ a }) => a.hasAttribute("data-now"));
+  // Now: the pinned links, in page order, so pinning a link adds it.
+  // Its bolt stays hidden until a link is pinned.
+  const pinned = document.querySelector(".links.top");
+  const now = links.filter(({ a }) => pinned?.contains(a));
   const nowHrefs = now.flatMap((link) => link.hrefs);
   const nowButton = document.getElementById("now");
   const hasNow = Boolean(nowButton && now.length);

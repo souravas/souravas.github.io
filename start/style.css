@@ -209,8 +209,8 @@ svg {
   font: inherit;
 }
 
-/* Now: opens the links marked data-now. A 28px box, big enough to
-   tap; the negative margin keeps the row at the input's 24px. */
+/* Now: opens the pinned links. A 28px box, big enough to tap; the
+   negative margin keeps the row at the input's 24px. */
 .prompt-now {
   display: grid;
   place-items: center;
@@ -252,26 +252,55 @@ svg {
   outline-offset: 2px;
 }
 
-/* ---------- Frequent ----------
-   The most used links, a row of larger icons under the prompt that
-   spans every column. Each is a 40px box, big enough to tap, with
-   the icon lined up with the prompt's mark and the group icons below.
-   It tucks up into the gap under the prompt, so the page still fits
-   an 870px-tall window. The names stay for the prompt and screen
-   readers, visually hidden. */
+/* ---------- Pinned ----------
+   The most used links, as tiles under the prompt that span every
+   column: three to a row on phones, and from 760px one row of as many
+   tiles as there are links, whose outer edges line up with the
+   prompt's rule. A tile sets its icon over its name until, from
+   900px, it is wide enough to set them side by side, as the links
+   below are. Its name is brighter than theirs, and Now opens every
+   tile. The row tucks up into the gap under the prompt, so the page
+   still fits an 870px-tall window. */
 .links.top {
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin: calc(var(--gap) / -2) -8px max(16px, var(--gap) - 8px);
+  margin: calc(var(--gap) / -2) 0 max(16px, var(--gap) - 8px);
   column-span: all;
 }
 
+@media (width >= 760px) {
+  .links.top {
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+  }
+}
+
 .links.top a {
+  flex-direction: column;
   justify-content: center;
-  width: 40px;
-  min-height: 40px;
-  padding: 0;
+  gap: 6px;
+  min-height: 64px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  color: var(--heading);
+  font-size: 13px;
+  transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
+}
+
+@media (width >= 900px) {
+  .links.top a {
+    flex-direction: row;
+    gap: 10px;
+    min-height: calc(var(--row) + 12px);
+    font-size: 15px;
+  }
+}
+
+@media (hover: hover) {
+  .links.top a:hover {
+    border-color: var(--edge);
+  }
 }
 
 .links.top .icon {
@@ -279,22 +308,22 @@ svg {
 }
 
 .links.top .icon svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
+/* Sized to the name, not stretched down the tile, and centred under
+   the icon where it wraps. */
 .links.top .name {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+  flex: none;
+  max-width: 100%;
+  text-align: center;
 }
 
-/* No room for the ↵ mark: the box itself says Enter opens it. */
+/* No room for the ↵ mark under an icon: the lit edge says Enter
+   opens it. */
 .links.top a.is-selected {
-  box-shadow: inset 0 0 0 1px rgb(184 177 255 / 0.45);
+  border-color: rgb(184 177 255 / 0.45);
 }
 
 .links.top a.is-selected::after {
