@@ -1,9 +1,10 @@
 /* ============================================================
    SOURAV — /exercises
-   The page behind /start's Exercises link: five exercise videos
-   as a numbered list, on /start's pure black with its greys,
-   lavender accent and fonts. Wider screens put the way back to
-   /start in its 120px left gutter.
+   The page behind /start's Exercise link: five exercise videos
+   as a numbered column of thumbnails that play in place (main.js),
+   on /start's pure black with its greys, lavender accent and
+   fonts. Wider screens put the way back to /start in its 120px
+   left gutter.
    ============================================================ */
 
 /* ---------- Fonts ----------
@@ -71,10 +72,11 @@ body {
 /* ---------- Layout ----------
    As on /start: top-aligned on phones, clear of a notch or home
    indicator; centred on wider screens, lifted slightly by the
-   heavier bottom padding. Narrow, since the list is one column. */
+   heavier bottom padding. Wide enough beside the gutter for a
+   640px video. */
 .page {
   width: 100%;
-  max-width: 600px;
+  max-width: 840px;
   margin: 0 auto auto;
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
@@ -150,24 +152,29 @@ h1 {
   }
 }
 
+
 /* ---------- Steps ----------
-   /start's link rows, numbered where /start shows an icon. Negative
-   margins let each row's hover box bleed past the column edge, so
-   the numbers line up with the title. Rows are 44px on phones, for a
-   thumb, and /start's 36px wider; padding rather than a min-height
-   sets that, so the number can sit on the name's baseline. The <ol>
-   already tells screen readers each one's place, so the drawn number
-   is hidden from them. */
+   One exercise under another, in the order done: its number and
+   name, then its video, 16:9. The number is /start's mono grey, and
+   the <ol> already tells screen readers each one's place, so the
+   drawn number is hidden from them. A thumbnail is dimmed until
+   hovered, so the play mark reads on any image; YouTube's
+   thumbnails are 4:3 with the video letterboxed, so cover crops the
+   bars. A playing video (.video, from main.js) marks its number in
+   the accent. */
 .steps {
-  margin: 0 -10px;
-  padding: 0;
+  display: grid;
+  gap: 28px;
+  margin: 0;
+  padding: 4px 0 0;
   list-style: none;
   counter-reset: step;
 }
 
 @media (min-width: 760px) {
   .steps {
-    margin-left: calc(var(--gutter) - 10px);
+    gap: 36px;
+    margin-left: var(--gutter);
   }
 }
 
@@ -175,28 +182,25 @@ h1 {
   counter-increment: step;
 }
 
-.steps a {
+.steps a,
+.video {
+  display: block;
+  color: var(--link);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.name {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  padding: 12px 10px;
-  border-radius: var(--radius);
-  color: var(--link);
+  padding-bottom: 10px;
   font-size: 15px;
   line-height: 20px;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: color 0.12s ease, background-color 0.12s ease;
+  transition: color 0.12s ease;
 }
 
-@media (min-width: 760px) {
-  .steps a {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-}
-
-.steps a::before {
+.name::before {
   content: counter(step);
   content: counter(step) / '';
   flex-shrink: 0;
@@ -208,31 +212,99 @@ h1 {
   transition: color 0.12s ease;
 }
 
-.steps a:active {
+.frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
   background: var(--hover);
+}
+
+.frame img,
+.frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.frame img {
+  object-fit: cover;
+  opacity: 0.75;
+  transition: opacity 0.12s ease;
+}
+
+/* The play mark: a dark disc and a triangle, nudged right of
+   centre so it looks centred. The z-index lifts the disc, drawn
+   before the image, above it. */
+.steps a .frame::before,
+.steps a .frame::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+}
+
+.steps a .frame::before {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+}
+
+.steps a .frame::after {
+  width: 17px;
+  height: 20px;
+  margin: -10px 0 0 -6px;
+  background: var(--text);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.video .name {
   color: var(--text);
 }
 
+.video .name::before {
+  color: var(--accent);
+}
+
+.steps a:active .name {
+  color: var(--text);
+}
+
+.steps a:active .frame img {
+  opacity: 1;
+}
+
 @media (hover: hover) {
-  .steps a:hover {
-    background: var(--hover);
+  .steps a:hover .name,
+  .steps a:hover .name::before {
     color: var(--text);
   }
 
-  .steps a:hover::before {
-    color: var(--text);
+  .steps a:hover .frame img {
+    opacity: 1;
   }
 }
 
 .steps a:focus-visible {
+  outline: none;
+}
+
+.steps a:focus-visible .frame {
   outline: 2px solid var(--accent);
-  outline-offset: -2px;
+  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .back,
-  .steps a,
-  .steps a::before {
+  .name,
+  .name::before,
+  .frame img {
     transition: none;
   }
 }

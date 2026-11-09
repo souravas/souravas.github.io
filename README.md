@@ -76,6 +76,7 @@ souravas.github.io/
 │   └── style.css
 ├── exercises/              # exercise videos, served at /exercises
 │   ├── index.html
+│   ├── main.js             # plays a video in place of its thumbnail
 │   └── style.css
 ├── pomodoro/               # focus and break timers, served at /pomodoro
 │   ├── index.html
