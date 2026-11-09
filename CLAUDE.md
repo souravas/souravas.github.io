@@ -37,7 +37,7 @@ npm run preview   # preview the production build
 1. Create `<name>/index.html`, `main.js` and `style.css`, copying the head (CSP meta, favicons with the current `?v=`, font preloads, `noindex`) and the Cloudflare Web Analytics script before `</body>` from a sibling page.
 2. In [vite.config.js](vite.config.js), add it to `rolldownOptions.input` and to both rewrites in the `html-routes` plugin (dev and preview), and update the page lists in the comments above `appType` and `SITEMAP_URLS`.
 3. Create `<name>/CLAUDE.md` with the notes that concern only the new page (where its content lives, its conventions, its modules, anything easy to break). Every page gets one, however short; page-specific notes never go in this file.
-4. Add a row to the Pages table above, its folder linked to that `CLAUDE.md`, and add the page to [README.md](README.md).
+4. Add a row to the Pages table above, its folder linked to that `CLAUDE.md`. Leave [README.md](README.md) alone: it is kept to two lines on purpose and names no page.
 
 ## Build ([vite.config.js](vite.config.js))
 
