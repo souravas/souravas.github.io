@@ -3,14 +3,14 @@
   "configurations": [
     {
       "name": "preview",
-      "runtimeExecutable": "deno",
-      "runtimeArgs": ["task", "preview", "--open", "false", "--port", "4173", "--strictPort"],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview", "--", "--open", "false", "--port", "4173", "--strictPort"],
       "port": 4173
     },
     {
       "name": "dev",
-      "runtimeExecutable": "deno",
-      "runtimeArgs": ["task", "dev", "--open", "false", "--port", "5173", "--strictPort"],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--open", "false", "--port", "5173", "--strictPort"],
       "port": 5173
     }
   ]
