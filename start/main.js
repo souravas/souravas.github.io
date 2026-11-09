@@ -11,17 +11,17 @@
    them ("docs" finds Cashflow, "kannada" finds Language). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
-   search, then the matching bookmarks (best match first), then Now
-   when the query starts "now", then "open all" for a group whose name
+   search, then the matching bookmarks (best match first), then
+   "open all" for a group whose name
    the query starts, then "visit" when the query looks like an
    address, then a Google search. ↑/↓ cycle through
    them, the prompt shows what Enter will open, Esc clears. Links and
    Enter open in this tab, since /start is the browser's homepage; a
    link with data-also opens its href and
    those URLs in new tabs, on a click or a middle click, and clicking a
-   group's heading opens all of its links in new tabs. So does Now, the
-   bolt at the prompt's end, for the pinned links, the row of tiles
-   above the groups; pointing at it lights those links.
+   group's heading opens all of its links in new tabs. The pinned
+   links, the row of icon tiles above the groups, are titled with their
+   names, which they don't show.
    Set https://souravas.com/start/?q=%s as a search engine and the
    address bar takes the same queries: the page opens what Enter would. */
 (() => {
@@ -157,23 +157,9 @@
     return { section, title, key: title.toLowerCase(), hrefs };
   });
 
-  // Now: the pinned links, in page order, so pinning a link adds it.
-  // Its bolt stays hidden until a link is pinned.
+  // The pinned tiles show only an icon, so each is titled with its name.
   const pinned = document.querySelector(".links.top");
-  const now = links.filter(({ a }) => pinned?.contains(a));
-  const nowHrefs = now.flatMap((link) => link.hrefs);
-  const nowButton = document.getElementById("now");
-  const hasNow = Boolean(nowButton && now.length);
-  if (hasNow) {
-    nowButton.title = `Now: open all ${now.length} links`;
-    nowButton.hidden = false;
-  }
-  const lightNow = (on) => {
-    for (const link of links) {
-      link.a.classList.toggle("is-now", on && now.includes(link));
-      link.a.classList.toggle("is-dim", on && !now.includes(link));
-    }
-  };
+  for (const link of links) if (pinned?.contains(link.a)) link.a.title = link.label;
 
   // Marks each [from, to) range of a link's name.
   const highlight = (link, marks) => {
@@ -220,7 +206,6 @@
     const current = candidates[selected];
     for (const link of links) link.a.classList.toggle("is-selected", current?.link === link);
     for (const group of groups) group.section.classList.toggle("is-selected", current?.group === group);
-    for (const link of now) link.a.classList.toggle("is-now", current?.now === true);
     if (current) say("↵", current.label);
     else hint.replaceChildren();
   };
@@ -245,9 +230,6 @@
     if (owner) {
       const href = owner.search.replace("%s", encodeURIComponent(query));
       candidates.unshift({ link: owner, hrefs: [href], label: `search ${owner.searchHost}` });
-    }
-    if (q && hasNow && "now".startsWith(needle)) {
-      candidates.push({ now: true, hrefs: nowHrefs, label: `open all ${now.length} in Now` });
     }
     // A group's name is one word, so only its start counts: "de" offers
     // Design, not Code.
@@ -342,40 +324,27 @@
 
   // With the prompt empty, pointing at a link or tabbing to it names its
   // alias in the hint, so the short codes can be learned from the page.
-  // Pointing at Now, or tabbing to it, lights the links it opens and
-  // names them; a tap that focuses it doesn't, so a phone isn't left
-  // with the page dimmed. Moving away clears only that, never a pop-up
-  // warning.
+  // Moving away clears only that, never a pop-up warning.
   let naming = false;
-  const nameAlias = (target, pointing = false) => {
+  const nameAlias = (target) => {
     if (input.value) return;
     const link = links.find(({ a }) => a.contains(target));
-    const onNow = hasNow && nowButton.contains(target) && (pointing || nowButton.matches(":focus-visible"));
-    lightNow(onNow);
-    if (onNow) {
-      say("now", `opens ${now.map(({ label }) => label).join(", ")}`);
-    } else if (link?.aliases.length) {
+    if (link?.aliases.length) {
       say(link.aliases.join(" "), link.search ? `+ query searches ${link.searchHost}` : `opens ${link.label}`);
     } else if (naming) {
       hint.replaceChildren();
     }
-    naming = onNow || Boolean(link?.aliases.length);
+    naming = Boolean(link?.aliases.length);
   };
   document.addEventListener("pointerover", (e) => {
-    if (e.pointerType === "mouse") nameAlias(e.target, true);
+    if (e.pointerType === "mouse") nameAlias(e.target);
   });
-  // The pointer leaving the window, as it does from the bolt up to the
-  // tab strip, enters nothing here, so clear what it lit.
+  // The pointer leaving the window, as it does from the pinned tiles up
+  // to the tab strip, enters nothing here, so clear what it named.
   document.addEventListener("pointerout", (e) => {
-    if (e.pointerType === "mouse" && !e.relatedTarget) nameAlias(null, true);
+    if (e.pointerType === "mouse" && !e.relatedTarget) nameAlias(null);
   });
   document.addEventListener("focusin", (e) => nameAlias(e.target));
-  // Clears the hint first, so a pop-up warning from openAll stays.
-  nowButton?.addEventListener("click", () => {
-    hint.replaceChildren();
-    naming = false;
-    openAll(nowHrefs);
-  });
   // Focus leaving for nothing, as a click on the page leaves it.
   document.addEventListener("focusout", (e) => {
     if (!e.relatedTarget) nameAlias(null);

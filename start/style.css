@@ -100,12 +100,10 @@ svg {
    close together; how close depends on the groups' order in the
    page, which is set for that. The rows (--row) and the gaps around
    the groups (--gap) grow with the window's height, from 28px and
-   16px to 40px each over 600–870px of it, so the whole page fits a
+   16px to 40px each over 560–800px of it (the slopes are the 12px and
+   24px they grow by over those 240px), so the whole page fits a
    laptop's browser window, and a taller one fills more of it instead
-   of floating in it. From 1100px wide, where the pinned tiles take
-   one row instead of two and the page is 60px shorter, they grow over
-   560–800px. The slopes are the 12px and 24px they grow by over those
-   ranges. Phones keep 36px rows and 16px gaps. */
+   of floating in it. Phones keep 36px rows and 16px gaps. */
 .page {
   width: 100%;
   max-width: 1200px;
@@ -115,8 +113,8 @@ svg {
 
 @media (width >= 760px) {
   :root {
-    --row: clamp(28px, 28px + (100vh - 600px) * 12 / 270, 40px);
-    --gap: clamp(16px, 16px + (100vh - 600px) * 24 / 270, 40px);
+    --row: clamp(28px, 28px + (100vh - 560px) * 12 / 240, 40px);
+    --gap: clamp(16px, 16px + (100vh - 560px) * 24 / 240, 40px);
   }
 
   .page {
@@ -135,21 +133,14 @@ svg {
   }
 }
 
-@media (width >= 1100px) {
-  :root {
-    --row: clamp(28px, 28px + (100vh - 560px) * 12 / 240, 40px);
-    --gap: clamp(16px, 16px + (100vh - 560px) * 24 / 240, 40px);
-  }
-}
-
 /* ---------- Prompt ----------
    Spans every column of groups. The 28px mark column lines what you
-   type up with the link names below, and Now's bolt ends the row.
+   type up with the link names below, and the hint ends the row.
    The input keeps at least half the row on phones, so a long hint
    truncates instead of squeezing what you type. */
 .prompt {
   display: grid;
-  grid-template-columns: 28px minmax(50%, 1fr) auto auto;
+  grid-template-columns: 28px minmax(50%, 1fr) auto;
   align-items: center;
   margin-bottom: 22px;
   padding-bottom: 12px;
@@ -165,7 +156,7 @@ svg {
 
 @media (width >= 760px) {
   .prompt {
-    grid-template-columns: 28px minmax(0, 1fr) auto auto;
+    grid-template-columns: 28px minmax(0, 1fr) auto;
     margin-bottom: var(--gap);
   }
 }
@@ -206,7 +197,8 @@ svg {
   white-space: nowrap;
 }
 
-/* Wider, the row has room for Now's hint to name its links. */
+/* Wider, the row has room for more of a long hint, such as an
+   address to visit. */
 @media (width >= 760px) {
   .prompt-hint {
     max-width: 44ch;
@@ -219,91 +211,28 @@ svg {
   font: inherit;
 }
 
-/* Now: opens the pinned links. A 28px box, big enough to tap; the
-   negative margin keeps the row at the input's 24px. */
-.prompt-now {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  margin: -2px 0 -2px 12px;
-  padding: 0;
-  border: 1px solid var(--edge);
-  border-radius: var(--radius);
-  background: none;
-  color: var(--link);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: color 0.12s ease, border-color 0.12s ease;
-}
-
-.prompt-now[hidden] {
-  display: none;
-}
-
-.prompt-now svg {
-  width: 16px;
-  height: 16px;
-}
-
-.prompt-now:active {
-  color: var(--text);
-}
-
-@media (hover: hover) {
-  .prompt-now:hover {
-    border-color: rgb(184 177 255 / 0.45);
-    color: var(--text);
-  }
-}
-
-.prompt-now:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
 /* ---------- Pinned ----------
-   The most used links, as tiles under the prompt that span every
-   column, whose outer edges line up with the prompt's rule: four to a
-   row (the eight make two rows), and from 1100px all eight in one row.
-   The 4px side padding leaves the longest name (Countdown) room in a
-   360px-wide phone's tiles. A tile sets its icon over its name until,
-   from 760px, it is wide enough to set them side by side, as the links
-   below are, and to grow with the rows. Its name is brighter than
-   theirs, and Now opens every tile. The tiles tuck up into the gap
-   under the prompt. */
+   The most used links, as one row of eight icon tiles under the
+   prompt that spans every column, its outer edges in line with the
+   prompt's rule; at 320px a tile is still 29px wide. A tile grows with
+   the rows, and its icon is brighter than the links' below. Its name
+   is hidden but still read out, and main.js shows it as the tile's
+   tooltip. The row tucks up into the
+   gap under the prompt. */
 .links.top {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   gap: 8px;
   margin: calc(var(--gap) / -2) 0 max(16px, var(--gap) - 8px);
   column-span: all;
 }
 
 .links.top a {
-  flex-direction: column;
+  position: relative;
   justify-content: center;
-  gap: 6px;
-  min-height: 64px;
-  padding: 8px 4px;
+  min-height: calc(var(--row) + 12px);
+  padding: 0;
   border: 1px solid var(--line);
-  color: var(--heading);
-  font-size: 13px;
   transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
-}
-
-@media (width >= 760px) {
-  .links.top a {
-    flex-direction: row;
-    gap: 10px;
-    min-height: calc(var(--row) + 12px);
-    font-size: 15px;
-  }
-}
-
-@media (width >= 1100px) {
-  .links.top {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
 }
 
 @media (hover: hover) {
@@ -321,15 +250,18 @@ svg {
   height: 22px;
 }
 
-/* Sized to the name, not stretched down the tile, and centred under
-   the icon where it wraps. */
+/* Hidden from sight only: screen readers still name the tile, and
+   the prompt still marks what you type in it. */
 .links.top .name {
-  flex: none;
-  max-width: 100%;
-  text-align: center;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-/* No room for the ↵ mark under an icon: the lit edge says Enter
+/* No room for the ↵ mark beside the icon: the lit edge says Enter
    opens it. */
 .links.top a.is-selected {
   border-color: rgb(184 177 255 / 0.45);
@@ -478,13 +410,6 @@ svg {
   }
 }
 
-/* The links Now opens, lit while the bolt is pointed at or focused,
-   or while "now" is what Enter will open. */
-.links a.is-now {
-  opacity: 1;
-  color: var(--text);
-}
-
 /* The link Enter will open. The first content is for browsers that
    can't read the second's empty alt text (Safari before 17.4). */
 .links a.is-selected::after {
@@ -503,8 +428,7 @@ svg {
 }
 
 .links a:active .icon,
-.links a.is-selected .icon,
-.links a.is-now .icon {
+.links a.is-selected .icon {
   color: var(--text);
 }
 
@@ -552,7 +476,6 @@ svg {
 
 @media (prefers-reduced-motion: reduce) {
   .prompt,
-  .prompt-now,
   .group h2,
   .group h2 button,
   .links a,
