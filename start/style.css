@@ -96,14 +96,15 @@ svg {
    row still holds the longest name (Interview Ready, 151px with its
    icon) with 32px between the columns and 24px at the sides; from
    900px those widen to 48px and 40px. A group never splits across
-   two columns, and the browser balances their heights, so they end
-   close together; how close depends on the groups' order in the
-   page, which is set for that. The rows (--row) and the gaps around
-   the groups (--gap) grow with the window's height, from 28px and
-   16px to 40px each over 560–800px of it (the slopes are the 12px and
-   24px they grow by over those 240px), so the whole page fits a
-   laptop's browser window, and a taller one fills more of it instead
-   of floating in it. Phones keep 36px rows and 16px gaps. */
+   two columns, and each column after the first starts at a group
+   marked .column-start, so every group stays in the column chosen
+   for it instead of where the browser's balancing would move it; the
+   longest column sets the page's height. The rows (--row) and the
+   gaps around the groups (--gap) grow with the window's height, from
+   28px and 16px to 40px each over 560–800px of it (the slopes are the
+   12px and 24px they grow by over those 240px), so the whole page
+   fits a laptop's browser window, and a taller one fills more of it
+   instead of floating in it. Phones keep 36px rows and 16px gaps. */
 .page {
   width: 100%;
   max-width: 1200px;
@@ -319,6 +320,13 @@ svg {
 @media (width >= 760px) {
   .group {
     break-inside: avoid;
+  }
+
+  /* A forced break keeps the margin after it, so drop it here to
+     start every column on the same line. */
+  .group.column-start {
+    margin-top: 0;
+    break-before: column;
   }
 
   .group h2 {
