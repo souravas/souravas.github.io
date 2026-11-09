@@ -99,10 +99,13 @@ svg {
    two columns, and the browser balances their heights, so they end
    close together; how close depends on the groups' order in the
    page, which is set for that. The rows (--row) and the gaps around
-   the groups (--gap) grow with the window's height: 32px and 24px in a
-   640px-tall window, rows reaching 40px at 720px and gaps 40px at
-   800px, so the page fills more of a laptop's browser window instead
-   of floating in it. Phones keep 36px rows and 16px gaps. */
+   the groups (--gap) grow with the window's height, from 28px and
+   16px to 40px each over 600–870px of it, so the whole page fits a
+   laptop's browser window, and a taller one fills more of it instead
+   of floating in it. From 1100px wide, where the pinned tiles take
+   one row instead of two and the page is 60px shorter, they grow over
+   560–800px. The slopes are the 12px and 24px they grow by over those
+   ranges. Phones keep 36px rows and 16px gaps. */
 .page {
   width: 100%;
   max-width: 1200px;
@@ -112,8 +115,8 @@ svg {
 
 @media (width >= 760px) {
   :root {
-    --row: clamp(32px, 10vh - 32px, 40px);
-    --gap: clamp(24px, 10vh - 40px, 40px);
+    --row: clamp(28px, 28px + (100vh - 600px) * 12 / 270, 40px);
+    --gap: clamp(16px, 16px + (100vh - 600px) * 24 / 270, 40px);
   }
 
   .page {
@@ -129,6 +132,13 @@ svg {
     padding-right: 40px;
     padding-left: 40px;
     column-gap: 48px;
+  }
+}
+
+@media (width >= 1100px) {
+  :root {
+    --row: clamp(28px, 28px + (100vh - 560px) * 12 / 240, 40px);
+    --gap: clamp(16px, 16px + (100vh - 560px) * 24 / 240, 40px);
   }
 }
 
@@ -254,14 +264,14 @@ svg {
 
 /* ---------- Pinned ----------
    The most used links, as tiles under the prompt that span every
-   column, four to a row at every width (the eight make two rows), whose
-   outer edges line up with the prompt's rule. The 4px side padding
-   leaves the longest name (Countdown) room in a 360px-wide phone's
-   tiles. A tile sets its icon
-   over its name until, from 900px, it is wide enough to set them side
-   by side, as the links below are. Its name is brighter than theirs,
-   and Now opens every tile. The rows tuck up into the gap under the
-   prompt, so the page still fits an 870px-tall window. */
+   column, whose outer edges line up with the prompt's rule: four to a
+   row (the eight make two rows), and from 1100px all eight in one row.
+   The 4px side padding leaves the longest name (Countdown) room in a
+   360px-wide phone's tiles. A tile sets its icon over its name until,
+   from 760px, it is wide enough to set them side by side, as the links
+   below are, and to grow with the rows. Its name is brighter than
+   theirs, and Now opens every tile. The tiles tuck up into the gap
+   under the prompt. */
 .links.top {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
@@ -281,12 +291,18 @@ svg {
   transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
 }
 
-@media (width >= 900px) {
+@media (width >= 760px) {
   .links.top a {
     flex-direction: row;
     gap: 10px;
     min-height: calc(var(--row) + 12px);
     font-size: 15px;
+  }
+}
+
+@media (width >= 1100px) {
+  .links.top {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 }
 

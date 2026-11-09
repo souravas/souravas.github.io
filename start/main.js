@@ -5,9 +5,10 @@
    LeetCode), then on its name, where the start of a word ("Ready" in
    Interview Ready) beats the name's initials ("dp" finds Design
    Patterns) or the starts of its words in order ("sys des" finds
-   System Design), which beat the inside of a word, then on its addresses:
-   its site's name ("zerodha" finds Kite), or the start of any other
-   word in them ("docs" finds Cashflow, "kannada" finds Language). An
+   System Design), which beat the inside of a word, then on its addresses,
+   where the query has to start a word: its site's name ("zerodha" finds
+   Kite, but "co" doesn't find lldcoding's LLD), or any other word in
+   them ("docs" finds Cashflow, "kannada" finds Language). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then Now
@@ -87,8 +88,8 @@
   // How well a link matches the lowercased query, and the [from, to)
   // ranges of its name to mark. Rank 0 is an alias, 1 the start of a word
   // in the name, 2 its initials or its words' starts, 3 the inside of a
-  // word, 4 its addresses (the site's name, or the start of another word
-  // in them); no match is Infinity.
+  // word, 4 its addresses (the start of the site's name or of another
+  // word in them); no match is Infinity.
   const match = (link, needle) => {
     const first = link.key.indexOf(needle);
     let at = first;
@@ -109,7 +110,7 @@
     } else if (first !== -1) {
       rank = 3;
       marks = [[first, first + needle.length]];
-    } else if (link.site.includes(needle) || link.words.some((word) => word.startsWith(needle))) {
+    } else if (link.site.startsWith(needle) || link.words.some((word) => word.startsWith(needle))) {
       rank = 4;
     }
     // An alias outranks the rest, but its name is still marked.
