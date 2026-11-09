@@ -39,7 +39,7 @@ The domain is registered at Cloudflare and its DNS is there. The site's records 
 | `/kannada` | `kannada/` | *Kannada Gottilla*, a spoken-Kannada course rendered from `kannada/note.md` |
 | `/kannada/anki.txt` | build output | the course's cards as an Anki deck |
 | `/code` | `code/` | Python interview references rendered from the Markdown in `code/` |
-| `/exercises` | `exercises/` | exercise videos that play in place |
+| `/exercises` | `exercises/` | exercise videos as a grid of thumbnails; `index.html` and `style.css`, no script |
 | `/pomodoro` | `pomodoro/` | focus and break timers on a dial |
 | `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | 301 to `/assets/resume.pdf` from a Cloudflare redirect rule; the stubs meta-refresh there if the rule is gone |
 | any unknown route | `public/404.html` | self-contained static 404 |
@@ -116,8 +116,8 @@ The header comment in [start/main.js](start/main.js) describes how the prompt ma
 
 ## /exercises
 
-- Each exercise in [exercises/index.html](exercises/index.html) is a link to its YouTube video holding a thumbnail (`i.ytimg.com/vi_webp/<id>/sddefault.webp`). [exercises/main.js](exercises/main.js) swaps a clicked one for the `youtube-nocookie.com` player, one video at a time; without the script the links open YouTube. Keep `&t=` off the links, so every video starts at the beginning.
-- The CSP allows `https://i.ytimg.com` in `img-src` and `https://www.youtube-nocookie.com` in `frame-src`. The page sends no referrer, but the player shows Error 153 without one, so its iframe sets `referrerpolicy="strict-origin-when-cross-origin"`.
+- Each exercise in [exercises/index.html](exercises/index.html) is a link to its YouTube video, opened in the same tab as on /start, holding its thumbnail (`i.ytimg.com/vi_webp/<id>/sddefault.webp`, which the CSP allows in `img-src`). Keep `&t=` off the links, so every video starts at the beginning.
+- The thumbnails sit two across on phones and three from 760px, so all five fit on one screen.
 
 ## /pomodoro
 

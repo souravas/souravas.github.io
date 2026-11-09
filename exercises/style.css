@@ -1,10 +1,10 @@
 /* ============================================================
    SOURAV — /exercises
    The page behind /start's Exercise link: five exercise videos
-   as a numbered column of thumbnails that play in place (main.js),
-   on /start's pure black with its greys, lavender accent and
-   fonts. Wider screens put the way back to /start in its 120px
-   left gutter.
+   as a numbered grid of thumbnails, each a link to YouTube, on
+   /start's pure black with its greys, lavender accent and fonts.
+   Wider screens put the way back to /start in its 120px left
+   gutter.
    ============================================================ */
 
 /* ---------- Fonts ----------
@@ -72,11 +72,11 @@ body {
 /* ---------- Layout ----------
    As on /start: top-aligned on phones, clear of a notch or home
    indicator; centred on wider screens, lifted slightly by the
-   heavier bottom padding. Wide enough beside the gutter for a
-   640px video. */
+   heavier bottom padding. Wide enough beside the gutter for three
+   thumbnails of about 320px. */
 .page {
   width: 100%;
-  max-width: 840px;
+  max-width: 1200px;
   margin: 0 auto auto;
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
@@ -152,19 +152,18 @@ h1 {
   }
 }
 
-
 /* ---------- Steps ----------
-   One exercise under another, in the order done: its number and
-   name, then its video, 16:9. The number is /start's mono grey, and
-   the <ol> already tells screen readers each one's place, so the
-   drawn number is hidden from them. A thumbnail is dimmed until
-   hovered, so the play mark reads on any image; YouTube's
-   thumbnails are 4:3 with the video letterboxed, so cover crops the
-   bars. A playing video (.video, from main.js) marks its number in
-   the accent. */
+   A grid of thumbnails, in the order done: two across on phones and
+   three wider, so all five fit on one screen. Under each, its number
+   and name; the number is /start's mono grey, and the <ol> already
+   tells screen readers each one's place, so the drawn number is
+   hidden from them. A thumbnail is dimmed until hovered, so the play
+   mark reads on any image. YouTube's thumbnails are 4:3 with the
+   video letterboxed, so cover crops the bars to 16:9. */
 .steps {
   display: grid;
-  gap: 28px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 12px;
   margin: 0;
   padding: 4px 0 0;
   list-style: none;
@@ -173,7 +172,8 @@ h1 {
 
 @media (min-width: 760px) {
   .steps {
-    gap: 36px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px 20px;
     margin-left: var(--gutter);
   }
 }
@@ -182,34 +182,11 @@ h1 {
   counter-increment: step;
 }
 
-.steps a,
-.video {
+.steps a {
   display: block;
   color: var(--link);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-.name {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding-bottom: 10px;
-  font-size: 15px;
-  line-height: 20px;
-  transition: color 0.12s ease;
-}
-
-.name::before {
-  content: counter(step);
-  content: counter(step) / '';
-  flex-shrink: 0;
-  width: 16px;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1;
-  transition: color 0.12s ease;
 }
 
 .frame {
@@ -221,16 +198,11 @@ h1 {
   background: var(--hover);
 }
 
-.frame img,
-.frame iframe {
+.frame img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  border: 0;
-}
-
-.frame img {
   object-fit: cover;
   opacity: 0.75;
   transition: opacity 0.12s ease;
@@ -239,8 +211,8 @@ h1 {
 /* The play mark: a dark disc and a triangle, nudged right of
    centre so it looks centred. The z-index lifts the disc, drawn
    before the image, above it. */
-.steps a .frame::before,
-.steps a .frame::after {
+.frame::before,
+.frame::after {
   content: '';
   position: absolute;
   z-index: 1;
@@ -248,28 +220,48 @@ h1 {
   left: 50%;
 }
 
-.steps a .frame::before {
-  width: 56px;
-  height: 56px;
-  margin: -28px 0 0 -28px;
+.frame::before {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
   border-radius: 50%;
   background: rgb(0 0 0 / 0.6);
 }
 
-.steps a .frame::after {
-  width: 17px;
-  height: 20px;
-  margin: -10px 0 0 -6px;
+.frame::after {
+  width: 12px;
+  height: 14px;
+  margin: -7px 0 0 -4px;
   background: var(--text);
   clip-path: polygon(0 0, 100% 50%, 0 100%);
 }
 
-.video .name {
-  color: var(--text);
+.name {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-top: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  transition: color 0.12s ease;
 }
 
-.video .name::before {
-  color: var(--accent);
+@media (min-width: 760px) {
+  .name {
+    gap: 12px;
+    font-size: 15px;
+  }
+}
+
+.name::before {
+  content: counter(step);
+  content: counter(step) / '';
+  flex-shrink: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  transition: color 0.12s ease;
 }
 
 .steps a:active .name {
