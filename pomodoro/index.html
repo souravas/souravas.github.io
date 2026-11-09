@@ -48,7 +48,12 @@
     <header class="head">
       <a class="back" href="/start/"><span aria-hidden="true">‹ </span>Start</a>
       <h1>Pomodoro</h1>
-      <button class="head-button" type="button" popovertarget="settings">Settings</button>
+      <!-- Countdowns opens TickTick's countdowns in a new tab, so a
+           running timer here keeps going and still rings. -->
+      <div class="head-actions">
+        <a class="head-button" href="https://ticktick.com/webapp/#countdown" target="_blank" rel="noopener">Countdowns</a>
+        <button class="head-button" type="button" popovertarget="settings">Settings</button>
+      </div>
     </header>
 
     <!-- One dial for every timer. Focus, Break and Long break each keep

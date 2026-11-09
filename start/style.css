@@ -213,15 +213,15 @@ svg {
 }
 
 /* ---------- Pinned ----------
-   The most used links, as one row of eight icon tiles under the
+   The most used links, as one row of seven icon tiles under the
    prompt that spans every column, its outer edges in line with the
-   prompt's rule; at 320px a tile is still 29px wide. A tile grows with
+   prompt's rule; at 320px a tile is still 34px wide. A tile grows with
    the rows, and its icon is brighter than the links' below. Its name
    is hidden but still read out, and main.js shows it as the tile's
    tooltip. The row tucks up into the
    gap under the prompt. */
 .links.top {
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
   margin: calc(var(--gap) / -2) 0 max(16px, var(--gap) - 8px);
   column-span: all;
