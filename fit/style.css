@@ -1,10 +1,10 @@
 /* ============================================================
-   SOURAV — /exercises
-   The page behind /start's Exercise link: five exercise videos
-   as a numbered grid of thumbnails, each a link to YouTube, on
-   /start's pure black with its greys, lavender accent and fonts.
-   Wider screens put the way back to /start in its 120px left
-   gutter.
+   SOURAV — /fit
+   The page behind /start's Fit link: the warm-up and the exercises
+   after it, each group a numbered grid of video thumbnails linking
+   to YouTube, on /start's pure black with its greys, lavender
+   accent and fonts. Wider screens put the way back to /start and
+   the group headings in a 120px left gutter.
    ============================================================ */
 
 /* ---------- Fonts ----------
@@ -28,12 +28,14 @@
 
 /* ---------- Tokens ----------
    /start's: neutral greys on #000 and v1's lavender accent.
-   Contrast on black: --text 19:1, --link 8.4:1, --muted 4.6:1. */
+   Contrast on black: --text 19:1, --heading 14:1, --link 8.4:1,
+   --muted 4.6:1. */
 :root {
   --bg: #000;
   --line: #1c1c1c;
   --hover: #0f0f0f;
   --text: #f5f5f5;
+  --heading: #d4d4d4;
   --link: #a3a3a3;
   --muted: #767676;
   --accent: #b8b1ff;
@@ -72,8 +74,8 @@ body {
 /* ---------- Layout ----------
    As on /start: top-aligned on phones, clear of a notch or home
    indicator; centred on wider screens, lifted slightly by the
-   heavier bottom padding. Wide enough beside the gutter for three
-   thumbnails of about 320px. */
+   heavier bottom padding. Wide enough beside the gutter for four
+   thumbnails of about 240px. */
 .page {
   width: 100%;
   max-width: 1200px;
@@ -152,20 +154,56 @@ h1 {
   }
 }
 
+/* ---------- Groups ----------
+   The warm-up, then the exercises: a heading over each grid on
+   phones; wider, the heading sits in the gutter beside its grid's
+   first row, as the way back sits beside the title. Set as /start's
+   group headings are: the body face, smaller than the names but
+   brighter. */
+.group + .group {
+  margin-top: 28px;
+}
+
+.group h2 {
+  margin: 0 0 10px;
+  color: var(--heading);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+@media (min-width: 760px) {
+  .group {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .group + .group {
+    margin-top: 36px;
+  }
+
+  .group h2 {
+    margin: 0;
+  }
+}
+
 /* ---------- Steps ----------
-   A grid of thumbnails, in the order done: two across on phones and
-   three wider, so all five fit on one screen. Under each, its number
-   and name; the number is /start's mono grey, and the <ol> already
-   tells screen readers each one's place, so the drawn number is
-   hidden from them. A thumbnail is dimmed until hovered, so the play
-   mark reads on any image. YouTube's thumbnails are 4:3 with the
-   video letterboxed, so cover crops the bars to 16:9. */
+   Each group's grid of thumbnails, in the order done and numbered
+   from 1: two across on phones, three from 760px and four from
+   1100px, where the whole page fits on a laptop's screen. Under
+   each, its number and name; the number is /start's mono grey, and
+   the <ol> already tells screen readers each one's place, so the
+   drawn number is hidden from them. A thumbnail is dimmed until
+   hovered, so the play mark reads on any image. YouTube's
+   thumbnails are 4:3 with the video letterboxed (a Short's sides
+   are filled with a blur of it), so cover crops them to 16:9. */
 .steps {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px 12px;
   margin: 0;
-  padding: 4px 0 0;
+  padding: 0;
   list-style: none;
   counter-reset: step;
 }
@@ -174,7 +212,12 @@ h1 {
   .steps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px 20px;
-    margin-left: var(--gutter);
+  }
+}
+
+@media (min-width: 1100px) {
+  .steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

@@ -25,7 +25,7 @@ The domain and its DNS are on Cloudflare, which proxies the site in front of Git
 - Start page: `/start` — personal bookmarks dashboard (noindex)
 - Kannada: `/kannada` — the Kannada Gottilla lessons note as a page (noindex), rendered from `kannada/note.md` at build time
 - Code: `/code` — the Python interview references as a page (noindex), rendered from the Markdown in `code/` at build time
-- Exercises: `/exercises` — exercise videos behind the start page's Exercise link (noindex)
+- Fit: `/fit` — the warm-up and exercise videos behind the start page's Fit link (noindex)
 - Pomodoro: `/pomodoro` — focus and break timers on a dial (noindex)
 - Resume redirects: `/cv`, `/resume` → `/assets/resume.pdf`
 - Sitemap: `/sitemap.xml`, generated at build time
@@ -74,7 +74,7 @@ souravas.github.io/
 │   ├── main.js             # section on screen, sheet, Cover, Copy
 │   ├── search.js           # search over the page's own text
 │   └── style.css
-├── exercises/              # exercise videos, served at /exercises
+├── fit/                    # warm-up and exercise videos, served at /fit
 │   ├── index.html
 │   └── style.css
 ├── pomodoro/               # focus and break timers, served at /pomodoro
@@ -93,7 +93,7 @@ souravas.github.io/
 │   ├── robots.txt
 │   ├── cv.html, resume.html  # meta-refresh → /assets/resume.pdf
 │   ├── start-sw.js         # /start service worker (offline, instant open)
-│   ├── fonts/              # shared by v1, /start, /kannada, /code, /exercises, /pomodoro, and 404.html
+│   ├── fonts/              # shared by v1, /start, /kannada, /code, /fit, /pomodoro, and 404.html
 │   └── assets/             # images, social card (og-cover), resume.pdf
 ├── vite.config.js          # multi-page build, default-page copies, CSS inlining,
 │                           # CSP hashing, HTML minify, build-time values

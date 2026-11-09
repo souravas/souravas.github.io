@@ -1,6 +1,6 @@
 # souravas.com
 
-Sourav's site, <https://souravas.com>: a portfolio in three designs, plus personal pages (a start page, a Kannada course, Python interview notes, exercise videos, a Pomodoro timer). Vanilla HTML / CSS / JS built with Vite — no framework, no router. Each page is a folder with one `index.html`, usually with its own `main.js` and `style.css`, and the comment at the top of each module describes its behaviour in detail.
+Sourav's site, <https://souravas.com>: a portfolio in three designs, plus personal pages (a start page, a Kannada course, Python interview notes, workout videos, a Pomodoro timer). Vanilla HTML / CSS / JS built with Vite — no framework, no router. Each page is a folder with one `index.html`, usually with its own `main.js` and `style.css`, and the comment at the top of each module describes its behaviour in detail.
 
 ```bash
 npm install
@@ -18,7 +18,7 @@ npm run preview   # preview the production build
 | `/start` | [`start/`](start/CLAUDE.md) | bookmarks dashboard, the browser homepage |
 | `/kannada` | [`kannada/`](kannada/CLAUDE.md) | *Kannada Gottilla*, a spoken-Kannada course rendered from `kannada/note.md`; its cards also build `/kannada/anki.txt` |
 | `/code` | [`code/`](code/CLAUDE.md) | Python interview references rendered from the Markdown in `code/` |
-| `/exercises` | [`exercises/`](exercises/CLAUDE.md) | exercise videos as a grid of thumbnails; `index.html` and `style.css`, no script |
+| `/fit` | [`fit/`](fit/CLAUDE.md) | warm-up and exercise videos as grids of thumbnails; `index.html` and `style.css`, no script |
 | `/pomodoro` | [`pomodoro/`](pomodoro/CLAUDE.md) | focus and break timers on a dial |
 | `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | 301 to `/assets/resume.pdf` from a Cloudflare redirect rule; the stubs meta-refresh there if the rule is gone |
 | any unknown route | `public/404.html` | self-contained static 404 |
@@ -28,7 +28,7 @@ npm run preview   # preview the production build
 
 **Portfolio (v1–v3).** Its notes span three folders, so they live here. Each design is self-contained; v2 and v3 bundle their own `fonts/`, and v1 uses `public/fonts/`. All three share the social card and name `/` as their canonical, so search engines index one copy of the résumé, while `og:url` stays per version. The footer's design switcher links the default as `/` and the others as `/vN/`. The contact form posts to Formspree, which the CSP allows in `connect-src` and `form-action`.
 
-**Personal pages** (every page but the portfolio) are `noindex`, left out of the sitemap, on /start's pure black and tokens, and set in the shared `public/fonts/` (Inter Tight, JetBrains Mono). /exercises and /pomodoro have a "‹ Start" link back, in a 120px gutter on wider screens.
+**Personal pages** (every page but the portfolio) are `noindex`, left out of the sitemap, on /start's pure black and tokens, and set in the shared `public/fonts/` (Inter Tight, JetBrains Mono). /fit and /pomodoro have a "‹ Start" link back, in a 120px gutter on wider screens.
 
 **`public/`** is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs, `start-sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
 
@@ -51,7 +51,7 @@ Plugins, in order:
 
 **CSP**: every page carries a CSP `<meta>`. At build time `csp-inline-hashes` swaps `'unsafe-inline'` for SHA-256 hashes of the page's inline `<script>`s and `<style>`s; dev keeps `'unsafe-inline'` so HMR works. A page with an inline script (v1–v3, /kannada, /pomodoro) has `script-src 'self' 'unsafe-inline'` in its source for that swap; the others have `script-src 'self'`. That literal `'self' 'unsafe-inline'` prefix is what the swap matches, so add other sources after it.
 
-**Analytics**: the eight built pages (v1–v3, /start, /kannada, /code, /exercises, /pomodoro) load Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
+**Analytics**: the eight built pages (v1–v3, /start, /kannada, /code, /fit, /pomodoro) load Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
 
 **Favicons** are shared by every page and linked with a `?v=` query. When the icons change, bump it on every page, `public/404.html` included, or browsers keep showing the cached ones.
 

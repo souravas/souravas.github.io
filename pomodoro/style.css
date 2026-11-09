@@ -99,7 +99,7 @@ body {
 }
 
 /* ---------- Layout ----------
-   /exercises' column, with the timer centred in the room under the
+   /fit's column, with the timer centred in the room under the
    head. */
 .page {
   display: flex;
@@ -117,7 +117,7 @@ body {
 }
 
 /* ---------- Head ----------
-   /exercises': the way back above the title on phones, in the
+   /fit's: the way back above the title on phones, in the
    gutter on the title's line wider. Settings sits at the end of the
    title's line. */
 .head {
