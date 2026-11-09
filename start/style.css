@@ -254,26 +254,19 @@ svg {
 
 /* ---------- Pinned ----------
    The most used links, as tiles under the prompt that span every
-   column: three to a row on phones, and from 760px one row of as many
-   tiles as there are links, whose outer edges line up with the
-   prompt's rule. A tile sets its icon over its name until, from
-   900px, it is wide enough to set them side by side, as the links
-   below are. Its name is brighter than theirs, and Now opens every
-   tile. The row tucks up into the gap under the prompt, so the page
-   still fits an 870px-tall window. */
+   column, four to a row at every width (the eight make two rows), whose
+   outer edges line up with the prompt's rule. The 4px side padding
+   leaves the longest name (Countdown) room in a 360px-wide phone's
+   tiles. A tile sets its icon
+   over its name until, from 900px, it is wide enough to set them side
+   by side, as the links below are. Its name is brighter than theirs,
+   and Now opens every tile. The rows tuck up into the gap under the
+   prompt, so the page still fits an 870px-tall window. */
 .links.top {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   margin: calc(var(--gap) / -2) 0 max(16px, var(--gap) - 8px);
   column-span: all;
-}
-
-@media (width >= 760px) {
-  .links.top {
-    grid-auto-columns: minmax(0, 1fr);
-    grid-auto-flow: column;
-    grid-template-columns: none;
-  }
 }
 
 .links.top a {
@@ -281,7 +274,7 @@ svg {
   justify-content: center;
   gap: 6px;
   min-height: 64px;
-  padding: 8px;
+  padding: 8px 4px;
   border: 1px solid var(--line);
   color: var(--heading);
   font-size: 13px;

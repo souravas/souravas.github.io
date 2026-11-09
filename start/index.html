@@ -110,16 +110,18 @@
       <button class="prompt-now" id="now" type="button" aria-label="Now" hidden><svg aria-hidden="true"><use href="#mdi-lightning-bolt-outline" /></svg></button>
     </div>
 
-    <!-- Pinned: the most used links, as tiles across the page above
-         the groups. Now opens all of them, so pin a link here to add it
-         to Now. -->
+    <!-- Pinned: the most used links, as tiles four to a row above the
+         groups. Now opens all of them, so pin a link here to add it to
+         Now. -->
     <ul class="links top" aria-label="Pinned">
       <li><a href="https://claude.ai/new#settings/usage" data-alias="c" data-search="https://claude.ai/new?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-claude" /></svg></span><span class="name">Claude</span></a></li>
       <li><a href="https://ticktick.com/webapp/#q/all/tasks"><span class="icon"><svg aria-hidden="true"><use href="#mdi-check-circle-outline" /></svg></span><span class="name">Tasks</span></a></li>
       <li><a href="https://ticktick.com/webapp/#c/all/calendar/w"><span class="icon"><svg aria-hidden="true"><use href="#mdi-calendar-blank-outline" /></svg></span><span class="name">Calendar</span></a></li>
       <li><a href="https://ticktick.com/webapp/#q/all/habit"><span class="icon"><svg aria-hidden="true"><use href="#mdi-repeat" /></svg></span><span class="name">Habits</span></a></li>
       <li><a href="/fit/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-fire" /></svg></span><span class="name">Fit</span></a></li>
+      <li><a href="obsidian://open?vault=hope"><span class="icon"><svg aria-hidden="true"><use href="#si-obsidian" /></svg></span><span class="name">Obsidian</span></a></li>
       <li><a href="/pomodoro/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-timer-outline" /></svg></span><span class="name">Pomodoro</span></a></li>
+      <li><a href="https://ticktick.com/webapp/#countdown"><span class="icon"><svg aria-hidden="true"><use href="#mdi-timer-sand" /></svg></span><span class="name">Countdown</span></a></li>
     </ul>
 
     <!-- Bookmarks. Copy an <li> to add one; the icon is the <use> href
@@ -129,19 +131,11 @@
          query goes, which "alias query" opens ("lc two sum"), and
          data-also, space-separated URLs that open in new tabs along
          with the href, in order (Cloud, Downloads, Coursera, IPO).
-         The groups fill four columns top to bottom: Plan and Code,
-         then Design and Learn, then Practice, Read and Media, then
+         The groups fill four columns top to bottom: Code and
+         Practice, then Design and Read, then Learn and Media, then
          Finance and Social, an order that keeps the most used
          groups on the left and lets the columns end close together;
          moving a group, or adding links, can change that. -->
-    <section class="group" aria-labelledby="group-plan">
-      <h2 id="group-plan">Plan</h2>
-      <ul class="links">
-        <li><a href="obsidian://open?vault=hope"><span class="icon"><svg aria-hidden="true"><use href="#si-obsidian" /></svg></span><span class="name">Obsidian</span></a></li>
-        <li><a href="https://ticktick.com/webapp/#countdown"><span class="icon"><svg aria-hidden="true"><use href="#mdi-timer-sand" /></svg></span><span class="name">Countdown</span></a></li>
-      </ul>
-    </section>
-
     <section class="group" aria-labelledby="group-code">
       <h2 id="group-code">Code</h2>
       <ul class="links">
@@ -153,6 +147,14 @@
         <li><a href="https://roadmap.sh/courses/sql"><span class="icon"><svg aria-hidden="true"><use href="#mdi-database" /></svg></span><span class="name">SQL</span></a></li>
         <li><a href="https://www.interviewbit.com/technical-interview-questions/"><span class="icon"><svg aria-hidden="true"><use href="#logo-interviewbit" /></svg></span><span class="name">InterviewBit</span></a></li>
         <li><a href="https://www.geeksforgeeks.org/must-coding-questions-company-wise/"><span class="icon"><svg aria-hidden="true"><use href="#si-geeksforgeeks" /></svg></span><span class="name">GeeksforGeeks</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="group-practice">
+      <h2 id="group-practice">Practice</h2>
+      <ul class="links">
+        <li><a href="https://www.chess.com/home"><span class="icon"><svg aria-hidden="true"><use href="#si-chessdotcom" /></svg></span><span class="name">Chess</span></a></li>
+        <li><a href="https://monkeytype.com/" data-alias="mt"><span class="icon"><svg aria-hidden="true"><use href="#si-monkeytype" /></svg></span><span class="name">Typing</span></a></li>
       </ul>
     </section>
 
@@ -170,6 +172,16 @@
       </ul>
     </section>
 
+    <section class="group" aria-labelledby="group-read">
+      <h2 id="group-read">Read</h2>
+      <ul class="links">
+        <li><a href="https://freedium-mirror.cfd/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-glasses" /></svg></span><span class="name">Reader</span></a></li>
+        <li><a href="https://news.ycombinator.com/"><span class="icon"><svg aria-hidden="true"><use href="#si-ycombinator" /></svg></span><span class="name">Hacker News</span></a></li>
+        <li><a href="https://app.makeheadway.com/discover"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-open-page-variant-outline" /></svg></span><span class="name">Headway</span></a></li>
+        <li><a href="https://web.12min.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-clock-outline" /></svg></span><span class="name">12min</span></a></li>
+      </ul>
+    </section>
+
     <section class="group" aria-labelledby="group-learn">
       <h2 id="group-learn">Learn</h2>
       <ul class="links">
@@ -178,24 +190,6 @@
         <li><a href="https://www.coursera.org/learn/learning-how-to-learn" data-also="https://www.coursera.org/learn/the-science-of-well-being"><span class="icon"><svg aria-hidden="true"><use href="#si-coursera" /></svg></span><span class="name">Coursera</span></a></li>
         <li><a href="https://roadmap.sh/dashboard"><span class="icon"><svg aria-hidden="true"><use href="#si-roadmapdotsh" /></svg></span><span class="name">Roadmap</span></a></li>
         <li><a href="https://www.techinterviewhandbook.org/software-engineering-interview-guide/" data-alias="tih"><span class="icon"><svg aria-hidden="true"><use href="#logo-techinterviewhandbook" /></svg></span><span class="name">Tech Interview</span></a></li>
-      </ul>
-    </section>
-
-    <section class="group" aria-labelledby="group-practice">
-      <h2 id="group-practice">Practice</h2>
-      <ul class="links">
-        <li><a href="https://www.chess.com/home"><span class="icon"><svg aria-hidden="true"><use href="#si-chessdotcom" /></svg></span><span class="name">Chess</span></a></li>
-        <li><a href="https://monkeytype.com/" data-alias="mt"><span class="icon"><svg aria-hidden="true"><use href="#si-monkeytype" /></svg></span><span class="name">Typing</span></a></li>
-      </ul>
-    </section>
-
-    <section class="group" aria-labelledby="group-read">
-      <h2 id="group-read">Read</h2>
-      <ul class="links">
-        <li><a href="https://freedium-mirror.cfd/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-glasses" /></svg></span><span class="name">Reader</span></a></li>
-        <li><a href="https://news.ycombinator.com/"><span class="icon"><svg aria-hidden="true"><use href="#si-ycombinator" /></svg></span><span class="name">Hacker News</span></a></li>
-        <li><a href="https://app.makeheadway.com/discover"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-open-page-variant-outline" /></svg></span><span class="name">Headway</span></a></li>
-        <li><a href="https://web.12min.com/"><span class="icon"><svg aria-hidden="true"><use href="#mdi-book-clock-outline" /></svg></span><span class="name">12min</span></a></li>
       </ul>
     </section>
 
