@@ -256,7 +256,7 @@ Three rules explain almost every short sentence in this note.
 
 |Language|Order|Example|
 |---|---|---|
-|English|subject - verb - object|I do yoga|
+|English|subject - verb - object|*I do yoga*|
 |Kannada|subject - object - verb|naanu yOga maaDtEne|
 
 **There is no am, is or are.** A sentence that only links two things drops the verb.
@@ -3408,9 +3408,9 @@ Kannada marks respect inside the verb, so the wrong ending is heard at once.
 
 |Level|You|Verb|Example|
 |---|---|---|---|
-|casual, someone you know well|neenu|bare stem|baa, hOgu|
-|polite, everyone else|neevu|stem plus i|banni, hOgi|
-|respect for one elder|ivaru, avaru|plural form|ivaru nanna appa|
+|casual, someone you know well|neenu|*bare stem*|baa, hOgu|
+|polite, everyone else|neevu|*stem plus i*|banni, hOgi|
+|respect for one elder|ivaru, avaru|*plural form*|ivaru nanna appa|
 
 Default to `neevu` and the `-i` endings with everybody. Nobody has ever been offended by too much respect.
 

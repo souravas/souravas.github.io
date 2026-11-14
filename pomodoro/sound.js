@@ -16,6 +16,9 @@ export const unlock = () => {
 
 const open = () => ctx != null && ctx.state === 'running'
 
+// Whether this tab can make a sound right now.
+export const ready = open
+
 // A volume of 0–100, heard as roughly even steps.
 const level = (volume) => (Math.max(0, Math.min(100, volume)) / 100) ** 2
 

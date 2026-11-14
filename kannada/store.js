@@ -3,7 +3,9 @@
    is no server, so a phone and a laptop each keep their own): every
    card's place in the review, and, for the Today screen, the lesson
    you are on, the lessons done and today's checklist. If storage is
-   blocked, the page still works for the visit and forgets after.
+   blocked, the page still works for the visit and forgets after. All
+   of it can be saved as a file and restored from one (A copy, below),
+   to keep it or to carry it to another browser.
 
    The review is Leitner boxes. A card in box n comes back INTERVALS[n]
    days after it was last right; a miss sends it back to box 1, due
@@ -45,6 +47,16 @@ export function save() {
 // Run a function whenever the progress changes, here or in another tab.
 export function onProgress(listener) {
   listeners.add(listener);
+}
+
+// Months of review live in this storage, and a browser short of space
+// may clear it. Ask it not to, once a visit, when there is something to
+// lose: after a quiz or a lesson done. Some browsers ask the reader.
+let asked = false;
+function keep() {
+  if (asked) return;
+  asked = true;
+  globalThis.navigator?.storage?.persist?.().catch(() => {});
 }
 
 addEventListener("storage", (e) => {
@@ -107,6 +119,7 @@ export function schedule(results) {
     }
   }
   save();
+  keep();
 }
 
 // A lesson's cards join the review, waiting in box 0, unless already in.
@@ -159,6 +172,7 @@ export function markDone(n) {
   if (currentLesson() <= n) state.lesson = n + 1;
   markActive();
   save();
+  keep();
 }
 
 // Today's ticks, lesson by lesson (a quiz taken on another lesson ticks
@@ -178,8 +192,11 @@ export function setStep(lesson, step, on) {
 
 export const reviewedToday = () => state.reviewed === today();
 
-export function markReviewed() {
-  state.reviewed = today();
+// A run of the review seen through. The day's review is done only when
+// nothing is left due: a run of thirty with more behind it counts as
+// work done today, for the streak, and no more.
+export function markReviewed(all = true) {
+  if (all) state.reviewed = today();
   markActive();
   save();
 }
@@ -208,4 +225,71 @@ export const started = () => Boolean(state.started) || Object.keys(state.done ??
 export function markStarted() {
   state.started = true;
   save();
+}
+
+/* ---------- A copy ----------
+   Everything above as text, for a file (backup.js): to keep, or to
+   carry to another browser, since each keeps its own. Reading one back
+   takes only what this page writes, each field checked, so a file
+   that was edited, cut short or never a copy at all cannot leave the
+   page with progress it trips over. */
+
+const KIND = "kannada-gottilla-progress";
+
+export const snapshot = () => JSON.stringify({ kind: KIND, saved: new Date().toISOString(), progress: state });
+
+const whole = (n) => Number.isInteger(n) && n >= 0;
+const record = (o) => o !== null && typeof o === "object" && !Array.isArray(o);
+
+// The entries of an object that pass, as a new object.
+const pick = (o, ok) => Object.fromEntries(Object.entries(record(o) ? o : {}).filter(ok));
+
+function clean(data) {
+  if (!record(data) || data.v !== 1 || !record(data.cards)) return null;
+  const out = fresh();
+  out.cards = pick(data.cards, ([id, entry]) => /^[0-9a-f]{10}$/.test(id) && Array.isArray(entry) && entry.length === 2 && whole(entry[0]) && entry[0] <= TOP && whole(entry[1]));
+  if (whole(data.lesson) && data.lesson >= 1 && data.lesson <= LAST_LESSON + 1) out.lesson = data.lesson;
+  const done = pick(data.done, ([n, day]) => /^\d+$/.test(n) && Number(n) >= 1 && Number(n) <= LAST_LESSON && whole(day));
+  if (Object.keys(done).length) out.done = done;
+  if (record(data.today) && whole(data.today.day)) {
+    const lessons = pick(data.today.lessons, ([n, ticks]) => /^\d+$/.test(n) && record(ticks));
+    for (const n of Object.keys(lessons)) lessons[n] = pick(lessons[n], ([, on]) => typeof on === "boolean");
+    out.today = { day: data.today.day, lessons };
+  }
+  for (const key of ["reviewed", "ahead"]) if (whole(data[key])) out[key] = data[key];
+  if (Array.isArray(data.active)) out.active = data.active.filter(whole).slice(-120);
+  if (Array.isArray(data.introduced) && data.introduced.length === 2 && data.introduced.every(whole)) out.introduced = [...data.introduced];
+  if (data.view === "note" || data.view === "today") out.view = data.view;
+  if (data.started === true) out.started = true;
+  return out;
+}
+
+// What a saved file holds, { saved, progress }, or null if it is not one.
+export function readSnapshot(text) {
+  try {
+    const file = JSON.parse(text);
+    const progress = file?.kind === KIND ? clean(file.progress) : null;
+    return progress && { saved: typeof file.saved === "string" ? file.saved : "", progress };
+  } catch {
+    return null;
+  }
+}
+
+// The lesson some progress is on and how many cards it has in review,
+// for saying what a restore would replace with what.
+export const summary = (p = state) => ({
+  lesson: Math.min(p.lesson ?? 1, LAST_LESSON + 1),
+  cards: Object.keys(p.cards).length,
+});
+
+// Put a read copy in place of what is here. False if this browser is
+// not keeping progress at all, so the copy lasts only for the visit.
+export function restore(progress) {
+  state = progress;
+  save();
+  try {
+    return localStorage.getItem(KEY) !== null;
+  } catch {
+    return false;
+  }
 }

@@ -1,0 +1,404 @@
+/* ============================================================
+   SOURAV — shared by /kannada and /code
+   The two long reading pages are built alike: a masthead, a bar
+   that sticks to the top, one column of text and tables, a sheet
+   of places to jump to, and a footer. This is what they share;
+   each page's style.css imports it and adds its own.
+   ============================================================ */
+
+@import './base.css';
+
+/* ---------- Tokens ----------
+   --side and --side-end are the page's side padding on a phone, 16px
+   or a notch's width; --cover is the bar that hides what Cover
+   covers. */
+:root {
+  --cover: #1c1c1c;
+  --width: 840px;
+  --bar: 48px;
+  --side: max(16px, env(safe-area-inset-left));
+  --side-end: max(16px, env(safe-area-inset-right));
+
+  /* A jump to a heading lands below the sticky bar. */
+  scroll-padding-top: calc(var(--bar) + 24px);
+}
+
+body {
+  font: 400 16px/1.6 var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ---------- Layout ----------
+   One column: the full width less 16px each side (and any notch) on
+   phones, and at most 840px wide above that. The column itself is
+   /kannada's main and /code's .layout, which holds its rail too. */
+.masthead,
+.bar-inner,
+.layout,
+body > .page,
+.foot {
+  width: 100%;
+  max-width: calc(var(--width) + 80px);
+  margin-inline: auto;
+  padding-inline: var(--side) var(--side-end);
+}
+
+@media (min-width: 760px) {
+  body {
+    font-size: 17px;
+  }
+
+  .masthead,
+  .bar-inner,
+  .layout,
+  body > .page,
+  .foot {
+    padding-inline: 40px;
+  }
+}
+
+/* ---------- Masthead ----------
+   The way back to /start, on a line of its own above the title at
+   every width: these pages keep their gutter for other things. */
+.masthead {
+  padding-top: 16px;
+  padding-bottom: 20px;
+}
+
+.masthead .back {
+  display: block;
+  width: fit-content;
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+
+.masthead h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 760px) {
+  .masthead {
+    padding-top: 44px;
+    padding-bottom: 28px;
+  }
+
+  .masthead h1 {
+    font-size: 40px;
+  }
+}
+
+/* ---------- Bar ----------
+   Links, then buttons. Phones get tighter buttons, which leaves the
+   rest of the row more room. */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--bar);
+}
+
+.bar-links {
+  flex: 1;
+  min-width: 0;
+  margin: 0 0 0 -8px;
+  padding: 0;
+  list-style: none;
+}
+
+.bar-links a {
+  display: block;
+  padding: 8px;
+  border-radius: var(--radius);
+  color: var(--muted);
+  font: 400 11px/16px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease;
+}
+
+.bar-links a[aria-current='true'] {
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .bar-links a:hover {
+    color: var(--text);
+  }
+}
+
+.bar-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.bar-button {
+  flex: none;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--body);
+  font: 400 11px/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+
+.bar-button[hidden] {
+  display: none;
+}
+
+@media (hover: hover) {
+  .bar-button:hover {
+    border-color: var(--edge);
+    color: var(--text);
+  }
+}
+
+.bar-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.bar-button[aria-pressed='true'] {
+  border-color: rgb(184 177 255 / 0.45);
+  color: var(--accent);
+}
+
+@media (min-width: 760px) {
+  .bar-inner {
+    gap: 8px;
+  }
+
+  .bar-button {
+    padding: 0 10px;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* ---------- Text ---------- */
+
+/* :where() keeps these at element weight, so any class beats them. */
+:where(.page) :is(p, ul, ol) {
+  max-width: 68ch;
+  margin: 0 0 16px;
+  text-wrap: pretty;
+}
+
+:where(.page) li + li {
+  margin-top: 6px;
+}
+
+:where(.page) li::marker {
+  color: var(--muted);
+}
+
+strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: #3d3d3d;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.12s ease, text-decoration-color 0.12s ease;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--text);
+    text-decoration-color: var(--accent);
+  }
+}
+
+a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Tables ----------
+   Rows ruled like /start's prompt line. Wider: each row's hover band
+   bleeds 10px past the column, as /start's links do. Phones: a table
+   too wide for the screen scrolls sideways, edge to edge. */
+.table {
+  margin: 4px 0 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+th {
+  padding: 0 16px 8px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font: 400 10.5px/16px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+td {
+  padding: 8px 16px 8px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+@media (min-width: 760px) {
+  .table {
+    margin-inline: -10px;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 10px;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 10px;
+  }
+}
+
+@media (hover: hover) {
+  tbody tr:hover {
+    background: var(--hover);
+  }
+}
+
+@media (max-width: 759px) {
+  .table {
+    margin-inline: calc(-1 * var(--side)) calc(-1 * var(--side-end));
+    padding-inline: var(--side) var(--side-end);
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding-right: 12px;
+  }
+}
+
+/* ---------- Sheet ----------
+   The places to jump to, from the bar. Phones: a sheet from the
+   bottom, in reach of a thumb. Wider: a panel in the middle, as wide
+   as the page says. Never given a display, so the popover's own
+   display: none still hides it when closed. */
+.jump {
+  inset: auto 0 0;
+  width: 100%;
+  max-height: min(88dvh, 720px);
+  margin: 0;
+  padding: 0 var(--side-end) max(20px, env(safe-area-inset-bottom)) var(--side);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-radius: 14px 14px 0 0;
+  background: var(--bg);
+  color: var(--body);
+}
+
+.jump::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+
+.jump-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0 12px;
+  background: var(--bg);
+}
+
+.jump-label {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 760px) {
+  .jump {
+    inset: 0;
+    height: fit-content;
+    max-height: 84vh;
+    margin: auto;
+    padding: 0 20px 20px;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+}
+
+/* ---------- Footer ----------
+   A row of links; on a phone, the ones that do not fit go on to a
+   second row, each kept whole. */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding-top: 8px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+}
+
+.foot a {
+  color: var(--muted);
+  font: 400 11px/20px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-links a,
+  .bar-button,
+  a {
+    transition: none;
+  }
+}

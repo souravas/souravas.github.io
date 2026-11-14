@@ -177,12 +177,44 @@ const buildStamps = () => ({
   },
 })
 
+// What a Markdown plugin finds wrong with its page: a link the renderer
+// could not place, or one that lands on no id, as after a heading is
+// renamed. Dev only warns, so the page keeps reloading while a document
+// is being edited. A build stops, or CI would deploy the dead link.
+const problems = (name) => {
+  let logger = console
+  let strict = false
+  const found = []
+  const warn = (message) => {
+    found.push(message)
+    logger.warn(`[${name}] ${message}`)
+  }
+  return {
+    warn,
+    configure(config) {
+      logger = config.logger
+      strict = config.command === 'build'
+    },
+    // Every #link in the finished page has to land on an id.
+    checkLinks(html) {
+      const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]))
+      const missing = new Set([...html.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]).filter((id) => !ids.has(id)))
+      for (const id of missing) warn(`#${id} links to nothing`)
+    },
+    // Called once the page is rendered and checked.
+    settle() {
+      const all = found.splice(0)
+      if (strict && all.length) throw new Error(`[${name}] ${all.join('; ')}`)
+    },
+  }
+}
+
 // The Kannada page's content is kannada/note.md, the lessons note itself;
 // the hope vault's note only links to the page. kannada/render.js turns
 // it into HTML at kannada/index.html's <!--note--> marker, and into the
 // Lessons sheet's grid at <!--lessons-->, in dev as well as the build;
 // dev reloads the page when the note changes. Every in-page link has to
-// land on an id, so a renamed heading shows up as a warning.
+// land on an id, so a renamed heading warns in dev and fails the build.
 const KANNADA_NOTE = 'kannada/note.md'
 
 // The quizzes' cards, built from the note's tables, go in a file of their
@@ -195,10 +227,10 @@ const KANNADA_ANKI = 'kannada/anki.txt'
 
 const kannadaNote = () => {
   let root = process.cwd()
-  let logger = console
   let cards = null
   let anki = ''
-  const warn = (message) => logger.warn(`[kannada-note] ${message}`)
+  const found = problems('kannada-note')
+  const { warn } = found
   const render = () => {
     const note = renderNote(readFileSync(resolve(root, KANNADA_NOTE), 'utf8'), { warn })
     const json = JSON.stringify(note.cards)
@@ -211,7 +243,7 @@ const kannadaNote = () => {
     name: 'kannada-note',
     configResolved(config) {
       root = config.root
-      logger = config.logger
+      found.configure(config)
     },
     configureServer(server) {
       const note = resolve(root, KANNADA_NOTE)
@@ -247,9 +279,8 @@ const kannadaNote = () => {
           .replace('<!--note-->', () => note.html)
           .replace('<!--lessons-->', () => note.jump)
           .replace('<!--cards-->', () => `<meta name="cards" content="/${cards.fileName}" />`)
-        const ids = new Set([...out.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]))
-        const missing = new Set([...out.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]).filter((id) => !ids.has(id)))
-        for (const id of missing) warn(`#${id} links to nothing`)
+        found.checkLinks(out)
+        found.settle()
         return out
       },
     },
@@ -260,17 +291,17 @@ const kannadaNote = () => {
 // code/render.js turns them into HTML at code/index.html's <!--docs--> marker,
 // and into the Sections sheet at <!--sections-->, in dev as well as the build;
 // dev reloads the page when one changes. A link that lands on no id, such as
-// one to a renamed heading, shows up as a warning.
+// one to a renamed heading, warns in dev and fails the build.
 const codeDocs = () => {
   let root = process.cwd()
-  let logger = console
-  const warn = (message) => logger.warn(`[code-docs] ${message}`)
+  const found = problems('code-docs')
+  const { warn } = found
   const path = (doc) => resolve(root, 'code', doc.file)
   return {
     name: 'code-docs',
     configResolved(config) {
       root = config.root
-      logger = config.logger
+      found.configure(config)
     },
     configureServer(server) {
       const files = new Set(CODE_DOCS.map(path))
@@ -288,9 +319,8 @@ const codeDocs = () => {
         const out = html
           .replace('<!--docs-->', () => docs.html)
           .replace('<!--sections-->', () => docs.sections)
-        const ids = new Set([...out.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]))
-        const missing = new Set([...out.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]).filter((id) => !ids.has(id)))
-        for (const id of missing) warn(`#${id} links to nothing`)
+        found.checkLinks(out)
+        found.settle()
         return out
       },
     },

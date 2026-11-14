@@ -42,6 +42,7 @@
 </head>
 <body>
   <header class="masthead" id="top">
+    <a class="back" href="/start/"><span aria-hidden="true">‹ </span>Start</a>
     <h1>Kannada Gottilla</h1>
     <p lang="kn">ಕನ್ನಡ ಗೊತ್ತಿಲ್ಲ</p>
   </header>
@@ -73,7 +74,9 @@
        request in dev) by the kannada-note plugin in vite.config.js. -->
   <main class="page" id="content">
     <!-- Start here: what a first visit needs before Lesson 1. The today
-         view shows it until you start, and its bar link brings it back. -->
+         view shows it until you start, and Start here in the footer
+         (today.js puts it there) brings it back. backup.js shows the
+         line about saving a copy, which needs it. -->
     <section class="start" id="start-here" aria-labelledby="start-title" hidden>
       <p class="today-kicker">Start here</p>
       <h2 class="today-title" id="start-title">One lesson a day, about twenty minutes</h2>
@@ -91,6 +94,8 @@
       <h3 class="start-heading">How a day goes</h3>
       <p class="today-note">Review what is due, read the lesson out loud, take its quiz, listen to five minutes of real Kannada, and say one line to someone. Done, at the end of the lesson, moves you on, and the next lesson waits for tomorrow. Cover, in the bar, hides the Kannada so you can say it from the English. Lessons opens any lesson, and Whole note has everything.</p>
       <p class="today-note">Your progress stays in this browser, on this device. To review on another device, or in Anki, which syncs between them, <a href="/kannada/anki.txt" download="kannada-gottilla-anki.txt">download the Anki deck</a>: every lesson's lines, a subdeck per lesson, to import with File, Import. Importing it again later updates the cards you have.</p>
+      <p class="today-note" id="backup-note" hidden>To keep a copy of your progress, or to carry on in another browser, <button class="inline" id="backup-save" type="button">save it as a file</button>, and <button class="inline" id="backup-open" type="button">restore it</button> from that file. <span id="backup-status" role="status"></span></p>
+      <input id="backup-file" type="file" accept=".json,application/json" aria-label="A saved copy of your progress" hidden />
       <p class="today-note" id="voice-note"></p>
 
       <div class="today-actions">

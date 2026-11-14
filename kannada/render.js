@@ -29,6 +29,13 @@ const ENGLISH_COLUMNS = new Set([
 ])
 const isEnglishColumn = (header) => header.startsWith('English') || ENGLISH_COLUMNS.has(header)
 
+// A cell of a Kannada column that says something in English instead:
+// one with backticks marks its own Kannada ("`-ri` on a plain command"),
+// and one set whole in italics has none ("*bare stem*" under Verb), as
+// italics in the text mark an English gloss. Neither is set as Kannada,
+// covered, read out by the voice or made a card.
+const isEnglishCell = (cell) => cell.includes('`') || /^\*[^*]+\*$/.test(cell)
+
 // Lists, callouts and the odd paragraph carry Kannada without backticks
 // (the exercises and their answers, the story in Lesson 83). Their words
 // are weighed: a capital inside a word gives Kannada away (iddIra,
@@ -178,7 +185,7 @@ function collectKannada(blocks, lexicon = new Set()) {
     if (block.type === 'table') {
       const english = block.header.map((h) => isEnglishColumn(plainText(h)))
       for (const row of block.rows) {
-        row.forEach((cell, i) => (english[i] || cell.includes('`') ? addCode(cell) : add(cell)))
+        row.forEach((cell, i) => (english[i] || isEnglishCell(cell) ? addCode(cell) : add(cell)))
       }
     } else if (block.type === 'list') {
       block.items.forEach(addCode)
@@ -360,7 +367,7 @@ function tableCards(block, ctx) {
       const raw = row[k] ?? ''
       const en = stripInline(row[e] ?? '')
       const kn = stripInline(raw)
-      if (!en || !kn || kn === '\u2014' || en === '\u2014' || raw.includes('`')) continue
+      if (!en || !kn || kn === '\u2014' || en === '\u2014' || isEnglishCell(raw)) continue
       if (KANNADA_SCRIPT.test(en) || !/[a-z]/i.test(kn) || en.length > MAX_CARD || kn.length > MAX_CARD) continue
       // The rest of the row's English says which form it is: Lesson 2's
       // "spoken", Lesson 13's "100", a speaker in a conversation.
@@ -534,9 +541,7 @@ function renderTable(block, ctx) {
   const classes = [headers[0] === 'Lessons' && 'index', headers.length >= 4 && 'wide'].filter(Boolean)
   const cell = (text, i) => {
     if (headers[i] === 'Lesson' || headers[i] === 'Lessons') return `<td>${lessonLinks(text, ctx)}</td>`
-    // A Kannada column's cell with backticks is English that marks its
-    // own Kannada ("`-ri` on a plain command").
-    if (english[i] || text.includes('`')) return `<td>${inline(text, ctx)}</td>`
+    if (english[i] || isEnglishCell(text)) return `<td>${inline(text, ctx)}</td>`
     return `<td class="kn${covered[i] ? ' c' : ''}">${inline(text, ctx)}</td>`
   }
   const head = block.header.map((h) => `<th scope="col">${inline(h, ctx, { links: false })}</th>`).join('')

@@ -6,7 +6,9 @@
    one a day leaves the review the days it needs. A lesson number
    anywhere (a link in the text, the Lessons sheet) shows that lesson
    alone; any other heading opens the whole note, the page as it always
-   was, until Today in the bar. Without JS the page is the whole note. */
+   was, until Today in the bar. Start here, which a first visit opens
+   on, comes back from the footer. Without JS the page is the whole
+   note. */
 
 import {
   aheadToday,
@@ -194,6 +196,9 @@ function render() {
   const kicker = el("p", "today-kicker");
   const days = streak();
   const runText = days > 1 ? ` · ${days} days in a row` : "";
+  // The plan has a Review button of its own, so while it shows, a
+  // phone's bar drops its own and gives the links the room (style.css).
+  root.classList.toggle("has-plan", viewing === day && day <= LAST_LESSON);
 
   if (viewing !== day && viewing <= LAST_LESSON) {
     // Another lesson, from a link or the sheet: a way back, and no plan.
@@ -250,6 +255,7 @@ function apply() {
   const isToday = mode === "today";
   root.classList.toggle("is-today", isToday);
   root.classList.add("is-ready");
+  if (!isToday) root.classList.remove("has-plan");
   root.dataset.viewing = isToday ? String(viewing) : "";
   for (const s of document.querySelectorAll(".is-viewed, .has-viewed")) s.classList.remove("is-viewed", "has-viewed");
   if (panel) panel.hidden = !isToday;
@@ -334,11 +340,10 @@ export function initToday(options) {
   if (!panel || !strip) return;
   hooks = options;
 
-  // Today, Start here and Whole note lead the bar's links; the note's
-  // own links show only in the whole note.
-  const item = (text, view) => {
-    const li = el("li", "view-link");
-    if (view !== "today") li.classList.add("only-today");
+  // Today and Whole note lead the bar's links; the note's own links
+  // show only in the whole note. Start here goes in the footer, after
+  // Top: a phone's bar has no room for a third, and it is read once.
+  const link = (text, view) => {
     const a = el("a", null, text);
     a.href = view === "note" ? "#lesson-index" : "#today";
     a.dataset.view = view;
@@ -353,10 +358,16 @@ export function initToday(options) {
       if (location.hash) history.pushState(null, "", location.pathname);
       show(dayLesson(), null, { intro: view === "start" });
     });
-    li.append(a);
+    return a;
+  };
+  const item = (text, view) => {
+    const li = el("li", "view-link");
+    if (view !== "today") li.classList.add("only-today");
+    li.append(link(text, view));
     return li;
   };
-  strip.prepend(item("Today", "today"), item("Start here", "start"), item("Whole note", "note"));
+  strip.prepend(item("Today", "today"), item("Whole note", "note"));
+  document.querySelector(".foot a")?.after(link("Start here", "start"));
 
   start?.querySelector("#start-go")?.addEventListener("click", () => {
     markStarted();

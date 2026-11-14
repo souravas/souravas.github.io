@@ -23,7 +23,8 @@
    links, the row of icon tiles above the groups, are titled with their
    names, which they don't show.
    Set https://souravas.com/start/?q=%s as a search engine and the
-   address bar takes the same queries: the page opens what Enter would. */
+   address bar takes the same queries: the page opens what Enter would,
+   except an address, which waits in the prompt for Enter. */
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
@@ -189,13 +190,15 @@
   // A candidate that opens q itself, or null. Addresses on the local
   // network are rarely served over HTTPS, so those default to http. A
   // query or fragment right after the host ("example.com?ref=x") counts
-  // only with a familiar TLD, so "node.js?" stays a search.
+  // only with a familiar TLD, so "node.js?" stays a search. It is marked
+  // typed: the address is the query's own, not one this page chose.
   const visit = (q) => {
-    if (isAddress(q)) return { hrefs: [q], label: `visit ${q}`, sure: true };
+    if (isAddress(q)) return { hrefs: [q], label: `visit ${q}`, sure: true, typed: true };
     const url = URLISH.exec(q)?.groups;
     if (!url) return null;
     const local = /^(localhost|[\d.]+)$/i.test(url.host);
     return {
+      typed: true,
       hrefs: [url.scheme ? q : `${local ? "http" : "https"}://${q}`],
       label: `visit ${q}`,
       sure: Boolean(url.scheme || url.port || url.path?.startsWith("/") || local || /^www\./i.test(url.host) || KNOWN_TLD.test(url.host)),
@@ -353,24 +356,27 @@
   // The address bar: /start/?q=lc+two+sum opens what Enter would, in
   // place of this page, so Back skips it. Opening several tabs takes a
   // click or a key press, which loading a page isn't, so a candidate
-  // that opens more than one waits in the prompt for Enter. The query
+  // that opens more than one waits in the prompt for Enter. So does an
+  // address in the query: opening it unasked would let anyone write a
+  // link to this site that lands on a page of theirs, and the address
+  // bar opens addresses itself, never sending one here. The query
   // leaves the address either way, so a reload doesn't repeat it.
   const asked = new URLSearchParams(location.search).get("q")?.trim();
   if (asked) {
     history.replaceState(null, "", location.pathname + location.hash);
     input.value = asked;
     update();
-    const { hrefs } = candidates[0];
-    if (hrefs.length === 1) location.replace(hrefs[0]);
+    const [first] = candidates;
+    if (first.hrefs.length === 1 && !first.typed) location.replace(first.hrefs[0]);
     else input.focus();
   }
 })();
 
 /* ---------- Offline ----------
    /start is the browser's homepage, so it has to open instantly, even
-   before the network is up. /start-sw.js serves a cached copy and
-   refreshes it in the background. Production only: in dev it would
-   serve stale copies over HMR. */
+   before the network is up. /sw.js serves a cached copy and refreshes
+   it in the background. Production only: in dev it would serve stale
+   copies over HMR. */
 if (import.meta.env.PROD && "serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/start-sw.js", { scope: "/start" }).catch(() => {});
+  navigator.serviceWorker.register("/sw.js", { scope: "/start" }).catch(() => {});
 }

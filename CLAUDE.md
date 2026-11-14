@@ -7,6 +7,7 @@ npm install
 npm run dev       # dev server on http://localhost:5173
 npm run build     # production build → dist/
 npm run preview   # preview the production build
+npm test          # the *.test.js files beside the modules they test (node --test)
 ```
 
 ## Pages
@@ -28,13 +29,20 @@ npm run preview   # preview the production build
 
 **Portfolio (v1–v3).** Its notes span three folders, so they live here. Each design is self-contained; v2 and v3 bundle their own `fonts/`, and v1 uses `public/fonts/`. All three share the social card and name `/` as their canonical, so search engines index one copy of the résumé, while `og:url` stays per version. The footer's design switcher links the default as `/` and the others as `/vN/`. The contact form posts to Formspree, which the CSP allows in `connect-src` and `form-action`.
 
-**Personal pages** (every page but the portfolio) are `noindex`, left out of the sitemap, on /start's pure black and tokens, and set in the shared `public/fonts/` (Inter Tight, JetBrains Mono). /fit and /pomodoro have a "‹ Start" link back, in a 120px gutter on wider screens.
+**Personal pages** (every page but the portfolio) are `noindex` and left out of the sitemap. What they share lives in [shared/](shared/), and each page's `style.css` imports it first:
 
-**`public/`** is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs, `start-sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
+- [shared/base.css](shared/base.css), for all five: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start has. /fit and /pomodoro set that link in a 120px gutter on wider screens; /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
+- [shared/reader.css](shared/reader.css), for /kannada and /code, which are built alike: masthead, sticky bar, text, tables, the sheet of places to jump to, footer. It imports base.css.
+
+The build inlines the imports into each page with the rest of its CSS, so sharing costs no request.
+
+**Offline**: [public/sw.js](public/sw.js) is one service worker that /start, /pomodoro, /kannada and /code each register with their own scope (production only). Each registration keeps one page, with its script and fonts, in a cache named after it. /start opens from its cache at once and refreshes behind, so a deploy shows there on the second open; the others ask the network first and fall back to the cache when it fails or takes over three seconds, so they are always current when online. /fit is left out: its thumbnails and videos are YouTube's.
+
+**`public/`** is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs, `sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
 
 ### Adding a page
 
-1. Create `<name>/index.html`, `main.js` and `style.css`, copying the head (CSP meta, favicons with the current `?v=`, font preloads, `noindex`) and the Cloudflare Web Analytics script before `</body>` from a sibling page.
+1. Create `<name>/index.html`, `main.js` and `style.css`, copying the head (CSP meta, favicons with the current `?v=`, font preloads, `noindex`) and the Cloudflare Web Analytics script before `</body>` from a sibling page. Start `style.css` with `@import '../shared/base.css';` and give the page its "‹ Start" link. If it should open offline, register `/sw.js` with the page's scope at the foot of `main.js`, as a sibling does.
 2. In [vite.config.js](vite.config.js), add it to `rolldownOptions.input` and to both rewrites in the `html-routes` plugin (dev and preview), and update the page lists in the comments above `appType` and `SITEMAP_URLS`.
 3. Create `<name>/CLAUDE.md` with the notes that concern only the new page (where its content lives, its conventions, its modules, anything easy to break). Every page gets one, however short; page-specific notes never go in this file.
 4. Add a row to the Pages table above, its folder linked to that `CLAUDE.md`. Leave [README.md](README.md) alone: it is kept to two lines on purpose and names no page.
@@ -45,7 +53,7 @@ Plugins, in order:
 
 - `html-routes`: the dev and preview servers mirror GitHub Pages' routing (`/x` → `/x/index.html`, `/cv` → `/cv.html`).
 - `build-stamps` (dev too): fills `__BUILD_DATE__`, `__BUILD_YEAR__`, and the whole years since `CAREER_START` (June 2019) as `__YEARS__`, `__YEARS_00__`, `__YEARS_WORD__`, `__YEARS_WORD_CAP__` and `__YEARS_ORDINAL_CAP__`. **Write these tokens, never the number**, wherever copy states the years. The one exception is the social card (`public/assets/og-cover.jpg`/`.webp`), which has the count drawn into it ("7 years") and has to be redrawn when the count changes each June.
-- `kannada-note` and `code-docs` (dev too): render the Markdown pages; see [kannada/CLAUDE.md](kannada/CLAUDE.md) and [code/CLAUDE.md](code/CLAUDE.md).
+- `kannada-note` and `code-docs` (dev too): render the Markdown pages; see [kannada/CLAUDE.md](kannada/CLAUDE.md) and [code/CLAUDE.md](code/CLAUDE.md). A link that lands nowhere, such as one to a renamed heading, warns in dev and **fails the build**, so it cannot deploy.
 - `json-ld-minify`, `inline-css` (each page's CSS bundle is inlined as a `<style>`, so there is no render-blocking stylesheet request), `csp-inline-hashes`, `html-minify`.
 - `sitemap` (lists only `/`, with the build date as `lastmod`), `security-txt` (`Expires` 364 days out, since RFC 9116 wants under a year; contact `SECURITY_CONTACT`), `root-default`.
 
@@ -53,11 +61,13 @@ Plugins, in order:
 
 **Analytics**: the eight built pages (v1–v3, /start, /kannada, /code, /fit, /pomodoro) load Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
 
+**Tests**: `npm test` runs Node's own test runner over the `*.test.js` files, which sit beside what they test: the two Markdown renderers, /kannada's script and its review schedule. They cover the logic a browser check would miss, above all that a card's id stays what it was (the review keeps each card's place by it). CI runs them before the build.
+
 **Favicons** are shared by every page and linked with a `?v=` query. When the icons change, bump it on every page, `public/404.html` included, or browsers keep showing the cached ones.
 
 ## Deployment
 
-- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) builds pushes and pull requests to `main`, and deploys pushes (and *Run workflow*) to GitHub Pages with `actions/deploy-pages`. Pull requests only build. The upload sets `include-hidden-files: true`: without it `upload-pages-artifact` drops dot-folders, and `/.well-known/security.txt` never ships.
+- [.github/workflows/deploy.yml](.github/workflows/deploy.yml) tests and builds pushes and pull requests to `main`, and deploys pushes (and *Run workflow*) to GitHub Pages with `actions/deploy-pages`. Pull requests only test and build. The upload sets `include-hidden-files: true`: without it `upload-pages-artifact` drops dot-folders, and `/.well-known/security.txt` never ships.
 - [.github/workflows/rebuild.yml](.github/workflows/rebuild.yml) starts that workflow on the 1st of each month, so the build-time values roll over without a push. It is its own file because GitHub switches off a scheduled workflow after 60 days without repository activity, and that must never stop deploys on push.
 - Dependabot opens weekly npm and Actions update PRs.
 

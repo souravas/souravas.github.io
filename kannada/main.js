@@ -1,3 +1,4 @@
+import { initBackup } from "./backup.js";
 import { loadCards, preloadCards, shuffle } from "./cards.js";
 import { deckMessage, openDeck } from "./deck.js";
 import { dueCards, enter, markReviewed, onProgress, progress, schedule, setStep } from "./store.js";
@@ -303,9 +304,11 @@ async function startReview() {
       mode: card.pair ? "pair" : box <= 1 ? "recognise" : "recall",
     })),
     pool: (card) => cards.near(card.lesson),
+    // The plan ticks Review once nothing is left due, not after the
+    // first thirty of more.
     onDone(results, ended) {
       schedule(results);
-      if (ended) markReviewed();
+      if (ended) markReviewed(dueCards(cards.byId).length === 0);
     },
     note: (results) =>
       results.some((r) => !r.correct)
@@ -390,3 +393,15 @@ document.addEventListener("click", (e) => {
       : "This browser has no Kannada voice, so the page cannot read lines out here. Android has one in Google's speech engine (the Kannada voice may need downloading in the text-to-speech settings), and so does Edge on Windows.";
   });
 })();
+
+/* ---------- A copy, and offline ----------
+   Start here's line for saving the progress as a file and restoring
+   it (backup.js). And /sw.js keeps a copy of the page and its cards,
+   so a lesson opens without a network; with one, the page is always
+   the latest. Production only: in dev it would serve stale copies over
+   HMR. */
+initBackup();
+
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js", { scope: "/kannada" }).catch(() => {});
+}

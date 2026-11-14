@@ -21,7 +21,9 @@
 // localStorage keeps the timer under `pomodoro` (the lengths, the mode,
 // a running or paused timer, the round to a long break and today's
 // sessions) and the settings under `pomodoro-settings`, so a reload or a
-// closed tab picks up where it was. The page works without it.
+// closed tab picks up where it was. The page works without it. Two tabs
+// of the page share it: each takes what the other writes, so they show
+// one timer, and one of them rings.
 
 import * as sound from './sound.js'
 import { THEMES } from './themes.js'
@@ -51,7 +53,10 @@ const SETTINGS = {
   every: 4,
   autoBreak: true,
   autoFocus: false,
-  wake: false,
+  // A phone freezes a page it is not showing, and a frozen page cannot
+  // ring. So a touch screen stays on while a timer runs, until Settings
+  // say otherwise; a desktop's tab keeps time in the background.
+  wake: matchMedia('(hover: none)').matches,
 }
 const CHOICES = {
   theme: Object.keys(THEMES),
@@ -160,8 +165,9 @@ const rollDay = () => {
 }
 
 // ---------- Notifications ----------
-// Asked for once, on the first Start. Phones that only notify through a
-// service worker throw here, and the alarm is left to do it.
+// Asked for once, on the first Start. Android has no Notification to
+// construct, and throws: there the page's service worker (/sw.js, see
+// the foot of this file) shows it, and brings the page back on a tap.
 
 const askToNotify = () => {
   if (state.asked || !('Notification' in window)) return
@@ -174,14 +180,36 @@ const askToNotify = () => {
 
 const notify = (title, body) => {
   if (document.hasFocus()) return
+  const options = { body, tag: 'pomodoro', icon: '/icon-192x192.png', silent: true }
   try {
     if (Notification.permission !== 'granted') return
-    const note = new Notification(title, { body, tag: 'pomodoro', icon: '/icon-192x192.png', silent: true })
+    const note = new Notification(title, options)
     note.onclick = () => {
       window.focus()
       note.close()
     }
-  } catch {}
+  } catch {
+    navigator.serviceWorker
+      ?.getRegistration('/pomodoro')
+      .then((registration) => registration?.showNotification(title, options))
+      .catch(() => {})
+  }
+}
+
+// Two tabs of the page reach the same end at the same moment, before
+// either has heard from the other. The one that asks first holds a lock
+// while it rings, and the other, finding it taken, stays quiet. A tab
+// that cannot make a sound yet does not ask, so it never keeps one that
+// can from ringing.
+const once = (tell) => {
+  if (!navigator.locks || !sound.ready()) return tell()
+  navigator.locks
+    .request('pomodoro-alarm', { ifAvailable: true }, async (lock) => {
+      if (!lock) return
+      tell()
+      await new Promise((done) => setTimeout(done, 2000))
+    })
+    .catch(tell)
 }
 
 // ---------- Side effects of the phase ----------
@@ -297,9 +325,14 @@ const settle = () => {
   if (ended) {
     save()
     if (!late) {
-      if (settings.alarm !== 'off') sound.alarm(settings.alarm, ended === 'focus' ? 'rest' : 'work', settings.alarmVolume)
-      if (ended === 'focus') notify('Focus done', `${LABEL[state.mode]} for ${state[state.mode]} min.`)
-      else notify(`${LABEL[ended]} over`, `Back to focus: ${state.focus} min.`)
+      const [title, body] =
+        ended === 'focus'
+          ? ['Focus done', `${LABEL[state.mode]} for ${state[state.mode]} min.`]
+          : [`${LABEL[ended]} over`, `Back to focus: ${state.focus} min.`]
+      once(() => {
+        if (settings.alarm !== 'off') sound.alarm(settings.alarm, ended === 'focus' ? 'rest' : 'work', settings.alarmVolume)
+        notify(title, body)
+      })
     }
   }
   schedule()
@@ -757,8 +790,35 @@ document.addEventListener('visibilitychange', () => {
   syncWake()
 })
 
+// ---------- Other tabs ----------
+// Another tab of this page keeps the same storage. What it writes is
+// taken up here at once, so a timer paused there is paused here too, and
+// an end it has already moved past is not rung again. A cleared storage
+// (no key) is read as both.
+addEventListener('storage', (event) => {
+  if (event.key === KEY || event.key === null) {
+    Object.assign(state, loadState())
+    schedule()
+  }
+  if (event.key === SETTINGS_KEY || event.key === null) {
+    Object.assign(settings, loadSettings())
+    buildSwatches()
+    applySettings()
+    showSettings()
+  }
+  if (event.key === KEY || event.key === SETTINGS_KEY || event.key === null) render()
+})
+
 buildSwatches()
 applySettings()
 showSettings()
 saveSettings()
 settle()
+
+// ---------- Offline ----------
+// /sw.js keeps a copy of the page, so the timer opens without a network,
+// and shows the notifications on Android. Production only: in dev it
+// would serve stale copies over HMR.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { scope: '/pomodoro' }).catch(() => {})
+}

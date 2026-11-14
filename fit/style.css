@@ -7,68 +7,16 @@
    the group headings in a 120px left gutter.
    ============================================================ */
 
-/* ---------- Fonts ----------
-   Shared with v1 and /start (public/fonts/). */
-@font-face {
-  font-family: 'Inter Tight';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/fonts/inter-tight.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+@import '../shared/base.css';
 
-/* ---------- Tokens ----------
-   /start's: neutral greys on #000 and v1's lavender accent.
-   Contrast on black: --text 19:1, --heading 14:1, --link 8.4:1,
-   --muted 4.6:1. */
 :root {
-  --bg: #000;
-  --line: #1c1c1c;
-  --hover: #0f0f0f;
-  --text: #f5f5f5;
-  --heading: #d4d4d4;
-  --link: #a3a3a3;
-  --muted: #767676;
-  --accent: #b8b1ff;
-  --radius: 6px;
   --gutter: 120px;
-  --font-sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-  color-scheme: dark;
-  background: var(--bg);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
 }
 
 body {
   display: flex;
   min-height: 100vh;
   min-height: 100dvh;
-  margin: 0;
-  background: var(--bg);
-  color: var(--link);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-::selection {
-  background: rgb(184 177 255 / 0.35);
-  color: var(--text);
 }
 
 /* ---------- Layout ----------
@@ -110,31 +58,6 @@ body {
   }
 }
 
-.back {
-  display: inline-block;
-  padding: 4px 0;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 20px;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: color 0.12s ease;
-}
-
-@media (hover: hover) {
-  .back:hover {
-    color: var(--text);
-  }
-}
-
-.back:focus-visible {
-  border-radius: 2px;
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
 h1 {
   margin: 0;
   color: var(--text);
@@ -145,10 +68,6 @@ h1 {
 }
 
 @media (min-width: 760px) {
-  .back {
-    padding: 0;
-  }
-
   h1 {
     font-size: 22px;
   }
@@ -227,7 +146,7 @@ h1 {
 
 .steps a {
   display: block;
-  color: var(--link);
+  color: var(--body);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }

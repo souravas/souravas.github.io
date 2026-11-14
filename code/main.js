@@ -180,3 +180,12 @@ function jumpTo(el, anchor, isHeading) {
 }
 
 initSearch({ onJump: jumpTo });
+
+/* ---------- Offline ----------
+   The page is read on a phone, often where the network is poor. /sw.js
+   keeps a copy, so it opens without one; with one, it is always the
+   latest. Production only: in dev it would serve stale copies over
+   HMR. */
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js", { scope: "/code" }).catch(() => {});
+}
