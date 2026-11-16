@@ -9,8 +9,8 @@ const SITE_ORIGIN = 'https://souravas.com'
 // Only / is listed. The design versions (/v1/–/v3/) show the same
 // résumé, so each names / as its canonical rather than competing with
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
-// the PDF and would just be deindexed, and the /start/ pages are a
-// personal start page (noindex), as are /kannada/, /code/, /fit/,
+// the PDF and would just be deindexed, and /start/ is a personal start
+// page (noindex), as are /kannada/, /code/, /fit/,
 // /pomodoro/, /cloud/, /ipo/, /invest/ and /downloads/.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
@@ -109,13 +109,12 @@ const cspInlineHashes = () => ({
 })
 
 // Default designs: copy each built page to its section root so GitHub Pages
-// serves it there — v1 at /, and /start's v2 (Keypad) at /start/. All asset
-// URLs in the built HTML are absolute (base '/'), so a copy renders
-// identically from either path. Dev serves the same pages there through
-// the html-routes plugin, so a change of default goes in both.
+// serves it there — the portfolio's v1 at /. All asset URLs in the built
+// HTML are absolute (base '/'), so a copy renders identically from either
+// path. Dev serves the same page there through the html-routes plugin, so
+// a change of default goes in both.
 const DEFAULT_PAGES = [
   ['v1/index.html', 'index.html'],
-  ['start/v2/index.html', 'start/index.html'],
 ]
 
 const rootDefault = () => ({
@@ -343,47 +342,6 @@ const codeDocs = () => {
   }
 }
 
-// /start's designs (/start/v1/, /start/v2/, /start/v3/) show the same
-// bookmarks: start/bookmarks.html, the icon sprite and <main>, put in place
-// of each one's <!--bookmarks--> marker, in dev as well as the build, so a
-// bookmark added or moved there shows on all three. Each link that opens
-// several tabs (data-also) gets their count as data-tabs, which v2 and v3
-// print on it. Dev reloads every page when the file changes, as Vite on
-// its own reloads none: no page loads it.
-const START_BOOKMARKS = 'start/bookmarks.html'
-
-const startBookmarks = () => {
-  let root = process.cwd()
-  return {
-    name: 'start-bookmarks',
-    configResolved(config) {
-      root = config.root
-    },
-    configureServer(server) {
-      const file = resolve(root, START_BOOKMARKS)
-      server.watcher.add(file)
-      server.watcher.on('change', (changed) => {
-        if (resolve(changed) === file) server.ws.send({ type: 'full-reload' })
-      })
-    },
-    transformIndexHtml: {
-      order: 'pre',
-      handler(html) {
-        if (!html.includes('<!--bookmarks-->')) return html
-        const bookmarks = readFileSync(resolve(root, START_BOOKMARKS), 'utf8').trim()
-        if (!/<svg class="sprite"[\s\S]*<main\b[\s\S]*<\/main>/.test(bookmarks)) {
-          throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no icon sprite or <main>`)
-        }
-        const tabbed = bookmarks.replace(
-          /data-also="([^"]*)"/g,
-          (attr, also) => `${attr} data-tabs="${also.trim().split(/\s+/).length + 1}"`,
-        )
-        return html.replace('<!--bookmarks-->', () => tabbed)
-      },
-    },
-  }
-}
-
 // Collapse whitespace inside JSON-LD blocks so they minify alongside the rest
 // of the HTML. Runs before csp-inline-hashes so the SHA-256 matches the body
 // the browser sees.
@@ -434,9 +392,9 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Fourteen separate pages (v1–v3, /start's designs start/v1–v3, kannada,
-  // code, fit, pomodoro, cloud, ipo, invest, downloads), no SPA fallback; / and /start are copies
-  // of a design (DEFAULT_PAGES).
+  // Twelve separate pages (v1–v3, start, kannada, code, fit, pomodoro,
+  // cloud, ipo, invest, downloads), no SPA fallback; / is a copy of v1
+  // (DEFAULT_PAGES).
   appType: 'mpa',
   build: {
     outDir: 'dist',
@@ -453,9 +411,7 @@ export default defineConfig({
         v1: 'v1/index.html',
         v2: 'v2/index.html',
         v3: 'v3/index.html',
-        startV1: 'start/v1/index.html',
-        startV2: 'start/v2/index.html',
-        startV3: 'start/v3/index.html',
+        start: 'start/index.html',
         kannada: 'kannada/index.html',
         code: 'code/index.html',
         fit: 'fit/index.html',
@@ -479,9 +435,9 @@ export default defineConfig({
     {
       // Mirror production routing locally. GitHub Pages serves /v2 → /v2/
       // (directory redirect) and / → index.html; dev and preview servers
-      // need the same rewrites. Dev serves the defaults from source (v1
-      // at /, start/v2 at /start); preview already has the DEFAULT_PAGES
-      // copies, so only the slashless paths need help.
+      // need the same rewrites. Dev serves the default from source (v1
+      // at /); preview already has the DEFAULT_PAGES copy, so only the
+      // slashless paths need help.
       name: 'html-routes',
       configureServer(server) {
         server.middlewares.use((req, _res, next) => {
@@ -493,13 +449,7 @@ export default defineConfig({
           } else if (path === '/v3' || path === '/v3/') {
             req.url = '/v3/index.html'
           } else if (path === '/start' || path === '/start/') {
-            req.url = '/start/v2/index.html'
-          } else if (path === '/start/v1' || path === '/start/v1/') {
-            req.url = '/start/v1/index.html'
-          } else if (path === '/start/v2' || path === '/start/v2/') {
-            req.url = '/start/v2/index.html'
-          } else if (path === '/start/v3' || path === '/start/v3/') {
-            req.url = '/start/v3/index.html'
+            req.url = '/start/index.html'
           } else if (path === '/kannada' || path === '/kannada/') {
             req.url = '/kannada/index.html'
           } else if (path === '/code' || path === '/code/') {
@@ -527,7 +477,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo', '/invest', '/downloads'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo', '/invest', '/downloads'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
@@ -541,7 +491,6 @@ export default defineConfig({
     buildStamps(),
     kannadaNote(),
     codeDocs(),
-    startBookmarks(),
     jsonLdMinify(),
     inlineCss(),
     cspInlineHashes(),

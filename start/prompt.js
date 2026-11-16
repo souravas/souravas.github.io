@@ -1,11 +1,8 @@
 /* ============================================================
-   /start's prompt, imported by the main.js of each of its designs
-   (/start/v1/, /start/v2/, /start/v3/; /start itself is a copy of
-   the default). It works on any page with /start's markup
-   (bookmarks.html): the .prompt with #q and #hint, and .group
+   /start's prompt, imported by its main.js. It works on the page's
+   markup (index.html): the .prompt with #q and #hint, and .group
    sections, each an h2 over a ul.links of links whose names are in
-   .name. The designs are that markup
-   under different stylesheets.
+   .name.
    ============================================================ */
 
 /* ---------- Quick launch ----------

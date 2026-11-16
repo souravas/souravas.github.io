@@ -1,13 +1,12 @@
 /* ============================================================
-   SOURAV — /start/v2, Keypad
-   /start's default design: every bookmark a key, each group a
-   block of keys under its name, the blocks closing into one
-   rectangle under the prompt, shaped and sized to fill the
-   window. The markup is /start's bookmarks (see ../CLAUDE.md);
-   only this stylesheet is the page's own.
+   SOURAV — /start, Keypad
+   The browser homepage: every bookmark a key, each group a block
+   of keys under its name, the blocks closing into one rectangle
+   under the prompt, shaped and sized to fill the window. The
+   markup's hooks are in CLAUDE.md.
    ============================================================ */
 
-@import '../../shared/base.css';
+@import '../shared/base.css';
 
 /* ---------- Tokens ----------
    A key's face, its edge, the lip along its bottom that makes it
@@ -171,7 +170,7 @@ svg {
 }
 
 /* ---------- Prompt ----------
-   As on v1: the 28px mark column, what you type, and the hint
+   The 28px mark column, what you type, and the hint
    ending the row. The input keeps at least half the row on phones,
    so a long hint truncates instead of squeezing what you type. */
 .prompt {
@@ -328,7 +327,7 @@ svg {
    key from what they are on the smallest (26px, 12.5px, 12px, 3px).
    The link's short code (data-alias) is printed in the top-left
    corner and, on a link that opens several tabs, their count
-   (data-tabs, which the start-bookmarks plugin adds) in the top
+   (data-tabs, written beside its data-also) in the top
    right. Neither is read out: the name already says where the key
    goes. The first content of each is for browsers that can't read
    the second's empty alt text (Safari before 17.4). */

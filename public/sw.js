@@ -1,17 +1,14 @@
 /* Service worker for the pages that should open without a network:
-   /start, the browser homepage (a copy of its default design), with
-   its designs /start/v1, /start/v2 and /start/v3, and /pomodoro,
-   /kannada and /code. Each page registers this file with its own
-   scope, and each registration is a worker of its own that keeps one
-   page, with the script and fonts it loads, in a cache named after
-   it. A design's scope sits inside /start's, and the browser gives
-   its page to the narrower one.
+   /start, the browser homepage, /pomodoro, /kannada and /code. Each
+   page registers this file with its own scope, and each registration
+   is a worker of its own that keeps one page, with the script and
+   fonts it loads, in a cache named after it.
 
-   /start and its designs open from that cache, so they show instantly
-   and still work when the browser starts before the network is up,
-   then refresh the cache in the background: a deploy shows up on the
-   next open. The others ask the network first, so they are always the
-   latest, and open from the cache when it does not answer.
+   /start opens from that cache, so it shows instantly and still works
+   when the browser starts before the network is up, then refreshes
+   the cache in the background: a deploy shows up on the next open.
+   The others ask the network first, so they are always the latest,
+   and open from the cache when it does not answer.
 
    A scope is registered without its slash (/start), so souravas.com/start
    is answered here too, skipping GitHub Pages' redirect to /start/.
@@ -20,7 +17,7 @@
 const SCOPE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const PAGE = `${SCOPE}/`;
 const CACHE = SCOPE.slice(1);
-const INSTANT = SCOPE === "/start" || SCOPE.startsWith("/start/");
+const INSTANT = SCOPE === "/start";
 
 // How long the others wait for the network before opening from cache.
 const PATIENCE = 3000;
@@ -83,8 +80,7 @@ const refresh = async (cache, keep) => store(cache, await fetchPage(), keep);
 // replaced them.
 const inUse = async (cached) => (cached ? assetsOf(await cached.clone().text()) : new Set());
 
-// /start and its designs: the cached copy at once, and a fresh one
-// fetched behind it.
+// /start: the cached copy at once, and a fresh one fetched behind it.
 async function openInstant(event) {
   const cache = await caches.open(CACHE);
   const cached = await cache.match(PAGE);
