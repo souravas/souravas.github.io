@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+
+  <title>Downloads</title>
+  <meta name="description" content="Opens a list of sites kept in this browser, each in its own tab." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
+  <link rel="icon" href="/favicon-32x32.png?v=3" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
+
+  <link rel="stylesheet" href="/downloads/style.css" />
+  <script type="module" src="/downloads/main.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="head">
+      <a class="back" href="/start/"><span aria-hidden="true">‹ </span>Start</a>
+      <h1>Downloads</h1>
+    </header>
+
+    <div class="content">
+      <!-- Filled by main.js from this browser's localStorage, never
+           from this file: the sites are kept out of the repository.
+           The first opens in this tab, the rest in new tabs, in order
+           (../shared/opener.js). -->
+      <ol class="sites" id="sites"></ol>
+
+      <!-- Shown by opener.js when the browser blocks the new tabs. -->
+      <div class="blocked" id="blocked" hidden>
+        <p>The browser blocked the new tabs. Allow pop-ups for souravas.com in its site settings and this page opens them all as it loads. Until then, each click opens one more.</p>
+        <button class="retry" id="retry" type="button">Open the rest</button>
+      </div>
+
+      <!-- The list's editor: shown when this browser holds no list, or
+           at #edit. -->
+      <form class="edit" id="edit" hidden>
+        <p>The sites are kept in this browser only, never on the server: each browser needs its own copy, and clearing souravas.com's site data deletes it. Keep a copy elsewhere. Change the list later at <a href="#edit">souravas.com/downloads#edit</a>.</p>
+        <label class="field-label" for="urls">Sites, one address per line, in the order they open</label>
+        <textarea class="urls" id="urls" rows="10" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://example.com/"></textarea>
+        <div class="actions">
+          <button class="retry" type="submit">Save</button>
+          <label class="retry import">Import a bookmarks file<input id="import" type="file" accept=".html,.htm,text/html" /></label>
+        </div>
+        <p class="status" id="status" role="status"></p>
+        <p class="note">A bookmarks file is what the browser exports (Brave, Chrome: Bookmarks, then Export bookmarks). The links in its folder named Downloads fill the box; Save keeps them. The file never leaves this page.</p>
+      </form>
+    </div>
+  </main>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40e800aeadd0416d922cd4df15f80f38"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

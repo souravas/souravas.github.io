@@ -25,6 +25,7 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 | `/cloud` | [`cloud/`](cloud/CLAUDE.md) | opens the cloud drives, all at once: the first in this tab, the rest in new ones (once souravas.com is allowed pop-ups); the list is in its `index.html` |
 | `/ipo` | [`ipo/`](ipo/CLAUDE.md) | the same for the IPO trackers; it shares /cloud's script and styles (`shared/opener.*`) |
 | `/invest` | [`invest/`](invest/CLAUDE.md) | the same for Kite, Coin and the Cashflow sheet |
+| `/downloads` | [`downloads/`](downloads/CLAUDE.md) | the same for the Downloads sites, but its list is kept in the browser (`localStorage`), never in the repository; it shows an editor when there is none |
 | `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | 301 to `/assets/resume.pdf` from a Cloudflare redirect rule; the stubs meta-refresh there if the rule is gone |
 | any unknown route | `public/404.html` | self-contained static 404 |
 | `/sitemap.xml`, `/.well-known/security.txt` | build output | see Build |
@@ -35,13 +36,13 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 
 **Personal pages** (every page but the portfolio) are `noindex` and left out of the sitemap. What they share lives in [shared/](shared/), and each page's `style.css` imports it first:
 
-- [shared/base.css](shared/base.css), for all of them: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start's designs has. /fit, /pomodoro, /cloud, /ipo and /invest set that link in a 120px gutter on wider screens; /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
+- [shared/base.css](shared/base.css), for all of them: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start's designs has. /fit, /pomodoro, /cloud, /ipo, /invest and /downloads set that link in a 120px gutter on wider screens; /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
 - [shared/reader.css](shared/reader.css), for /kannada and /code, which are built alike: masthead, sticky bar, text, tables, the sheet of places to jump to, footer. It imports base.css.
-- [shared/opener.js](shared/opener.js) and [shared/opener.css](shared/opener.css), for /cloud, /ipo and /invest, which are the same page for different bookmarks: each page's `main.js` and `style.css` only import them. opener.css imports base.css.
+- [shared/opener.js](shared/opener.js) and [shared/opener.css](shared/opener.css), for /cloud, /ipo, /invest and /downloads, which are the same page for different bookmarks: each page's `main.js` and `style.css` only import them (/downloads adds its list's editor). opener.css imports base.css.
 
 The build inlines the imports into each page with the rest of its CSS, so sharing costs no request.
 
-**Offline**: [public/sw.js](public/sw.js) is one service worker that /start (and its designs /start/v1, /start/v2 and /start/v3), /pomodoro, /kannada and /code each register with their own scope (production only). Each registration keeps one page, with its script and fonts, in a cache named after it. /start and its designs open from their cache at once and refresh behind, so a deploy shows there on the second open; the others ask the network first and fall back to the cache when it fails or takes over three seconds, so they are always current when online. /fit is left out: its thumbnails and videos are YouTube's. So are /cloud, /ipo and /invest, which only open other sites.
+**Offline**: [public/sw.js](public/sw.js) is one service worker that /start (and its designs /start/v1, /start/v2 and /start/v3), /pomodoro, /kannada and /code each register with their own scope (production only). Each registration keeps one page, with its script and fonts, in a cache named after it. /start and its designs open from their cache at once and refresh behind, so a deploy shows there on the second open; the others ask the network first and fall back to the cache when it fails or takes over three seconds, so they are always current when online. /fit is left out: its thumbnails and videos are YouTube's. So are /cloud, /ipo, /invest and /downloads, which only open other sites.
 
 **`public/`** is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs, `sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
 
@@ -65,7 +66,7 @@ Plugins, in order:
 
 **CSP**: every page carries a CSP `<meta>`. At build time `csp-inline-hashes` swaps `'unsafe-inline'` for SHA-256 hashes of the page's inline `<script>`s and `<style>`s; dev keeps `'unsafe-inline'` so HMR works. A page with an inline script (v1–v3, /kannada, /pomodoro) has `script-src 'self' 'unsafe-inline'` in its source for that swap; the others have `script-src 'self'`. That literal `'self' 'unsafe-inline'` prefix is what the swap matches, so add other sources after it.
 
-**Analytics**: the thirteen built pages (v1–v3, /start's three designs, /kannada, /code, /fit, /pomodoro, /cloud, /ipo, /invest) load Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
+**Analytics**: the fourteen built pages (v1–v3, /start's three designs, /kannada, /code, /fit, /pomodoro, /cloud, /ipo, /invest, /downloads) load Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
 
 **Tests**: `npm test` runs Node's own test runner over the `*.test.js` files, which sit beside what they test: the two Markdown renderers, /kannada's script and its review schedule. They cover the logic a browser check would miss, above all that a card's id stays what it was (the review keeps each card's place by it). CI runs them before the build.
 

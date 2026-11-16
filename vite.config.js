@@ -11,7 +11,7 @@ const SITE_ORIGIN = 'https://souravas.com'
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
 // the PDF and would just be deindexed, and the /start/ pages are a
 // personal start page (noindex), as are /kannada/, /code/, /fit/,
-// /pomodoro/, /cloud/, /ipo/ and /invest/.
+// /pomodoro/, /cloud/, /ipo/, /invest/ and /downloads/.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
@@ -434,8 +434,8 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Thirteen separate pages (v1–v3, /start's designs start/v1–v3, kannada,
-  // code, fit, pomodoro, cloud, ipo, invest), no SPA fallback; / and /start are copies
+  // Fourteen separate pages (v1–v3, /start's designs start/v1–v3, kannada,
+  // code, fit, pomodoro, cloud, ipo, invest, downloads), no SPA fallback; / and /start are copies
   // of a design (DEFAULT_PAGES).
   appType: 'mpa',
   build: {
@@ -463,6 +463,7 @@ export default defineConfig({
         cloud: 'cloud/index.html',
         ipo: 'ipo/index.html',
         invest: 'invest/index.html',
+        downloads: 'downloads/index.html',
       },
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
@@ -513,6 +514,8 @@ export default defineConfig({
             req.url = '/ipo/index.html'
           } else if (path === '/invest' || path === '/invest/') {
             req.url = '/invest/index.html'
+          } else if (path === '/downloads' || path === '/downloads/') {
+            req.url = '/downloads/index.html'
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
           } else if (path === '/resume' || path === '/resume/') {
@@ -524,7 +527,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo', '/invest'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo', '/invest', '/downloads'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'

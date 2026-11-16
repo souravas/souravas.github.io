@@ -5,7 +5,7 @@
 
 <!-- Icon sprite: a bookmark shows the logo of the site it opens, or
      an icon for its topic: on this site's own pages (Python,
-     Language, Fit, Pomodoro), where the logo would say little about
+     Language, Fit, Pomodoro, Downloads), where the logo would say little about
      the link (Tasks, Cashflow, Music, SQL, Varsity), and on links
      that open more than one site (Books).
      Each is a light mark on the black page, like
@@ -45,6 +45,7 @@
   <symbol id="si-chessdotcom" viewBox="0 0 24 24"><path d="M12 0a3.85 3.85 0 0 0-3.875 3.846A3.84 3.84 0 0 0 9.73 6.969l-2.79 1.85c0 .622.144 1.114.434 1.649H9.83c-.014.245-.014.549-.014.925 0 .025.003.048.006.071-.064 1.353-.507 3.472-3.62 5.842-.816.625-1.423 1.495-1.806 2.533a.33.33 0 0 0-.045.084 8.124 8.124 0 0 0-.39 2.516c0 .1.216 1.561 8.038 1.561s8.038-1.46 8.038-1.561c0-2.227-.824-4.048-2.24-5.133-4.034-3.08-3.586-5.74-3.644-6.838h2.458c.29-.535.434-1.027.434-1.649l-2.79-1.836a3.86 3.86 0 0 0 1.604-3.123A3.873 3.873 0 0 0 13.445.275c-.004-.002-.01.004-.015.004A3.76 3.76 0 0 0 12 0Z"/></symbol>
   <symbol id="si-youtube" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
   <symbol id="mdi-music" viewBox="0 0 24 24"><path d="M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V6L21,3Z"/></symbol>
+  <symbol id="mdi-download" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></symbol>
   <symbol id="mdi-timer-outline" viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z"/></symbol>
 </svg>
 
@@ -66,11 +67,12 @@
        data-also, space-separated URLs that open in new tabs along
        with the href, in order (Books, Coursera). Cashflow's sheet is
        also one of the sites souravas.com/invest opens, written into
-       that page too. The groups are four of six links, then Prep's
-       two and Fun's three, in that order. Keypad's arrangements
-       (start/v2/style.css) were made for four of six, then four and
-       three: with Prep's two, its last two places are empty as well
-       as Fun's fourth. Daily holds the most used. On v1, from 760px,
+       that page too. Downloads opens souravas.com/downloads, whose
+       sites are kept in the browser, never in this repository. The
+       groups are four of six links, then Prep's two and Fun's four,
+       in that order. Keypad's arrangements (start/v2/style.css) were
+       made for four of six, then two of four: with Prep's two, its
+       last two places are the only empty ones. Daily holds the most used. On v1, from 760px,
        the groups run in three columns: Daily and Code, then Design
        and Learn, then Prep and Fun.
        class="column-start" marks the group that begins each column
@@ -137,6 +139,7 @@
       <li><a href="https://www.youtube.com/feed/playlists" data-alias="yt" data-search="https://www.youtube.com/results?search_query=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-youtube" /></svg></span><span class="name">YouTube</span></a></li>
       <li><a href="https://music.youtube.com/" data-alias="ytm" data-search="https://music.youtube.com/search?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-music" /></svg></span><span class="name">Music</span></a></li>
       <li><a href="https://www.chess.com/home"><span class="icon"><svg aria-hidden="true"><use href="#si-chessdotcom" /></svg></span><span class="name">Chess</span></a></li>
+      <li><a href="/downloads/" data-alias="dl"><span class="icon"><svg aria-hidden="true"><use href="#mdi-download" /></svg></span><span class="name">Downloads</span></a></li>
     </ul>
   </section>
 </main>
