@@ -37,7 +37,7 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 
 **Personal pages** (every page but the portfolio) are `noindex` and left out of the sitemap. What they share lives in [shared/](shared/), and each page's `style.css` imports it first:
 
-- [shared/base.css](shared/base.css), for all of them: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start has. /fit, /pomodoro, /cloud, /ipo, /invest and /downloads set that link in a 120px gutter on wider screens; /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
+- [shared/base.css](shared/base.css), for all of them: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start has. /fit, /pomodoro, /cloud, /ipo, /invest and /downloads set that link in a 120px gutter on wider screens (/fit only below 2:1); /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
 - [shared/reader.css](shared/reader.css), for /kannada and /code, which are built alike: masthead, sticky bar, text, tables, the sheet of places to jump to, footer. It imports base.css.
 - [shared/opener.js](shared/opener.js) and [shared/opener.css](shared/opener.css), for /cloud, /ipo, /invest and /downloads, which are the same page for different sets of sites: each page's `main.js` and `style.css` only import them (/downloads adds its list's editor). opener.css imports base.css.
 

@@ -3,14 +3,21 @@
    The page behind /start's Fit link: the warm-up and the exercises
    after it, each group a numbered grid of video thumbnails linking
    to YouTube, on /start's pure black with its greys, lavender
-   accent and fonts. Wider screens put the way back to /start and
-   the group headings in a 120px left gutter.
+   accent and fonts. From 760px the thumbnails are sized to fill
+   the window, as /start's keys are, with the way back to /start in
+   a 120px left gutter.
    ============================================================ */
 
 @import '../shared/base.css';
 
+/* ---------- Tokens ----------
+   --w is a thumbnail's width, fixed only on phones (see Fit for the
+   rest), --cols how many thumbnails a row of the exercises holds,
+   and --play the play mark's size. */
 :root {
   --gutter: 120px;
+  --cols: 2;
+  --play: 40px;
 }
 
 body {
@@ -20,41 +27,116 @@ body {
 }
 
 /* ---------- Layout ----------
-   As on /start: top-aligned on phones, clear of a notch or home
-   indicator; centred on wider screens, lifted slightly by the
-   heavier bottom padding. Wide enough beside the gutter for four
-   thumbnails of about 240px. */
+   On phones: top-aligned and scrolling, clear of a notch or home
+   indicator, each group's heading over its grid. From 760px the
+   page is fitted to the window and centred (see Fit). */
 .page {
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto auto;
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
 
-@media (min-width: 760px) {
+/* ---------- Fit ----------
+   From 760px, --w is the widest thumbnail at which the page fits
+   the window both ways, between 160px and 400px; every gap follows
+   it, as fractions of it (the --k-* below), and so do the type and
+   the play mark, within limits. The arrangement follows the
+   window's shape, each from the ratio where it starts to give the
+   larger thumbnails:
+
+     narrower than 5:6   2 across, the headings in the gutter
+     5:6 to 4:3          3 across
+     4:3 to 2:1          4 across
+     2:1 or wider        the warm-up as a column of two beside the
+                         exercises, four across in two rows, each
+                         group's heading over it; no gutter, so the
+                         way back sits over the title
+
+   So the page is --down thumbnails tall plus --down-px of text, and
+   --across wide plus --across-px of gutter. --rows is the most
+   thumbnails a column holds: in the gutter arrangements the
+   warm-up's one row and the exercises' rows, side by side the
+   exercises' two. The text is set on fixed line heights so its
+   height is known: the head 68px (28 + 15 + 1 of rule + 24 below),
+   a name 34px (10 + 24), and side by side 60px more, for a heading
+   above each group (24 + 12) and the way back above the title
+   (20 + 4). A window too small for 160px thumbnails scrolls.
+
+   The --rows count on two warm-ups and seven exercises. An eighth
+   exercise fits every arrangement as it is; any other change to
+   the groups adds a row to some of them, which then need --rows
+   raised to match, or the page stops fitting. */
+@media (width >= 760px) {
+  :root {
+    --rows: 4;
+    --cols: 3;
+    --side: 0;
+    --k-pad: 0.12;
+    --k-col: 0.07;
+    --k-row: 0.1;
+    --k-group: 0.15;
+    --down: calc(2 * var(--k-pad) + var(--rows) * 0.5625 + (var(--rows) - 2 + var(--side)) * var(--k-row) + (1 - var(--side)) * var(--k-group));
+    --down-px: calc(68px + var(--side) * 60px + var(--rows) * 34px);
+    --across: calc(2 * var(--k-pad) + var(--cols) + var(--side) + (var(--cols) - 1) * var(--k-col) + var(--side) * var(--k-group));
+    --across-px: calc((1 - var(--side)) * var(--gutter));
+    --w: min(
+      (100vw - var(--across-px)) / var(--across),
+      clamp(160px, (100dvh - var(--down-px)) / var(--down), 400px)
+    );
+    --pad: calc(var(--w) * var(--k-pad));
+    --col-gap: calc(var(--w) * var(--k-col));
+    --row-gap: calc(var(--w) * var(--k-row));
+    --group-gap: calc(var(--w) * var(--k-group));
+    --play: clamp(40px, var(--w) * 0.13, 56px);
+  }
+
   .page {
+    max-width: calc(var(--w) * var(--across) + var(--across-px));
     margin: auto;
-    padding: 48px 40px 12vh;
+    padding: var(--pad) max(var(--pad), env(safe-area-inset-right)) var(--pad) max(var(--pad), env(safe-area-inset-left));
+  }
+}
+
+@media (width >= 760px) and (aspect-ratio < 5/6) {
+  :root {
+    --rows: 5;
+    --cols: 2;
+  }
+}
+
+@media (width >= 760px) and (aspect-ratio >= 4/3) {
+  :root {
+    --rows: 3;
+    --cols: 4;
+  }
+}
+
+@media (width >= 760px) and (aspect-ratio >= 2/1) {
+  :root {
+    --rows: 2;
+    --cols: 4;
+    --side: 1;
   }
 }
 
 /* ---------- Head ----------
-   The way back above the title on phones; wider, it sits in the
-   gutter on the title's line. The rule below is /start's prompt
-   line. */
+   The way back above the title on phones; from 760px it sits in the
+   gutter on the title's line, but above the title again where the
+   groups stand side by side and there is no gutter. The rule below
+   is /start's prompt line. */
 .head {
   margin-bottom: 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   .head {
     display: grid;
     grid-template-columns: var(--gutter) minmax(0, 1fr);
     align-items: baseline;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 15px;
   }
 }
 
@@ -67,18 +149,20 @@ h1 {
   letter-spacing: -0.01em;
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   h1 {
     font-size: 22px;
+    line-height: 28px;
   }
 }
 
 /* ---------- Groups ----------
    The warm-up, then the exercises: a heading over each grid on
-   phones; wider, the heading sits in the gutter beside its grid's
-   first row, as the way back sits beside the title. Set as /start's
-   group headings are: the body face, smaller than the names but
-   brighter. */
+   phones; from 760px the heading sits in the gutter beside its
+   grid's first row, as the way back sits beside the title, and in
+   windows 2:1 or wider the two groups stand side by side under
+   their headings. Set as /start's group headings are: the body
+   face, smaller than the names but brighter. */
 .group + .group {
   margin-top: 28px;
 }
@@ -86,12 +170,12 @@ h1 {
 .group h2 {
   margin: 0 0 10px;
   color: var(--heading);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 20px;
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   .group {
     display: grid;
     grid-template-columns: var(--gutter) minmax(0, 1fr);
@@ -99,27 +183,63 @@ h1 {
   }
 
   .group + .group {
-    margin-top: 36px;
+    margin-top: var(--group-gap);
   }
 
   .group h2 {
     margin: 0;
+    font-size: clamp(14px, var(--w) * 0.036, 16px);
+    line-height: 24px;
+  }
+}
+
+@media (width >= 760px) and (aspect-ratio >= 2/1) {
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, var(--w)) minmax(0, 1fr);
+    column-gap: var(--group-gap);
+  }
+
+  .head {
+    display: block;
+    grid-column: 1 / -1;
+  }
+
+  .back {
+    display: block;
+    width: fit-content;
+    margin-bottom: 4px;
+  }
+
+  .group {
+    display: block;
+  }
+
+  .group + .group {
+    margin-top: 0;
+  }
+
+  .group h2 {
+    margin-bottom: 12px;
+  }
+
+  .group:first-of-type .steps {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 /* ---------- Steps ----------
    Each group's grid of thumbnails, in the order done and numbered
-   from 1: two across on phones, three from 760px and four from
-   1100px, where the whole page fits on a laptop's screen. Under
-   each, its number and name; the number is /start's mono grey, and
-   the <ol> already tells screen readers each one's place, so the
-   drawn number is hidden from them. A thumbnail is dimmed until
-   hovered, so the play mark reads on any image. YouTube's
+   from 1: two across on phones, from 760px as Fit arranges them.
+   Under each, its number and name; the number is /start's mono
+   grey, and the <ol> already tells screen readers each one's place,
+   so the drawn number is hidden from them. A thumbnail is dimmed
+   until hovered, so the play mark reads on any image. YouTube's
    thumbnails are 4:3 with the video letterboxed (a Short's sides
    are filled with a blur of it), so cover crops them to 16:9. */
 .steps {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   gap: 20px 12px;
   margin: 0;
   padding: 0;
@@ -127,16 +247,9 @@ h1 {
   counter-reset: step;
 }
 
-@media (min-width: 760px) {
+@media (width >= 760px) {
   .steps {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 28px 20px;
-  }
-}
-
-@media (min-width: 1100px) {
-  .steps {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--row-gap) var(--col-gap);
   }
 }
 
@@ -171,8 +284,8 @@ h1 {
 }
 
 /* The play mark: a dark disc and a triangle, nudged right of
-   centre so it looks centred. The z-index lifts the disc, drawn
-   before the image, above it. */
+   centre so it looks centred, both sized from --play. The z-index
+   lifts the disc, drawn before the image, above it. */
 .frame::before,
 .frame::after {
   content: '';
@@ -183,17 +296,17 @@ h1 {
 }
 
 .frame::before {
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
+  width: var(--play);
+  height: var(--play);
+  margin: calc(var(--play) / -2) 0 0 calc(var(--play) / -2);
   border-radius: 50%;
   background: rgb(0 0 0 / 0.6);
 }
 
 .frame::after {
-  width: 12px;
-  height: 14px;
-  margin: -7px 0 0 -4px;
+  width: calc(var(--play) * 0.3);
+  height: calc(var(--play) * 0.35);
+  margin: calc(var(--play) * -0.175) 0 0 calc(var(--play) * -0.1);
   background: var(--text);
   clip-path: polygon(0 0, 100% 50%, 0 100%);
 }
@@ -203,15 +316,19 @@ h1 {
   align-items: baseline;
   gap: 10px;
   padding-top: 10px;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 20px;
   transition: color 0.12s ease;
 }
 
-@media (min-width: 760px) {
+/* One line each from 760px, which Fit counts on. */
+@media (width >= 760px) {
   .name {
     gap: 12px;
-    font-size: 15px;
+    overflow: hidden;
+    font-size: clamp(16px, var(--w) * 0.042, 18px);
+    line-height: 24px;
+    white-space: nowrap;
   }
 }
 
@@ -224,6 +341,12 @@ h1 {
   font-size: 12px;
   line-height: 1;
   transition: color 0.12s ease;
+}
+
+@media (width >= 760px) {
+  .name::before {
+    font-size: 13px;
+  }
 }
 
 .steps a:active .name {
