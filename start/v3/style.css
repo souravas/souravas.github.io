@@ -307,9 +307,11 @@ svg {
   color: var(--accent);
 }
 
-/* Narrow phones (320px) leave a button 140px: no short codes there,
-   and a smaller icon and type, so every word stays whole. */
-@media (width < 360px) {
+/* Phones below 420px and four-column rows below 840px leave a button
+   140–180px: a smaller icon and type, and less space around them, keep
+   a one-word name whole beside its short code ("AlgoMonster" and
+   "amo" need about 150px so, 173px otherwise). */
+@media (width < 420px), (760px <= width < 840px) {
   .links a {
     gap: 8px;
     padding: 0 8px 0 10px;
@@ -319,11 +321,6 @@ svg {
   .links .icon svg {
     width: 18px;
     height: 18px;
-  }
-
-  .links a[data-alias]::after,
-  .links a[data-tabs]::after {
-    content: none;
   }
 }
 
@@ -354,6 +351,16 @@ svg {
 .links a[data-tabs]::after {
   content: '×' attr(data-tabs);
   content: '×' attr(data-tabs) / '';
+}
+
+/* Narrow phones (320px) leave a button 140px: no short codes there,
+   so every word stays whole. After the rules above, which it
+   overrides. */
+@media (width < 360px) {
+  .links a[data-alias]::after,
+  .links a[data-tabs]::after {
+    content: none;
+  }
 }
 
 @media (hover: hover) {
