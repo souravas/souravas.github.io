@@ -10,8 +10,8 @@ const SITE_ORIGIN = 'https://souravas.com'
 // résumé, so each names / as its canonical rather than competing with
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
 // the PDF and would just be deindexed, and the /start/ pages are a
-// personal start page (noindex), as are /kannada/, /code/, /fit/ and
-// /pomodoro/.
+// personal start page (noindex), as are /kannada/, /code/, /fit/,
+// /pomodoro/ and /cloud/.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
@@ -335,9 +335,28 @@ const codeDocs = () => {
 // of each one's <!--bookmarks--> marker, in dev as well as the build, so a
 // bookmark added or moved there shows on all three. Each link that opens
 // several tabs (data-also) gets their count as data-tabs, which v2 and v3
-// print on it. Dev reloads every page when the file changes, as Vite on
-// its own reloads none: no page loads it.
+// print on it. /cloud's <!--cloud--> marker gets the sites of the bookmark
+// named Cloud, which that page opens (see cloudSites). Dev reloads every
+// page when the file changes, as Vite on its own reloads none: no page
+// loads it.
 const START_BOOKMARKS = 'start/bookmarks.html'
+
+// The sites /cloud opens: the Cloud bookmark's href, then its data-also,
+// as an ol.sites of links to new tabs, each named by its host. Comments
+// go first, as one may show an <a>. Without that bookmark the build
+// fails, rather than deploy a page that opens nothing.
+const cloudSites = (bookmarks) => {
+  const cloud = [...bookmarks.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/g)]
+    .find(([, , inner]) => inner.includes('<span class="name">Cloud</span>'))
+  if (!cloud) throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no bookmark named Cloud, which /cloud opens`)
+  const attr = (name) => cloud[1].match(new RegExp(`(?:^|\\s)${name}="([^"]*)"`))?.[1] ?? ''
+  const hrefs = [attr('href'), ...attr('data-also').split(/\s+/).filter(Boolean)]
+  const items = hrefs.map((href) => {
+    const host = new URL(href.replaceAll('&amp;', '&')).hostname
+    return `<li><a href="${href}" target="_blank">${host}</a></li>`
+  })
+  return `<ol class="sites">\n${items.join('\n')}\n</ol>`
+}
 
 const startBookmarks = () => {
   let root = process.cwd()
@@ -356,8 +375,10 @@ const startBookmarks = () => {
     transformIndexHtml: {
       order: 'pre',
       handler(html) {
-        if (!html.includes('<!--bookmarks-->')) return html
+        const marker = ['<!--bookmarks-->', '<!--cloud-->'].find((m) => html.includes(m))
+        if (!marker) return html
         const bookmarks = readFileSync(resolve(root, START_BOOKMARKS), 'utf8').trim()
+        if (marker === '<!--cloud-->') return html.replace(marker, () => cloudSites(bookmarks))
         if (!/<svg class="sprite"[\s\S]*<main\b[\s\S]*<\/main>/.test(bookmarks)) {
           throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no icon sprite or <main>`)
         }
@@ -421,9 +442,9 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Ten separate pages (v1–v3, /start's designs start/v1–v3, kannada,
-  // code, fit, pomodoro), no SPA fallback; / and /start are copies of a
-  // design (DEFAULT_PAGES).
+  // Eleven separate pages (v1–v3, /start's designs start/v1–v3, kannada,
+  // code, fit, pomodoro, cloud), no SPA fallback; / and /start are copies
+  // of a design (DEFAULT_PAGES).
   appType: 'mpa',
   build: {
     outDir: 'dist',
@@ -447,6 +468,7 @@ export default defineConfig({
         code: 'code/index.html',
         fit: 'fit/index.html',
         pomodoro: 'pomodoro/index.html',
+        cloud: 'cloud/index.html',
       },
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
@@ -491,6 +513,8 @@ export default defineConfig({
             req.url = '/fit/index.html'
           } else if (path === '/pomodoro' || path === '/pomodoro/') {
             req.url = '/pomodoro/index.html'
+          } else if (path === '/cloud' || path === '/cloud/') {
+            req.url = '/cloud/index.html'
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
           } else if (path === '/resume' || path === '/resume/') {
@@ -502,7 +526,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'

@@ -10,6 +10,8 @@ The browser homepage, in three designs, each a folder with its own notes: [v1/](
 - `data-search`: a search URL with `%s`; an alias plus a query (`lc two sum`) opens it.
 - `data-also`: more URLs, space-separated, opened in new tabs along with the href. The plugin adds their count, plus one for the href, as `data-tabs`, which v2 and v3 print on the link.
 
+The Cloud bookmark is also [/cloud](../cloud/CLAUDE.md)'s list: the plugin finds it by name and puts its href and `data-also` into that page, which opens them all. So a site added to Cloud opens there too, and renaming the bookmark fails the build.
+
 There is no pinned row: the most used links are the first group, Daily. Every group holds six links or four, the groups of six first, so wherever a design sets a group's links two to a row (all three on phones, Keypad everywhere) no row is left half full, and v3's shelves stay within its six columns. Keep that in mind when adding a link: a fifth or seventh leaves a gap, and a seventh breaks v3's row (see each design's notes).
 
 **Hooks**: every design's stylesheet, and prompt.js, rely on the markup's hooks: `.prompt` with `#q` and `#hint`, and each group a `section.group` holding an `h2` and a `ul.links` of `<a>`s with an `.icon` and a `.name`. Keep those when changing the markup. `column-start` concerns only v1, and each design's notes say what a new link or group can break in its layout.

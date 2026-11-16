@@ -1,0 +1,8 @@
+# /cloud
+
+- Typing `souravas.com/cloud` opens the sites of /start's Cloud bookmark: [main.js](main.js) opens all but the first in new tabs, in order, then sends this tab to the first with `location.replace`, so Back from it skips /cloud.
+- **The sites live in [../start/bookmarks.html](../start/bookmarks.html), never here.** [index.html](index.html) has a `<!--cloud-->` marker, which the `start-bookmarks` plugin in vite.config.js (`cloudSites`) fills with the bookmark named Cloud, its href then its `data-also`, as an `ol.sites` of links named by host, in dev too. Renaming or removing that bookmark fails the build. The page opens only those addresses, fixed at build time, never one from its URL, so no souravas.com link can send a visitor elsewhere.
+- **Pop-ups**: browsers block tabs a page opens on its own until the site is allowed pop-ups, so allow them for souravas.com once (Chrome, Brave: the blocked pop-up icon at the end of the address bar, then *Always allow*). Until then nothing leaves this tab: the page stays up, says the tabs were blocked, and its *Open the rest* button opens one more per click, since a click lets one pop-up through. Each site that opened is marked; this tab moves to the first once the others are all open. Both paths were checked in headless Brave, with the popup blocker on and off.
+- A page Chrome prerenders while the address is still being typed waits for `prerenderingchange`, so the tabs open only once the page is really opened.
+- Laid out as /fit is, with the "‹ Start" link in a 120px gutter on wider screens. The list is all that shows when the tabs open, and only for a moment.
+- No service worker: offline there is nothing to open. It loads the analytics beacon like every built page.
