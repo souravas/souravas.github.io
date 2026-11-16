@@ -21,7 +21,7 @@ There is no pinned row: the most used links are the first group, Daily. The grou
 
   | Window | Columns | Rows of groups |
   |---|---|---|
-  | under 360px | 2 | each group a row of its own |
+  | under 360px | 2 | each group a row of its own, but Prep and Finance, one key wide and two deep, share one |
   | phones, and from 760px windows narrower than 5:6 | 4 | Daily Code / Design Learn / Prep Finance Fun, groups of six two keys wide and three deep, groups of two one wide and two deep |
   | from 760px and 5:6 or wider | 8 | Daily Code Design Learn (two keys wide, three deep) / Prep Finance Fun (rows of two, two and four) |
   | from 1500px and 3:1 or wider | 16 | all seven in one row: groups of six three wide and two deep, Prep and Finance one wide and two deep, Fun two by two |

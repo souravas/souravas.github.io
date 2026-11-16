@@ -23,7 +23,8 @@
    "open all" for a group whose name
    the query starts, then "visit" when the query looks like an
    address, then a Google search. ↑/↓ cycle through
-   them, the prompt shows what Enter will open, Esc clears. Links and
+   them, the prompt shows what Enter will open, Esc clears (wherever
+   the focus is, as typing fills it from anywhere). Links and
    Enter open in this tab, since /start is the browser's homepage; a
    link with data-also opens its href and
    those URLs in new tabs, on a click or a middle click, and clicking a
@@ -62,7 +63,7 @@
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
     // The other words in all of those addresses, which a query has to
     // start, so "type" doesn't find Typing: each host's labels but the TLD
-    // ("docs" in docs.google.com, "koofr" from data-also), and for a
+    // ("docs" in docs.google.com, "12min" from Books' data-also), and for a
     // page on this site the first segment of its path ("kannada").
     // www, app and web name no site.
     const words = hrefs.flatMap((href) => {
@@ -157,7 +158,9 @@
     const hrefs = links.filter(({ a }) => section.contains(a)).flatMap((link) => link.hrefs);
     const button = document.createElement("button");
     button.type = "button";
-    button.title = `Open all ${hrefs.length} links`;
+    // Counted in tabs, as "open all" is in the prompt: Learn's six links
+    // open eight.
+    button.title = `Open all ${hrefs.length} in new tabs`;
     button.append(...heading.childNodes);
     button.addEventListener("click", () => openAll(hrefs));
     heading.replaceChildren(button);
@@ -261,6 +264,12 @@
 
   document.addEventListener("keydown", (e) => {
     if (e.target === input || e.defaultPrevented || e.isComposing) return;
+    // A click on the page takes the prompt's focus but leaves its query
+    // and the dimmed links, so Esc clears those from anywhere too.
+    if (e.key === "Escape" && input.value) {
+      reset();
+      return;
+    }
     if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1 || e.key === " ") return;
     e.preventDefault();
     input.focus();
