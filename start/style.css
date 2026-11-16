@@ -75,9 +75,9 @@ svg {
    keys. All of it counts on four groups of six, then Prep's two,
    Finance's two and Fun's four, which take as many places as two
    groups of four: 32, which is 4 × 8, 8 × 4 and 16 × 2. So the
-   groups close into a rectangle with every place taken. Six columns or nine or twelve, as before November 2026, when
-   there were seven groups and 36 keys, would leave a hole, and so
-   would another group, or a third link in Prep or Finance. */
+   groups close into a rectangle with every place taken. Another
+   group, or a third link in Prep or Finance, would leave a hole,
+   and so would six columns, nine or twelve. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -245,8 +245,8 @@ svg {
 /* ---------- Groups ----------
    A group: its name, then its keys, --span to a row, which is also
    how many of the page's columns it takes. A group with a fifth link
-   is a group of six, one without a third a group of two. The name is a button (prompt.js puts it in the
-   h2) that opens the whole group. */
+   is a group of six, one without a third a group of two. The name is
+   a button (prompt.js puts it in the h2) that opens the whole group. */
 .group {
   --span: var(--four);
 

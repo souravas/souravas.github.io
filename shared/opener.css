@@ -1,12 +1,13 @@
 /* ============================================================
-   SOURAV — /cloud, /ipo and /invest
-   The pages that open a /start bookmark's sites, imported by
-   each one's style.css. One stays on screen only while the
-   browser blocks the new tabs: the sites, numbered, the ones
-   that opened marked, then why the rest did not and a button to
-   try again, on /start's pure black with its greys, lavender
-   accent and fonts. Laid out as /fit is: wider screens set the
-   way back to /start in a 120px left gutter.
+   SOURAV — the opener pages
+   The pages that open a list of sites (/cloud, /ipo, /invest
+   and /downloads), imported by each one's style.css. One stays
+   on screen only while the browser blocks the new tabs: the
+   sites, numbered, the ones that opened marked, then why the
+   rest did not and a button to try again, on /start's pure
+   black with its greys, lavender accent and fonts. Laid out as
+   /fit is: wider screens set the way back to /start in a 120px
+   left gutter.
    ============================================================ */
 
 @import './base.css';

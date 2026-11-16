@@ -11,8 +11,9 @@
 import { createHash } from 'node:crypto'
 import { toScript } from './script.js'
 
-// The vault the note's wiki-links point into, the one /start's Obsidian
-// link opens. A wiki-link to a note in it opens that note in Obsidian.
+// The Obsidian vault the note's wiki-links point into, the one the
+// page's "Open in Obsidian" link opens. A wiki-link to a note in it
+// opens that note in Obsidian.
 const VAULT = 'hope'
 
 // "## Lesson 12 — Numbers 1 to 100" is a lesson; its id is lesson-12.

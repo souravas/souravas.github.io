@@ -1,14 +1,16 @@
 # souravas.com
 
-Sourav's site, <https://souravas.com>: a portfolio in three designs, plus personal pages (a start page, a Kannada course, Python interview notes, workout videos, a Pomodoro timer). Vanilla HTML / CSS / JS built with Vite — no framework, no router. Each page is a folder with one `index.html`, usually with its own `main.js` and `style.css`, and the comment at the top of each module describes its behaviour in detail.
+Sourav's site, <https://souravas.com>: a portfolio in three designs, plus personal pages (a start page, a Kannada course, Python interview notes, workout videos, a Pomodoro timer, and four pages that each open a set of sites). Vanilla HTML / CSS / JS built with Vite — no framework, no router. Each page is a folder with one `index.html`, usually with its own `main.js` and `style.css`, and the comments in each module describe its behaviour in detail.
 
 ```bash
 npm install
 npm run dev       # dev server on http://localhost:5173
 npm run build     # production build → dist/
-npm run preview   # preview the production build
+npm run preview   # the production build on http://localhost:4173
 npm test          # the *.test.js files beside the modules they test (node --test)
 ```
+
+`dev` and `preview` open a browser tab (`server.open` in vite.config.js); add `-- --open false` when only checking something. [.claude/launch.json](.claude/launch.json) starts both that way for Claude's browser pane.
 
 ## Pages
 
@@ -37,26 +39,27 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 
 - [shared/base.css](shared/base.css), for all of them: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start has. /fit, /pomodoro, /cloud, /ipo, /invest and /downloads set that link in a 120px gutter on wider screens; /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
 - [shared/reader.css](shared/reader.css), for /kannada and /code, which are built alike: masthead, sticky bar, text, tables, the sheet of places to jump to, footer. It imports base.css.
-- [shared/opener.js](shared/opener.js) and [shared/opener.css](shared/opener.css), for /cloud, /ipo, /invest and /downloads, which are the same page for different bookmarks: each page's `main.js` and `style.css` only import them (/downloads adds its list's editor). opener.css imports base.css.
+- [shared/opener.js](shared/opener.js) and [shared/opener.css](shared/opener.css), for /cloud, /ipo, /invest and /downloads, which are the same page for different sets of sites: each page's `main.js` and `style.css` only import them (/downloads adds its list's editor). opener.css imports base.css.
 
 The build inlines the imports into each page with the rest of its CSS, so sharing costs no request.
 
 **Offline**: [public/sw.js](public/sw.js) is one service worker that /start, /pomodoro, /kannada and /code each register with their own scope (production only). Each registration keeps one page, with its script and fonts, in a cache named after it. /start opens from its cache at once and refreshes behind, so a deploy shows there on the second open; the others ask the network first and fall back to the cache when it fails or takes over three seconds, so they are always current when online. /fit is left out: its thumbnails and videos are YouTube's. So are /cloud, /ipo, /invest and /downloads, which only open other sites.
 
-**`public/`** is copied verbatim into the build: `CNAME`, favicons, manifest, `robots.txt`, the redirect stubs, `sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
+**`public/`** is copied verbatim into the build: `CNAME`, the favicons and app icons, the manifest, `robots.txt`, `404.html`, the redirect stubs, `sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
 
 ### Adding a page
 
-1. Create `<name>/index.html`, `main.js` and `style.css`, copying the head (CSP meta, favicons with the current `?v=`, font preloads, `noindex`) and the Cloudflare Web Analytics script before `</body>` from a sibling page. Start `style.css` with `@import '../shared/base.css';` and give the page its "‹ Start" link. If it should open offline, register `/sw.js` with the page's scope at the foot of `main.js`, as a sibling does.
-2. In [vite.config.js](vite.config.js), add it to `rolldownOptions.input` and to both rewrites in the `html-routes` plugin (dev and preview), and update the page lists in the comments above `appType` and `SITEMAP_URLS`.
+1. Create `<name>/index.html`, `main.js` and `style.css`, copying the head (CSP meta, favicons with the current `?v=`, font preloads, `noindex`) and the Cloudflare Web Analytics script before `</body>` from a sibling page. Start `style.css` with `@import '../shared/base.css';` and give the page its "‹ Start" link. If it should open offline, register `/sw.js` with the page's scope at the foot of `main.js`, as a sibling does. A page that only opens a set of sites needs far less: see the end of [cloud/CLAUDE.md](cloud/CLAUDE.md).
+2. In [vite.config.js](vite.config.js), add its name to `PAGES`. That one list is the build's inputs and the routes the dev and preview servers answer.
 3. Create `<name>/CLAUDE.md` with the notes that concern only the new page (where its content lives, its conventions, its modules, anything easy to break). Every page gets one, however short; page-specific notes never go in this file.
-4. Add a row to the Pages table above, its folder linked to that `CLAUDE.md`. Leave [README.md](README.md) alone: it is kept to two lines on purpose and names no page.
+4. Add a row to the Pages table above, its folder linked to that `CLAUDE.md`, and name the page wherever this file lists pages of its kind (the gutter pages, the shared files' users, Offline, the CSP's inline-script pages). Leave [README.md](README.md) alone: it is kept to two lines on purpose and names no page.
+5. A key for it on /start is a change to that page's layout, which counts on the sizes of its groups: read [start/CLAUDE.md](start/CLAUDE.md) first.
 
 ## Build ([vite.config.js](vite.config.js))
 
 Plugins, in order:
 
-- `html-routes`: the dev and preview servers mirror GitHub Pages' routing (`/x` → `/x/index.html`, `/cv` → `/cv.html`).
+- `html-routes`: the dev and preview servers mirror GitHub Pages' routing for the pages in `PAGES` (`/x` → `/x/index.html`) and the stubs in `STUBS` (`/cv` → `/cv.html`). Dev also serves the default design at `/`, read from `DEFAULT_PAGES`, so a change of default is made only there.
 - `build-stamps` (dev too): fills `__BUILD_DATE__`, `__BUILD_YEAR__`, and the whole years since `CAREER_START` (June 2019) as `__YEARS__`, `__YEARS_00__`, `__YEARS_WORD__`, `__YEARS_WORD_CAP__` and `__YEARS_ORDINAL_CAP__`. **Write these tokens, never the number**, wherever copy states the years. The one exception is the social card (`public/assets/og-cover.jpg`/`.webp`), which has the count drawn into it ("7 years") and has to be redrawn when the count changes each June.
 - `kannada-note` and `code-docs` (dev too): render the Markdown pages; see [kannada/CLAUDE.md](kannada/CLAUDE.md) and [code/CLAUDE.md](code/CLAUDE.md). A link that lands nowhere, such as one to a renamed heading, warns in dev and **fails the build**, so it cannot deploy.
 - `json-ld-minify`, `inline-css` (each page's CSS bundle is inlined as a `<style>`, so there is no render-blocking stylesheet request), `csp-inline-hashes`, `html-minify`.
@@ -64,9 +67,9 @@ Plugins, in order:
 
 **CSP**: every page carries a CSP `<meta>`. At build time `csp-inline-hashes` swaps `'unsafe-inline'` for SHA-256 hashes of the page's inline `<script>`s and `<style>`s; dev keeps `'unsafe-inline'` so HMR works. A page with an inline script (v1–v3, /kannada, /pomodoro) has `script-src 'self' 'unsafe-inline'` in its source for that swap; the others have `script-src 'self'`. That literal `'self' 'unsafe-inline'` prefix is what the swap matches, so add other sources after it.
 
-**Analytics**: the twelve built pages (v1–v3, /start, /kannada, /code, /fit, /pomodoro, /cloud, /ipo, /invest, /downloads) load Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
+**Analytics**: every built page (the portfolio and the personal pages; not `public/`'s 404 and stubs) loads Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, just before `</body>`). Its CSP allows that host in `script-src` and `https://cloudflareinsights.com`, where the beacon reports, in `connect-src`.
 
-**Tests**: `npm test` runs Node's own test runner over the `*.test.js` files, which sit beside what they test: the two Markdown renderers, /kannada's script and its review schedule. They cover the logic a browser check would miss, above all that a card's id stays what it was (the review keeps each card's place by it). CI runs them before the build.
+**Tests**: `npm test` runs Node's own test runner over the `*.test.js` files, which sit beside what they test: the two Markdown renderers ([kannada/render.js](kannada/render.js), [code/render.js](code/render.js)), and /kannada's script and its progress (the review schedule, the saved copy). They cover the logic a browser check would miss, above all that a card's id stays what it was (the review keeps each card's place by it). CI runs them before the build.
 
 **Favicons** are shared by every page and linked with a `?v=` query. When the icons change, bump it on every page, `public/404.html` included, or browsers keep showing the cached ones.
 

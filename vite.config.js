@@ -6,12 +6,22 @@ import { renderNote } from './kannada/render.js'
 import { DOCS as CODE_DOCS, renderDocs } from './code/render.js'
 
 const SITE_ORIGIN = 'https://souravas.com'
+
+// Every page the build makes: a folder of that name with an index.html,
+// served at /<name>/. This list is the build's inputs (rolldownOptions)
+// and the routes the dev and preview servers answer (html-routes), so a
+// new page is added to this file by adding its name here.
+const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'fit', 'pomodoro', 'cloud', 'ipo', 'invest', 'downloads']
+
+// public/'s redirect stubs (cv.html, resume.html), which GitHub Pages
+// also serves without the .html.
+const STUBS = ['cv', 'resume']
+
 // Only / is listed. The design versions (/v1/–/v3/) show the same
 // résumé, so each names / as its canonical rather than competing with
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
-// the PDF and would just be deindexed, and /start/ is a personal start
-// page (noindex), as are /kannada/, /code/, /fit/,
-// /pomodoro/, /cloud/, /ipo/, /invest/ and /downloads/.
+// the PDF and would just be deindexed, and the personal pages (/start/
+// and the rest: every page but the portfolio) are noindex.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
@@ -35,9 +45,10 @@ const capitalize = (s) => s[0].toUpperCase() + s.slice(1)
 // Inline the built stylesheet into <head> in place of its <link>, removing
 // the one render-blocking request. Must run before csp-inline-hashes so the
 // resulting <style> body gets a style-src hash. Pages whose CSS is the same
-// (/cloud, /ipo and /invest) share one emitted file, so the inlined files leave the
-// bundle only after every page is written (generateBundle, order 'post',
-// runs after Vite's HTML plugin has called this for each page).
+// (the ones that only import shared/opener.css: /cloud, /ipo and /invest)
+// share one emitted file, so the inlined files leave the bundle only after
+// every page is written (generateBundle, order 'post', runs after Vite's
+// HTML plugin has called this for each page).
 const inlineCss = () => {
   const inlined = new Set()
   return {
@@ -111,8 +122,8 @@ const cspInlineHashes = () => ({
 // Default designs: copy each built page to its section root so GitHub Pages
 // serves it there — the portfolio's v1 at /. All asset URLs in the built
 // HTML are absolute (base '/'), so a copy renders identically from either
-// path. Dev serves the same page there through the html-routes plugin, so
-// a change of default goes in both.
+// path. Dev serves the same page there through the html-routes plugin,
+// which reads this list too, so a change of default is made only here.
 const DEFAULT_PAGES = [
   ['v1/index.html', 'index.html'],
 ]
@@ -127,6 +138,42 @@ const rootDefault = () => ({
     }
   },
 })
+
+// Mirror production routing locally: GitHub Pages answers a page without
+// its slash (/v2, by a redirect to /v2/) and a redirect stub without its
+// .html (/cv), which the dev and preview servers would not. This is the
+// file such a path is served from, or undefined to leave the request
+// alone. With `defaults`, a default design's address goes to its source
+// as well (/ → /v1/index.html): dev needs that, while preview already
+// has the DEFAULT_PAGES copy in dist/.
+const fileFor = (path, { defaults = false } = {}) => {
+  const bare = path.replace(/\/$/, '')
+  if (defaults) {
+    const page = DEFAULT_PAGES.find(([, to]) => bare === `/${to}`.replace(/\/?index\.html$/, ''))
+    if (page) return `/${page[0]}`
+  }
+  const name = bare.slice(1)
+  if (PAGES.includes(name)) return `${bare}/index.html`
+  if (STUBS.includes(name)) return `${bare}.html`
+  return undefined
+}
+
+const htmlRoutes = () => {
+  const rewrite = (options) => (req, _res, next) => {
+    const file = fileFor(req.url.split('?')[0], options)
+    if (file) req.url = file
+    next()
+  }
+  return {
+    name: 'html-routes',
+    configureServer(server) {
+      server.middlewares.use(rewrite({ defaults: true }))
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(rewrite())
+    },
+  }
+}
 
 const sitemap = () => ({
   name: 'sitemap',
@@ -392,9 +439,8 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Twelve separate pages (v1–v3, start, kannada, code, fit, pomodoro,
-  // cloud, ipo, invest, downloads), no SPA fallback; / is a copy of v1
-  // (DEFAULT_PAGES).
+  // Separate pages, one for each name in PAGES, with no SPA fallback; /
+  // is a copy of v1 (DEFAULT_PAGES).
   appType: 'mpa',
   build: {
     outDir: 'dist',
@@ -403,24 +449,13 @@ export default defineConfig({
     // Each page has its own stylesheet — keep them split so the pages' CSS
     // doesn't merge into one bundle.
     cssCodeSplit: true,
-    // Single entry module per page, no dynamic imports — the modulepreload
-    // polyfill would never fire, so don't ship it.
+    // One entry module per page, and the one dynamic import (/downloads
+    // loading shared/opener.js) has nothing of its own to preload: no
+    // page gets a modulepreload link, so the polyfill would never fire.
+    // Don't ship it.
     modulePreload: { polyfill: false },
     rolldownOptions: {
-      input: {
-        v1: 'v1/index.html',
-        v2: 'v2/index.html',
-        v3: 'v3/index.html',
-        start: 'start/index.html',
-        kannada: 'kannada/index.html',
-        code: 'code/index.html',
-        fit: 'fit/index.html',
-        pomodoro: 'pomodoro/index.html',
-        cloud: 'cloud/index.html',
-        ipo: 'ipo/index.html',
-        invest: 'invest/index.html',
-        downloads: 'downloads/index.html',
-      },
+      input: Object.fromEntries(PAGES.map((page) => [page, `${page}/index.html`])),
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -432,62 +467,7 @@ export default defineConfig({
     open: true,
   },
   plugins: [
-    {
-      // Mirror production routing locally. GitHub Pages serves /v2 → /v2/
-      // (directory redirect) and / → index.html; dev and preview servers
-      // need the same rewrites. Dev serves the default from source (v1
-      // at /); preview already has the DEFAULT_PAGES copy, so only the
-      // slashless paths need help.
-      name: 'html-routes',
-      configureServer(server) {
-        server.middlewares.use((req, _res, next) => {
-          const path = req.url.split('?')[0]
-          if (path === '/' || path === '/v1' || path === '/v1/') {
-            req.url = '/v1/index.html'
-          } else if (path === '/v2' || path === '/v2/') {
-            req.url = '/v2/index.html'
-          } else if (path === '/v3' || path === '/v3/') {
-            req.url = '/v3/index.html'
-          } else if (path === '/start' || path === '/start/') {
-            req.url = '/start/index.html'
-          } else if (path === '/kannada' || path === '/kannada/') {
-            req.url = '/kannada/index.html'
-          } else if (path === '/code' || path === '/code/') {
-            req.url = '/code/index.html'
-          } else if (path === '/fit' || path === '/fit/') {
-            req.url = '/fit/index.html'
-          } else if (path === '/pomodoro' || path === '/pomodoro/') {
-            req.url = '/pomodoro/index.html'
-          } else if (path === '/cloud' || path === '/cloud/') {
-            req.url = '/cloud/index.html'
-          } else if (path === '/ipo' || path === '/ipo/') {
-            req.url = '/ipo/index.html'
-          } else if (path === '/invest' || path === '/invest/') {
-            req.url = '/invest/index.html'
-          } else if (path === '/downloads' || path === '/downloads/') {
-            req.url = '/downloads/index.html'
-          } else if (path === '/cv' || path === '/cv/') {
-            req.url = '/cv.html'
-          } else if (path === '/resume' || path === '/resume/') {
-            req.url = '/resume.html'
-          }
-          next()
-        })
-      },
-      configurePreviewServer(server) {
-        server.middlewares.use((req, _res, next) => {
-          const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo', '/invest', '/downloads'].includes(path)) {
-            req.url = `${path}/index.html`
-          } else if (path === '/cv' || path === '/cv/') {
-            req.url = '/cv.html'
-          } else if (path === '/resume' || path === '/resume/') {
-            req.url = '/resume.html'
-          }
-          next()
-        })
-      },
-    },
+    htmlRoutes(),
     buildStamps(),
     kannadaNote(),
     codeDocs(),

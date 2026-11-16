@@ -1,10 +1,13 @@
 /* ============================================================
-   /cloud, /ipo and /invest: each opens the sites in its
-   index.html's .sites list. All but the first
-   open in new tabs, in order, and then this tab becomes the
-   first with location.replace, so typing souravas.com/cloud
-   leaves exactly those tabs, and Back from the first skips this
-   page. Each page's main.js only imports this.
+   The opener pages (/cloud, /ipo, /invest and /downloads): each
+   opens the sites in its .sites list. All but the first open in
+   new tabs, in order, and then this tab becomes the first with
+   location.replace, so typing souravas.com/cloud leaves exactly
+   those tabs, and Back from the first skips this page. The list
+   is read as this loads: it is written in the page's index.html,
+   and the page's main.js only imports this, except on
+   /downloads, whose main.js fills the list from the browser's
+   storage and then imports this.
 
    A page may open tabs by itself only once its site is allowed
    pop-ups. Until then browsers block every one, and a click lets

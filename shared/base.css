@@ -1,10 +1,11 @@
 /* ============================================================
    SOURAV — shared by the personal pages
-   What /start, /fit, /pomodoro, /cloud, /kannada and /code have
-   in common: the fonts, pure black with its greys and lavender
-   accent, and the way back to /start. Each page's style.css
-   imports this first and adds its own; the build inlines it
-   into the page with the rest of that page's CSS.
+   What every page but the portfolio has in common: the fonts,
+   pure black with its greys and lavender accent, and the way
+   back to /start. Each page's style.css imports this first,
+   directly or through reader.css or opener.css, and adds its
+   own; the build inlines it into the page with the rest of
+   that page's CSS.
    ============================================================ */
 
 /* ---------- Fonts ----------
@@ -75,8 +76,8 @@ body {
 
 /* ---------- The way back ----------
    "‹ Start", on every page but /start: above the title on phones.
-   Wider, /fit, /pomodoro and /cloud set it in their gutter, on the
-   title's line. */
+   Wider, the pages with a gutter (/fit, /pomodoro and the ones on
+   opener.css) set it there, on the title's line. */
 .back {
   display: inline-block;
   padding: 4px 0;
