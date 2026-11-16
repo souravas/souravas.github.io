@@ -1,0 +1,192 @@
+/* ============================================================
+   SOURAV — /cloud and /ipo
+   The pages that open a /start bookmark's sites, imported by
+   each one's style.css. One stays on screen only while the
+   browser blocks the new tabs: the sites, numbered, the ones
+   that opened marked, then why the rest did not and a button to
+   try again, on /start's pure black with its greys, lavender
+   accent and fonts. Laid out as /fit is: wider screens set the
+   way back to /start in a 120px left gutter.
+   ============================================================ */
+
+@import './base.css';
+
+:root {
+  --gutter: 120px;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---------- Layout ----------
+   As on /fit: top-aligned on phones, clear of a notch or home
+   indicator; centred on wider screens, lifted slightly by the
+   heavier bottom padding. */
+.page {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto auto;
+  padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+@media (min-width: 760px) {
+  .page {
+    margin: auto;
+    padding: 48px 40px 12vh;
+  }
+}
+
+/* ---------- Head ----------
+   The way back above the title on phones; wider, it sits in the
+   gutter on the title's line, and the rest of the page beside
+   it. */
+.head {
+  margin-bottom: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 760px) {
+  .head {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    align-items: baseline;
+    padding-bottom: 14px;
+  }
+
+  .content {
+    padding-left: var(--gutter);
+  }
+}
+
+h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 760px) {
+  h1 {
+    font-size: 22px;
+  }
+}
+
+/* ---------- Sites ----------
+   One row each, by host, numbered in the order they open; the
+   <ol> already tells screen readers each one's place, so the
+   drawn number is hidden from them. "Opened" marks a site that
+   opened in a new tab. */
+.sites {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: site;
+}
+
+.sites li {
+  counter-increment: site;
+  border-bottom: 1px solid var(--line);
+}
+
+.sites a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  color: var(--body);
+  font-size: 15px;
+  line-height: 20px;
+  text-decoration: none;
+  transition: color 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sites a::before {
+  content: counter(site);
+  content: counter(site) / '';
+  flex-shrink: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.sites a[data-opened]::after {
+  content: 'opened';
+  margin-left: auto;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sites a:active {
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .sites a:hover {
+    color: var(--text);
+  }
+}
+
+.sites a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Blocked ----------
+   Why the tabs did not open, and the button that tries again. */
+.blocked p {
+  max-width: 52ch;
+  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.retry {
+  margin-top: 16px;
+  padding: 8px 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.retry:active {
+  background: var(--hover);
+}
+
+@media (hover: hover) {
+  .retry:hover {
+    border-color: var(--edge);
+    background: var(--hover);
+  }
+}
+
+.retry:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back,
+  .sites a,
+  .retry {
+    transition: none;
+  }
+}

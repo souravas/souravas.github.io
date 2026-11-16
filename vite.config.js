@@ -11,7 +11,7 @@ const SITE_ORIGIN = 'https://souravas.com'
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
 // the PDF and would just be deindexed, and the /start/ pages are a
 // personal start page (noindex), as are /kannada/, /code/, /fit/,
-// /pomodoro/ and /cloud/.
+// /pomodoro/, /cloud/ and /ipo/.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
@@ -34,29 +34,42 @@ const capitalize = (s) => s[0].toUpperCase() + s.slice(1)
 
 // Inline the built stylesheet into <head> in place of its <link>, removing
 // the one render-blocking request. Must run before csp-inline-hashes so the
-// resulting <style> body gets a style-src hash.
-const inlineCss = () => ({
-  name: 'inline-css',
-  apply: 'build',
-  transformIndexHtml: {
-    order: 'post',
-    handler(html, ctx) {
-      const bundle = ctx.bundle
-      if (!bundle) return html
-      let out = html
-      for (const [name, asset] of Object.entries(bundle)) {
-        if (asset.type !== 'asset' || !name.endsWith('.css')) continue
-        const href = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        const link = new RegExp(`<link\\b[^>]*\\bhref="/${href}"[^>]*>`)
-        if (!link.test(out)) continue
-        const css = typeof asset.source === 'string' ? asset.source : Buffer.from(asset.source).toString()
-        out = out.replace(link, `<style>${css.trim()}</style>`)
-        delete bundle[name]
-      }
-      return out
+// resulting <style> body gets a style-src hash. Pages whose CSS is the same
+// (/cloud and /ipo) share one emitted file, so the inlined files leave the
+// bundle only after every page is written (generateBundle, order 'post',
+// runs after Vite's HTML plugin has called this for each page).
+const inlineCss = () => {
+  const inlined = new Set()
+  return {
+    name: 'inline-css',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        const bundle = ctx.bundle
+        if (!bundle) return html
+        let out = html
+        for (const [name, asset] of Object.entries(bundle)) {
+          if (asset.type !== 'asset' || !name.endsWith('.css')) continue
+          const href = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+          const link = new RegExp(`<link\\b[^>]*\\bhref="/${href}"[^>]*>`)
+          if (!link.test(out)) continue
+          const css = typeof asset.source === 'string' ? asset.source : Buffer.from(asset.source).toString()
+          out = out.replace(link, `<style>${css.trim()}</style>`)
+          inlined.add(name)
+        }
+        return out
+      },
     },
-  },
-})
+    generateBundle: {
+      order: 'post',
+      handler(_options, bundle) {
+        for (const name of inlined) delete bundle[name]
+        inlined.clear()
+      },
+    },
+  }
+}
 
 // Tighten the CSP meta tag at build time:
 //   - script-src: replace 'unsafe-inline' with SHA-256 hashes of each inline <script>
@@ -335,21 +348,21 @@ const codeDocs = () => {
 // of each one's <!--bookmarks--> marker, in dev as well as the build, so a
 // bookmark added or moved there shows on all three. Each link that opens
 // several tabs (data-also) gets their count as data-tabs, which v2 and v3
-// print on it. /cloud's <!--cloud--> marker gets the sites of the bookmark
-// named Cloud, which that page opens (see cloudSites). Dev reloads every
-// page when the file changes, as Vite on its own reloads none: no page
-// loads it.
+// print on it. A <!--sites:Name--> marker gets the sites of the bookmark
+// called Name, which that page opens: Cloud on /cloud, IPO on /ipo (see
+// bookmarkSites). Dev reloads every page when the file changes, as Vite
+// on its own reloads none: no page loads it.
 const START_BOOKMARKS = 'start/bookmarks.html'
 
-// The sites /cloud opens: the Cloud bookmark's href, then its data-also,
-// as an ol.sites of links to new tabs, each named by its host. Comments
-// go first, as one may show an <a>. Without that bookmark the build
-// fails, rather than deploy a page that opens nothing.
-const cloudSites = (bookmarks) => {
-  const cloud = [...bookmarks.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/g)]
-    .find(([, , inner]) => inner.includes('<span class="name">Cloud</span>'))
-  if (!cloud) throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no bookmark named Cloud, which /cloud opens`)
-  const attr = (name) => cloud[1].match(new RegExp(`(?:^|\\s)${name}="([^"]*)"`))?.[1] ?? ''
+// The sites a page such as /cloud opens: the named bookmark's href, then
+// its data-also, as an ol.sites of links to new tabs, each named by its
+// host. Comments go first, as one may show an <a>. Without that bookmark
+// the build fails, rather than deploy a page that opens nothing.
+const bookmarkSites = (bookmarks, name, page) => {
+  const bookmark = [...bookmarks.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/g)]
+    .find(([, , inner]) => inner.includes(`<span class="name">${name}</span>`))
+  if (!bookmark) throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no bookmark named ${name}, which ${page} opens`)
+  const attr = (key) => bookmark[1].match(new RegExp(`(?:^|\\s)${key}="([^"]*)"`))?.[1] ?? ''
   const hrefs = [attr('href'), ...attr('data-also').split(/\s+/).filter(Boolean)]
   const items = hrefs.map((href) => {
     const host = new URL(href.replaceAll('&amp;', '&')).hostname
@@ -374,11 +387,11 @@ const startBookmarks = () => {
     },
     transformIndexHtml: {
       order: 'pre',
-      handler(html) {
-        const marker = ['<!--bookmarks-->', '<!--cloud-->'].find((m) => html.includes(m))
-        if (!marker) return html
+      handler(html, ctx) {
+        const sites = html.match(/<!--sites:([^>]+?)-->/)
+        if (!sites && !html.includes('<!--bookmarks-->')) return html
         const bookmarks = readFileSync(resolve(root, START_BOOKMARKS), 'utf8').trim()
-        if (marker === '<!--cloud-->') return html.replace(marker, () => cloudSites(bookmarks))
+        if (sites) return html.replace(sites[0], () => bookmarkSites(bookmarks, sites[1], ctx.path))
         if (!/<svg class="sprite"[\s\S]*<main\b[\s\S]*<\/main>/.test(bookmarks)) {
           throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no icon sprite or <main>`)
         }
@@ -442,8 +455,8 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Eleven separate pages (v1–v3, /start's designs start/v1–v3, kannada,
-  // code, fit, pomodoro, cloud), no SPA fallback; / and /start are copies
+  // Twelve separate pages (v1–v3, /start's designs start/v1–v3, kannada,
+  // code, fit, pomodoro, cloud, ipo), no SPA fallback; / and /start are copies
   // of a design (DEFAULT_PAGES).
   appType: 'mpa',
   build: {
@@ -469,6 +482,7 @@ export default defineConfig({
         fit: 'fit/index.html',
         pomodoro: 'pomodoro/index.html',
         cloud: 'cloud/index.html',
+        ipo: 'ipo/index.html',
       },
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
@@ -515,6 +529,8 @@ export default defineConfig({
             req.url = '/pomodoro/index.html'
           } else if (path === '/cloud' || path === '/cloud/') {
             req.url = '/cloud/index.html'
+          } else if (path === '/ipo' || path === '/ipo/') {
+            req.url = '/ipo/index.html'
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
           } else if (path === '/resume' || path === '/resume/') {
@@ -526,7 +542,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
