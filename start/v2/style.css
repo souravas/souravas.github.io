@@ -2,7 +2,7 @@
    SOURAV — /start/v2, Keypad
    /start's default design: every bookmark a key, each group a
    keypad two keys wide, the seven keypads side by side under the
-   pinned keys. The markup is /start's bookmarks (see ../CLAUDE.md);
+   prompt. The markup is /start's bookmarks (see ../CLAUDE.md);
    only this stylesheet is the page's own.
    ============================================================ */
 
@@ -43,18 +43,14 @@ svg {
 }
 
 /* ---------- Layout ----------
-   One grid for the whole page. The prompt and the pinned keys span
-   it; each group takes one cell, a keypad two keys wide. Phones set
-   the keypads two to a row and the pinned keys as one row of icons;
-   from 760px the keypads run four to a row, and from 1280px all
-   seven in one, where the pinned row takes the same columns, so each
-   pinned key sits over a keypad. A key there is still 77px wide,
-   room for "AlgoMonster" on one line in the 12px its names use up to
-   1440px. From 760px the page is
-   centred in the window, and the keys (--key) and the gaps (--gap)
-   grow with its height, from 80px and 16px to 96px and 28px over
-   560–800px of it: the seven keypads fit a laptop's window down to
-   about 560px tall, and fill a taller one. */
+   One grid for the whole page. The prompt spans it; each group takes
+   one cell, a keypad two keys wide. Phones set the keypads two to a
+   row; from 760px they run four to a row, and from 1280px all seven
+   in one. A key there is still 77px wide, room for "AlgoMonster" on
+   one line in the 12px its names use up to 1440px. From 760px the
+   page is centred in the window, and the keys (--key) and the gaps
+   (--gap) grow with its height, from 80px and 16px to 96px and 28px
+   over 560–800px of it. */
 .page {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -66,8 +62,7 @@ svg {
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
 
-.prompt,
-.links.top {
+.prompt {
   grid-column: 1 / -1;
 }
 
@@ -247,18 +242,6 @@ svg {
   list-style: none;
 }
 
-.links.top {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-/* The page's own column gap, so the pinned keys line up with the
-   keypads under them. */
-@media (width >= 1280px) {
-  .links.top {
-    column-gap: inherit;
-  }
-}
-
 /* ---------- Keys ----------
    A key: its icon over its name, the pair centred a little above the
    middle, clear of the lip; a name that wraps to a second line runs
@@ -388,53 +371,6 @@ svg {
 @media (hover: hover) {
   .links a.is-dim:hover {
     opacity: 1;
-  }
-}
-
-/* ---------- Pinned ----------
-   Wider keys, as wide as a keypad from 1280px, with a larger and
-   brighter icon. On phones they are one row of icons, as on v1:
-   the name is hidden from sight only, so screen readers and the
-   prompt still use it, and prompt.js shows it as the key's tooltip. */
-.links.top a {
-  padding-top: calc((var(--key) - 54px) / 2 - 4px);
-  color: var(--heading);
-  font-size: 13.5px;
-  line-height: 16px;
-}
-
-.links.top .icon {
-  color: var(--heading);
-}
-
-.links.top .icon svg {
-  width: 30px;
-  height: 30px;
-}
-
-@media (width < 760px) {
-  .links.top a {
-    justify-content: center;
-    height: 52px;
-    padding: 0 0 3px;
-  }
-
-  .links.top .icon svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .links.top .name {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .links.top a[data-alias]::before {
-    content: none;
   }
 }
 

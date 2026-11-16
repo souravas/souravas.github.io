@@ -2,7 +2,7 @@
    SOURAV — /start/v3, Shelves
    A trial design of /start: a shelf per group, its name on the
    left and its links in a row of wide buttons, every shelf on the
-   same seven columns. The markup is /start's bookmarks (see
+   same six columns. The markup is /start's bookmarks (see
    ../CLAUDE.md); only this stylesheet is the page's own.
    ============================================================ */
 
@@ -13,7 +13,7 @@
    --legend is the grey of the short codes on the buttons (4.8:1 on
    the face), and --label the width of the column of group names.
    --row (a button's height), --gap (between the shelves) and
-   --space (around the pinned row) change with the window (see the
+   --space (under the prompt) change with the window (see the
    layout). */
 :root {
   --face: #0a0a0a;
@@ -45,21 +45,17 @@ svg {
 }
 
 /* ---------- Layout ----------
-   A column of shelves: the prompt, the pinned row, then a shelf per
-   group. Phones stack each group's name over its links, two to a
-   row, and keep the pinned links as one row of icons. From 760px the
-   page is centred in the window and the links run four to a row.
+   A column of shelves: the prompt, then a shelf per group. Phones
+   stack each group's name over its links, two to a row. From 760px
+   the page is centred in the window and the links run four to a row.
    From 1280px each group's name moves into a column on its left and
-   its links run seven to a row, so every group fits one (the widest,
-   Fun, has seven), in columns shared by every shelf; the prompt and
-   the pinned row line up with those columns, and the pinned row shows
-   its names. A button is narrowest there, 149px at 1280px, which
-   holds "Downloads" beside its tab count in the 14px the buttons use
-   below 1440px; any narrower and a word would break. There the rows, the
-   gaps and the space around the pinned row grow with the window's
-   height, from 44px, 6px and 12px to 56px, 10px and 24px over
-   560–800px of it: the page fits a laptop's window down to about
-   560px tall, and fills a taller one. */
+   its links run six to a row, so every group fits one (the largest
+   have six), in columns shared by every shelf; the prompt lines up
+   with those columns. A button is narrowest there, 175px at 1280px,
+   which holds "Tech Interview" beside its short code in the 14px the
+   buttons use below 1440px. There the rows, the gaps and the space
+   under the prompt grow with the window's height, from 44px, 6px and
+   12px to 56px, 10px and 24px over 560–800px of it. */
 .page {
   display: flex;
   flex-direction: column;
@@ -255,7 +251,7 @@ svg {
 
 @media (width >= 1280px) {
   .links {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -331,8 +327,8 @@ svg {
   }
 }
 
-/* The seven-column rows are tight below 1440px: smaller type and
-   less space around it keep every word whole. */
+/* The six-column rows are tight below 1440px: smaller type and
+   less space around it keep two-word names on one line. */
 @media (1280px <= width < 1440px) {
   .links a {
     gap: 10px;
@@ -402,67 +398,6 @@ svg {
 @media (hover: hover) {
   .links a.is-dim:hover {
     opacity: 1;
-  }
-}
-
-/* ---------- Pinned ----------
-   The first shelf has no name: the most used links, ruled off from
-   the groups. Up to 1280px they are one row of icons, as on v1:
-   the name is hidden from sight only, so screen readers and the
-   prompt still use it, and prompt.js shows it as the tooltip. From
-   1280px they show their names, over the groups' columns, a little
-   taller than the rest and with a brighter icon. */
-.links.top {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  margin-bottom: calc(var(--space) - var(--gap));
-  padding-bottom: var(--space);
-  border-bottom: 1px solid var(--line);
-}
-
-.links.top .icon {
-  color: var(--heading);
-}
-
-@media (width < 1280px) {
-  .links.top a {
-    justify-content: center;
-    height: 52px;
-    padding: 0;
-  }
-
-  .links.top .icon svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .links.top .name {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .links.top a::after {
-    content: none;
-  }
-}
-
-@media (width >= 1280px) {
-  .links.top {
-    margin-left: calc(var(--label) + 16px);
-  }
-
-  .links.top a {
-    height: calc(var(--row) + 12px);
-    padding-left: 16px;
-    font-size: 15.5px;
-  }
-
-  .links.top .icon svg {
-    width: 24px;
-    height: 24px;
   }
 }
 

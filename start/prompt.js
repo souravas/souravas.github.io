@@ -2,9 +2,9 @@
    /start's prompt, imported by the main.js of each of its designs
    (/start/v1/, /start/v2/, /start/v3/; /start itself is a copy of
    the default). It works on any page with /start's markup
-   (bookmarks.html): the .prompt with #q and #hint, the pinned
-   .links.top, and .group sections, each an h2 over a ul.links of
-   links whose names are in .name. The designs are that markup
+   (bookmarks.html): the .prompt with #q and #hint, and .group
+   sections, each an h2 over a ul.links of links whose names are in
+   .name. The designs are that markup
    under different stylesheets.
    ============================================================ */
 
@@ -29,9 +29,7 @@
    Enter open in this tab, since /start is the browser's homepage; a
    link with data-also opens its href and
    those URLs in new tabs, on a click or a middle click, and clicking a
-   group's heading opens all of its links in new tabs. The pinned
-   links, the row above the groups, are titled with their names,
-   which v1, and every design on phones, show only as icons.
+   group's heading opens all of its links in new tabs.
    Set https://souravas.com/start/?q=%s as a search engine and the
    address bar takes the same queries: the page opens what Enter would,
    except an address, which waits in the prompt for Enter. */
@@ -167,10 +165,6 @@
     heading.replaceChildren(button);
     return { section, title, key: title.toLowerCase(), hrefs };
   });
-
-  // The pinned links often show only an icon, so each is titled with its name.
-  const pinned = document.querySelector(".links.top");
-  for (const link of links) if (pinned?.contains(link.a)) link.a.title = link.label;
 
   // Marks each [from, to) range of a link's name.
   const highlight = (link, marks) => {
@@ -352,8 +346,8 @@
   document.addEventListener("pointerover", (e) => {
     if (e.pointerType === "mouse") nameAlias(e.target);
   });
-  // The pointer leaving the window, as it does from the pinned tiles up
-  // to the tab strip, enters nothing here, so clear what it named.
+  // The pointer leaving the window, as it does from the top row of links
+  // up to the tab strip, enters nothing here, so clear what it named.
   document.addEventListener("pointerout", (e) => {
     if (e.pointerType === "mouse" && !e.relatedTarget) nameAlias(null);
   });

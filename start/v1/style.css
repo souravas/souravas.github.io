@@ -44,10 +44,10 @@ svg {
    doesn't leave its lower half empty, and once the list outgrows the
    window the margins drop to zero and it starts at the top, unclipped.
    From 760px each group is one list under its heading, and the groups
-   run in four columns, set like a newspaper's. A quarter of a 760px
-   row still holds the longest name (Interview Ready, 151px with its
-   icon) with 32px between the columns and 24px at the sides; from
-   900px those widen to 48px and 40px. A group never splits across
+   run in three columns, set like a newspaper's, each twelve links
+   long. 32px go between the columns and 24px at the sides; from
+   900px those widen to 48px and 40px. The page stops at 960px,
+   which keeps a column about 260px wide. A group never splits across
    two columns, and each column after the first starts at a group
    marked .column-start, so every group stays in the column chosen
    for it instead of where the browser's balancing would move it; the
@@ -59,7 +59,7 @@ svg {
    instead of floating in it. Phones keep 36px rows and 16px gaps. */
 .page {
   width: 100%;
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto auto;
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
@@ -74,7 +74,7 @@ svg {
     margin: auto;
     padding: calc(var(--gap) + 8px) 24px 24px;
     column-gap: 32px;
-    columns: 4;
+    columns: 3;
   }
 }
 
@@ -164,70 +164,10 @@ svg {
   font: inherit;
 }
 
-/* ---------- Pinned ----------
-   The most used links, as one row of seven icon tiles under the
-   prompt that spans every column, its outer edges in line with the
-   prompt's rule; at 320px a tile is still 34px wide. A tile grows with
-   the rows, and its icon is brighter than the links' below. Its name
-   is hidden but still read out, and prompt.js shows it as the tile's
-   tooltip. The row tucks up into the
-   gap under the prompt. */
-.links.top {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 8px;
-  margin: calc(var(--gap) / -2) 0 max(16px, var(--gap) - 8px);
-  column-span: all;
-}
-
-.links.top a {
-  position: relative;
-  justify-content: center;
-  min-height: calc(var(--row) + 12px);
-  padding: 0;
-  border: 1px solid var(--line);
-  transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
-}
-
-@media (hover: hover) {
-  .links.top a:hover {
-    border-color: var(--rule);
-  }
-}
-
-.links.top .icon {
-  color: var(--body);
-}
-
-.links.top .icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-/* Hidden from sight only: screen readers still name the tile, and
-   the prompt still marks what you type in it. */
-.links.top .name {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* No room for the ↵ mark beside the icon: the lit edge says Enter
-   opens it. */
-.links.top a.is-selected {
-  border-color: rgb(184 177 255 / 0.45);
-}
-
-.links.top a.is-selected::after {
-  content: none;
-}
-
 /* ---------- Bookmark groups ----------
    Each group is a block: its heading, then its links, in two columns
-   on phones, so a group fills whole rows and only an odd count leaves
-   a cell empty, and as one list from 760px, where the blocks are set
+   on phones, which every group's even count fills, and as one list
+   from 760px, where the blocks are set
    in columns (see the layout above); a block moving to the next
    column drops its top margin there, so every column starts on the
    same line. The heading is a plain word in the body face, smaller
@@ -302,8 +242,7 @@ svg {
 
 /* Negative margins let each link's hover box bleed past the column
    edge, so the icons line up with the group heading above. Two
-   columns on phones but the narrowest: an even count fills its last
-   row, an odd one ends on a link alone. One from 760px, where the
+   columns on phones but the narrowest, one from 760px, where the
    groups themselves are set in columns. */
 .links {
   display: grid;
