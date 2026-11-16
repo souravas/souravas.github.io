@@ -16,8 +16,8 @@
    The rest is the layout's (see it below): --key is a key's
    height, the gaps are between keys, between the groups of a row
    and between the rows, --cols is how many columns of keys the
-   page has, and --six and --four how many of them a group of six
-   links and a group of four set their keys in. */
+   page has, and --six, --four and --two how many of them a group of
+   six links, of four and of two set their keys in. */
 :root {
   --face: #0b0b0b;
   --face-hover: #121212;
@@ -32,6 +32,7 @@
   --cols: 4;
   --six: 2;
   --four: 2;
+  --two: 1;
 }
 
 body {
@@ -54,27 +55,30 @@ svg {
 /* ---------- Layout ----------
    One grid, --cols columns of keys wide. The prompt spans it, and a
    group takes as many columns as it sets keys to a row: --six for a
-   group with a fifth link, --four for the rest. Which arrangement
-   depends on the window's shape:
+   group with a fifth link, --two for one of at most two, --four for
+   the rest. Which arrangement depends on the window's shape:
 
-     under 360px            2 columns   each group a row of its own
+     under 360px            2 columns   each group a row of its own,
+                                        but Prep and Finance share one
      phones, tall windows   4 columns   Daily Code / Design Learn /
-                                        Prep Fun
+                                        Prep Finance Fun
      from 760px and 5:6     8 columns   Daily Code Design Learn /
-     or wider                           Prep Fun
-     1500px, 3:1 or wider   16 columns  all six in one row
+     or wider                           Prep Finance Fun
+     1500px, 3:1 or wider   16 columns  all seven in one row
 
    With 4 and 8 columns a group of six is two keys wide and three
-   deep; with 8 a group of four is one row of four, with 16 two by
-   two, beside groups of six three wide and two deep. Under 760px the
-   page scrolls; from there it is fitted to the window (see below).
-   The ratios are where the next arrangement starts to give the
-   larger keys. All of it counts on four groups of six, then two of
-   at most four: 32 places, which is 4 × 8, 8 × 4 and 16 × 2. With
-   Prep's four and Fun's four the groups close into a rectangle;
-   Prep's two leave its last two places empty. Six columns or nine or twelve, as before
-   November 2026, when there were seven groups and 36 keys, would
-   leave a hole. */
+   deep; with 8 a group of four is one row of four and a group of two
+   one row of two, with 16 two by two and one wide, two deep, beside
+   groups of six three wide and two deep. With 4 and 2 columns a group
+   of two is also one key wide, two deep. Under 760px the page
+   scrolls; from there it is fitted to the window (see below). The
+   ratios are where the next arrangement starts to give the larger
+   keys. All of it counts on four groups of six, then Prep's two,
+   Finance's two and Fun's four, which take as many places as two
+   groups of four: 32, which is 4 × 8, 8 × 4 and 16 × 2. So the
+   groups close into a rectangle with every place taken. Six columns or nine or twelve, as before November 2026, when
+   there were seven groups and 36 keys, would leave a hole, and so
+   would another group, or a third link in Prep or Finance. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -146,6 +150,7 @@ svg {
   :root {
     --cols: 8;
     --four: 4;
+    --two: 2;
     --rows: 2;
     --key-rows: 4;
     --across: 9.75;
@@ -158,6 +163,7 @@ svg {
     --cols: 16;
     --six: 3;
     --four: 2;
+    --two: 1;
     --rows: 1;
     --key-rows: 2;
     --across: 18.85;
@@ -240,7 +246,7 @@ svg {
 /* ---------- Groups ----------
    A group: its name, then its keys, --span to a row, which is also
    how many of the page's columns it takes. A group with a fifth link
-   is a group of six. The name is a button (prompt.js puts it in the
+   is a group of six, one without a third a group of two. The name is a button (prompt.js puts it in the
    h2) that opens the whole group. */
 .group {
   --span: var(--four);
@@ -254,6 +260,10 @@ svg {
 
 .group:has(li:nth-child(5)) {
   --span: var(--six);
+}
+
+.group:not(:has(li:nth-child(3))) {
+  --span: var(--two);
 }
 
 .group h2 {
