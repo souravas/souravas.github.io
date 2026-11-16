@@ -44,8 +44,8 @@ svg {
    doesn't leave its lower half empty, and once the list outgrows the
    window the margins drop to zero and it starts at the top, unclipped.
    From 760px each group is one list under its heading, and the groups
-   run in three columns, set like a newspaper's, each twelve links
-   long. 32px go between the columns and 24px at the sides; from
+   run in three columns, set like a newspaper's, the first two twelve
+   links long. 32px go between the columns and 24px at the sides; from
    900px those widen to 48px and 40px. The page stops at 960px,
    which keeps a column about 260px wide. A group never splits across
    two columns, and each column after the first starts at a group

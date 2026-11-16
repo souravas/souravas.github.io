@@ -17,7 +17,8 @@
    Patterns) or the starts of its words in order ("sys des" finds
    System Design), which beat the inside of a word, then on its addresses,
    where the query has to start a word: its site's name ("zerodha" finds
-   Varsity, but "co" doesn't find lldcoding's LLD), or any other word in
+   Varsity, but "school" doesn't find systemdesignschool's System
+   Design), or any other word in
    them ("docs" finds Cashflow, "kannada" finds Language). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
@@ -63,7 +64,7 @@
     // Everything the link opens, in order: its href, then data-also.
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
     // The other words in all of those addresses, which a query has to
-    // start, so "view" doesn't find LLD: each host's labels but the TLD
+    // start, so "type" doesn't find Typing: each host's labels but the TLD
     // ("docs" in docs.google.com, "koofr" from data-also), and for a
     // page on this site the first segment of its path ("kannada").
     // www, app and web name no site.

@@ -53,14 +53,14 @@ svg {
 
 /* ---------- Layout ----------
    One grid, --cols columns of keys wide. The prompt spans it, and a
-   group takes as many columns as it sets keys to a row, so in every
-   arrangement the six groups close into a rectangle, Fun's fourth
-   place the only empty one. Which one depends on the window's shape:
+   group takes as many columns as it sets keys to a row: --six for a
+   group with a fifth link, --four for the rest. Which arrangement
+   depends on the window's shape:
 
      under 360px            2 columns   each group a row of its own
-     phones, tall windows   4 columns   Daily Learn / Code Design /
+     phones, tall windows   4 columns   Daily Code / Design Learn /
                                         Prep Fun
-     from 760px and 5:6     8 columns   Daily Learn Code Design /
+     from 760px and 5:6     8 columns   Daily Code Design Learn /
      or wider                           Prep Fun
      1500px, 3:1 or wider   16 columns  all six in one row
 
@@ -69,10 +69,13 @@ svg {
    two, beside groups of six three wide and two deep. Under 760px the
    page scrolls; from there it is fitted to the window (see below).
    The ratios are where the next arrangement starts to give the
-   larger keys. All of it counts on four groups of six, then Prep's
-   four and Fun's three: 32 places, which is 4 × 8, 8 × 4 and 16 × 2.
-   Six columns or nine or twelve, as before November 2026, when there
-   were seven groups and 36 keys, would leave a hole. */
+   larger keys. All of it counts on four groups of six, then two of
+   at most four: 32 places, which is 4 × 8, 8 × 4 and 16 × 2. With
+   Prep's four and Fun's three the groups closed into a rectangle,
+   Fun's fourth place the only empty one; Prep's two leave its last
+   two places empty too. Six columns or nine or twelve, as before
+   November 2026, when there were seven groups and 36 keys, would
+   leave a hole. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
