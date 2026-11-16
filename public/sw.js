@@ -1,10 +1,11 @@
 /* Service worker for the pages that should open without a network:
-   /start, the browser homepage, with its trial designs /start/v2 and
-   /start/v3, and /pomodoro, /kannada and /code. Each page registers
-   this file with its own scope, and each registration is a worker of
-   its own that keeps one page, with the script and fonts it loads, in
-   a cache named after it. A trial design's scope sits inside /start's,
-   and the browser gives its page to the narrower one.
+   /start, the browser homepage (a copy of its default design), with
+   its designs /start/v1, /start/v2 and /start/v3, and /pomodoro,
+   /kannada and /code. Each page registers this file with its own
+   scope, and each registration is a worker of its own that keeps one
+   page, with the script and fonts it loads, in a cache named after
+   it. A design's scope sits inside /start's, and the browser gives
+   its page to the narrower one.
 
    /start and its designs open from that cache, so they show instantly
    and still work when the browser starts before the network is up,

@@ -1,9 +1,9 @@
 /* ============================================================
    SOURAV — /start/v2, Keypad
-   A trial design of /start: every bookmark a key, each group a
+   /start's default design: every bookmark a key, each group a
    keypad two keys wide, the seven keypads side by side under the
-   pinned keys. The markup is /start's (see CLAUDE.md); only this
-   stylesheet is the page's own.
+   pinned keys. The markup is /start's bookmarks (see ../CLAUDE.md);
+   only this stylesheet is the page's own.
    ============================================================ */
 
 @import '../../shared/base.css';
@@ -111,7 +111,7 @@ svg {
 }
 
 /* ---------- Prompt ----------
-   As on /start: the 28px mark column, what you type, and the hint
+   As on v1: the 28px mark column, what you type, and the hint
    ending the row. The input keeps at least half the row on phones,
    so a long hint truncates instead of squeezing what you type. */
 .prompt {
@@ -393,7 +393,7 @@ svg {
 
 /* ---------- Pinned ----------
    Wider keys, as wide as a keypad from 1280px, with a larger and
-   brighter icon. On phones they are one row of icons, as on /start:
+   brighter icon. On phones they are one row of icons, as on v1:
    the name is hidden from sight only, so screen readers and the
    prompt still use it, and prompt.js shows it as the key's tooltip. */
 .links.top a {

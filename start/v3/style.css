@@ -2,8 +2,8 @@
    SOURAV — /start/v3, Shelves
    A trial design of /start: a shelf per group, its name on the
    left and its links in a row of wide buttons, every shelf on the
-   same seven columns. The markup is /start's (see CLAUDE.md);
-   only this stylesheet is the page's own.
+   same seven columns. The markup is /start's bookmarks (see
+   ../CLAUDE.md); only this stylesheet is the page's own.
    ============================================================ */
 
 @import '../../shared/base.css';
@@ -95,7 +95,7 @@ svg {
 }
 
 /* ---------- Prompt ----------
-   As on /start: the mark, what you type, and the hint ending the
+   As on v1: the mark, what you type, and the hint ending the
    row. From 1280px it starts where the buttons do, leaving the names'
    column to the names. The input keeps at least half the row on
    phones, so a long hint truncates instead of squeezing what you
@@ -407,7 +407,7 @@ svg {
 
 /* ---------- Pinned ----------
    The first shelf has no name: the most used links, ruled off from
-   the groups. Up to 1280px they are one row of icons, as on /start:
+   the groups. Up to 1280px they are one row of icons, as on v1:
    the name is hidden from sight only, so screen readers and the
    prompt still use it, and prompt.js shows it as the tooltip. From
    1280px they show their names, over the groups' columns, a little

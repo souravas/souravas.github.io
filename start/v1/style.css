@@ -1,11 +1,14 @@
 /* ============================================================
-   SOURAV — /start
-   Pure black start page: the bookmark groups as a plain index
-   of links, set in columns on wider screens, and an inline prompt
-   that filters the links in place instead of opening a modal.
+   SOURAV — /start/v1
+   /start's first design, its default until November 2026. Pure
+   black start page: the bookmark groups as a plain index of links,
+   set in columns on wider screens, and an inline prompt that
+   filters the links in place instead of opening a modal. The markup
+   is /start's bookmarks (see ../CLAUDE.md); only this stylesheet is
+   the page's own.
    ============================================================ */
 
-@import '../shared/base.css';
+@import '../../shared/base.css';
 
 /* ---------- Tokens ----------
    The shared greys and accent (shared/base.css), and three of this
@@ -166,7 +169,7 @@ svg {
    prompt that spans every column, its outer edges in line with the
    prompt's rule; at 320px a tile is still 34px wide. A tile grows with
    the rows, and its icon is brighter than the links' below. Its name
-   is hidden but still read out, and main.js shows it as the tile's
+   is hidden but still read out, and prompt.js shows it as the tile's
    tooltip. The row tucks up into the
    gap under the prompt. */
 .links.top {
@@ -242,7 +245,7 @@ svg {
   transition: color 0.12s ease;
 }
 
-/* Injected by main.js, so the heading is only clickable when it can
+/* Injected by prompt.js, so the heading is only clickable when it can
    work: clicking it opens every link in the group. */
 .group h2 button {
   padding: 0;
