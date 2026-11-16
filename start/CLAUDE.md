@@ -10,7 +10,7 @@ The browser homepage, in three designs, each a folder with its own notes: [v1/](
 - `data-search`: a search URL with `%s`; an alias plus a query (`lc two sum`) opens it.
 - `data-also`: more URLs, space-separated, opened in new tabs along with the href. The plugin adds their count, plus one for the href, as `data-tabs`, which v2 and v3 print on the link.
 
-The Cloud bookmark is also [/cloud](../cloud/CLAUDE.md)'s list, and the IPO bookmark [/ipo](../ipo/CLAUDE.md)'s: the plugin finds each by name and puts its href and `data-also` into that page, which opens them all. So a site added to either opens there too, and renaming one fails the build.
+The Cloud bookmark is also [/cloud](../cloud/CLAUDE.md)'s list, the IPO bookmark [/ipo](../ipo/CLAUDE.md)'s, and the Kite, Coin and Cashflow bookmarks together [/invest](../invest/CLAUDE.md)'s: the plugin finds each by name and puts its href and `data-also` into that page, which opens them all. So a site added to one opens there too, and renaming one fails the build.
 
 There is no pinned row: the most used links are the first group, Daily. Every group holds six links or four, the groups of six first: four of six, then three of four. So on phones, where every design sets a group's links two to a row, no row is left half full, v3's shelves stay within its six columns, and Keypad's groups close into a rectangle at every window size. Keep that in mind when adding a link or a group: a fifth or seventh link leaves a gap, a seventh breaks v3's row, and another group, or one of another size, leaves a hole in Keypad (see each design's notes).
 

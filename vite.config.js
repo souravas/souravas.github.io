@@ -11,7 +11,7 @@ const SITE_ORIGIN = 'https://souravas.com'
 // it in search. Redirect stubs (/cv, /resume) are meta-refresh pages to
 // the PDF and would just be deindexed, and the /start/ pages are a
 // personal start page (noindex), as are /kannada/, /code/, /fit/,
-// /pomodoro/, /cloud/ and /ipo/.
+// /pomodoro/, /cloud/, /ipo/ and /invest/.
 const SITEMAP_URLS = [
   { loc: '/', changefreq: 'monthly', priority: '1.0' },
 ]
@@ -35,7 +35,7 @@ const capitalize = (s) => s[0].toUpperCase() + s.slice(1)
 // Inline the built stylesheet into <head> in place of its <link>, removing
 // the one render-blocking request. Must run before csp-inline-hashes so the
 // resulting <style> body gets a style-src hash. Pages whose CSS is the same
-// (/cloud and /ipo) share one emitted file, so the inlined files leave the
+// (/cloud, /ipo and /invest) share one emitted file, so the inlined files leave the
 // bundle only after every page is written (generateBundle, order 'post',
 // runs after Vite's HTML plugin has called this for each page).
 const inlineCss = () => {
@@ -349,21 +349,25 @@ const codeDocs = () => {
 // bookmark added or moved there shows on all three. Each link that opens
 // several tabs (data-also) gets their count as data-tabs, which v2 and v3
 // print on it. A <!--sites:Name--> marker gets the sites of the bookmark
-// called Name, which that page opens: Cloud on /cloud, IPO on /ipo (see
-// bookmarkSites). Dev reloads every page when the file changes, as Vite
+// called Name, which that page opens: Cloud on /cloud, IPO on /ipo, and
+// Kite, Coin and Cashflow on /invest (see bookmarkSites). Dev reloads every page when the file changes, as Vite
 // on its own reloads none: no page loads it.
 const START_BOOKMARKS = 'start/bookmarks.html'
 
 // The sites a page such as /cloud opens: the named bookmark's href, then
 // its data-also, as an ol.sites of links to new tabs, each named by its
-// host. Comments go first, as one may show an <a>. Without that bookmark
+// host. A marker may name several bookmarks, comma-separated (/invest:
+// Kite, Coin, Cashflow), whose sites follow one another in that order.
+// Comments go first, as one may show an <a>. Without a named bookmark
 // the build fails, rather than deploy a page that opens nothing.
-const bookmarkSites = (bookmarks, name, page) => {
-  const bookmark = [...bookmarks.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/g)]
-    .find(([, , inner]) => inner.includes(`<span class="name">${name}</span>`))
-  if (!bookmark) throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no bookmark named ${name}, which ${page} opens`)
-  const attr = (key) => bookmark[1].match(new RegExp(`(?:^|\\s)${key}="([^"]*)"`))?.[1] ?? ''
-  const hrefs = [attr('href'), ...attr('data-also').split(/\s+/).filter(Boolean)]
+const bookmarkSites = (bookmarks, names, page) => {
+  const links = [...bookmarks.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/g)]
+  const hrefs = names.split(',').map((name) => name.trim()).flatMap((name) => {
+    const bookmark = links.find(([, , inner]) => inner.includes(`<span class="name">${name}</span>`))
+    if (!bookmark) throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no bookmark named ${name}, which ${page} opens`)
+    const attr = (key) => bookmark[1].match(new RegExp(`(?:^|\\s)${key}="([^"]*)"`))?.[1] ?? ''
+    return [attr('href'), ...attr('data-also').split(/\s+/).filter(Boolean)]
+  })
   const items = hrefs.map((href) => {
     const host = new URL(href.replaceAll('&amp;', '&')).hostname
     return `<li><a href="${href}" target="_blank">${host}</a></li>`
@@ -455,8 +459,8 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Twelve separate pages (v1–v3, /start's designs start/v1–v3, kannada,
-  // code, fit, pomodoro, cloud, ipo), no SPA fallback; / and /start are copies
+  // Thirteen separate pages (v1–v3, /start's designs start/v1–v3, kannada,
+  // code, fit, pomodoro, cloud, ipo, invest), no SPA fallback; / and /start are copies
   // of a design (DEFAULT_PAGES).
   appType: 'mpa',
   build: {
@@ -483,6 +487,7 @@ export default defineConfig({
         pomodoro: 'pomodoro/index.html',
         cloud: 'cloud/index.html',
         ipo: 'ipo/index.html',
+        invest: 'invest/index.html',
       },
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
@@ -531,6 +536,8 @@ export default defineConfig({
             req.url = '/cloud/index.html'
           } else if (path === '/ipo' || path === '/ipo/') {
             req.url = '/ipo/index.html'
+          } else if (path === '/invest' || path === '/invest/') {
+            req.url = '/invest/index.html'
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
           } else if (path === '/resume' || path === '/resume/') {
@@ -542,7 +549,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/start/v1', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro', '/cloud', '/ipo', '/invest'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
