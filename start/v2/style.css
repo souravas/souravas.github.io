@@ -1,0 +1,453 @@
+/* ============================================================
+   SOURAV — /start/v2, Keypad
+   A trial design of /start: every bookmark a key, each group a
+   keypad two keys wide, the seven keypads side by side under the
+   pinned keys. The markup is /start's (see CLAUDE.md); only this
+   stylesheet is the page's own.
+   ============================================================ */
+
+@import '../../shared/base.css';
+
+/* ---------- Tokens ----------
+   A key's face, its edge, the lip along its bottom that makes it
+   read as a key, and its face under the pointer. --legend is the
+   grey of the short codes printed on the keys (4.8:1 on the face).
+   --key, a key's height, and --gap, the space between the rows,
+   grow with the window (see the layout). */
+:root {
+  --face: #0b0b0b;
+  --face-hover: #121212;
+  --face-line: #1e1e1e;
+  --face-lip: #171717;
+  --icon: #8a8a8a;
+  --legend: #7d7d7d;
+  --key: 84px;
+  --gap: 24px;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+svg {
+  fill: currentColor;
+}
+
+/* ---------- Layout ----------
+   One grid for the whole page. The prompt and the pinned keys span
+   it; each group takes one cell, a keypad two keys wide. Phones set
+   the keypads two to a row and the pinned keys as one row of icons;
+   from 760px the keypads run four to a row, and from 1280px all
+   seven in one, where the pinned row takes the same columns, so each
+   pinned key sits over a keypad. A key there is still 77px wide,
+   room for "AlgoMonster" on one line in the 12px its names use up to
+   1440px. From 760px the page is
+   centred in the window, and the keys (--key) and the gaps (--gap)
+   grow with its height, from 80px and 16px to 96px and 28px over
+   560–800px of it: the seven keypads fit a laptop's window down to
+   about 560px tall, and fill a taller one. */
+.page {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 16px;
+  align-content: start;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto auto;
+  padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+.prompt,
+.links.top {
+  grid-column: 1 / -1;
+}
+
+/* Narrow phones (320px) would leave a key 64px, too narrow for
+   "AlgoMonster": one keypad to a row there. */
+@media (width < 360px) {
+  .page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width >= 760px) {
+  :root {
+    --key: clamp(80px, 80px + (100vh - 560px) * 16 / 240, 96px);
+    --gap: clamp(16px, 16px + (100vh - 560px) * 12 / 240, 28px);
+  }
+
+  .page {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--gap) 20px;
+    margin: auto;
+    padding: var(--gap) 32px;
+  }
+}
+
+@media (width >= 1280px) {
+  .page {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    column-gap: 16px;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+}
+
+@media (width >= 1440px) {
+  .page {
+    column-gap: 20px;
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+}
+
+/* ---------- Prompt ----------
+   As on /start: the 28px mark column, what you type, and the hint
+   ending the row. The input keeps at least half the row on phones,
+   so a long hint truncates instead of squeezing what you type. */
+.prompt {
+  display: grid;
+  grid-template-columns: 28px minmax(50%, 1fr) auto;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  transition: border-color 0.15s ease;
+}
+
+.prompt:focus-within {
+  border-bottom-color: rgb(184 177 255 / 0.45);
+}
+
+@media (width >= 760px) {
+  .prompt {
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+  }
+}
+
+.prompt-mark {
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* 16px keeps iOS from zooming the page when the field takes focus. */
+.prompt-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  caret-color: var(--accent);
+  outline: none;
+}
+
+.prompt-input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.prompt-hint {
+  max-width: 34ch;
+  padding-left: 16px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (width >= 760px) {
+  .prompt-hint {
+    max-width: 44ch;
+  }
+}
+
+.prompt-hint kbd {
+  margin-right: 8px;
+  color: var(--accent);
+  font: inherit;
+}
+
+/* ---------- Keypads ----------
+   A group: its name, then its keys two to a row. The name is a
+   button (prompt.js puts it in the h2) that opens the whole group. */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.group h2 {
+  margin: 0;
+  padding: 0 2px;
+  color: var(--heading);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  transition: color 0.12s ease;
+}
+
+.group h2 button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.12s ease;
+}
+
+@media (hover: hover) {
+  .group h2 button:hover {
+    color: var(--text);
+  }
+}
+
+.group h2 button:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* "open all" is the Enter candidate: light the whole keypad. */
+.group.is-selected h2 {
+  color: var(--accent);
+}
+
+.group.is-selected .links a {
+  opacity: 1;
+  color: var(--text);
+}
+
+.group.is-selected .icon {
+  color: var(--text);
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links.top {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+/* The page's own column gap, so the pinned keys line up with the
+   keypads under them. */
+@media (width >= 1280px) {
+  .links.top {
+    column-gap: inherit;
+  }
+}
+
+/* ---------- Keys ----------
+   A key: its icon over its name, the pair centred a little above the
+   middle, clear of the lip; a name that wraps to a second line runs
+   on into the space below. The link's short code (data-alias) is
+   printed in the top-left corner and, on a link that opens several
+   tabs, their count (data-tabs, which the start-bookmarks plugin
+   adds) in the top right. Neither is read out: the name already says
+   where the key goes. The first content of each is for browsers that
+   can't read the second's empty alt text (Safari before 17.4). */
+.links a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: var(--key);
+  padding: calc((var(--key) - 49px) / 2 - 4px) 4px 0;
+  border: 1px solid var(--face-line);
+  border-radius: 12px;
+  background: var(--face);
+  box-shadow: inset 0 -3px 0 var(--face-lip);
+  color: var(--body);
+  font-size: 12.5px;
+  line-height: 15px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease, transform 0.06s ease;
+}
+
+/* Up to 1440px the keys of the one-row layout are narrowest (77px at
+   1280px): a size smaller keeps "AlgoMonster" whole. */
+@media (1280px <= width < 1440px) {
+  .links a {
+    font-size: 12px;
+  }
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--icon);
+  transition: color 0.12s ease;
+}
+
+.icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.name mark {
+  background: none;
+  color: var(--accent);
+}
+
+.links a[data-alias]::before,
+.links a[data-tabs]::after {
+  position: absolute;
+  top: 7px;
+  color: var(--legend);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+}
+
+.links a[data-alias]::before {
+  content: attr(data-alias);
+  content: attr(data-alias) / '';
+  left: 8px;
+}
+
+.links a[data-tabs]::after {
+  content: '×' attr(data-tabs);
+  content: '×' attr(data-tabs) / '';
+  right: 8px;
+}
+
+@media (hover: hover) {
+  .links a:hover {
+    border-color: var(--edge);
+    background: var(--face-hover);
+    color: var(--text);
+  }
+
+  .links a:hover .icon {
+    color: var(--text);
+  }
+}
+
+/* Pressed, the key sinks onto its lip. */
+.links a:active {
+  box-shadow: inset 0 -1px 0 var(--face-lip);
+  transform: translateY(1px);
+}
+
+.links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The key Enter will open: its edge lit. */
+.links a.is-selected {
+  border-color: rgb(184 177 255 / 0.55);
+  background: var(--face-hover);
+  color: var(--text);
+}
+
+.links a.is-selected .icon {
+  color: var(--text);
+}
+
+/* While filtering, keys that don't match fade back but keep their
+   place, so the layout never jumps. */
+.links a.is-dim {
+  opacity: 0.3;
+}
+
+@media (hover: hover) {
+  .links a.is-dim:hover {
+    opacity: 1;
+  }
+}
+
+/* ---------- Pinned ----------
+   Wider keys, as wide as a keypad from 1280px, with a larger and
+   brighter icon. On phones they are one row of icons, as on /start:
+   the name is hidden from sight only, so screen readers and the
+   prompt still use it, and prompt.js shows it as the key's tooltip. */
+.links.top a {
+  padding-top: calc((var(--key) - 54px) / 2 - 4px);
+  color: var(--heading);
+  font-size: 13.5px;
+  line-height: 16px;
+}
+
+.links.top .icon {
+  color: var(--heading);
+}
+
+.links.top .icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+@media (width < 760px) {
+  .links.top a {
+    justify-content: center;
+    height: 52px;
+    padding: 0 0 3px;
+  }
+
+  .links.top .icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .links.top .name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .links.top a[data-alias]::before {
+    content: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt,
+  .group h2,
+  .group h2 button,
+  .links a,
+  .icon {
+    transition: none;
+  }
+
+  .links a:active {
+    transform: none;
+  }
+}

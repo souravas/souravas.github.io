@@ -327,6 +327,45 @@ const codeDocs = () => {
   }
 }
 
+// /start's trial designs (/start/v2/, /start/v3/) show /start's own
+// bookmarks: start/index.html's icon sprite and <main>, put in place of
+// each one's <!--bookmarks--> marker, in dev as well as the build, so a
+// bookmark added or moved there shows on all three. Each link that opens
+// several tabs (data-also) gets their count as data-tabs, which the
+// designs print on it. Dev reloads every page when start/index.html
+// changes, as Vite on its own reloads only /start.
+const START_PAGE = 'start/index.html'
+
+const startBookmarks = () => {
+  let root = process.cwd()
+  return {
+    name: 'start-bookmarks',
+    configResolved(config) {
+      root = config.root
+    },
+    configureServer(server) {
+      const page = resolve(root, START_PAGE)
+      server.watcher.on('change', (file) => {
+        if (resolve(file) === page) server.ws.send({ type: 'full-reload' })
+      })
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        if (!html.includes('<!--bookmarks-->')) return html
+        const source = readFileSync(resolve(root, START_PAGE), 'utf8')
+        const bookmarks = /<svg class="sprite"[\s\S]*<\/main>/.exec(source)?.[0]
+        if (!bookmarks) throw new Error(`[start-bookmarks] ${START_PAGE} has no icon sprite or <main>`)
+        const tabbed = bookmarks.replace(
+          /data-also="([^"]*)"/g,
+          (attr, also) => `${attr} data-tabs="${also.trim().split(/\s+/).length + 1}"`,
+        )
+        return html.replace('<!--bookmarks-->', () => tabbed)
+      },
+    },
+  }
+}
+
 // Collapse whitespace inside JSON-LD blocks so they minify alongside the rest
 // of the HTML. Runs before csp-inline-hashes so the SHA-256 matches the body
 // the browser sees.
@@ -377,8 +416,8 @@ const htmlMinify = () => ({
 
 export default defineConfig({
   base: '/',
-  // Eight separate pages (v1–v3, start, kannada, code, fit, pomodoro),
-  // no SPA fallback.
+  // Ten separate pages (v1–v3, start and its trial designs start/v2 and
+  // start/v3, kannada, code, fit, pomodoro), no SPA fallback.
   appType: 'mpa',
   build: {
     outDir: 'dist',
@@ -396,6 +435,8 @@ export default defineConfig({
         v2: 'v2/index.html',
         v3: 'v3/index.html',
         start: 'start/index.html',
+        startV2: 'start/v2/index.html',
+        startV3: 'start/v3/index.html',
         kannada: 'kannada/index.html',
         code: 'code/index.html',
         fit: 'fit/index.html',
@@ -430,6 +471,10 @@ export default defineConfig({
             req.url = '/v3/index.html'
           } else if (path === '/start' || path === '/start/') {
             req.url = '/start/index.html'
+          } else if (path === '/start/v2' || path === '/start/v2/') {
+            req.url = '/start/v2/index.html'
+          } else if (path === '/start/v3' || path === '/start/v3/') {
+            req.url = '/start/v3/index.html'
           } else if (path === '/kannada' || path === '/kannada/') {
             req.url = '/kannada/index.html'
           } else if (path === '/code' || path === '/code/') {
@@ -449,7 +494,7 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, _res, next) => {
           const path = req.url.split('?')[0]
-          if (['/v1', '/v2', '/v3', '/start', '/kannada', '/code', '/fit', '/pomodoro'].includes(path)) {
+          if (['/v1', '/v2', '/v3', '/start', '/start/v2', '/start/v3', '/kannada', '/code', '/fit', '/pomodoro'].includes(path)) {
             req.url = `${path}/index.html`
           } else if (path === '/cv' || path === '/cv/') {
             req.url = '/cv.html'
@@ -463,6 +508,7 @@ export default defineConfig({
     buildStamps(),
     kannadaNote(),
     codeDocs(),
+    startBookmarks(),
     jsonLdMinify(),
     inlineCss(),
     cspInlineHashes(),
