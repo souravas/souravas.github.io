@@ -348,32 +348,9 @@ const codeDocs = () => {
 // of each one's <!--bookmarks--> marker, in dev as well as the build, so a
 // bookmark added or moved there shows on all three. Each link that opens
 // several tabs (data-also) gets their count as data-tabs, which v2 and v3
-// print on it. A <!--sites:Name--> marker gets the sites of the bookmark
-// called Name, which that page opens: Cloud on /cloud, IPO on /ipo, and
-// Kite, Coin and Cashflow on /invest (see bookmarkSites). Dev reloads every page when the file changes, as Vite
-// on its own reloads none: no page loads it.
+// print on it. Dev reloads every page when the file changes, as Vite on
+// its own reloads none: no page loads it.
 const START_BOOKMARKS = 'start/bookmarks.html'
-
-// The sites a page such as /cloud opens: the named bookmark's href, then
-// its data-also, as an ol.sites of links to new tabs, each named by its
-// host. A marker may name several bookmarks, comma-separated (/invest:
-// Kite, Coin, Cashflow), whose sites follow one another in that order.
-// Comments go first, as one may show an <a>. Without a named bookmark
-// the build fails, rather than deploy a page that opens nothing.
-const bookmarkSites = (bookmarks, names, page) => {
-  const links = [...bookmarks.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/g)]
-  const hrefs = names.split(',').map((name) => name.trim()).flatMap((name) => {
-    const bookmark = links.find(([, , inner]) => inner.includes(`<span class="name">${name}</span>`))
-    if (!bookmark) throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no bookmark named ${name}, which ${page} opens`)
-    const attr = (key) => bookmark[1].match(new RegExp(`(?:^|\\s)${key}="([^"]*)"`))?.[1] ?? ''
-    return [attr('href'), ...attr('data-also').split(/\s+/).filter(Boolean)]
-  })
-  const items = hrefs.map((href) => {
-    const host = new URL(href.replaceAll('&amp;', '&')).hostname
-    return `<li><a href="${href}" target="_blank">${host}</a></li>`
-  })
-  return `<ol class="sites">\n${items.join('\n')}\n</ol>`
-}
 
 const startBookmarks = () => {
   let root = process.cwd()
@@ -391,11 +368,9 @@ const startBookmarks = () => {
     },
     transformIndexHtml: {
       order: 'pre',
-      handler(html, ctx) {
-        const sites = html.match(/<!--sites:([^>]+?)-->/)
-        if (!sites && !html.includes('<!--bookmarks-->')) return html
+      handler(html) {
+        if (!html.includes('<!--bookmarks-->')) return html
         const bookmarks = readFileSync(resolve(root, START_BOOKMARKS), 'utf8').trim()
-        if (sites) return html.replace(sites[0], () => bookmarkSites(bookmarks, sites[1], ctx.path))
         if (!/<svg class="sprite"[\s\S]*<main\b[\s\S]*<\/main>/.test(bookmarks)) {
           throw new Error(`[start-bookmarks] ${START_BOOKMARKS} has no icon sprite or <main>`)
         }

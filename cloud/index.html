@@ -32,10 +32,16 @@
     </header>
 
     <div class="content">
-      <!-- The sites of /start's Cloud bookmark, its href first, put in
-           by the start-bookmarks plugin from start/bookmarks.html as an
-           ol.sites of links. Change them there, never here. -->
-      <!--sites:Cloud-->
+      <!-- The sites this page opens: the first in this tab, the rest
+           in new tabs, in order (../shared/opener.js). Each is named
+           by its host. -->
+      <ol class="sites">
+        <li><a href="https://drive.google.com/" target="_blank">drive.google.com</a></li>
+        <li><a href="https://photos.google.com/" target="_blank">photos.google.com</a></li>
+        <li><a href="https://app.koofr.net/" target="_blank">app.koofr.net</a></li>
+        <li><a href="https://app.drime.cloud/" target="_blank">app.drime.cloud</a></li>
+        <li><a href="https://drive.proton.me/" target="_blank">drive.proton.me</a></li>
+      </ol>
 
       <!-- Shown by main.js when the browser blocks the new tabs. -->
       <div class="blocked" id="blocked" hidden>

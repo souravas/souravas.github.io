@@ -1,2 +1,2 @@
-// /cloud: opens the sites of /start's Cloud bookmark; see ../shared/opener.js.
+// /cloud: opens the cloud drives listed in index.html; see ../shared/opener.js.
 import '../shared/opener.js'

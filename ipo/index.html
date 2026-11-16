@@ -32,10 +32,13 @@
     </header>
 
     <div class="content">
-      <!-- The sites of /start's IPO bookmark, its href first, put in
-           by the start-bookmarks plugin from start/bookmarks.html as an
-           ol.sites of links. Change them there, never here. -->
-      <!--sites:IPO-->
+      <!-- The sites this page opens: the first in this tab, the rest
+           in new tabs, in order (../shared/opener.js). Each is named
+           by its host. -->
+      <ol class="sites">
+        <li><a href="https://ipowatch.in/ipo-grey-market-premium-latest-ipo-gmp/" target="_blank">ipowatch.in</a></li>
+        <li><a href="https://www.chittorgarh.com/" target="_blank">www.chittorgarh.com</a></li>
+      </ol>
 
       <!-- Shown by main.js when the browser blocks the new tabs. -->
       <div class="blocked" id="blocked" hidden>

@@ -32,10 +32,15 @@
     </header>
 
     <div class="content">
-      <!-- The sites of /start's Kite, Coin and Cashflow bookmarks, in
-           that order, put in by the start-bookmarks plugin from start/bookmarks.html as an
-           ol.sites of links. Change them there, never here. -->
-      <!--sites:Kite, Coin, Cashflow-->
+      <!-- The sites this page opens: the first in this tab, the rest
+           in new tabs, in order (../shared/opener.js). Each is named
+           by its host. The Cashflow sheet is also a bookmark on
+           /start (start/bookmarks.html); its address is in both. -->
+      <ol class="sites">
+        <li><a href="https://kite.zerodha.com/dashboard" target="_blank">kite.zerodha.com</a></li>
+        <li><a href="https://coin.zerodha.com/dashboard" target="_blank">coin.zerodha.com</a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1JxNt4t5sVCGtolwqwPLUYdpJOdQ4zJAQTau1O5H7ZXE/edit?gid=1258976699#gid=1258976699" target="_blank">docs.google.com</a></li>
+      </ol>
 
       <!-- Shown by main.js when the browser blocks the new tabs. -->
       <div class="blocked" id="blocked" hidden>

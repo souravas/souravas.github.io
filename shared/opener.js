@@ -1,8 +1,6 @@
 /* ============================================================
-   /cloud, /ipo and /invest: each opens the sites of the /start
-   bookmarks its marker names (Cloud, IPO; Kite, Coin and
-   Cashflow), which the start-bookmarks plugin puts in as the
-   .sites list (each href, then its data-also). The others
+   /cloud, /ipo and /invest: each opens the sites in its
+   index.html's .sites list. All but the first
    open in new tabs, in order, and then this tab becomes the
    first with location.replace, so typing souravas.com/cloud
    leaves exactly those tabs, and Back from the first skips this

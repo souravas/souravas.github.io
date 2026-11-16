@@ -17,7 +17,7 @@
    Patterns) or the starts of its words in order ("sys des" finds
    System Design), which beat the inside of a word, then on its addresses,
    where the query has to start a word: its site's name ("zerodha" finds
-   Kite, but "co" doesn't find lldcoding's LLD), or any other word in
+   Varsity, but "co" doesn't find lldcoding's LLD), or any other word in
    them ("docs" finds Cashflow, "kannada" finds Language). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that

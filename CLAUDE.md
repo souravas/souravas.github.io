@@ -22,9 +22,9 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 | `/code` | [`code/`](code/CLAUDE.md) | Python interview references rendered from the Markdown in `code/` |
 | `/fit` | [`fit/`](fit/CLAUDE.md) | warm-up and exercise videos as grids of thumbnails; `index.html` and `style.css`, no script |
 | `/pomodoro` | [`pomodoro/`](pomodoro/CLAUDE.md) | focus and break timers on a dial |
-| `/cloud` | [`cloud/`](cloud/CLAUDE.md) | opens /start's Cloud bookmark, all its sites at once: the first in this tab, the rest in new ones (once souravas.com is allowed pop-ups); the `start-bookmarks` plugin puts in the list |
-| `/ipo` | [`ipo/`](ipo/CLAUDE.md) | the same for /start's IPO bookmark; it shares /cloud's script and styles (`shared/opener.*`) |
-| `/invest` | [`invest/`](invest/CLAUDE.md) | the same for three bookmarks at once: Kite, Coin and Cashflow |
+| `/cloud` | [`cloud/`](cloud/CLAUDE.md) | opens the cloud drives, all at once: the first in this tab, the rest in new ones (once souravas.com is allowed pop-ups); the list is in its `index.html` |
+| `/ipo` | [`ipo/`](ipo/CLAUDE.md) | the same for the IPO trackers; it shares /cloud's script and styles (`shared/opener.*`) |
+| `/invest` | [`invest/`](invest/CLAUDE.md) | the same for Kite, Coin and the Cashflow sheet |
 | `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | 301 to `/assets/resume.pdf` from a Cloudflare redirect rule; the stubs meta-refresh there if the rule is gone |
 | any unknown route | `public/404.html` | self-contained static 404 |
 | `/sitemap.xml`, `/.well-known/security.txt` | build output | see Build |
@@ -59,7 +59,7 @@ Plugins, in order:
 - `html-routes`: the dev and preview servers mirror GitHub Pages' routing (`/x` → `/x/index.html`, `/cv` → `/cv.html`).
 - `build-stamps` (dev too): fills `__BUILD_DATE__`, `__BUILD_YEAR__`, and the whole years since `CAREER_START` (June 2019) as `__YEARS__`, `__YEARS_00__`, `__YEARS_WORD__`, `__YEARS_WORD_CAP__` and `__YEARS_ORDINAL_CAP__`. **Write these tokens, never the number**, wherever copy states the years. The one exception is the social card (`public/assets/og-cover.jpg`/`.webp`), which has the count drawn into it ("7 years") and has to be redrawn when the count changes each June.
 - `kannada-note` and `code-docs` (dev too): render the Markdown pages; see [kannada/CLAUDE.md](kannada/CLAUDE.md) and [code/CLAUDE.md](code/CLAUDE.md). A link that lands nowhere, such as one to a renamed heading, warns in dev and **fails the build**, so it cannot deploy.
-- `start-bookmarks` (dev too): puts /start's icon sprite and bookmarks (`start/bookmarks.html`) into each of its designs, and a bookmark's sites into a page with a `<!--sites:Name-->` marker (Cloud into /cloud, IPO into /ipo, Kite, Coin and Cashflow into /invest); see [start/CLAUDE.md](start/CLAUDE.md) and [cloud/CLAUDE.md](cloud/CLAUDE.md).
+- `start-bookmarks` (dev too): puts /start's icon sprite and bookmarks (`start/bookmarks.html`) into each of its designs; see [start/CLAUDE.md](start/CLAUDE.md).
 - `json-ld-minify`, `inline-css` (each page's CSS bundle is inlined as a `<style>`, so there is no render-blocking stylesheet request), `csp-inline-hashes`, `html-minify`.
 - `sitemap` (lists only `/`, with the build date as `lastmod`), `security-txt` (`Expires` 364 days out, since RFC 9116 wants under a year; contact `SECURITY_CONTACT`), `root-default` (copies each default design to its section root: v1 to `/`, start/v2 to `/start`).
 
