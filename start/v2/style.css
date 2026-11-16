@@ -1,8 +1,9 @@
 /* ============================================================
    SOURAV — /start/v2, Keypad
    /start's default design: every bookmark a key, each group a
-   keypad two keys wide, the seven keypads side by side under the
-   prompt. The markup is /start's bookmarks (see ../CLAUDE.md);
+   block of keys under its name, the blocks closing into one
+   rectangle under the prompt, shaped and sized to fill the
+   window. The markup is /start's bookmarks (see ../CLAUDE.md);
    only this stylesheet is the page's own.
    ============================================================ */
 
@@ -12,8 +13,11 @@
    A key's face, its edge, the lip along its bottom that makes it
    read as a key, and its face under the pointer. --legend is the
    grey of the short codes printed on the keys (4.8:1 on the face).
-   --key, a key's height, and --gap, the space between the rows,
-   grow with the window (see the layout). */
+   The rest is the layout's (see it below): --key is a key's
+   height, the gaps are between keys, between the groups of a row
+   and between the rows, --cols is how many columns of keys the
+   page has, and --six and --four how many of them a group of six
+   links and a group of four set their keys in. */
 :root {
   --face: #0b0b0b;
   --face-hover: #121212;
@@ -22,7 +26,12 @@
   --icon: #8a8a8a;
   --legend: #7d7d7d;
   --key: 84px;
-  --gap: 24px;
+  --key-gap: 8px;
+  --group-gap: 16px;
+  --row-gap: 28px;
+  --cols: 4;
+  --six: 2;
+  --four: 2;
 }
 
 body {
@@ -43,21 +52,34 @@ svg {
 }
 
 /* ---------- Layout ----------
-   One grid for the whole page. The prompt spans it; each group takes
-   one cell, a keypad two keys wide. Phones set the keypads two to a
-   row; from 760px they run four to a row, and from 1280px all seven
-   in one. A key there is still 77px wide, room for "AlgoMonster" on
-   one line in the 12px its names use up to 1440px. From 760px the
-   page is centred in the window, and the keys (--key) and the gaps
-   (--gap) grow with its height, from 80px and 16px to 96px and 28px
-   over 560–800px of it. */
+   One grid, --cols columns of keys wide. The prompt spans it, and a
+   group takes as many columns as it sets keys to a row, so in every
+   arrangement the seven groups close into a rectangle with no key's
+   place left empty. Which one depends on the window's shape:
+
+     under 360px            2 columns   each group a row of its own
+     phones                 4 columns   Daily Learn / Code Design /
+                                        Prep Finance / Fun
+     from 760px             6 columns   Daily Learn / Code Design /
+                                        Prep Finance Fun
+     900px, 23:20 or wider  9 columns   Daily Learn Code /
+                                        Design Prep Finance Fun
+     1200px, 23:10 or wider 12 columns  Daily Learn Code Design /
+                                        Prep Finance Fun
+
+   Up to 760px a group is two keys wide (the seventh, alone in its
+   row, four) and the page scrolls. From there a group of six is three
+   keys wide and two deep, a group of four two by two, or one row of
+   four in the widest arrangement, and the page is fitted to the
+   window (see below). The ratios are where the next arrangement
+   starts to give the larger keys. All of it counts on four groups of
+   six and three of four: 36 keys, which is 6 × 6, 9 × 4 and 12 × 3. */
 .page {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px 16px;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: var(--row-gap) var(--group-gap);
   align-content: start;
   width: 100%;
-  max-width: 1600px;
   margin: 0 auto auto;
   padding: 16px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
@@ -67,41 +89,71 @@ svg {
 }
 
 /* Narrow phones (320px) would leave a key 64px, too narrow for
-   "AlgoMonster": one keypad to a row there. */
+   "AlgoMonster": one group to a row there. */
 @media (width < 360px) {
-  .page {
-    grid-template-columns: minmax(0, 1fr);
+  :root {
+    --cols: 2;
   }
 }
 
+/* ---------- Fit ----------
+   From 760px the page is centred and --key is the tallest key at
+   which the arrangement fits the window both ways, between --key-min
+   and 160px. Every other size follows it: a gap between keys is a
+   tenth of a key, between groups a quarter, between rows and around
+   the page three tenths. So with --rows rows of groups, --key-rows
+   rows of keys in all, the page is 0.6 + 0.3 × rows + 1.1 × key rows
+   keys tall, plus its text at its largest (47px of prompt, 24px a
+   heading), and 0.35 + 1.15 × cols keys wide while its keys are
+   square. A key may be a quarter wider than tall and no more, or
+   100px wide when that is more: that is the page's max-width. A
+   window too small for the smallest keys scrolls.
+
+   The smallest key is 80px, the least that holds a name on two
+   lines. In six columns it is 72px, so half a laptop's screen
+   (768 × 725px) holds the page: the keys there never go under 100px
+   wide, which keeps every name on one line. */
 @media (width >= 760px) {
   :root {
-    --key: clamp(80px, 80px + (100vh - 560px) * 16 / 240, 96px);
-    --gap: clamp(16px, 16px + (100vh - 560px) * 12 / 240, 28px);
+    --cols: 6;
+    --six: 3;
+    --rows: 3;
+    --key-rows: 6;
+    --key-min: 72px;
+    --key: clamp(
+      var(--key-min),
+      min(
+        (100dvh - 47px - 24px * var(--rows)) / (0.6 + 0.3 * var(--rows) + 1.1 * var(--key-rows)),
+        100vw / (0.35 + 1.15 * var(--cols))
+      ),
+      160px
+    );
+    --key-gap: calc(var(--key) * 0.1);
+    --group-gap: calc(var(--key) * 0.25);
+    --row-gap: calc(var(--key) * 0.3);
   }
 
   .page {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--gap) 20px;
+    max-width: calc(var(--cols) * max(var(--key) * 1.25, 100px) + var(--key) * (0.35 + 0.15 * var(--cols)));
     margin: auto;
-    padding: var(--gap) 32px;
+    padding: var(--row-gap);
   }
 }
 
-@media (width >= 1280px) {
-  .page {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    column-gap: 16px;
-    padding-right: 24px;
-    padding-left: 24px;
+@media (width >= 900px) and (aspect-ratio >= 23/20) {
+  :root {
+    --cols: 9;
+    --rows: 2;
+    --key-rows: 4;
+    --key-min: 80px;
   }
 }
 
-@media (width >= 1440px) {
-  .page {
-    column-gap: 20px;
-    padding-right: 32px;
-    padding-left: 32px;
+@media (width >= 1200px) and (aspect-ratio >= 23/10) {
+  :root {
+    --cols: 12;
+    --four: 4;
+    --key-rows: 3;
   }
 }
 
@@ -111,11 +163,12 @@ svg {
    so a long hint truncates instead of squeezing what you type. */
 .prompt {
   display: grid;
-  grid-template-columns: 28px minmax(50%, 1fr) auto;
+  grid-template-columns: 1.75em minmax(50%, 1fr) auto;
   align-items: center;
-  padding-bottom: 12px;
+  padding-bottom: clamp(12px, calc(var(--key) * 0.11), 16px);
   border-bottom: 1px solid var(--line);
   font-family: var(--font-mono);
+  font-size: clamp(16px, calc(var(--key) * 0.14), 20px);
   transition: border-color 0.15s ease;
 }
 
@@ -125,17 +178,18 @@ svg {
 
 @media (width >= 760px) {
   .prompt {
-    grid-template-columns: 28px minmax(0, 1fr) auto;
+    grid-template-columns: 1.75em minmax(0, 1fr) auto;
   }
 }
 
 .prompt-mark {
   color: var(--accent);
-  font-size: 18px;
+  font-size: 1.125em;
   line-height: 1;
 }
 
-/* 16px keeps iOS from zooming the page when the field takes focus. */
+/* The prompt's 16px at the least keeps iOS from zooming the page when
+   the field takes focus. */
 .prompt-input {
   width: 100%;
   min-width: 0;
@@ -144,8 +198,7 @@ svg {
   background: transparent;
   color: var(--text);
   font: inherit;
-  font-size: 16px;
-  line-height: 24px;
+  line-height: 1.5;
   caret-color: var(--accent);
   outline: none;
 }
@@ -160,7 +213,7 @@ svg {
   padding-left: 16px;
   overflow: hidden;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 0.75em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -177,23 +230,40 @@ svg {
   font: inherit;
 }
 
-/* ---------- Keypads ----------
-   A group: its name, then its keys two to a row. The name is a
-   button (prompt.js puts it in the h2) that opens the whole group. */
+/* ---------- Groups ----------
+   A group: its name, then its keys, --span to a row, which is also
+   how many of the page's columns it takes. A group with a fifth link
+   is a group of six. The name is a button (prompt.js puts it in the
+   h2) that opens the whole group. */
 .group {
+  --span: var(--four);
+
   display: flex;
+  grid-column: span var(--span);
   flex-direction: column;
-  gap: 8px;
+  gap: var(--key-gap);
   min-width: 0;
+}
+
+.group:has(li:nth-child(5)) {
+  --span: var(--six);
+}
+
+/* On phones the groups go two to a row, which leaves the seventh on
+   its own: it sets its four keys in one row across the page. */
+@media (360px <= width < 760px) {
+  .group:nth-of-type(odd):last-of-type {
+    --span: 4;
+  }
 }
 
 .group h2 {
   margin: 0;
   padding: 0 2px;
   color: var(--heading);
-  font-size: 13px;
+  font-size: clamp(13px, calc(var(--key) * 0.115), 16px);
   font-weight: 500;
-  line-height: 20px;
+  line-height: 1.5;
   transition: color 0.12s ease;
 }
 
@@ -219,7 +289,7 @@ svg {
   outline-offset: 2px;
 }
 
-/* "open all" is the Enter candidate: light the whole keypad. */
+/* "open all" is the Enter candidate: light the whole group. */
 .group.is-selected h2 {
   color: var(--accent);
 }
@@ -235,8 +305,8 @@ svg {
 
 .links {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(var(--span), minmax(0, 1fr));
+  gap: var(--key-gap);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -245,39 +315,37 @@ svg {
 /* ---------- Keys ----------
    A key: its icon over its name, the pair centred a little above the
    middle, clear of the lip; a name that wraps to a second line runs
-   on into the space below. The link's short code (data-alias) is
-   printed in the top-left corner and, on a link that opens several
-   tabs, their count (data-tabs, which the start-bookmarks plugin
-   adds) in the top right. Neither is read out: the name already says
-   where the key goes. The first content of each is for browsers that
-   can't read the second's empty alt text (Safari before 17.4). */
+   on into the space below. Icon, name, corners and lip grow with the
+   key from what they are on the smallest (26px, 12.5px, 12px, 3px).
+   The link's short code (data-alias) is printed in the top-left
+   corner and, on a link that opens several tabs, their count
+   (data-tabs, which the start-bookmarks plugin adds) in the top
+   right. Neither is read out: the name already says where the key
+   goes. The first content of each is for browsers that can't read
+   the second's empty alt text (Safari before 17.4). */
 .links a {
+  --mark: clamp(26px, calc(var(--key) * 0.27), 44px);
+  --name: clamp(12.5px, calc(var(--key) * 0.115), 17px);
+  --between: max(8px, calc(var(--key) / 12));
+
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--between);
   height: var(--key);
-  padding: calc((var(--key) - 49px) / 2 - 4px) 4px 0;
+  padding: calc((var(--key) - var(--mark) - var(--between) - var(--name) * 1.2) / 2 - 4px) 4px 0;
   border: 1px solid var(--face-line);
-  border-radius: 12px;
+  border-radius: clamp(12px, calc(var(--key) / 8), 18px);
   background: var(--face);
-  box-shadow: inset 0 -3px 0 var(--face-lip);
+  box-shadow: inset 0 min(-3px, calc(var(--key) / -32)) 0 var(--face-lip);
   color: var(--body);
-  font-size: 12.5px;
-  line-height: 15px;
+  font-size: var(--name);
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease, transform 0.06s ease;
-}
-
-/* Up to 1440px the keys of the one-row layout are narrowest (77px at
-   1280px): a size smaller keeps "AlgoMonster" whole. */
-@media (1280px <= width < 1440px) {
-  .links a {
-    font-size: 12px;
-  }
 }
 
 .icon {
@@ -288,8 +356,8 @@ svg {
 }
 
 .icon svg {
-  width: 26px;
-  height: 26px;
+  width: var(--mark);
+  height: var(--mark);
 }
 
 .name {
@@ -309,23 +377,23 @@ svg {
 .links a[data-alias]::before,
 .links a[data-tabs]::after {
   position: absolute;
-  top: 7px;
+  top: max(7px, calc(var(--key) * 0.07));
   color: var(--legend);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: clamp(10px, calc(var(--key) * 0.095), 13px);
   line-height: 1;
 }
 
 .links a[data-alias]::before {
   content: attr(data-alias);
   content: attr(data-alias) / '';
-  left: 8px;
+  left: max(8px, calc(var(--key) * 0.08));
 }
 
 .links a[data-tabs]::after {
   content: '×' attr(data-tabs);
   content: '×' attr(data-tabs) / '';
-  right: 8px;
+  right: max(8px, calc(var(--key) * 0.08));
 }
 
 @media (hover: hover) {
