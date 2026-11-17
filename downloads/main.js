@@ -6,7 +6,8 @@
    With a list, the page writes it into .sites and loads the
    opener, which opens the first in this tab and the rest in new
    ones. Without one, or at #edit, it shows the editor instead: a
-   box of addresses, one per line, which Save stores, and an
+   box of addresses, one per line, which Save stores (dropping
+   #edit from the address, so a reload opens them), and an
    import that fills the box from a browser's bookmarks export,
    taking the links in its folder named Downloads. The file is
    read here and goes nowhere.
@@ -90,6 +91,9 @@ form.addEventListener('submit', (event) => {
     status.textContent = 'This browser would not keep the list: a private window, or site data blocked for souravas.com.'
     return
   }
+  // Saved from #edit, the address would open the editor again; without
+  // it, a reload opens the sites, as the line below says.
+  if (location.hash === '#edit') history.replaceState(null, '', location.pathname + location.search)
   status.textContent =
     (sites.length ? `Saved ${plural(sites.length)}. They open the next time this page loads.` : 'Saved an empty list.') +
     (skipped ? ` Left out ${skipped} line${skipped === 1 ? '' : 's'} that ${skipped === 1 ? 'was not a web address' : 'were not web addresses'}.` : '')
