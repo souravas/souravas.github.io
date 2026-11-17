@@ -212,7 +212,11 @@ pre,
   white-space: pre;
 }
 
+/* The links run on as text, 17px tall on lines 26px apart. Padding on an
+   inline box changes no layout, so 4px above and below makes each a 25px
+   target for a thumb without the lines' targets overlapping. */
 .sub-toc a {
+  padding-block: 4px;
   color: var(--body);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
