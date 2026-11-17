@@ -16,7 +16,10 @@
    where the query has to start a word: its site's name ("zerodha" finds
    Varsity, but "school" doesn't find systemdesignschool's System
    Design), or any other word in
-   them ("docs" finds Cashflow, "kannada" finds Language). An
+   them ("docs" finds Cashflow, "kannada" finds Language), including
+   the sites a page of this site opens ("kite" finds Invest). Pages
+   with no key are found the same way, through the hidden list after
+   the groups ("drive" finds Cloud). An
    alias, a space and a query ("lc two sum") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then
@@ -61,12 +64,16 @@
     const initials = starts.map((i) => label[i]).join("").toLowerCase();
     // Everything the link opens, in order: its href, then data-also.
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
+    // The sites a page of this site opens in turn (/invest opens Kite),
+    // whose hosts the build writes into data-opens (opener-sites in
+    // vite.config.js). Matched as addresses are, never opened from here.
+    const opens = (a.dataset.opens ?? "").split(/\s+/).filter(Boolean).map((host) => `https://${host}/`);
     // The other words in all of those addresses, which a query has to
     // start, so "type" doesn't find Typing: each host's labels but the TLD
-    // ("docs" in docs.google.com, "12min" from Books' data-also), and for a
-    // page on this site the first segment of its path ("kannada").
-    // www, app and web name no site.
-    const words = hrefs.flatMap((href) => {
+    // ("docs" in docs.google.com, "12min" from Books' data-also, "kite"
+    // from Invest's data-opens), and for a page on this site the first
+    // segment of its path ("kannada"). www, app and web name no site.
+    const words = [...hrefs, ...opens].flatMap((href) => {
       const url = new URL(href, location.href);
       if (!url.protocol.startsWith("http")) return [];
       if (url.origin === location.origin) return url.pathname.split("/").filter(Boolean).slice(0, 1);

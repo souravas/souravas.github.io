@@ -389,6 +389,47 @@ const codeDocs = () => {
   }
 }
 
+// /cloud, /ipo and /invest each open the sites in their own ol.sites
+// (shared/opener.js), while /start's keys link those pages, not the
+// sites. So that /start's prompt finds a key by a site behind it ("kite"
+// finds Invest), this writes the hosts each such page opens onto every
+// link to it in /start's page, as data-opens, in dev as well as the
+// build. The sites stay listed in their own page alone. /downloads keeps
+// its sites in the browser, so it has none here.
+const openerSites = () => {
+  let root = process.cwd()
+  // The hosts in a page's ol.sites, once each, in order; none if it has
+  // no such list.
+  const hostsOf = (page) => {
+    const file = resolve(root, page, 'index.html')
+    const list = /<ol class="sites"[^>]*>([\s\S]*?)<\/ol>/.exec(readFileSync(file, 'utf8'))?.[1] ?? ''
+    const hosts = [...list.matchAll(/\shref="([^"]+)"/g)].map(([, href]) => {
+      try {
+        return new URL(href.replaceAll('&amp;', '&')).host
+      } catch {
+        throw new Error(`[opener-sites] ${page}/index.html lists "${href}", which is not an address`)
+      }
+    })
+    return [...new Set(hosts)]
+  }
+  return {
+    name: 'opener-sites',
+    configResolved(config) {
+      root = config.root
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html, ctx) {
+        if (resolve(ctx.filename) !== resolve(root, 'start', 'index.html')) return html
+        return html.replace(/<a href="\/([\w-]+)\/"/g, (link, page) => {
+          const hosts = PAGES.includes(page) ? hostsOf(page) : []
+          return hosts.length ? `${link} data-opens="${hosts.join(' ')}"` : link
+        })
+      },
+    },
+  }
+}
+
 // Collapse whitespace inside JSON-LD blocks so they minify alongside the rest
 // of the HTML. Runs before csp-inline-hashes so the SHA-256 matches the body
 // the browser sees.
@@ -471,6 +512,7 @@ export default defineConfig({
     buildStamps(),
     kannadaNote(),
     codeDocs(),
+    openerSites(),
     jsonLdMinify(),
     inlineCss(),
     cspInlineHashes(),

@@ -320,6 +320,12 @@ svg {
   list-style: none;
 }
 
+/* The pages with no key (index.html), which only the prompt finds;
+   display: grid above would show them. */
+.links[hidden] {
+  display: none;
+}
+
 /* ---------- Keys ----------
    A key: its icon over its name, the pair centred a little above the
    middle, clear of the lip; a name that wraps to a second line runs

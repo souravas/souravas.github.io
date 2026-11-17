@@ -176,6 +176,14 @@
         <li><a href="/downloads/" data-alias="dl"><span class="icon"><svg aria-hidden="true"><use href="#mdi-download" /></svg></span><span class="name">Downloads</span></a></li>
       </ul>
     </section>
+
+    <!-- Pages with no key, which only the prompt finds: by name, or by a
+         site the page opens ("drive" finds Cloud), as it finds Invest by
+         "kite". The build writes those sites in (opener-sites in
+         vite.config.js). Hidden, so the keypad keeps its 32 keys. -->
+    <ul class="links" hidden>
+      <li><a href="/cloud/"><span class="name">Cloud</span></a></li>
+    </ul>
   </main>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40e800aeadd0416d922cd4df15f80f38"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
