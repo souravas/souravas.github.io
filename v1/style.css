@@ -475,26 +475,10 @@ a:hover { color: var(--accent); }
 .btn-ghost { background: color-mix(in oklab, var(--bg-elev) 70%, transparent); }
 .btn-ghost:hover { border-color: var(--line-strong); color: var(--accent); }
 
-/* ---------- HERO ENTRANCE ---------- */
-/* One orchestrated load-in: opacity + translate only (compositor-friendly),
-   `backwards` fill so the animation releases the transform afterwards —
-   the JS tilt/magnetic effects own it from then on. Scoped to
-   html:not(.no-js) so a JS-less visit renders everything immediately. */
-@media (prefers-reduced-motion: no-preference) {
-  html:not(.no-js) :is(.hero-meta, .display .line, .hero .lead, .hero-cta, .hero-card, .hero-socials) {
-    animation: hero-rise .65s var(--ease) backwards;
-  }
-  html:not(.no-js) .display .line:nth-child(1) { animation-delay: 60ms; }
-  html:not(.no-js) .hero-card { animation-delay: 90ms; }
-  html:not(.no-js) .display .line:nth-child(2) { animation-delay: 130ms; }
-  html:not(.no-js) .display .line:nth-child(3) { animation-delay: 200ms; }
-  html:not(.no-js) .hero .lead { animation-delay: 280ms; }
-  html:not(.no-js) .hero-cta { animation-delay: 360ms; }
-  html:not(.no-js) .hero-socials { animation-delay: 440ms; }
-}
-@keyframes hero-rise {
-  from { opacity: 0; transform: translateY(18px); }
-}
+/* The hero has no entrance animation, on purpose: the headline, the lead
+   and the photo are the page's largest content, and fading them in from
+   nothing holds them back by the animation's length. With a 0.65s staggered
+   fade, LCP ran 650ms or more behind first paint. */
 
 /* Hero side card */
 .hero-card {
