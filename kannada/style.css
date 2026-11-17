@@ -1208,9 +1208,10 @@ body:has(.deck[open]) {
   text-transform: uppercase;
 }
 
+/* The part's lessons ("1–33"), in the heading's grey: a dimmer one
+   would read under 4.5:1. */
 .jump h2 span {
   margin-left: 6px;
-  color: #4d4d4d;
 }
 
 /* Eight to a row on a 390px phone and ten on the panel, so all 89 fit
