@@ -47,6 +47,18 @@ body {
   overflow: hidden;
 }
 
+/* The page's name, for screen readers: the keys show what it is. Out
+   of the flow, so the grid below never gives it a place. */
+h1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 svg {
   fill: currentColor;
 }
@@ -265,6 +277,23 @@ svg {
   --span: var(--two);
 }
 
+/* Every key is one width, and keys line up from one row of groups to
+   the next, as the pairs do: a group of two keys across splits its
+   room in two. Two arrangements need help. Where a group of two is one
+   key wide (--two is 1: two, four and sixteen columns), Prep closes up
+   to Finance beside it, half the difference between the gaps each, so
+   their keys make a pair like the one above them; 2 - --two is 0 in
+   eight columns, where each is a pair of its own. And eight columns
+   set Fun in one row of four (see .links). Sixteen columns, all in
+   one row, leave a group of six's keys a fortieth of a key wider. */
+.group:not(:has(li:nth-child(3))):has(+ .group .links > li:nth-child(-n + 2):last-child) {
+  margin-inline-end: calc((var(--key-gap) - var(--group-gap)) / 2 * (2 - var(--two)));
+}
+
+.group:not(:has(li:nth-child(3))) + .group:not(:has(li:nth-child(3))) {
+  margin-inline-start: calc((var(--key-gap) - var(--group-gap)) / 2 * (2 - var(--two)));
+}
+
 .group h2 {
   margin: 0;
   padding: 0 2px;
@@ -318,6 +347,21 @@ svg {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Eight columns (from 760px and 5:6, short of sixteen) set a group of
+   four as one row of four keys, under two pairs. A spacer between its
+   second and third keys splits it into two pairs too: with a key gap
+   either side, it makes up the gap between two groups. */
+@media (width >= 760px) and (aspect-ratio >= 5/6) and (aspect-ratio < 3/1),
+  (760px <= width < 1500px) and (aspect-ratio >= 5/6) {
+  .group:has(li:nth-child(3)):not(:has(li:nth-child(5))) .links {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) calc(var(--group-gap) - 2 * var(--key-gap)) minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .group:has(li:nth-child(3)):not(:has(li:nth-child(5))) li:nth-child(3) {
+    grid-column: 4;
+  }
 }
 
 /* The pages with no key (index.html), which only the prompt finds;
