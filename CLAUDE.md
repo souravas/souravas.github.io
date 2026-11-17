@@ -45,7 +45,7 @@ The build inlines the imports into each page with the rest of its CSS, so sharin
 
 **Offline**: [public/sw.js](public/sw.js) is one service worker that /start, /pomodoro, /kannada and /code each register with their own scope (production only). Each registration keeps one page, with its script and fonts, in a cache named after it. /start opens from its cache at once and refreshes behind, so a deploy shows there on the second open; the others ask the network first and fall back to the cache when it fails or takes over three seconds, so they are always current when online. /fit is left out: its thumbnails and videos are YouTube's. So are /cloud, /ipo, /invest and /downloads, which only open other sites.
 
-**`public/`** is copied verbatim into the build: `CNAME`, the favicons and app icons, the manifest, `robots.txt`, `404.html`, the redirect stubs, `sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
+**`public/`** is copied verbatim into the build: `CNAME`, the favicons and app icons, the portfolio's manifest, /pomodoro's and /kannada's (`pomodoro.webmanifest` and `kannada.webmanifest`, with their `icon-pomodoro-*` and `icon-kannada-*` icons), `robots.txt`, `404.html`, the redirect stubs, `sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
 
 ### Adding a page
 
