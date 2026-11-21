@@ -25,7 +25,7 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 | `/pomodoro` | [`pomodoro/`](pomodoro/CLAUDE.md) | focus and break timers on a dial |
 | `/cloud` | [`cloud/`](cloud/CLAUDE.md) | opens the cloud drives, all at once: the first in this tab, the rest in new ones (once souravas.com is allowed pop-ups); the list is in its `index.html` |
 | `/ipo` | [`ipo/`](ipo/CLAUDE.md) | the same for the IPO trackers; it shares /cloud's script and styles (`shared/opener.*`) |
-| `/invest` | [`invest/`](invest/CLAUDE.md) | the same for Kite, Coin and the Cashflow sheet |
+| `/invest` | [`invest/`](invest/CLAUDE.md) | the same for Kite, Coin, Kite beta and the Cashflow sheet |
 | `/downloads` | [`downloads/`](downloads/CLAUDE.md) | the same for the Downloads sites, but its list is kept in the browser (`localStorage`), never in the repository; it shows an editor when there is none |
 | `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | 301 to `/assets/resume.pdf` from a Cloudflare redirect rule; the stubs meta-refresh there if the rule is gone |
 | any unknown route | `public/404.html` | self-contained static 404 |
