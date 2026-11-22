@@ -1,5 +1,5 @@
 /* ============================================================
-   The opener pages (/cloud, /ipo, /invest and /downloads): each
+   The opener pages (/cloud, /invest and /downloads): each
    opens the sites in its .sites list. All but the first open in
    new tabs, in order, and then this tab becomes the first with
    location.replace, so typing souravas.com/cloud leaves exactly

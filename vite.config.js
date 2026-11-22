@@ -11,7 +11,7 @@ const SITE_ORIGIN = 'https://souravas.com'
 // served at /<name>/. This list is the build's inputs (rolldownOptions)
 // and the routes the dev and preview servers answer (html-routes), so a
 // new page is added to this file by adding its name here.
-const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'fit', 'pomodoro', 'cloud', 'ipo', 'invest', 'downloads']
+const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads']
 
 // public/'s redirect stubs (cv.html, resume.html), which GitHub Pages
 // also serves without the .html.
@@ -45,7 +45,7 @@ const capitalize = (s) => s[0].toUpperCase() + s.slice(1)
 // Inline the built stylesheet into <head> in place of its <link>, removing
 // the one render-blocking request. Must run before csp-inline-hashes so the
 // resulting <style> body gets a style-src hash. Pages whose CSS is the same
-// (the ones that only import shared/opener.css: /cloud, /ipo and /invest)
+// (the ones that only import shared/opener.css: /cloud and /invest)
 // share one emitted file, so the inlined files leave the bundle only after
 // every page is written (generateBundle, order 'post', runs after Vite's
 // HTML plugin has called this for each page).
@@ -389,7 +389,7 @@ const codeDocs = () => {
   }
 }
 
-// /cloud, /ipo and /invest each open the sites in their own ol.sites
+// /cloud and /invest each open the sites in their own ol.sites
 // (shared/opener.js), while /start's keys link those pages, not the
 // sites. So that /start's prompt finds a key by a site behind it ("kite"
 // finds Invest), this writes the hosts each such page opens onto every

@@ -1,6 +1,6 @@
 # souravas.com
 
-Sourav's site, <https://souravas.com>: a portfolio in three designs, plus personal pages (a start page, a Kannada course, Python interview notes, workout videos, a Pomodoro timer, and four pages that each open a set of sites). Vanilla HTML / CSS / JS built with Vite — no framework, no router. Each page is a folder with one `index.html`, usually with its own `main.js` and `style.css`, and the comments in each module describe its behaviour in detail.
+Sourav's site, <https://souravas.com>: a portfolio in three designs, plus personal pages (a start page, a Kannada course, Python interview notes, workout videos, a Pomodoro timer, and three pages that each open a set of sites). Vanilla HTML / CSS / JS built with Vite — no framework, no router. Each page is a folder with one `index.html`, usually with its own `main.js` and `style.css`, and the comments in each module describe its behaviour in detail.
 
 ```bash
 npm install
@@ -24,8 +24,7 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 | `/fit` | [`fit/`](fit/CLAUDE.md) | warm-up and exercise videos as grids of thumbnails; `index.html` and `style.css`, no script |
 | `/pomodoro` | [`pomodoro/`](pomodoro/CLAUDE.md) | focus and break timers on a dial |
 | `/cloud` | [`cloud/`](cloud/CLAUDE.md) | opens the cloud drives, all at once: the first in this tab, the rest in new ones (once souravas.com is allowed pop-ups); the list is in its `index.html` |
-| `/ipo` | [`ipo/`](ipo/CLAUDE.md) | the same for the IPO trackers; it shares /cloud's script and styles (`shared/opener.*`) |
-| `/invest` | [`invest/`](invest/CLAUDE.md) | the same for Kite, Coin, Kite beta and the Cashflow sheet |
+| `/invest` | [`invest/`](invest/CLAUDE.md) | the same for Kite, Coin, Kite beta, the IPO trackers and the Cashflow sheet; it shares /cloud's script and styles (`shared/opener.*`) |
 | `/downloads` | [`downloads/`](downloads/CLAUDE.md) | the same for the Downloads sites, but its list is kept in the browser (`localStorage`), never in the repository; it shows an editor when there is none |
 | `/cv`, `/resume` | `public/cv.html`, `public/resume.html` | 301 to `/assets/resume.pdf` from a Cloudflare redirect rule; the stubs meta-refresh there if the rule is gone |
 | any unknown route | `public/404.html` | self-contained static 404 |
@@ -37,13 +36,13 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 
 **Personal pages** (every page but the portfolio) are `noindex` and left out of the sitemap. What they share lives in [shared/](shared/), and each page's `style.css` imports it first:
 
-- [shared/base.css](shared/base.css), for all of them: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start has. /fit, /pomodoro, /cloud, /ipo, /invest and /downloads set that link in a 120px gutter on wider screens (/fit only below 2:1); /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
+- [shared/base.css](shared/base.css), for all of them: the fonts (`public/fonts/`, Inter Tight and JetBrains Mono), pure black with its greys and lavender accent as tokens, and `.back`, the "‹ Start" link every page but /start has. /fit, /pomodoro, /cloud, /invest and /downloads set that link in a 120px gutter on wider screens (/fit only below 2:1); /kannada and /code keep it above the title. **Change a shared colour or font there, not in a page.**
 - [shared/reader.css](shared/reader.css), for /kannada and /code, which are built alike: masthead, sticky bar, text, tables, the sheet of places to jump to, footer. It imports base.css.
-- [shared/opener.js](shared/opener.js) and [shared/opener.css](shared/opener.css), for /cloud, /ipo, /invest and /downloads, which are the same page for different sets of sites: each page's `main.js` and `style.css` only import them (/downloads adds its list's editor). opener.css imports base.css.
+- [shared/opener.js](shared/opener.js) and [shared/opener.css](shared/opener.css), for /cloud, /invest and /downloads, which are the same page for different sets of sites: each page's `main.js` and `style.css` only import them (/downloads adds its list's editor). opener.css imports base.css.
 
 The build inlines the imports into each page with the rest of its CSS, so sharing costs no request.
 
-**Offline**: [public/sw.js](public/sw.js) is one service worker that /start, /pomodoro, /kannada and /code each register with their own scope (production only). Each registration keeps one page, with its script and fonts, in a cache named after it. /start opens from its cache at once and refreshes behind, so a deploy shows there on the second open; the others ask the network first and fall back to the cache when it fails or takes over three seconds, so they are always current when online. /fit is left out: its thumbnails and videos are YouTube's. So are /cloud, /ipo, /invest and /downloads, which only open other sites.
+**Offline**: [public/sw.js](public/sw.js) is one service worker that /start, /pomodoro, /kannada and /code each register with their own scope (production only). Each registration keeps one page, with its script and fonts, in a cache named after it. /start opens from its cache at once and refreshes behind, so a deploy shows there on the second open; the others ask the network first and fall back to the cache when it fails or takes over three seconds, so they are always current when online. /fit is left out: its thumbnails and videos are YouTube's. So are /cloud, /invest and /downloads, which only open other sites.
 
 **`public/`** is copied verbatim into the build: `CNAME`, the favicons and app icons, the portfolio's manifest, /pomodoro's and /kannada's (`pomodoro.webmanifest` and `kannada.webmanifest`, with their `icon-pomodoro-*` and `icon-kannada-*` icons), `robots.txt`, `404.html`, the redirect stubs, `sw.js`, `fonts/` and `assets/` (images, the `og-cover` social card, `resume.pdf`). Fonts and `.webp` images are cached for a year, so a changed one needs a new file name (see Cloudflare → Caching).
 
@@ -62,7 +61,7 @@ Plugins, in order:
 - `html-routes`: the dev and preview servers mirror GitHub Pages' routing for the pages in `PAGES` (`/x` → `/x/index.html`) and the stubs in `STUBS` (`/cv` → `/cv.html`). Dev also serves the default design at `/`, read from `DEFAULT_PAGES`, so a change of default is made only there.
 - `build-stamps` (dev too): fills `__BUILD_DATE__`, `__BUILD_YEAR__`, and the whole years since `CAREER_START` (June 2019) as `__YEARS__`, `__YEARS_00__`, `__YEARS_WORD__`, `__YEARS_WORD_CAP__` and `__YEARS_ORDINAL_CAP__`. **Write these tokens, never the number**, wherever copy states the years. The one exception is the social card (`public/assets/og-cover.jpg`/`.webp`), which has the count drawn into it ("7 years") and has to be redrawn when the count changes each June.
 - `kannada-note` and `code-docs` (dev too): render the Markdown pages; see [kannada/CLAUDE.md](kannada/CLAUDE.md) and [code/CLAUDE.md](code/CLAUDE.md). A link that lands nowhere, such as one to a renamed heading, warns in dev and **fails the build**, so it cannot deploy.
-- `opener-sites` (dev too): writes the hosts /cloud, /ipo and /invest open (each page's `ol.sites`) onto /start's links to those pages, as `data-opens`, so /start's prompt finds Invest by "kite". The sites stay listed in their own page alone.
+- `opener-sites` (dev too): writes the hosts /cloud and /invest open (each page's `ol.sites`) onto /start's links to those pages, as `data-opens`, so /start's prompt finds Invest by "kite". The sites stay listed in their own page alone.
 - `json-ld-minify`, `inline-css` (each page's CSS bundle is inlined as a `<style>`, so there is no render-blocking stylesheet request), `csp-inline-hashes`, `html-minify`.
 - `sitemap` (lists only `/`, with the build date as `lastmod`), `security-txt` (`Expires` 364 days out, since RFC 9116 wants under a year; contact `SECURITY_CONTACT`), `root-default` (copies the default design, v1, to `/`).
 

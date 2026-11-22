@@ -1,6 +1,6 @@
 # /cloud
 
-The first of the four opener pages, and where their shared behaviour is written down: [/ipo](../ipo/CLAUDE.md), [/invest](../invest/CLAUDE.md) and [/downloads](../downloads/CLAUDE.md) are the same page for other sites, and their notes hold only what differs.
+The first of the three opener pages, and where their shared behaviour is written down: [/invest](../invest/CLAUDE.md) and [/downloads](../downloads/CLAUDE.md) are the same page for other sites, and their notes hold only what differs.
 
 - Typing `souravas.com/cloud` opens the cloud drives (Google Drive and Photos, Koofr, Drime, Proton Drive): [../shared/opener.js](../shared/opener.js), which its [main.js](main.js) imports, opens all but the first in new tabs, in order, then sends this tab to the first with `location.replace`, so Back from it skips /cloud. /start has no key for this page, but its prompt finds it, by name or by a site it opens ("drive"), through a hidden entry in its page.
 - **The sites are the `ol.sites` in [index.html](index.html)**, each a link with `target="_blank"` named by its host; add, remove or reorder them there. The build copies their hosts to /start's prompt (`opener-sites` in vite.config.js), so nothing else needs changing. The page opens only those addresses, fixed in the page, never one from its URL, so no souravas.com link can send a visitor elsewhere.

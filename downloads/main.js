@@ -1,5 +1,5 @@
 /* ============================================================
-   /downloads: opens a list of sites as /cloud, /ipo and /invest
+   /downloads: opens a list of sites as /cloud and /invest
    do (../shared/opener.js), but the list is kept in this
    browser's localStorage, never in the page or the repository.
 

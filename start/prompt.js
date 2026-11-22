@@ -8,19 +8,19 @@
 /* ---------- Quick launch ----------
    Type or paste anywhere (or press /) to fill the prompt. The links
    filter in place: matches stay lit with the typed text highlighted,
-   the rest dim. A link matches on an alias (its data-alias: "lc" finds
-   LeetCode), then on its name, where the start of a word ("Ready" in
-   Interview Ready) beats the name's initials ("dp" finds Design
-   Patterns) or the starts of its words in order ("sys des" finds
+   the rest dim. A link matches on an alias (its data-alias: "nc" finds
+   NeetCode), then on its name, where the start of a word ("Interview"
+   in Hello Interview) beats the name's initials ("am" finds
+   AlgoMonster) or the starts of its words in order ("sys des" finds
    System Design), which beat the inside of a word, then on its addresses,
    where the query has to start a word: its site's name ("zerodha" finds
    Varsity, but "school" doesn't find systemdesignschool's System
    Design), or any other word in
-   them ("docs" finds Cashflow, "kannada" finds Language), including
+   them ("academy" finds ByteMonk, "kannada" finds Language), including
    the sites a page of this site opens ("kite" finds Invest). Pages
    with no key are found the same way, through the hidden list after
    the groups ("drive" finds Cloud). An
-   alias, a space and a query ("lc two sum") opens that link's
+   alias, a space and a query ("yt lofi") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then
    "open all" for a group whose name
@@ -60,7 +60,7 @@
       : a.protocol.slice(0, -1);
     const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
     const starts = [...label.matchAll(WORD_START)].map((m) => m.index + m[0].length);
-    // The first letter of each word: "dp" for Design Patterns.
+    // The first letter of each word: "sd" for System Design.
     const initials = starts.map((i) => label[i]).join("").toLowerCase();
     // Everything the link opens, in order: its href, then data-also.
     const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
@@ -69,7 +69,7 @@
     // vite.config.js). Matched as addresses are, never opened from here.
     const opens = (a.dataset.opens ?? "").split(/\s+/).filter(Boolean).map((host) => `https://${host}/`);
     // The other words in all of those addresses, which a query has to
-    // start, so "type" doesn't find Typing: each host's labels but the TLD
+    // start, so "forward" doesn't find TuF: each host's labels but the TLD
     // ("docs" in docs.google.com, "12min" from Books' data-also, "kite"
     // from Invest's data-opens), and for a page on this site the first
     // segment of its path ("kannada"). www, app and web name no site.
@@ -165,8 +165,8 @@
     const hrefs = links.filter(({ a }) => section.contains(a)).flatMap((link) => link.hrefs);
     const button = document.createElement("button");
     button.type = "button";
-    // Counted in tabs, as "open all" is in the prompt: Learn's six links
-    // open eight.
+    // Counted in tabs, as "open all" is in the prompt: Learn's five links
+    // open seven.
     button.title = `Open all ${hrefs.length} in new tabs`;
     button.append(...heading.childNodes);
     button.addEventListener("click", () => openAll(hrefs));
@@ -228,7 +228,7 @@
   const update = () => {
     const q = input.value.trim();
     const needle = q.toLowerCase();
-    // "lc two sum": the alias of a link with a search, then the query.
+    // "yt lofi": the alias of a link with a search, then the query.
     const [, word = "", query = ""] = /^(\S+)\s+(.+)$/.exec(q) ?? [];
     const owner = query && links.find((link) => link.search && link.aliases.includes(word.toLowerCase()));
     const hits = [];
@@ -285,7 +285,7 @@
   });
 
   // Pasting anywhere fills the prompt too, as one line: a pasted address
-  // or "lc two sum" is then an Enter away.
+  // or "yt lofi" is then an Enter away.
   document.addEventListener("paste", (e) => {
     if (e.target === input) return;
     const text = e.clipboardData?.getData("text").replace(/\s+/g, " ").trim();
@@ -371,7 +371,7 @@
     if (!e.relatedTarget) nameAlias(null);
   });
 
-  // The address bar: /start/?q=lc+two+sum opens what Enter would, in
+  // The address bar: /start/?q=yt+lofi opens what Enter would, in
   // place of this page, so Back skips it. Opening several tabs takes a
   // click or a key press, which loading a page isn't, so a candidate
   // that opens more than one waits in the prompt for Enter. So does an
