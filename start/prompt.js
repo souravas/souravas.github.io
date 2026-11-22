@@ -11,7 +11,7 @@
    the rest dim. A link matches on an alias (its data-alias: "nc" finds
    NeetCode), then on its name, where the start of a word ("Interview"
    in Hello Interview) beats the name's initials ("am" finds
-   AlgoMonster) or the starts of its words in order ("sys des" finds
+   Algo Monster) or the starts of its words in order ("sys des" finds
    System Design), which beat the inside of a word, then on its addresses,
    where the query has to start a word: its site's name ("zerodha" finds
    Varsity, but "school" doesn't find systemdesignschool's System

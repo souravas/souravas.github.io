@@ -75,14 +75,16 @@ svg {
      phones, tall windows   4 columns   Daily / Hope / Learn Misc
      from 760px and 4:5     6 columns   Daily Hope / Learn Misc
      or wider
-     1160px, 7:3 or wider   12 columns  all four in one row
+     short wide windows     12 columns  all four in one row
+     (from 1160px; below)
 
    With 2 columns every group is two keys wide. With 4, Daily is one
    row of four and Hope two, over Learn and Misc two wide and three
    deep. With 6 and 12, Daily is two by two, Hope four by two, and
    Learn and Misc three by two. Under 760px the page scrolls; from
-   there it is fitted to the window (see below). The ratios are where
-   the next arrangement starts to give the larger keys. All of it
+   there it is fitted to the window (see below). 4:5 is where six
+   columns start to give the larger keys; twelve start later than
+   where theirs would, on purpose (see Twelve columns). All of it
    counts on Daily's four, Hope's eight, Learn's six and Misc's six,
    which fill 4, 8, 6 and 6 places: 24, which is 2 × 12, 4 × 6, 6 × 4
    and 12 × 2, so the groups close into a rectangle with no place
@@ -103,7 +105,7 @@ svg {
 }
 
 /* Narrow phones (320px) would leave a key 64px, too narrow for
-   "AlgoMonster": one group to a row there. */
+   "Downloads": one group to a row there. */
 @media (width < 360px) {
   :root {
     --cols: 2;
@@ -173,7 +175,21 @@ svg {
   }
 }
 
-@media (width >= 1160px) and (aspect-ratio >= 7/3) {
+/* ---------- Twelve columns ----------
+   Twelve columns give a key more height in a wide window, but stretch
+   the page into a band from edge to edge with the height above and
+   below it empty, which looked wrong on an ultra-wide screen. So they
+   are kept for windows short as well as wide: under 880px tall and
+   3:1 or wider, where their keys come out at least a fifth larger in
+   area than six columns' (in a wide window a key of six is a quarter
+   wider than tall, one of twelve square, or at the 160px cap as wide
+   as the window lets it), and under 543px tall, where six columns'
+   smallest keys (80px: 5.6 keys and 95px of text) no longer fit and
+   the page would scroll. A 21:9 screen's maximised window (2560 ×
+   945) gets six columns of 190 × 152px keys, about the size of
+   twelve's 181 × 160px, in a page that fills its height instead of
+   its width. */
+@media (width >= 1160px) and (height < 543px), (width >= 1160px) and (aspect-ratio >= 3) and (height < 880px) {
   :root {
     --cols: 12;
     --rows: 1;
