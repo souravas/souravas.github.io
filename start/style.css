@@ -83,13 +83,11 @@ svg {
    Learn and Fun three by two. Under 760px the page scrolls; from
    there it is fitted to the window (see below). The ratios are where
    the next arrangement starts to give the larger keys. All of it
-   counts on Daily's four, Hope's seven, Learn's six and Fun's five,
-   which take 4, 8, 6 and 6 places: 24, which is 2 × 12, 4 × 6, 6 × 4
-   and 12 × 2, so the groups close into a rectangle whose two empty
-   places are Hope's last and Fun's. An eighth link in Hope or a
-   sixth in Fun fills one; a group growing past its places, or
-   another group, leaves holes, and so would eight columns or
-   sixteen. */
+   counts on Daily's four, Hope's eight, Learn's six and Fun's six,
+   which fill 4, 8, 6 and 6 places: 24, which is 2 × 12, 4 × 6, 6 × 4
+   and 12 × 2, so the groups close into a rectangle with no place
+   empty. A group growing past its places, or another group, leaves
+   holes, and so would eight columns or sixteen. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
