@@ -165,8 +165,8 @@
     const hrefs = links.filter(({ a }) => section.contains(a)).flatMap((link) => link.hrefs);
     const button = document.createElement("button");
     button.type = "button";
-    // Counted in tabs, as "open all" is in the prompt: Learn's five links
-    // open seven.
+    // Counted in tabs, as "open all" is in the prompt: Learn's six links
+    // open eight.
     button.title = `Open all ${hrefs.length} in new tabs`;
     button.append(...heading.childNodes);
     button.addEventListener("click", () => openAll(hrefs));
@@ -246,8 +246,8 @@
       const href = owner.search.replace("%s", encodeURIComponent(query));
       candidates.unshift({ link: owner, hrefs: [href], label: `search ${owner.searchHost}` });
     }
-    // A group's name is one word, so only its start counts: "de" offers
-    // Design, not Code.
+    // A group's name is one word, so only its start counts: "fu" offers
+    // Fun, "un" nothing.
     for (const group of groups) {
       if (q && group.key.startsWith(needle)) {
         candidates.push({ group, hrefs: group.hrefs, label: `open all ${group.hrefs.length} in ${group.title}` });

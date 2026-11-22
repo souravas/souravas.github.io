@@ -15,8 +15,9 @@
    The rest is the layout's (see it below): --key is a key's
    height, the gaps are between keys, between the groups of a row
    and between the rows, --cols is how many columns of keys the
-   page has, and --six and --four how many of them a group of six
-   links and a group of four set their keys in. */
+   page has, and --four, --six and --eight how many of them a group
+   of up to four links, of five or six, and of seven or eight set
+   their keys in. */
 :root {
   --face: #0b0b0b;
   --face-hover: #121212;
@@ -29,8 +30,9 @@
   --group-gap: 16px;
   --row-gap: 28px;
   --cols: 4;
+  --four: 4;
   --six: 2;
-  --four: 2;
+  --eight: 4;
 }
 
 body {
@@ -64,28 +66,30 @@ svg {
 
 /* ---------- Layout ----------
    One grid, --cols columns of keys wide. The prompt spans it, and a
-   group takes as many columns as it sets keys to a row: --six for a
-   group with a fifth link (Daily, Learn), --four for the rest. Which
+   group takes as many columns as it sets keys to a row: --four for a
+   group of up to four links (Daily), --six for one with a fifth
+   (Learn, Fun), --eight for one with a seventh (Hope). Which
    arrangement depends on the window's shape:
 
      under 360px            2 columns   each group a row of its own
-     phones, tall windows   4 columns   Daily Learn / Code Design /
-                                        Fun
-     from 760px and 4:5     6 columns   Daily Learn / Code Design Fun
+     phones, tall windows   4 columns   Daily / Hope / Learn Fun
+     from 760px and 4:5     6 columns   Daily Hope / Learn Fun
      or wider
-     1160px, 7:3 or wider   12 columns  all five in one row
+     1160px, 7:3 or wider   12 columns  all four in one row
 
-   With 2 and 4 columns a group of six is two keys wide and three
-   deep, with 6 and 12 three wide and two deep. A group of four is two
-   by two, but in four columns Fun, alone in its row of groups, is one
-   row of four. Under 760px the page scrolls; from there it is fitted
-   to the window (see below). The ratios are where the next
-   arrangement starts to give the larger keys. All of it counts on
-   Daily's six and Learn's five, then three groups of four: 24
-   places, which is 2 × 12, 4 × 6, 6 × 4 and 12 × 2, so the groups
-   close into a rectangle whose one empty place is Learn's last. A
-   sixth link in Learn fills it; any other change to the groups'
-   sizes leaves holes, and so would eight columns or sixteen. */
+   With 2 columns every group is two keys wide. With 4, Daily is one
+   row of four and Hope two, over Learn and Fun two wide and three
+   deep. With 6 and 12, Daily is two by two, Hope four by two, and
+   Learn and Fun three by two. Under 760px the page scrolls; from
+   there it is fitted to the window (see below). The ratios are where
+   the next arrangement starts to give the larger keys. All of it
+   counts on Daily's four, Hope's seven, Learn's six and Fun's five,
+   which take 4, 8, 6 and 6 places: 24, which is 2 × 12, 4 × 6, 6 × 4
+   and 12 × 2, so the groups close into a rectangle whose two empty
+   places are Hope's last and Fun's. An eighth link in Hope or a
+   sixth in Fun fills one; a group growing past its places, or
+   another group, leaves holes, and so would eight columns or
+   sixteen. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -105,6 +109,8 @@ svg {
 @media (width < 360px) {
   :root {
     --cols: 2;
+    --four: 2;
+    --eight: 2;
   }
 }
 
@@ -120,8 +126,9 @@ svg {
    square: its columns, the gaps between them and the page's padding,
    0.35 + 1.175 × cols in every arrangement: a key of a group two
    columns wide is a column wide and half the difference between the
-   group and key gaps (0.075 of a key), and a group three columns wide
-   gives its keys a little more (see Groups). A key may be a quarter
+   group and key gaps (0.075 of a key), and a group three or four
+   columns wide gives its keys a little more (see Groups), except in
+   four columns, where it is split into pairs. A key may be a quarter
    wider than tall and no more, or 100px wide when that is more: that
    is the page's max-width. A window too small for the smallest keys
    scrolls.
@@ -160,6 +167,7 @@ svg {
 @media (width >= 760px) and (aspect-ratio >= 4/5) {
   :root {
     --cols: 6;
+    --four: 2;
     --six: 3;
     --rows: 2;
     --key-rows: 4;
@@ -251,14 +259,16 @@ svg {
 /* ---------- Groups ----------
    A group: its name, then its keys, --span to a row, which is also
    how many of the page's columns it takes. A group with a fifth link
-   is a group of six. The name is a button (prompt.js puts it in the
-   h2) that opens the whole group.
+   is a group of six, and one with a seventh a group of eight. The
+   name is a button (prompt.js puts it in the h2) that opens the whole
+   group.
 
    In two and four columns every key is one width and sits under the
-   key above it. In six and twelve a group of six is three keys across
-   where a group of four is two, so its keys are a fortieth of a key
-   wider (4px at 2560 × 945) and line up with the rest only at the
-   groups' edges. */
+   key above it. In six and twelve a group of four is two keys across,
+   of six three and of eight four, so their keys are a fortieth and
+   three eightieths of a key wider than a group of four's (4px and 6px
+   at 2560 × 945) and line up with the rest only at the groups'
+   edges. */
 .group {
   --span: var(--four);
 
@@ -271,6 +281,10 @@ svg {
 
 .group:has(li:nth-child(5)) {
   --span: var(--six);
+}
+
+.group:has(li:nth-child(7)) {
+  --span: var(--eight);
 }
 
 .group h2 {
@@ -329,20 +343,19 @@ svg {
 }
 
 /* Four columns (360px to 760px, and from there windows narrower than
-   4:5) leave Fun, the last group, alone in its row of groups, so it
-   is one row of four keys under two pairs. A spacer between its second
-   and third keys splits it into two pairs too: with a key gap either
-   side, it makes up the gap between two groups. */
+   4:5) set Daily and Hope, each alone in its row of groups, four keys
+   across, over Learn's and Fun's pairs: every group but one of five or
+   six. A spacer between the second and third keys of each row splits
+   it into two pairs too: with a key gap either side, it makes up the
+   gap between two groups. */
 @media (360px <= width < 760px), (width >= 760px) and (aspect-ratio < 4/5) {
-  .group:last-of-type {
-    --span: 4;
-  }
-
-  .group:last-of-type .links {
+  .group:not(:has(li:nth-child(5))) .links,
+  .group:has(li:nth-child(7)) .links {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) calc(var(--group-gap) - 2 * var(--key-gap)) minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  .group:last-of-type li:nth-child(3) {
+  .group:not(:has(li:nth-child(5))) li:nth-child(4n + 3),
+  .group:has(li:nth-child(7)) li:nth-child(4n + 3) {
     grid-column: 4;
   }
 }
