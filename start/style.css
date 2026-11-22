@@ -68,22 +68,22 @@ svg {
    One grid, --cols columns of keys wide. The prompt spans it, and a
    group takes as many columns as it sets keys to a row: --four for a
    group of up to four links (Daily), --six for one with a fifth
-   (Learn, Fun), --eight for one with a seventh (Hope). Which
+   (Learn, Misc), --eight for one with a seventh (Hope). Which
    arrangement depends on the window's shape:
 
      under 360px            2 columns   each group a row of its own
-     phones, tall windows   4 columns   Daily / Hope / Learn Fun
-     from 760px and 4:5     6 columns   Daily Hope / Learn Fun
+     phones, tall windows   4 columns   Daily / Hope / Learn Misc
+     from 760px and 4:5     6 columns   Daily Hope / Learn Misc
      or wider
      1160px, 7:3 or wider   12 columns  all four in one row
 
    With 2 columns every group is two keys wide. With 4, Daily is one
-   row of four and Hope two, over Learn and Fun two wide and three
+   row of four and Hope two, over Learn and Misc two wide and three
    deep. With 6 and 12, Daily is two by two, Hope four by two, and
-   Learn and Fun three by two. Under 760px the page scrolls; from
+   Learn and Misc three by two. Under 760px the page scrolls; from
    there it is fitted to the window (see below). The ratios are where
    the next arrangement starts to give the larger keys. All of it
-   counts on Daily's four, Hope's eight, Learn's six and Fun's six,
+   counts on Daily's four, Hope's eight, Learn's six and Misc's six,
    which fill 4, 8, 6 and 6 places: 24, which is 2 × 12, 4 × 6, 6 × 4
    and 12 × 2, so the groups close into a rectangle with no place
    empty. A group growing past its places, or another group, leaves
@@ -342,7 +342,7 @@ svg {
 
 /* Four columns (360px to 760px, and from there windows narrower than
    4:5) set Daily and Hope, each alone in its row of groups, four keys
-   across, over Learn's and Fun's pairs: every group but one of five or
+   across, over Learn's and Misc's pairs: every group but one of five or
    six. A spacer between the second and third keys of each row splits
    it into two pairs too: with a key gap either side, it makes up the
    gap between two groups. */

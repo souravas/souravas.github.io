@@ -246,8 +246,8 @@
       const href = owner.search.replace("%s", encodeURIComponent(query));
       candidates.unshift({ link: owner, hrefs: [href], label: `search ${owner.searchHost}` });
     }
-    // A group's name is one word, so only its start counts: "fu" offers
-    // Fun, "un" nothing.
+    // A group's name is one word, so only its start counts: "mi" offers
+    // Misc, "isc" nothing.
     for (const group of groups) {
       if (q && group.key.startsWith(needle)) {
         candidates.push({ group, hrefs: group.hrefs, label: `open all ${group.hrefs.length} in ${group.title}` });
