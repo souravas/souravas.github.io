@@ -17,8 +17,6 @@
    souravas.com link can send a visitor elsewhere.
    ============================================================ */
 
-import { webHref } from '../shared/web-url.js'
-
 const KEY = 'downloads:sites'
 
 const list = document.getElementById('sites')
@@ -29,7 +27,15 @@ const status = document.getElementById('status')
 const file = document.getElementById('import')
 
 // The web addresses among some lines, normalised; the rest are dropped.
-const clean = (lines) => lines.map(webHref).filter(Boolean)
+const clean = (lines) =>
+  lines.flatMap((line) => {
+    try {
+      const url = new URL(String(line).trim())
+      return url.protocol === 'https:' || url.protocol === 'http:' ? [url.href] : []
+    } catch {
+      return []
+    }
+  })
 
 // localStorage can be missing or throw (a private window, blocked site data).
 const load = () => {

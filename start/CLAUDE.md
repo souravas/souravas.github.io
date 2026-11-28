@@ -13,8 +13,6 @@ Keypad is the only design, and there are no `/start/vN` pages. The two it replac
 
 **This site's pages** are keys too: Fit and Pomodoro in Daily, Code (/code) in Hope, Language (/kannada) in Learn, and Invest and Downloads, the last two keys in Misc. Invest and Downloads open [/invest](../invest/CLAUDE.md) and [/downloads](../downloads/CLAUDE.md), each of which opens several sites from a list of its own ([/cloud](../cloud/CLAUDE.md) does the same and has no key: the hidden `ul.links` after the groups holds it for the prompt alone, which finds it by name or by a site it opens, "drive"). /downloads keeps its sites in the browser, so the prompt knows only its name. The Cashflow sheet and the IPO trackers have had no keys of their own since November 2026: Invest opens them, and the prompt finds it by them ("docs", "ipo").
 
-The Hello Interview key in Hope goes to [/hello-interview](../hello-interview/CLAUDE.md). Like Downloads, it opens the link saved in the browser or shows its own editor when none is saved.
-
 **Groups**: the most used links are the first group, Daily, pinned to the top. The groups are Daily's four links, Hope's eight (the interview-prep sites, Code and System Design), Learn's three and Misc's six, in that order. Learn keeps the same width as Misc so they can share a row in the four- and six-column layouts.
 
 **Hooks**: style.css and prompt.js rely on the markup's hooks: `.prompt` with `#q` and `#hint`, and each group a `section.group` holding an `h2` and a `ul.links` of `<a>`s with an `.icon` and a `.name`. The hidden `ul.links` after the groups holds pages with no key; its links need only a `.name`. The `h1` (the page's title, Hope) is for screen readers only. Keep those when changing the markup.
