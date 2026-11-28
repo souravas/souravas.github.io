@@ -86,9 +86,9 @@
          with the href, in order (AI, Chess), with data-tabs, how
          many tabs that makes (data-also's URLs plus the href), which
          the key prints. Daily holds the most used, pinned first.
-         Learn and Misc share a row below Daily and Hope except in the
-         narrowest or shortest windows; style.css counts on each
-         group's size. -->
+         Code and Design each use two columns. Learn and Misc share
+         a row except in the narrowest or shortest windows. The
+         layout in style.css counts on each group's size. -->
     <section class="group group-daily" aria-labelledby="group-daily">
       <h2 id="group-daily">Daily</h2>
       <ul class="links">
@@ -99,17 +99,23 @@
       </ul>
     </section>
 
-    <section class="group group-hope" aria-labelledby="group-hope">
-      <h2 id="group-hope">Hope</h2>
+    <section class="group group-code" aria-labelledby="group-code">
+      <h2 id="group-code">Code</h2>
       <ul class="links">
         <li><a href="/code/" data-alias="py" data-search="https://github.com/search?q=repo%3Asouravas%2Fcode+%s&amp;type=code"><span class="icon"><svg aria-hidden="true"><use href="#si-python" /></svg></span><span class="name">Code</span></a></li>
-        <li><a href="/systemdesign/" data-alias="sd"><span class="icon"><svg aria-hidden="true"><use href="#icon-system-design" /></svg></span><span class="name">System Design</span></a></li>
         <li><a href="https://neetcode.io/practice/practice/neetcode150" data-alias="nc"><span class="icon"><svg aria-hidden="true"><use href="#logo-neetcode" /></svg></span><span class="name">NeetCode</span></a></li>
-        <li><a href="http://localhost:8765/" data-alias="hi"><span class="icon"><svg aria-hidden="true"><use href="#logo-hellointerview" /></svg></span><span class="name">Hello Interview</span></a></li>
         <li><a href="https://algo.monster/dashboard" data-alias="amo"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomonster" /></svg></span><span class="name">Algo Monster</span></a></li>
-        <li><a href="https://algomaster.io/" data-alias="ama"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomaster" /></svg></span><span class="name">Algo Master</span></a></li>
-        <li><a href="https://systemdesignschool.io/" data-alias="sds"><span class="icon"><svg aria-hidden="true"><use href="#logo-systemdesignschool" /></svg></span><span class="name name-school">System Design School</span></a></li>
         <li><a href="https://takeuforward.org/dashboard" data-alias="tuf"><span class="icon"><svg aria-hidden="true"><use href="#logo-takeuforward" /></svg></span><span class="name">TuF</span></a></li>
+      </ul>
+    </section>
+
+    <section class="group group-design" aria-labelledby="group-design">
+      <h2 id="group-design">Design</h2>
+      <ul class="links">
+        <li><a href="/systemdesign/" data-alias="sd"><span class="icon"><svg aria-hidden="true"><use href="#icon-system-design" /></svg></span><span class="name">System Design</span></a></li>
+        <li><a href="http://localhost:8765/" data-alias="hi"><span class="icon"><svg aria-hidden="true"><use href="#logo-hellointerview" /></svg></span><span class="name">Hello Interview</span></a></li>
+        <li><a href="https://algomaster.io/" data-alias="ama"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomaster" /></svg></span><span class="name">AlgoMaster</span></a></li>
+        <li><a href="https://systemdesignschool.io/" data-alias="sds"><span class="icon"><svg aria-hidden="true"><use href="#logo-systemdesignschool" /></svg></span><span class="name name-school">System Design School</span></a></li>
       </ul>
     </section>
 

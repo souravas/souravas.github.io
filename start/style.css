@@ -15,8 +15,8 @@
    The rest is the layout's (see it below): --key is a key's
    height, the gaps are between keys, between the groups of a row
    and between the rows, --cols is how many columns of keys the
-   page has, and --daily, --hope, --learn and --misc how many of
-   them each group sets its keys in. */
+   page has. --daily, --learn and --misc set those groups' widths.
+   Code and Design always use two columns. */
 :root {
   --face: #0b0b0b;
   --face-hover: #121212;
@@ -30,7 +30,6 @@
   --row-gap: 28px;
   --cols: 4;
   --daily: 4;
-  --hope: 4;
   --learn: 2;
   --misc: 2;
 }
@@ -66,29 +65,24 @@ svg {
 
 /* ---------- Layout ----------
    One grid, --cols columns of keys wide. The prompt spans it, and a
-   group takes as many columns as it sets keys to a row (--daily,
-   --hope, --learn, --misc). Which arrangement depends on the
-   window's shape:
+   group takes as many columns as it sets keys to a row. The
+   arrangement depends on the window's shape:
 
      under 360px            2 columns   each group a row of its own
-     phones, tall windows   4 columns   Daily / Hope / Learn Misc
-     from 760px and 1:1     6 columns   Daily Hope / Learn Misc
+     phones, tall windows   4 columns   Daily / Code Design / Learn Misc
+     from 760px and 1:1     6 columns   Daily Code Design / Learn Misc
      or wider
-     short wide windows     9 columns   all four in one row
+     short wide windows     9 columns   all five in one row
      (from 930px; below)
 
-   With 2 columns every group is two keys wide. With 4, Daily is one
-   row of four and Hope two rows of four, over Learn (two by one)
-   and Misc (two by two). With 6, Daily is two by
-   two and Hope four by two, over Learn's row of two and Misc's of
-   four, so Learn's keys sit under Daily's and Misc's under Hope's.
-   With 9, Daily is
-   two by two, Hope four by two, Learn one by two and Misc two by
-   two. Under 760px the page scrolls; from there it is fitted to the
-   window (see below). 1:1 is where six columns start to give the
-   larger keys; nine start later than where theirs would, on purpose
-   (see Nine columns). The arrangements count on Daily's four links,
-   Hope's eight, Learn's two and Misc's four. */
+   Code and Design are each two by two. Daily is one row of four
+   in the four-column layout, and Misc is one row of four in the
+   six-column layout. Learn is one row of two except in the
+   nine-column layout, where it is one by two.
+
+   Under 760px the page scrolls. From there it fits the window when
+   the keys can be sized within their limits (see Fit). The layouts
+   count on each group having four links, except Learn, which has two. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -109,7 +103,6 @@ svg {
   :root {
     --cols: 2;
     --daily: 2;
-    --hope: 2;
   }
 }
 
@@ -125,11 +118,10 @@ svg {
    square: its columns, the gaps between them and the page's padding,
    0.35 + 1.175 × cols: a key of a group two columns wide is a
    column wide and half the difference between the group and key
-   gaps (0.075 of a key), and a group four columns wide gives its
-   keys a little more (in four columns it is split into pairs, and
-   gives them the same; see Groups). In nine columns Learn is one column wide and its keys
-   exactly a column, the narrowest, so there it is 0.35 + 1.25 ×
-   cols. A key may be a quarter
+   gaps (0.075 of a key). In six columns Misc spans four columns
+   and gives its keys a little more. In nine columns Learn is one
+   column wide and its keys exactly a column, the narrowest,
+   so there it is 0.35 + 1.25 × cols. A key may be a quarter
    wider than tall and no more, or 100px wide when that is more: that
    is the page's max-width. A window too small for the smallest keys
    scrolls.
@@ -302,17 +294,10 @@ svg {
 
 /* ---------- Groups ----------
    A group: its name, then its keys, --span to a row, which is also
-   how many of the page's columns it takes (--daily, --hope, --learn
-   or --misc). The name is a button (prompt.js puts it in the h2)
-   that opens the whole group.
-
-   In two and four columns every key is one width and sits under the
-   key above it. In six and nine, Hope's keys (four across) are three
-   eightieths of a key wider than Daily's (two across; 5px at 1536 ×
-   725), and in nine Learn's (one across) three fortieths narrower;
-   each group's keys sit under those of the group above it. */
+   how many of the page's columns it takes. The name is a button
+   that opens the whole group (prompt.js puts it in the h2). */
 .group {
-  --span: var(--daily);
+  --span: 2;
 
   display: flex;
   grid-column: span var(--span);
@@ -321,8 +306,8 @@ svg {
   min-width: 0;
 }
 
-.group-hope {
-  --span: var(--hope);
+.group-daily {
+  --span: var(--daily);
 }
 
 .group-learn {
@@ -388,20 +373,14 @@ svg {
   list-style: none;
 }
 
-/* Four columns (360px to 760px, and from there windows narrower than
-   1:1) set Daily and Hope, each alone in its row of groups, four keys
-   across, over Learn's and Misc's pairs. A spacer between the second
-   and third keys of each row splits
-   it into two pairs too: with a key gap either side, it makes up the
-   gap between two groups. */
+/* Daily spans all four columns in this layout. A spacer between
+   its second and third keys aligns the pairs with Code and Design. */
 @media (360px <= width < 760px), (width >= 760px) and (aspect-ratio < 1/1) {
-  .group-daily .links,
-  .group-hope .links {
+  .group-daily .links {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) calc(var(--group-gap) - 2 * var(--key-gap)) minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  .group-daily li:nth-child(4n + 3),
-  .group-hope li:nth-child(4n + 3) {
+  .group-daily li:nth-child(3) {
     grid-column: 4;
   }
 }
