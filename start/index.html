@@ -157,14 +157,10 @@
       </ul>
     </section>
 
-    <!-- Pages with no key, which only the prompt finds: by name or alias
-         (Pomodoro, whose button is in the prompt's row), or by a
-         site the page opens ("drive" finds Cloud), as it finds Invest by
-         "kite". The build writes those sites in (opener-sites in
-         vite.config.js). Hidden, so it takes no place in the keypad. -->
+    <!-- The prompt finds Pomodoro here by name or alias. Its visible
+         link is the timer icon in the prompt's row. -->
     <ul class="links" hidden>
       <li><a href="/pomodoro/" data-alias="p"><span class="name">Pomodoro</span></a></li>
-      <li><a href="/cloud/"><span class="name">Cloud</span></a></li>
     </ul>
   </main>
   <dialog class="settings-sheet" id="settings" aria-labelledby="settings-title">

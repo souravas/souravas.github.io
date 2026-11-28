@@ -389,13 +389,9 @@ const referenceDocs = (page, files, render) => {
   }
 }
 
-// /cloud and /invest each open the sites in their own ol.sites
-// (shared/opener.js), while /start's keys link those pages, not the
-// sites. So that /start's prompt finds a key by a site behind it ("kite"
-// finds Invest), this writes the hosts each such page opens onto every
-// link to it in /start's page, as data-opens, in dev as well as the
-// build. The sites stay listed in their own page alone. /downloads keeps
-// its sites in the browser, so it has none here.
+// Copy the hosts from a linked page's ol.sites onto its /start link as
+// data-opens in dev and production. This lets the prompt find Invest
+// by "kite". /downloads keeps its sites in the browser.
 const openerSites = () => {
   let root = process.cwd()
   // The hosts in a page's ol.sites, once each, in order; none if it has

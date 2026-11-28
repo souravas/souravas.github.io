@@ -16,10 +16,9 @@
    where the query has to start a word: its site's name ("gemini" finds
    AI), or any other word in
    them ("kannada" finds Language), including
-   the sites a page of this site opens ("kite" finds Invest). Pages
-   with no key are found the same way, through the hidden list after
-   the groups ("drive" finds Cloud). An
-   alias, a space and a query ("yt lofi") opens that link's
+   the sites a page of this site opens ("kite" finds Invest). The
+   hidden list after the groups provides Pomodoro's name and alias.
+   An alias, a space and a query ("yt lofi") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then
    "open all" for a group whose name
