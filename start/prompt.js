@@ -13,8 +13,8 @@
    in Hello Interview) beats the name's initials ("am" finds
    Algo Monster) or the starts of its words in order ("sys des" finds
    System Design), which beat the inside of a word, then on its addresses,
-   where the query has to start a word: its site's name ("zerodha" finds
-   Varsity), or any other word in
+   where the query has to start a word: its site's name ("gemini" finds
+   AI), or any other word in
    them ("kannada" finds Language), including
    the sites a page of this site opens ("kite" finds Invest). Pages
    with no key are found the same way, through the hidden list after

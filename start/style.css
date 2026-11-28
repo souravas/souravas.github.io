@@ -15,9 +15,8 @@
    The rest is the layout's (see it below): --key is a key's
    height, the gaps are between keys, between the groups of a row
    and between the rows, --cols is how many columns of keys the
-   page has, and --four, --six and --eight how many of them a group
-   of up to four links, of five or six, and of seven or eight set
-   their keys in. Learn uses --six to share a row with Misc. */
+   page has, and --daily, --hope, --learn and --misc how many of
+   them each group sets its keys in. */
 :root {
   --face: #0b0b0b;
   --face-hover: #121212;
@@ -30,9 +29,10 @@
   --group-gap: 16px;
   --row-gap: 28px;
   --cols: 4;
-  --four: 4;
-  --six: 2;
-  --eight: 4;
+  --daily: 4;
+  --hope: 4;
+  --learn: 2;
+  --misc: 2;
 }
 
 body {
@@ -66,27 +66,29 @@ svg {
 
 /* ---------- Layout ----------
    One grid, --cols columns of keys wide. The prompt spans it, and a
-   group takes as many columns as it sets keys to a row: --four for a
-   group of up to four links (Daily), --six for Learn and a group
-   with a fifth (Misc), --eight for one with a seventh (Hope). Which
-   arrangement depends on the window's shape:
+   group takes as many columns as it sets keys to a row (--daily,
+   --hope, --learn, --misc). Which arrangement depends on the
+   window's shape:
 
      under 360px            2 columns   each group a row of its own
      phones, tall windows   4 columns   Daily / Hope / Learn Misc
-     from 760px and 4:5     6 columns   Daily Hope / Learn Misc
+     from 760px and 1:1     6 columns   Daily Hope / Learn Misc
      or wider
-     short wide windows     12 columns  all four in one row
-     (from 1160px; below)
+     short wide windows     9 columns   all four in one row
+     (from 930px; below)
 
    With 2 columns every group is two keys wide. With 4, Daily is one
-   row of four and Hope two, over Learn and Misc two wide. With 6 and
-   12, Daily is two by two, Hope four by two, Learn three by one, and
-   Misc three by two. Under 760px the page scrolls; from
-   there it is fitted to the window (see below). 4:5 is where six
-   columns start to give the larger keys; twelve start later than
-   where theirs would, on purpose (see Twelve columns). The group
-   widths count on Daily, Hope, Learn and Misc taking 4, 8, 6 and 6
-   places respectively in the full grid. */
+   row of four and Hope two (seven keys, the last place empty), over
+   Learn (two by one) and Misc (two by two). With 6, Daily is two by
+   two and Hope four by two, over Learn's row of two and Misc's of
+   four, so Learn's keys sit under Daily's and Misc's under Hope's.
+   With 9, Daily is
+   two by two, Hope four by two, Learn one by two and Misc two by
+   two. Under 760px the page scrolls; from there it is fitted to the
+   window (see below). 1:1 is where six columns start to give the
+   larger keys; nine start later than where theirs would, on purpose
+   (see Nine columns). The arrangements count on Daily's four links,
+   Hope's seven, Learn's two and Misc's four. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -106,8 +108,8 @@ svg {
 @media (width < 360px) {
   :root {
     --cols: 2;
-    --four: 2;
-    --eight: 2;
+    --daily: 2;
+    --hope: 2;
   }
 }
 
@@ -121,24 +123,26 @@ svg {
    keys tall, plus its text at its largest (47px of prompt, 24px a
    heading), and --across keys wide while its narrowest keys are
    square: its columns, the gaps between them and the page's padding,
-   0.35 + 1.175 × cols in every arrangement: a key of a group two
-   columns wide is a column wide and half the difference between the
-   group and key gaps (0.075 of a key), and a group three or four
-   columns wide gives its keys a little more (see Groups), except in
-   four columns, where it is split into pairs. A key may be a quarter
+   0.35 + 1.175 × cols: a key of a group two columns wide is a
+   column wide and half the difference between the group and key
+   gaps (0.075 of a key), and a group four columns wide gives its
+   keys a little more (in four columns it is split into pairs, and
+   gives them the same; see Groups). In nine columns Learn is one column wide and its keys
+   exactly a column, the narrowest, so there it is 0.35 + 1.25 ×
+   cols. A key may be a quarter
    wider than tall and no more, or 100px wide when that is more: that
    is the page's max-width. A window too small for the smallest keys
    scrolls.
 
    The smallest key is 80px, the least that holds a name on two
-   lines: twelve columns start where their keys are that wide
-   (1160px), and six reach it only in windows under about 540px tall.
+   lines: nine columns start where their keys are that wide
+   (930px), and six reach it only in windows under 455px tall.
    In four columns, used only in tall windows where keys are wide and
    no name wraps, it is 72px. */
 @media (width >= 760px) {
   :root {
     --rows: 3;
-    --key-rows: 6;
+    --key-rows: 5;
     --across: calc(0.35 + 1.175 * var(--cols));
     --key-min: 72px;
     --key: clamp(
@@ -161,46 +165,47 @@ svg {
   }
 }
 
-@media (width >= 760px) and (aspect-ratio >= 4/5) {
+@media (width >= 760px) and (aspect-ratio >= 1/1) {
   :root {
     --cols: 6;
-    --four: 2;
-    --six: 3;
+    --daily: 2;
+    --misc: 4;
     --rows: 2;
-    --key-rows: 4;
+    --key-rows: 3;
     --key-min: 80px;
   }
 }
 
-/* ---------- Twelve columns ----------
-   Twelve columns give a key more height in a wide window, but stretch
+/* ---------- Nine columns ----------
+   Nine columns give a key more height in a wide window, but stretch
    the page into a band from edge to edge with the height above and
    below it empty, which looked wrong on an ultra-wide screen. So they
-   are kept for windows short as well as wide: under 880px tall and
+   are kept for windows short as well as wide: under 770px tall and
    3:1 or wider, where their keys come out at least a fifth larger in
-   area than six columns' (in a wide window a key of six is a quarter
-   wider than tall, one of twelve square, or at the 160px cap as wide
-   as the window lets it), and under 543px tall, where six columns'
-   smallest keys (80px: 5.6 keys and 95px of text) no longer fit and
+   area than six columns', and under 455px tall, where six columns'
+   smallest keys (80px: 4.5 keys and 95px of text) no longer fit and
    the page would scroll. A 21:9 screen's maximised window (2560 ×
-   945) gets six columns of 190 × 152px keys, about the size of
-   twelve's 181 × 160px, in a page that fills its height instead of
-   its width. */
-@media (width >= 1160px) and (height < 543px), (width >= 1160px) and (aspect-ratio >= 3) and (height < 880px) {
+   945) gets six columns of 200 × 160px keys, the cap, in a page that
+   fills its height instead of its width. */
+@media (width >= 930px) and (height < 455px), (width >= 930px) and (aspect-ratio >= 3) and (height < 770px) {
   :root {
-    --cols: 12;
+    --cols: 9;
+    --learn: 1;
+    --misc: 2;
     --rows: 1;
     --key-rows: 2;
+    --across: calc(0.35 + 1.25 * var(--cols));
   }
 }
 
 /* ---------- Prompt ----------
-   The 28px mark column, what you type, and the hint
-   ending the row. The input keeps at least half the row on phones,
-   so a long hint truncates instead of squeezing what you type. */
+   The 28px mark column, what you type, the hint, and the Pomodoro
+   button ending the row. The input keeps at least half the row on
+   phones, so a long hint truncates instead of squeezing what you
+   type. */
 .prompt {
   display: grid;
-  grid-template-columns: 1.75em minmax(50%, 1fr) auto;
+  grid-template-columns: 1.75em minmax(50%, 1fr) auto auto;
   align-items: center;
   padding-bottom: clamp(12px, calc(var(--key) * 0.11), 16px);
   border-bottom: 1px solid var(--line);
@@ -215,7 +220,7 @@ svg {
 
 @media (width >= 760px) {
   .prompt {
-    grid-template-columns: 1.75em minmax(0, 1fr) auto;
+    grid-template-columns: 1.75em minmax(0, 1fr) auto auto;
   }
 }
 
@@ -261,6 +266,34 @@ svg {
   }
 }
 
+/* Pomodoro, the one page opened from the prompt's row rather than a
+   key: an icon a little larger than the text, its padding pulled
+   back so it adds nothing to the row's height. */
+.prompt-page {
+  display: flex;
+  margin: -0.35em -0.35em -0.35em 0.5em;
+  padding: 0.35em;
+  border-radius: 8px;
+  color: var(--icon);
+  transition: color 0.12s ease;
+}
+
+.prompt-page svg {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+@media (hover: hover) {
+  .prompt-page:hover {
+    color: var(--text);
+  }
+}
+
+.prompt-page:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+
 .prompt-hint kbd {
   margin-right: 8px;
   color: var(--accent);
@@ -269,20 +302,17 @@ svg {
 
 /* ---------- Groups ----------
    A group: its name, then its keys, --span to a row, which is also
-   how many of the page's columns it takes. A group with a fifth link
-   is a group of six, and one with a seventh a group of eight. Learn
-   uses the same width as Misc so the two fit side by side. The
-   name is a button (prompt.js puts it in the h2) that opens the whole
-   group.
+   how many of the page's columns it takes (--daily, --hope, --learn
+   or --misc). The name is a button (prompt.js puts it in the h2)
+   that opens the whole group.
 
    In two and four columns every key is one width and sits under the
-   key above it. In six and twelve a group of four is two keys across,
-   of six three and of eight four, so their keys are a fortieth and
-   three eightieths of a key wider than a group of four's (4px and 6px
-   at 2560 × 945) and line up with the rest only at the groups'
-   edges. */
+   key above it. In six and nine, Hope's keys (four across) are three
+   eightieths of a key wider than Daily's (two across; 5px at 1536 ×
+   725), and in nine Learn's (one across) three fortieths narrower;
+   each group's keys sit under those of the group above it. */
 .group {
-  --span: var(--four);
+  --span: var(--daily);
 
   display: flex;
   grid-column: span var(--span);
@@ -291,13 +321,16 @@ svg {
   min-width: 0;
 }
 
-.group-learn,
-.group:has(li:nth-child(5)) {
-  --span: var(--six);
+.group-hope {
+  --span: var(--hope);
 }
 
-.group:has(li:nth-child(7)) {
-  --span: var(--eight);
+.group-learn {
+  --span: var(--learn);
+}
+
+.group-misc {
+  --span: var(--misc);
 }
 
 .group h2 {
@@ -356,19 +389,19 @@ svg {
 }
 
 /* Four columns (360px to 760px, and from there windows narrower than
-   4:5) set Daily and Hope, each alone in its row of groups, four keys
+   1:1) set Daily and Hope, each alone in its row of groups, four keys
    across, over Learn's and Misc's pairs. A spacer between the second
    and third keys of each row splits
    it into two pairs too: with a key gap either side, it makes up the
    gap between two groups. */
-@media (360px <= width < 760px), (width >= 760px) and (aspect-ratio < 4/5) {
-  .group:not(.group-learn, :has(li:nth-child(5))) .links,
-  .group:has(li:nth-child(7)) .links {
+@media (360px <= width < 760px), (width >= 760px) and (aspect-ratio < 1/1) {
+  .group-daily .links,
+  .group-hope .links {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) calc(var(--group-gap) - 2 * var(--key-gap)) minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  .group:not(.group-learn, :has(li:nth-child(5))) li:nth-child(4n + 3),
-  .group:has(li:nth-child(7)) li:nth-child(4n + 3) {
+  .group-daily li:nth-child(4n + 3),
+  .group-hope li:nth-child(4n + 3) {
     grid-column: 4;
   }
 }
@@ -528,6 +561,7 @@ svg {
   .prompt,
   .group h2,
   .group h2 button,
+  .prompt-page,
   .links a,
   .icon {
     transition: none;
