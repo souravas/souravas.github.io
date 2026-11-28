@@ -16,7 +16,7 @@
    where the query has to start a word: its site's name ("zerodha" finds
    Varsity, but "school" doesn't find systemdesignschool's System
    Design), or any other word in
-   them ("academy" finds ByteMonk, "kannada" finds Language), including
+   them ("kannada" finds Language), including
    the sites a page of this site opens ("kite" finds Invest). Pages
    with no key are found the same way, through the hidden list after
    the groups ("drive" finds Cloud). An
