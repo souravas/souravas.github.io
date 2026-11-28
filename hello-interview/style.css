@@ -1,13 +1,67 @@
 @import '../shared/site-editor.css';
 
-.file-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.picker {
+  position: relative;
+  display: inline-block;
 }
 
-.edit .open-file {
-  text-decoration: none;
+.picker input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.picker:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.page:has(#local-file:not([hidden])) {
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  min-height: 100dvh;
+  padding: 12px max(12px, env(safe-area-inset-right)) 12px max(12px, env(safe-area-inset-left));
+}
+
+.page:has(#local-file:not([hidden])) .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+#local-file:not([hidden]) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 8px 0;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.file-toolbar a {
+  color: var(--accent);
+}
+
+#file-viewer {
+  flex: 1;
+  display: flex;
+}
+
+#file-viewer iframe {
+  width: 100%;
+  min-height: 50vh;
+  border: 1px solid var(--rule);
+  background: #fff;
 }
 
 @media (width < 760px) {

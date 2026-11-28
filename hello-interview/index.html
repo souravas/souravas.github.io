@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; frame-src 'self' blob:; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Hello Interview</title>
   <meta name="description" content="Opens the Hello Interview link saved in this browser." />
@@ -38,19 +38,17 @@
         <input class="urls" id="url" type="text" inputmode="url" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://… or file:///…" aria-describedby="status" />
         <button class="retry" type="submit">Save</button>
         <p class="status" id="status" role="status"></p>
+        <p class="note" id="file-help">Choose a local file to open a copy saved in this browser.</p>
+        <label class="retry picker">Choose local file<input id="choose-file" type="file" accept=".html,.htm,.xhtml,.pdf,.txt,.png,.jpg,.jpeg,.webp,.gif,.avif,.svg" aria-describedby="file-help" /></label>
       </form>
 
-      <div class="edit" id="file-link" hidden>
-        <label class="field-label" for="file-url">Saved file URL</label>
-        <input class="urls" id="file-url" type="text" readonly aria-describedby="file-help" />
-        <div class="file-actions">
-          <a class="retry open-file" id="open-file">Open file</a>
-          <button class="retry" id="copy-file" type="button">Copy URL</button>
+      <section id="local-file" hidden>
+        <div class="file-toolbar">
+          <span id="filename"></span>
+          <a href="#edit">Change link or file</a>
         </div>
-        <p class="note" id="file-help">If your browser blocks the file link, copy the URL and paste it into the address bar.</p>
-        <p class="status" id="file-status" role="status"></p>
-        <p><a href="#edit">Change link</a></p>
-      </div>
+        <div id="file-viewer"></div>
+      </section>
     </div>
   </main>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40e800aeadd0416d922cd4df15f80f38"}'></script><!-- End Cloudflare Web Analytics -->
