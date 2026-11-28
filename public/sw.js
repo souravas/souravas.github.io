@@ -39,26 +39,28 @@ const assetsOf = (html) => new Set(Array.from(html.matchAll(ASSET), (m) => m[1])
 // one unless we ask.
 const hashed = (path) => !path.startsWith("/fonts/");
 
-// Ask the server whether a cached file changed. The request carries the
-// cached copy's validator, which makes the browser pass a 304 through
-// instead of answering from its own HTTP cache; without one, refetch.
-async function revalidate(cache, path) {
-  const headers = (await cache.match(path))?.headers;
+// Send the cached response's validator so the browser passes a 304 through.
+// Without a validator, revalidate against the network.
+function revalidationOptions(cached) {
+  const headers = cached?.headers;
   const etag = headers?.get("etag");
   const modified = headers?.get("last-modified");
-  const init = etag ? { headers: { "If-None-Match": etag } }
+  return etag ? { headers: { "If-None-Match": etag } }
     : modified ? { headers: { "If-Modified-Since": modified } }
     : { cache: "no-cache" };
-  const response = await fetch(path, init);
+}
+
+async function revalidate(cache, path) {
+  const response = await fetch(path, revalidationOptions(await cache.match(path)));
   if (response.status === 304) return;
   if (!response.ok) throw new Error(`${path}: ${response.status}`);
   await cache.put(path, response);
 }
 
-async function fetchPage() {
-  const response = await fetch(PAGE, { cache: "no-cache" });
-  if (!response.ok) throw new Error(`${PAGE}: ${response.status}`);
-  return response;
+async function fetchPage(cached) {
+  const response = await fetch(PAGE, revalidationOptions(cached));
+  if (response.ok || (cached && response.status === 304)) return response;
+  throw new Error(`${PAGE}: ${response.status}`);
 }
 
 // Cache a fetched page with what it needs, then drop the assets neither
@@ -75,19 +77,26 @@ async function store(cache, response, keep = new Set()) {
   await Promise.all(unused.map((path) => cache.delete(path)));
 }
 
-const refresh = async (cache, keep) => store(cache, await fetchPage(), keep);
+const refresh = async (cache) => store(cache, await fetchPage());
 
 // The assets of the copy in the cache: a page opened from it is about
 // to ask for them, so they stay until the next open even if a deploy
 // replaced them.
 const inUse = async (cached) => (cached ? assetsOf(await cached.clone().text()) : new Set());
 
+// Unchanged HTML points to the same assets. A font change gets a new path.
+async function refreshInstant(cache, cached) {
+  const fresh = await fetchPage(cached);
+  if (fresh.status !== 304) await store(cache, fresh, await inUse(cached));
+}
+
 // /start: the cached copy at once, and a fresh one fetched behind it.
 async function openInstant(event) {
   const cache = await caches.open(CACHE);
   const cached = await cache.match(PAGE);
   if (cached) {
-    event.waitUntil(inUse(cached).then((keep) => refresh(cache, keep)).catch(() => {}));
+    // The navigation consumes its copy while the refresh is in flight.
+    event.waitUntil(refreshInstant(cache, cached.clone()).catch(() => {}));
     return cached;
   }
   try {

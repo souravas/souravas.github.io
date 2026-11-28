@@ -82,7 +82,7 @@
     const { search } = a.dataset;
     // Named in the prompt by host: "youtube.com", "claude.ai".
     const searchHost = search ? new URL(search.replace("%s", "")).hostname.replace(/^www\./, "") : "";
-    return { a, name, label, key: label.toLowerCase(), site, words, aliases, starts, initials, hrefs, search, searchHost };
+    return { a, name, label, key: label.toLowerCase(), site, words, aliases, starts, initials, hrefs, search, searchHost, marks: [] };
   });
 
   // The [from, to) ranges of a link's name where each word of a query
@@ -174,6 +174,10 @@
 
   // Marks each [from, to) range of a link's name.
   const highlight = (link, marks) => {
+    const previous = link.marks;
+    if (marks.length === previous.length && marks.every(([from, to], i) =>
+      from === previous[i][0] && to === previous[i][1])) return;
+
     const parts = [];
     let end = 0;
     for (const [from, to] of marks) {
@@ -183,6 +187,7 @@
       end = to;
     }
     link.name.replaceChildren(...parts, link.label.slice(end));
+    link.marks = marks;
   };
 
   // Whether q is a whole address with its scheme, whatever its host:

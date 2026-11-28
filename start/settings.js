@@ -35,30 +35,36 @@ function fillAccentChoices(theme) {
 }
 
 let settings;
+let controlsTheme;
 
-function render(next) {
-  if (settings?.theme !== next.theme) {
-    fillAccentChoices(THEMES[next.theme]);
-  }
-  settings = next;
-  const paint = themePaint(settings);
-  for (const [key, color] of Object.entries(paint)) root.style.setProperty(key, color);
-  meta.content = paint["--bg"];
-
+function renderControls(paint) {
+  if (!controlsTheme) fillThemeChoices(themes);
+  if (controlsTheme !== settings.theme) fillAccentChoices(THEMES[settings.theme]);
+  controlsTheme = settings.theme;
   for (const input of themes.querySelectorAll("input")) input.checked = input.value === settings.theme;
   for (const input of swatches.querySelectorAll("input")) input.checked = input.value === settings.accent;
   for (const input of backgrounds) input.checked = input.value === settings.background;
   custom.value = settings.accent;
   note.hidden = paint["--accent"] === settings.accent;
+}
+
+function render(next) {
+  settings = next;
+  const paint = themePaint(settings);
+  for (const [key, color] of Object.entries(paint)) root.style.setProperty(key, color);
+  meta.content = paint["--bg"];
+  if (controlsTheme) renderControls(paint);
   return paint;
 }
 
-fillThemeChoices(themes);
 render(readSettings());
 
 if (typeof sheet.showModal === "function") {
   open.hidden = false;
-  open.addEventListener("click", () => sheet.showModal());
+  open.addEventListener("click", () => {
+    if (!controlsTheme) renderControls(themePaint(settings));
+    sheet.showModal();
+  });
   close.addEventListener("click", () => sheet.close());
   sheet.addEventListener("click", (event) => {
     if (event.target !== sheet) return;
