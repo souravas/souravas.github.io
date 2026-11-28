@@ -1,0 +1,163 @@
+@import '../shared/theme-picker.css';
+
+.settings-sheet {
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: 90dvh;
+  margin: 0;
+  padding: 0 max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-radius: 14px 14px 0 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.settings-sheet::backdrop {
+  background: rgb(0 0 0 / 0.55);
+}
+
+@media (width >= 760px) {
+  .settings-sheet {
+    inset: 0;
+    width: 520px;
+    margin: auto;
+    padding: 0 24px 24px;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+  }
+}
+
+.settings-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.settings-head h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.settings-field {
+  min-width: 0;
+  margin: 18px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.settings-field legend {
+  margin-bottom: 8px;
+  padding: 0;
+  color: var(--muted);
+  font: 400 11px/16px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.settings-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--body);
+  font: 400 11px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.settings-background {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.settings-background label {
+  position: relative;
+}
+
+.settings-background input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.settings-background input:checked + .settings-chip {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.settings-chip:focus-visible,
+.settings-background input:focus-visible + .settings-chip,
+.settings-swatches input:focus-visible,
+.settings-custom input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.settings-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 4px;
+}
+
+.settings-swatches input {
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 50%;
+  background: var(--swatch);
+  cursor: pointer;
+  appearance: none;
+}
+
+.settings-swatches input:checked {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text);
+}
+
+.settings-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--body);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.settings-custom input {
+  width: 32px;
+  height: 28px;
+  padding: 2px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.settings-note {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}

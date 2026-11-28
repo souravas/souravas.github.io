@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
 
   <title>Hope</title>
   <meta name="description" content="Start page, as a keypad — daily and learning bookmarks." />
@@ -20,6 +20,22 @@
 
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
+
+  <!-- Put on the saved colours before first paint. settings.js keeps them
+       with the choices, and the build hashes this script into the CSP. -->
+  <script>
+    try {
+      const paint = JSON.parse(localStorage.getItem("start-settings"))?.paint;
+      const tokens = /^--(?:bg|line|rule|edge|text|heading|body|muted|accent|face|face-hover|face-line|face-lip|icon|legend)$/;
+      for (const [key, color] of Object.entries(paint || {})) {
+        if (tokens.test(key) && /^#[0-9a-f]{6}$/i.test(color)) {
+          document.documentElement.style.setProperty(key, color);
+        }
+      }
+      const bg = document.documentElement.style.getPropertyValue("--bg");
+      if (bg) document.querySelector('meta[name="theme-color"]').content = bg;
+    } catch {}
+  </script>
 
   <link rel="stylesheet" href="/start/style.css" />
   <script type="module" src="/start/main.js"></script>
@@ -61,6 +77,7 @@
     <symbol id="mdi-piggy-bank-outline" viewBox="0 0 24 24"><path d="M15 10C15 9.45 15.45 9 16 9C16.55 9 17 9.45 17 10S16.55 11 16 11 15 10.55 15 10M8 9H13V7H8V9M22 7.5V14.47L19.18 15.41L17.5 21H12V19H10V21H4.5C4.5 21 2 12.54 2 9.5S4.46 4 7.5 4H12.5C13.41 2.79 14.86 2 16.5 2C17.33 2 18 2.67 18 3.5C18 3.71 17.96 3.9 17.88 4.08C17.74 4.42 17.62 4.81 17.56 5.23L19.83 7.5H22M20 9.5H19L15.5 6C15.5 5.35 15.59 4.71 15.76 4.09C14.79 4.34 14 5.06 13.67 6H7.5C5.57 6 4 7.57 4 9.5C4 11.38 5.22 16.15 6 19H8V17H14V19H16L17.56 13.85L20 13.03V9.5Z"/></symbol>
     <symbol id="mdi-download" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></symbol>
     <symbol id="mdi-timer-outline" viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z"/></symbol>
+    <symbol id="mdi-cog-outline" viewBox="0 0 24 24"><path d="M12,8A4,4 0 1,1 12,16A4,4 0 0,1 12,8M12,10A2,2 0 1,0 12,14A2,2 0 0,0 12,10M10.5,2H13.5C14,2 14.4,2.36 14.47,2.84L14.76,4.87L16.11,5.65L18,4.89C18.45,4.71 18.96,4.88 19.2,5.29L20.7,7.89C20.94,8.31 20.83,8.84 20.45,9.14L18.85,10.4V13.6L20.45,14.86C20.83,15.16 20.94,15.69 20.7,16.11L19.2,18.71C18.96,19.12 18.45,19.29 18,19.11L16.11,18.35L14.76,19.13L14.47,21.16C14.4,21.64 14,22 13.5,22H10.5C10,22 9.6,21.64 9.53,21.16L9.24,19.13L7.89,18.35L6,19.11C5.55,19.29 5.04,19.12 4.8,18.71L3.3,16.11C3.06,15.69 3.17,15.16 3.55,14.86L5.15,13.6V10.4L3.55,9.14C3.17,8.84 3.06,8.31 3.3,7.89L4.8,5.29C5.04,4.88 5.55,4.71 6,4.89L7.89,5.65L9.24,4.87L9.53,2.84C9.6,2.36 10,2 10.5,2M11.37,4L11.06,6.12L8.04,7.87L6.05,7.07L5.45,8.1L7.15,9.43V14.57L5.45,15.9L6.05,16.93L8.04,16.13L11.06,17.88L11.37,20H12.63L12.94,17.88L15.96,16.13L17.95,16.93L18.55,15.9L16.85,14.57V9.43L18.55,8.1L17.95,7.07L15.96,7.87L12.94,6.12L12.63,4Z"/></symbol>
   </svg>
 
   <main class="page">
@@ -68,13 +85,16 @@
 
     <!-- Quick launch: type anywhere to filter the links below in place,
          jump by alias, search a site by keyword, open a URL, or search
-         Google. Pomodoro's button ends the row; the prompt finds it
-         through the hidden list after the groups. -->
+         Google. Pomodoro and Settings sit at the end of the row. The
+         prompt finds Pomodoro through the hidden list after the groups. -->
     <div class="prompt">
       <span class="prompt-mark" aria-hidden="true">›</span>
       <input class="prompt-input" id="q" type="text" placeholder="type anywhere to search" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-label="Search bookmarks, open a URL, or search Google" aria-describedby="hint" />
       <output class="prompt-hint" id="hint"></output>
-      <a class="prompt-page" href="/pomodoro/" title="Pomodoro (p)" aria-label="Pomodoro"><svg aria-hidden="true"><use href="#mdi-timer-outline" /></svg></a>
+      <div class="prompt-actions">
+        <a class="prompt-action" href="/pomodoro/" title="Pomodoro (p)" aria-label="Pomodoro"><svg aria-hidden="true"><use href="#mdi-timer-outline" /></svg></a>
+        <button class="prompt-action" id="open-settings" type="button" title="Settings" aria-label="Settings" aria-haspopup="dialog" aria-controls="settings" hidden><svg aria-hidden="true"><use href="#mdi-cog-outline" /></svg></button>
+      </div>
     </div>
 
     <!-- Bookmarks. Copy an <li> to add one; the icon is the <use> href
@@ -147,6 +167,29 @@
       <li><a href="/cloud/"><span class="name">Cloud</span></a></li>
     </ul>
   </main>
+  <dialog class="settings-sheet" id="settings" aria-labelledby="settings-title">
+    <header class="settings-head">
+      <h2 id="settings-title">Settings</h2>
+      <button id="close-settings" class="settings-chip" type="button" autofocus>Close</button>
+    </header>
+    <fieldset class="settings-field">
+      <legend>Theme</legend>
+      <div class="themes" id="themes"></div>
+    </fieldset>
+    <fieldset class="settings-field">
+      <legend>Accent</legend>
+      <div class="settings-swatches" id="accents"></div>
+      <label class="settings-custom"><input type="color" id="custom-accent" /> Custom color</label>
+      <p class="settings-note" id="accent-note" hidden>Accent lightened for readability.</p>
+    </fieldset>
+    <fieldset class="settings-field">
+      <legend>Background</legend>
+      <div class="settings-background">
+        <label><input type="radio" name="background" value="plain" /><span class="settings-chip">Plain</span></label>
+        <label><input type="radio" name="background" value="tint" /><span class="settings-chip">Tinted</span></label>
+      </div>
+    </fieldset>
+  </dialog>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40e800aeadd0416d922cd4df15f80f38"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

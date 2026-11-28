@@ -15,7 +15,7 @@
 // page is not in front, shows a notification. A sound can play while
 // Focus runs (sound.js).
 //
-// The page takes its greys from the chosen theme (themes.js), and Focus
+// The page takes its greys from the shared theme, and Focus
 // and the breaks take a colour each, from the theme's or any other.
 //
 // localStorage keeps the timer under `pomodoro` (the lengths, the mode,
@@ -26,7 +26,8 @@
 // one timer, and one of them rings.
 
 import * as sound from './sound.js'
-import { THEMES } from './themes.js'
+import { THEMES } from '../shared/themes.js'
+import { fillThemeChoices } from '../shared/theme-picker.js'
 
 const KEY = 'pomodoro'
 const SETTINGS_KEY = 'pomodoro-settings'
@@ -495,31 +496,7 @@ const render = () => {
 const themeList = $('themes')
 const swatchGroups = [...document.querySelectorAll('.swatches')]
 
-// Each theme as a radio button: a sample of its ground with its two
-// colours, and its name in its own text colour.
-for (const [key, t] of Object.entries(THEMES)) {
-  const label = document.createElement('label')
-  label.className = 'theme'
-  for (const [prop, value] of Object.entries({ bg: t.bg, rule: t.rule, text: t.text, focus: t.focus, break: t.break })) {
-    label.style.setProperty(`--t-${prop}`, value)
-  }
-  const input = document.createElement('input')
-  input.type = 'radio'
-  input.name = 'theme'
-  input.value = key
-  const face = document.createElement('span')
-  face.className = 'theme-face'
-  const dots = document.createElement('span')
-  dots.className = 'theme-dots'
-  dots.setAttribute('aria-hidden', 'true')
-  dots.append(document.createElement('i'), document.createElement('i'))
-  const title = document.createElement('span')
-  title.className = 'theme-name'
-  title.textContent = t.name
-  face.append(dots, title)
-  label.append(input, face)
-  themeList.append(label)
-}
+fillThemeChoices(themeList)
 
 // The theme's colours as radio buttons, then any colour, for Focus and
 // for the breaks. Made again when the theme changes.

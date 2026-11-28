@@ -37,6 +37,7 @@
 (() => {
   const input = document.getElementById("q");
   const hint = document.getElementById("hint");
+  const settings = document.getElementById("settings");
   if (!input || !hint) return;
   // Touch screens have no keyboard to type "anywhere" with.
   if (matchMedia("(hover: none)").matches) input.placeholder = "search";
@@ -267,7 +268,7 @@
   };
 
   document.addEventListener("keydown", (e) => {
-    if (e.target === input || e.defaultPrevented || e.isComposing) return;
+    if (settings.open || e.target === input || e.defaultPrevented || e.isComposing) return;
     // A click on the page takes the prompt's focus but leaves its query
     // and the dimmed links, so Esc clears those from anywhere too.
     if (e.key === "Escape" && input.value) {
@@ -284,7 +285,7 @@
   // Pasting anywhere fills the prompt too, as one line: a pasted address
   // or "yt lofi" is then an Enter away.
   document.addEventListener("paste", (e) => {
-    if (e.target === input) return;
+    if (settings.open || e.target === input) return;
     const text = e.clipboardData?.getData("text").replace(/\s+/g, " ").trim();
     if (!text) return;
     e.preventDefault();

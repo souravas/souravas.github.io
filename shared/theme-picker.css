@@ -1,0 +1,78 @@
+/* Themes: a sample of each, its ground with its two colours and its
+   name in its own text colour, ringed when chosen. Three to a row
+   where they fit, else two. The radio covers it, unseen. */
+.themes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (min-width: 420px) {
+  .themes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.theme {
+  position: relative;
+  display: flex;
+}
+
+.theme input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.theme-face {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--t-rule);
+  border-radius: var(--radius);
+  background: var(--t-bg);
+  color: var(--t-text);
+  font-size: 13px;
+}
+
+.theme-name {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.theme-dots {
+  display: flex;
+  flex: none;
+}
+
+.theme-dots i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--t-focus);
+  box-shadow: 0 0 0 2px var(--t-bg);
+}
+
+.theme-dots i + i {
+  margin-left: -3px;
+  background: var(--t-break);
+}
+
+.theme input:checked + .theme-face {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text);
+}
+
+.theme input:focus-visible + .theme-face {
+  outline: 2px solid var(--muted);
+  outline-offset: 6px;
+}

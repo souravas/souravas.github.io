@@ -7,6 +7,7 @@
    ============================================================ */
 
 @import '../shared/base.css';
+@import './settings.css';
 
 /* ---------- Tokens ----------
    A key's face, its edge, the lip along its bottom that makes it
@@ -61,6 +62,11 @@ h1 {
 
 svg {
   fill: currentColor;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--text);
 }
 
 /* ---------- Layout ----------
@@ -191,10 +197,9 @@ svg {
 }
 
 /* ---------- Prompt ----------
-   The 28px mark column, what you type, the hint, and the Pomodoro
-   button ending the row. The input keeps at least half the row on
-   phones, so a long hint truncates instead of squeezing what you
-   type. */
+   The 28px mark column, what you type, the hint and the actions.
+   The input keeps at least half the row on phones, so a long hint
+   truncates instead of squeezing what you type. */
 .prompt {
   display: grid;
   grid-template-columns: 1.75em minmax(50%, 1fr) auto auto;
@@ -207,7 +212,7 @@ svg {
 }
 
 .prompt:focus-within {
-  border-bottom-color: rgb(184 177 255 / 0.45);
+  border-bottom-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 @media (width >= 760px) {
@@ -243,6 +248,7 @@ svg {
 }
 
 .prompt-hint {
+  min-width: 0;
   max-width: 34ch;
   padding-left: 16px;
   overflow: hidden;
@@ -252,36 +258,51 @@ svg {
   white-space: nowrap;
 }
 
+.prompt-hint:empty {
+  padding-left: 0;
+}
+
 @media (width >= 760px) {
   .prompt-hint {
     max-width: 44ch;
   }
 }
 
-/* Pomodoro, the one page opened from the prompt's row rather than a
-   key: an icon a little larger than the text, its padding pulled
-   back so it adds nothing to the row's height. */
-.prompt-page {
+/* The icons' vertical padding stays outside the prompt's row height. */
+.prompt-actions {
   display: flex;
-  margin: -0.35em -0.35em -0.35em 0.5em;
+  margin: 0 -0.35em 0 0.5em;
+}
+
+.prompt-action {
+  display: flex;
+  margin: -0.35em 0;
   padding: 0.35em;
+  border: 0;
   border-radius: 8px;
+  background: none;
   color: var(--icon);
+  font: inherit;
+  cursor: pointer;
   transition: color 0.12s ease;
 }
 
-.prompt-page svg {
+.prompt-action[hidden] {
+  display: none;
+}
+
+.prompt-action svg {
   width: 1.25em;
   height: 1.25em;
 }
 
 @media (hover: hover) {
-  .prompt-page:hover {
+  .prompt-action:hover {
     color: var(--text);
   }
 }
 
-.prompt-page:focus-visible {
+.prompt-action:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 0;
 }
@@ -515,7 +536,7 @@ svg {
 
 /* The key Enter will open: its edge lit. */
 .links a.is-selected {
-  border-color: rgb(184 177 255 / 0.55);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
   background: var(--face-hover);
   color: var(--text);
 }
@@ -540,7 +561,7 @@ svg {
   .prompt,
   .group h2,
   .group h2 button,
-  .prompt-page,
+  .prompt-action,
   .links a,
   .icon {
     transition: none;

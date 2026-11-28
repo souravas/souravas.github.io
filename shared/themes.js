@@ -1,4 +1,4 @@
-// /pomodoro's themes: the site's own black, and the dark themes people
+// /start and /pomodoro's themes: the site's own black, and the dark themes people
 // know from their editors, each in its published colours. A theme sets
 // the page's ground and greys, and offers its accents as the colours for
 // Focus and the breaks, two of them chosen to begin with.
