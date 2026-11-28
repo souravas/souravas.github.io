@@ -12,7 +12,7 @@ const SITE_ORIGIN = 'https://souravas.com'
 // served at /<name>/. This list is the build's inputs (rolldownOptions)
 // and the routes the dev and preview servers answer (html-routes), so a
 // new page is added to this file by adding its name here.
-const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'systemdesign', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads']
+const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'systemdesign', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads', 'hello-interview']
 
 // public/'s redirect stubs (cv.html, resume.html), which GitHub Pages
 // also serves without the .html.

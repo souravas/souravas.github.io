@@ -1,0 +1,68 @@
+@import './opener.css';
+
+.edit p {
+  max-width: 60ch;
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.edit a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--edge);
+  text-underline-offset: 3px;
+}
+
+.edit a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.field-label {
+  display: block;
+  margin-top: 20px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.urls {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.urls::placeholder {
+  color: var(--muted);
+}
+
+.urls:focus-visible {
+  border-color: var(--edge);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.edit .status:empty {
+  display: none;
+}
+
+.edit .status {
+  color: var(--accent);
+}
+
+.edit .note {
+  color: var(--muted);
+  font-size: 13px;
+}

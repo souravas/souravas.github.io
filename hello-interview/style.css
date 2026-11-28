@@ -1,0 +1,7 @@
+@import '../shared/site-editor.css';
+
+@media (width < 760px) {
+  .urls {
+    font-size: 16px;
+  }
+}

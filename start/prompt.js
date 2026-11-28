@@ -41,24 +41,6 @@
   // Touch screens have no keyboard to type "anywhere" with.
   if (matchMedia("(hover: none)").matches) input.placeholder = "search";
 
-  const HELLO_INTERVIEW_KEY = "start:hello-interview";
-  const webHref = (value) => {
-    try {
-      const url = new URL(value.trim());
-      return ["http:", "https:"].includes(url.protocol) ? url.href : null;
-    } catch {
-      return null;
-    }
-  };
-
-  const loadHelloInterview = () => {
-    try {
-      return webHref(localStorage.getItem(HELLO_INTERVIEW_KEY) ?? "");
-    } catch {
-      return null;
-    }
-  };
-
   // Where a word starts in a label: after a space or hyphen, or at a
   // capital inside a word ("NeetCode" has words at 0 and 4). Each match
   // is the character before the start, if any; lookahead rather than
@@ -68,14 +50,11 @@
   const links = [...document.querySelectorAll(".links a")].map((a) => {
     const name = a.querySelector(".name");
     const label = name.textContent.trim();
-    const local = a.hasAttribute("data-hello-interview");
-    const href = local ? loadHelloInterview() : a.href;
-    if (local && href) a.href = href;
     // The label left of the TLD: "docs.google.com" → "google". A link
     // that opens an app names it in its scheme: "obsidian://…". A page
     // on this site has none, or "sou" would find them all; its path
     // names it instead (words, below).
-    const site = local || a.origin === location.origin ? ""
+    const site = a.origin === location.origin ? ""
       : a.protocol.startsWith("http") ? a.hostname.split(".").at(-2) ?? ""
       : a.protocol.slice(0, -1);
     const aliases = (a.dataset.alias ?? "").toLowerCase().split(/\s+/).filter(Boolean);
@@ -83,7 +62,7 @@
     // The first letter of each word: "sd" for System Design.
     const initials = starts.map((i) => label[i]).join("").toLowerCase();
     // Everything the link opens, in order: its href, then data-also.
-    const hrefs = [href, ...(a.dataset.also ?? "").split(/\s+/)].filter(Boolean);
+    const hrefs = [a.href, ...(a.dataset.also ?? "").split(/\s+/).filter(Boolean)];
     // The sites a page of this site opens in turn (/invest opens Kite),
     // whose hosts the build writes into data-opens (opener-sites in
     // vite.config.js). Matched as addresses are, never opened from here.
@@ -93,7 +72,7 @@
     // ("docs" in docs.google.com, "chatgpt" from AI's data-also, "kite"
     // from Invest's data-opens), and for a page on this site the first
     // segment of its path ("kannada"). www, app and web name no site.
-    const words = (local ? [] : [...hrefs, ...opens]).flatMap((href) => {
+    const words = [...hrefs, ...opens].flatMap((href) => {
       const url = new URL(href, location.href);
       if (!url.protocol.startsWith("http")) return [];
       if (url.origin === location.origin) return url.pathname.split("/").filter(Boolean).slice(0, 1);
@@ -182,38 +161,15 @@
   const groups = [...document.querySelectorAll(".group")].map((section) => {
     const heading = section.querySelector("h2");
     const title = heading.textContent.trim();
-    const members = links.filter(({ a }) => section.contains(a));
-    const getHrefs = () => members.flatMap((link) => link.hrefs);
+    const hrefs = links.filter(({ a }) => section.contains(a)).flatMap((link) => link.hrefs);
     const button = document.createElement("button");
     button.type = "button";
-    const updateTitle = () => { button.title = `Open all ${getHrefs().length} in new tabs`; };
-    updateTitle();
+    button.title = `Open all ${hrefs.length} in new tabs`;
     button.append(...heading.childNodes);
-    button.addEventListener("click", () => openAll(getHrefs()));
+    button.addEventListener("click", () => openAll(hrefs));
     heading.replaceChildren(button);
-    return { section, title, key: title.toLowerCase(), getHrefs, updateTitle };
+    return { section, title, key: title.toLowerCase(), hrefs };
   });
-
-  const setUpHelloInterview = (link, newTab) => {
-    const pasted = window.prompt("Paste your Hello Interview link. It will be saved in this browser.");
-    if (pasted === null) return;
-    const href = webHref(pasted);
-    if (!href) {
-      say("!", "enter a full http:// or https:// link");
-      return;
-    }
-    try {
-      localStorage.setItem(HELLO_INTERVIEW_KEY, href);
-    } catch {
-      say("!", "this browser could not save the link");
-      return;
-    }
-    link.a.href = href;
-    link.hrefs.push(href);
-    groups.find(({ section }) => section.contains(link.a))?.updateTitle();
-    if (newTab) openAll([href]);
-    else location.assign(href);
-  };
 
   // Marks each [from, to) range of a link's name.
   const highlight = (link, marks) => {
@@ -282,11 +238,7 @@
     // Best rank first, then earliest in the name (Array#sort is stable,
     // so equally good matches keep page order).
     candidates = hits.sort((x, y) => x.rank - y.rank || x.at - y.at)
-      .map(({ link }) => ({
-        link,
-        hrefs: link.hrefs,
-        label: `${link.hrefs.length ? "open" : "set up"} ${link.label}`,
-      }));
+      .map(({ link }) => ({ link, hrefs: link.hrefs, label: `open ${link.label}` }));
     if (owner) {
       const href = owner.search.replace("%s", encodeURIComponent(query));
       candidates.unshift({ link: owner, hrefs: [href], label: `search ${owner.searchHost}` });
@@ -295,8 +247,7 @@
     // Misc, "isc" nothing.
     for (const group of groups) {
       if (q && group.key.startsWith(needle)) {
-        const hrefs = group.getHrefs();
-        candidates.push({ group, hrefs, label: `open all ${hrefs.length} in ${group.title}` });
+        candidates.push({ group, hrefs: group.hrefs, label: `open all ${group.hrefs.length} in ${group.title}` });
       }
     }
     const address = visit(q);
@@ -350,14 +301,13 @@
       paint();
     } else if (e.key === "Enter" && !e.isComposing && candidates.length) {
       e.preventDefault();
-      const { link, hrefs } = candidates[selected];
+      const { hrefs } = candidates[selected];
       // Reset first so a pop-up warning from openAll stays on screen, and
       // so Back returns to an empty prompt.
       reset();
       // One link replaces this page, as a browser's new tab page would;
       // Ctrl/⌘+Enter opens it in a new tab instead.
-      if (link && !hrefs.length) setUpHelloInterview(link, e.ctrlKey || e.metaKey);
-      else if (hrefs.length === 1 && !e.ctrlKey && !e.metaKey) location.assign(hrefs[0]);
+      if (hrefs.length === 1 && !e.ctrlKey && !e.metaKey) location.assign(hrefs[0]);
       else openAll(hrefs);
     } else if (e.key === "Escape") {
       if (input.value) {
@@ -379,13 +329,10 @@
     const a = e.target.closest(".links a");
     if (!a) return;
     if (input.value) reset();
-    const link = links.find((link) => link.a === a);
-    if (!link.hrefs.length) {
+    const { hrefs } = links.find((link) => link.a === a);
+    if (hrefs.length > 1) {
       e.preventDefault();
-      setUpHelloInterview(link, e.button === 1 || e.ctrlKey || e.metaKey || e.shiftKey);
-    } else if (link.hrefs.length > 1) {
-      e.preventDefault();
-      openAll(link.hrefs);
+      openAll(hrefs);
     }
   };
   document.addEventListener("click", openLink);
@@ -401,8 +348,7 @@
     if (input.value) return;
     const link = links.find(({ a }) => a.contains(target));
     if (link?.aliases.length) {
-      const action = link.hrefs.length ? "opens" : "sets up";
-      say(link.aliases.join(" "), link.search ? `+ query searches ${link.searchHost}` : `${action} ${link.label}`);
+      say(link.aliases.join(" "), link.search ? `+ query searches ${link.searchHost}` : `opens ${link.label}`);
     } else if (naming) {
       hint.replaceChildren();
     }
@@ -425,9 +371,8 @@
   // The address bar: /start/?q=yt+lofi opens what Enter would, in
   // place of this page, so Back skips it. Opening several tabs takes a
   // click or a key press, which loading a page isn't, so a candidate
-  // that opens more than one waits in the prompt for Enter. An unset
-  // Hello Interview link also waits. So does an address in the query:
-  // opening it unasked would let anyone write a
+  // that opens more than one waits in the prompt for Enter. So does an
+  // address in the query: opening it unasked would let anyone write a
   // link to this site that lands on a page of theirs, and the address
   // bar opens addresses itself, never sending one here. The query
   // leaves the address either way, so a reload doesn't repeat it.

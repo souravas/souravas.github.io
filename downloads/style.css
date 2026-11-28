@@ -1,69 +1,10 @@
-/* /downloads: the look of the pages that open a list of sites
-   (../shared/opener.css), plus the editor for the list this page
-   keeps in the browser. */
+@import '../shared/site-editor.css';
 
-@import '../shared/opener.css';
-
-/* ---------- Editor ----------
-   Why the list lives here, the box of addresses, Save and the
-   import beside it, then what happened. The import is a styled
-   label around a hidden file input, so it reads as a button. */
-.edit p {
-  max-width: 60ch;
-  margin: 16px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.edit a {
-  color: var(--text);
-  text-decoration: underline;
-  text-decoration-color: var(--edge);
-  text-underline-offset: 3px;
-}
-
-.edit a:focus-visible {
-  border-radius: 2px;
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.field-label {
-  display: block;
-  margin-top: 20px;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
+/* The multi-line address box and the bookmarks-file import. */
 .urls {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  margin-top: 8px;
-  padding: 10px 12px;
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  background: none;
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.6;
   white-space: pre;
   overflow-wrap: normal;
   resize: vertical;
-}
-
-.urls::placeholder {
-  color: var(--muted);
-}
-
-.urls:focus-visible {
-  border-color: var(--edge);
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
 }
 
 .actions {
@@ -87,17 +28,4 @@
 .import:focus-within {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-}
-
-.edit .status:empty {
-  display: none;
-}
-
-.edit .status {
-  color: var(--accent);
-}
-
-.edit .note {
-  color: var(--muted);
-  font-size: 13px;
 }

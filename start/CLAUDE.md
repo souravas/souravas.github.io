@@ -10,9 +10,10 @@ Keypad is the only design, and there are no `/start/vN` pages. The two it replac
 - `data-search`: a search URL with `%s`; an alias plus a query (`lc two sum`) opens it.
 - `data-also`: more URLs, space-separated, opened in new tabs along with the href. Write `data-tabs` beside it, their count plus one for the href, which the key prints; nothing counts it for you.
 - `data-opens`: never written by hand. The build (`opener-sites` in vite.config.js, dev too) writes it onto every link to /invest or /cloud: the hosts that page opens, read from its `ol.sites`. The prompt matches them as it does a link's own addresses ("kite" finds Invest), and never opens them itself.
-- `data-hello-interview`: the first activation of this key or its prompt result asks for an HTTP or HTTPS URL. `prompt.js` stores it in `localStorage` as `start:hello-interview` and opens it immediately. Like Downloads, the address stays in that browser. The prompt matches the key by name and alias, and opening all of Hope skips it until it has a saved destination.
 
 **This site's pages** are keys too: Fit and Pomodoro in Daily, Code (/code) in Hope, Language (/kannada) in Learn, and Invest and Downloads, the last two keys in Misc. Invest and Downloads open [/invest](../invest/CLAUDE.md) and [/downloads](../downloads/CLAUDE.md), each of which opens several sites from a list of its own ([/cloud](../cloud/CLAUDE.md) does the same and has no key: the hidden `ul.links` after the groups holds it for the prompt alone, which finds it by name or by a site it opens, "drive"). /downloads keeps its sites in the browser, so the prompt knows only its name. The Cashflow sheet and the IPO trackers have had no keys of their own since November 2026: Invest opens them, and the prompt finds it by them ("docs", "ipo").
+
+The Hello Interview key in Hope goes to [/hello-interview](../hello-interview/CLAUDE.md). Like Downloads, it opens the link saved in the browser or shows its own editor when none is saved.
 
 **Groups**: the most used links are the first group, Daily, pinned to the top. The groups are Daily's four links, Hope's eight (the interview-prep sites, Code and System Design), Learn's three and Misc's six, in that order. Learn keeps the same width as Misc so they can share a row in the four- and six-column layouts.
 
