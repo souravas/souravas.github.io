@@ -100,8 +100,8 @@
     <!-- Bookmarks. Copy an <li> to add one; the icon is the <use> href
          pointing at a <symbol> in the sprite above. Optional on the <a>:
          data-alias, space-separated short codes the prompt matches first
-         ("nc" opens NeetCode), and data-search, a URL with %s where a
-         query goes, which "alias query" opens ("yt lofi"), and
+         ("n" opens NeetCode), and data-search, a URL with %s where a
+         query goes, which "alias query" opens ("y lofi"), and
          data-also, space-separated URLs that open in new tabs along
          with the href, in order (AI, Chess), with data-tabs, how
          many tabs that makes (data-also's URLs plus the href), which
@@ -113,29 +113,29 @@
       <h2 id="group-daily">Daily</h2>
       <ul class="links">
         <li><a href="https://ticktick.com/webapp/#p/6a53bbb1ebdefa000000115a/tasks" data-alias="t"><span class="icon"><svg aria-hidden="true"><use href="#mdi-check-circle-outline" /></svg></span><span class="name">Tasks</span></a></li>
-        <li><a href="https://gemini.google.com/app" data-alias="ai" data-search="https://claude.ai/new?q=%s" data-also="https://chatgpt.com/ https://claude.ai/new" data-tabs="3"><span class="icon"><svg aria-hidden="true"><use href="#mdi-creation" /></svg></span><span class="name">AI</span></a></li>
+        <li><a href="https://gemini.google.com/app" data-alias="a" data-search="https://claude.ai/new?q=%s" data-also="https://chatgpt.com/ https://claude.ai/new" data-tabs="3"><span class="icon"><svg aria-hidden="true"><use href="#mdi-creation" /></svg></span><span class="name">AI</span></a></li>
         <li><a href="https://mail.google.com/" data-alias="g" data-search="https://mail.google.com/mail/u/0/#search/%s"><span class="icon"><svg aria-hidden="true"><use href="#si-gmail" /></svg></span><span class="name">Mail</span></a></li>
-        <li><a href="https://www.youtube.com/feed/playlists" data-alias="yt" data-search="https://www.youtube.com/results?search_query=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-youtube" /></svg></span><span class="name">YouTube</span></a></li>
+        <li><a href="https://www.youtube.com/feed/playlists" data-alias="y" data-search="https://www.youtube.com/results?search_query=%s"><span class="icon"><svg aria-hidden="true"><use href="#si-youtube" /></svg></span><span class="name">YouTube</span></a></li>
       </ul>
     </section>
 
     <section class="group group-code" aria-labelledby="group-code">
       <h2 id="group-code">Code</h2>
       <ul class="links">
-        <li><a href="/code/" data-alias="py" data-search="https://github.com/search?q=repo%3Asouravas%2Fcode+%s&amp;type=code"><span class="icon"><svg aria-hidden="true"><use href="#si-python" /></svg></span><span class="name">Code</span></a></li>
-        <li><a href="https://neetcode.io/practice/practice/neetcode150" data-alias="nc"><span class="icon"><svg aria-hidden="true"><use href="#logo-neetcode" /></svg></span><span class="name">NeetCode</span></a></li>
-        <li><a href="https://algo.monster/dashboard" data-alias="amo"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomonster" /></svg></span><span class="name">Algo Monster</span></a></li>
-        <li><a href="https://takeuforward.org/dashboard" data-alias="tuf"><span class="icon"><svg aria-hidden="true"><use href="#logo-takeuforward" /></svg></span><span class="name">TuF</span></a></li>
+        <li><a href="/code/" data-alias="c" data-search="https://github.com/search?q=repo%3Asouravas%2Fcode+%s&amp;type=code"><span class="icon"><svg aria-hidden="true"><use href="#si-python" /></svg></span><span class="name">Code</span></a></li>
+        <li><a href="https://neetcode.io/practice/practice/neetcode150" data-alias="n"><span class="icon"><svg aria-hidden="true"><use href="#logo-neetcode" /></svg></span><span class="name">NeetCode</span></a></li>
+        <li><a href="https://algo.monster/dashboard" data-alias="mo"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomonster" /></svg></span><span class="name">Algo Monster</span></a></li>
+        <li><a href="https://takeuforward.org/dashboard" data-alias="f"><span class="icon"><svg aria-hidden="true"><use href="#logo-takeuforward" /></svg></span><span class="name">TuF</span></a></li>
       </ul>
     </section>
 
     <section class="group group-design" aria-labelledby="group-design">
       <h2 id="group-design">Design</h2>
       <ul class="links">
-        <li><a href="/systemdesign/" data-alias="sd"><span class="icon"><svg aria-hidden="true"><use href="#mdi-server-network" /></svg></span><span class="name">System Design</span></a></li>
-        <li><a href="http://localhost:8765/" data-alias="hi"><span class="icon"><svg aria-hidden="true"><use href="#logo-hellointerview" /></svg></span><span class="name">Hello Interview</span></a></li>
-        <li><a href="https://algomaster.io/" data-alias="ama"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomaster" /></svg></span><span class="name">AlgoMaster</span></a></li>
-        <li><a href="https://systemdesignschool.io/" data-alias="sds"><span class="icon"><svg aria-hidden="true"><use href="#logo-systemdesignschool" /></svg></span><span class="name name-school">System Design School</span></a></li>
+        <li><a href="/systemdesign/" data-alias="s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-server-network" /></svg></span><span class="name">System Design</span></a></li>
+        <li><a href="http://localhost:8765/" data-alias="h"><span class="icon"><svg aria-hidden="true"><use href="#logo-hellointerview" /></svg></span><span class="name">Hello Interview</span></a></li>
+        <li><a href="https://algomaster.io/" data-alias="ma"><span class="icon"><svg aria-hidden="true"><use href="#logo-algomaster" /></svg></span><span class="name">AlgoMaster</span></a></li>
+        <li><a href="https://systemdesignschool.io/" data-alias="ss"><span class="icon"><svg aria-hidden="true"><use href="#logo-systemdesignschool" /></svg></span><span class="name name-school">System Design School</span></a></li>
       </ul>
     </section>
 
@@ -150,10 +150,10 @@
     <section class="group group-misc" aria-labelledby="group-misc">
       <h2 id="group-misc">Misc</h2>
       <ul class="links">
-        <li><a href="https://music.youtube.com/" data-alias="ym" data-search="https://music.youtube.com/search?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-music" /></svg></span><span class="name">Music</span></a></li>
+        <li><a href="https://music.youtube.com/" data-alias="m" data-search="https://music.youtube.com/search?q=%s"><span class="icon"><svg aria-hidden="true"><use href="#mdi-music" /></svg></span><span class="name">Music</span></a></li>
         <li><a href="https://lichess.org/practice" data-alias="ch" data-also="https://www.chess.com/home" data-tabs="2"><span class="icon"><svg aria-hidden="true"><use href="#si-chessdotcom" /></svg></span><span class="name">Chess</span></a></li>
-        <li><a href="/invest/" data-alias="in"><span class="icon"><svg aria-hidden="true"><use href="#mdi-chart-line" /></svg></span><span class="name">Invest</span></a></li>
-        <li><a href="/downloads/" data-alias="dl"><span class="icon"><svg aria-hidden="true"><use href="#mdi-download" /></svg></span><span class="name">Downloads</span></a></li>
+        <li><a href="/invest/" data-alias="i"><span class="icon"><svg aria-hidden="true"><use href="#mdi-chart-line" /></svg></span><span class="name">Invest</span></a></li>
+        <li><a href="/downloads/" data-alias="d"><span class="icon"><svg aria-hidden="true"><use href="#mdi-download" /></svg></span><span class="name">Downloads</span></a></li>
       </ul>
     </section>
 

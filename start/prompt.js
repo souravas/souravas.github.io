@@ -8,7 +8,7 @@
 /* ---------- Quick launch ----------
    Type or paste anywhere (or press /) to fill the prompt. The links
    filter in place: matches stay lit with the typed text highlighted,
-   the rest dim. A link matches on an alias (its data-alias: "nc" finds
+   the rest dim. A link matches on an alias (its data-alias: "n" finds
    NeetCode), then on its name, where the start of a word ("Interview"
    in Hello Interview) beats the name's initials ("am" finds
    Algo Monster) or the starts of its words in order ("sys des" finds
@@ -18,7 +18,7 @@
    them ("kannada" finds Language), including
    the sites a page of this site opens ("kite" finds Invest). The
    hidden list after the groups provides Pomodoro's name and alias.
-   An alias, a space and a query ("yt lofi") opens that link's
+   An alias, a space and a query ("y lofi") opens that link's
    data-search, a URL with %s where the query goes. Candidates are that
    search, then the matching bookmarks (best match first), then
    "open all" for a group whose name
@@ -230,7 +230,7 @@
   const update = () => {
     const q = input.value.trim();
     const needle = q.toLowerCase();
-    // "yt lofi": the alias of a link with a search, then the query.
+    // "y lofi": the alias of a link with a search, then the query.
     const [, word = "", query = ""] = /^(\S+)\s+(.+)$/.exec(q) ?? [];
     const owner = query && links.find((link) => link.search && link.aliases.includes(word.toLowerCase()));
     const hits = [];
@@ -287,7 +287,7 @@
   });
 
   // Pasting anywhere fills the prompt too, as one line: a pasted address
-  // or "yt lofi" is then an Enter away.
+  // or "y lofi" is then an Enter away.
   document.addEventListener("paste", (e) => {
     if (settings.open || e.target === input) return;
     const text = e.clipboardData?.getData("text").replace(/\s+/g, " ").trim();
@@ -373,7 +373,7 @@
     if (!e.relatedTarget) nameAlias(null);
   });
 
-  // The address bar: /start/?q=yt+lofi opens what Enter would, in
+  // The address bar: /start/?q=y+lofi opens what Enter would, in
   // place of this page, so Back skips it. Opening several tabs takes a
   // click or a key press, which loading a page isn't, so a candidate
   // that opens more than one waits in the prompt for Enter. So does an
