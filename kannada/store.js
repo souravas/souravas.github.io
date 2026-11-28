@@ -234,7 +234,8 @@ export function markStarted() {
    that was edited, cut short or never a copy at all cannot leave the
    page with progress it trips over. */
 
-const KIND = "kannada-gottilla-progress";
+const KIND = "spoken-kannada-progress";
+const LEGACY_KIND = "kannada-gottilla-progress";
 
 export const snapshot = () => JSON.stringify({ kind: KIND, saved: new Date().toISOString(), progress: state });
 
@@ -268,7 +269,8 @@ function clean(data) {
 export function readSnapshot(text) {
   try {
     const file = JSON.parse(text);
-    const progress = file?.kind === KIND ? clean(file.progress) : null;
+    const kind = file?.kind;
+    const progress = kind === KIND || kind === LEGACY_KIND ? clean(file.progress) : null;
     return progress && { saved: typeof file.saved === "string" ? file.saved : "", progress };
   } catch {
     return null;

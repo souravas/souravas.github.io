@@ -30,7 +30,7 @@ export function initBackup() {
     const url = URL.createObjectURL(new Blob([snapshot()], { type: "application/json" }));
     const a = document.createElement("a");
     a.href = url;
-    a.download = `kannada-gottilla-progress-${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}.json`;
+    a.download = `spoken-kannada-progress-${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     status.textContent = "Saved to your downloads.";

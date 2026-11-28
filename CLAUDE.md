@@ -19,7 +19,7 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 | `/` | `v1/` | the default design; the `root-default` plugin copies built `v1/index.html` to `dist/index.html` (`DEFAULT_PAGES`) |
 | `/v1`, `/v2`, `/v3` | `v1/`, `v2/`, `v3/` | portfolio designs: Editorial, Systems Ledger, Control Room |
 | `/start` | [`start/`](start/CLAUDE.md) | bookmarks dashboard, the browser homepage, *Keypad*: every bookmark a key |
-| `/kannada` | [`kannada/`](kannada/CLAUDE.md) | *Kannada Gottilla*, a spoken-Kannada course rendered from `kannada/note.md`; its cards also build `/kannada/anki.txt` |
+| `/kannada` | [`kannada/`](kannada/CLAUDE.md) | *Spoken Kannada*, a course rendered from `kannada/note.md` with an Anki export at `/kannada/anki.txt` |
 | `/code` | [`code/`](code/CLAUDE.md) | Python interview references rendered from the Markdown in `code/` |
 | `/fit` | [`fit/`](fit/CLAUDE.md) | warm-up and exercise videos as grids of thumbnails; `index.html` and `style.css`, no script |
 | `/pomodoro` | [`pomodoro/`](pomodoro/CLAUDE.md) | focus and break timers on a dial |

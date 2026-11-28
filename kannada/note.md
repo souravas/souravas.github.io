@@ -1,27 +1,18 @@
 ---
-author: Kannada Gottilla, Bhashafy Languages
 tags: [learn/language]
 type: course
 status: in-progress
 difficulty: advanced
 rating:
 completed:
-url: https://www.udemy.com/course/learn-kannada/
 created: 2026-08-19
 ---
 
 # Overview
 
-Kannada Gottilla means "I don't know Kannada" — the phrase the first course is named after. This note is every Kannada course Sourav has worked through, merged into one ladder of 89 lessons, one lesson a day, running from the sound system to full-speed Bangalore speech.
+These 89 lessons cover spoken Bangalore Kannada, from pronunciation to everyday conversation and listening at full speed.
 
 Three blocks. **Beginner** is Lesson 1 to Lesson 33: the sounds, the pronouns, the possessives, the numbers, the three tenses and the two ways to ask a question. **Intermediate** is Lesson 34 to Lesson 69: the grammar that turns words into sentences, the vocabulary lists, and the situations you actually stand in. **Advanced** is Lesson 70 to Lesson 89: the helper verbs, the emphasis endings and the listening habits that separate a finished course from a person who lives here.
-
-Four sources feed it.
-
-- **Kannada Gottilla** ran as a WhatsApp group, one lesson a day, each lesson pushed as a short audio recording with the words written out. 26 lessons and a final assessment. Two of its lessons were audio only, a revision walk-through and a set of study tips, so nothing of them survives here except the advice to play a recording on a walk or in traffic. Its formula sheet, handed out as a PDF and a spreadsheet, is Lesson 9 below. The audio recordings are not in the vault.
-- **[Learn Kannada](https://www.udemy.com/course/learn-kannada/)** by Bhashafy Languages on Udemy. Four weeks, 37 lessons, transcribed from the course slides. It supplied the sound system, the kinship names, the full conjugation tables, the vocabulary lists, the postpositions, the five stories and the two long conversations.
-- A YouTube playlist by [Masala Chai Media](https://www.youtube.com/playlist?list=PLaXrlhEl6rFL8LZ7Gf0UKlEJLTTNkUTk_), started and dropped. It supplied the near forms of the third party pronouns, the rest of the greetings, and the festival wishes.
-- The lessons past what any of the three covered, added here so the day-a-lesson ladder keeps going past greetings and word lists.
 
 The goal is narrow: speak Kannada, and understand Kannada spoken at full speed. Reading the script is not a goal, so there is no alphabet lesson below. Lesson 1 covers the sounds you have to hear and say, with the Kannada letter beside each one, and Lesson 68 covers the contractions that make a full-speed sentence sound like a wall.
 
@@ -45,7 +36,7 @@ Three pairs of endings mean the same thing, and you will meet both halves of eac
 |`-uttEne`, `-uttEve`|`-tEne`, `-tEve`|the short one, except where a line names the written form|
 |`-tEne`, `-tEve`|`-tIni`, `-tIvi`|`-tEne`, though Bangalore says `-tIni` more often|
 
-That last pair is worth reading twice. `naanu bartEne` and `naanu bartIni` are both correct and both mean I will come. This note writes `-tEne` and `iddEne` so that one form runs all the way through. The Bhashafy course teaches `-tIni` and `iddIni` throughout, so expect to hear the second one far more than the first. Only the first person changes; every other ending in the language is the same either way.
+`naanu bartEne` and `naanu bartIni` both mean I will come. This note uses `-tEne` and `iddEne` consistently. In everyday Bangalore speech, you’ll often hear `-tIni` and `iddIni`. These variations affect the first-person endings.
 
 # Daily Routine
 
@@ -57,9 +48,9 @@ About twenty minutes a day, in this order. The order matters more than the minut
 4. **Listen.** Five minutes of real Kannada by the method in Lesson 88 — one short clip, the same clip all week. Start on day one, not day 88: you will catch almost nothing for weeks, and the catching is the slowest thing here to grow.
 5. **Use one line.** Say one thing from the last few lessons to a real person — an auto driver, a shopkeeper, a colleague. One line a day is 89 conversations by the end.
 
-Three rules keep it going. A heavy lesson — 12, 29, 37 — can take two days, because the number is a lesson, not a deadline. A missed day restarts at the review, not at the next lesson. And progress lives on the Kannada line of [[50 - Practice/01 - Now|Now]], as `— Lesson N` after the link, so move it there when a lesson is done.
+A longer lesson, such as 12, 29 or 37, can take two days. If you miss a day, start again with the review. Mark each lesson done when you finish it.
 
-Nothing here has audio, so borrow a voice. Once a week, ask a Kannada speaker to read that week's new lines while you record them on your phone, then play the recording on a walk or in traffic, the one habit the WhatsApp course left behind.
+Once a week, ask a Kannada speaker to read that week's new lines while you record them on your phone. Play the recording on a walk or during your commute.
 
 # Lesson Index
 
@@ -201,7 +192,7 @@ Say each pair out loud, slowly and then fast, until the words in it sound differ
 > |---|---|
 > |I do not know Kannada.|nanage Kannada gottilla|
 >
-> The phrase this course is named after, and the most useful sentence you own this week. Lesson 4 takes it apart.
+> Use this when someone starts speaking to you in Kannada. Lesson 4 explains how the sentence is built.
 
 > [!later]- For later, the full set of sounds
 > Come back to this when a word trips you up. None of it needs learning today.
@@ -307,7 +298,7 @@ Spoken and written Kannada differ mostly in the verb ending, and the two registe
 
 Three of these are literal and worth taking apart. `hEg-iddIra` is *how you-are*. `chennaag-iddEne` is *good I-am*. And `hOgi bartEne` is *I will go and come* — Kannada has no goodbye that only means goodbye, because announcing you are leaving for good is rude, so you say you will be back. `bartEne` on its own does the same job.
 
-The `shubha` greetings, kept for later below, are the written register, the kind that arrive on a card or a WhatsApp forward. Out loud, Bangalore says *good morning* and *good night* in English, and the greeting you will actually be given is a question about food.
+The `shubha` greetings, kept for later below, are the written register, the kind that arrive on a card or in a forwarded message. Out loud, Bangalore says *good morning* and *good night* in English, and the greeting you will actually be given is a question about food.
 
 |English|Kannada|
 |---|---|
@@ -2645,7 +2636,7 @@ These all put the person in the dative — `nanage`, `ninage`, `avanige` — and
 
 Three words carry the pattern and each has its own negative. `bEku` is want and its negative is `bEDa`. `ishTa` is like and its negative is `ishTa illa`. `gottu` is know and its negative is `gottilla`.
 
-The name of the first course is this pattern with `nanage` dropped, which is how people really say it.
+In conversation, you can drop `nanage` and say `Kannada gottilla` when it’s clear you mean yourself.
 
 `-Odu` on a verb makes it a noun, and Lesson 44 has the rest of that ending.
 
@@ -3323,7 +3314,7 @@ Both kinds of question are here and they never mix. A question that already has 
 
 `-aagi` turns an adjective into an adverb, and `ide` glued onto it makes a statement. `chennaagi` well becomes `chennaagide` it is good, and `nEra` straight can become `nEra-vaagi`.
 
-The taxi driver's line is the chaining of Lesson 43 rather than a conjunction: Kannada has no *and* for verbs, so `hOgi` changes shape and only `tirugi` closes the line. A course slide will sometimes join the two with `mattu` instead, and a native speaker will not.
+The taxi driver’s line chains two actions as in Lesson 43. `hOgi` gives the first action, and `tirugi` closes the line with the instruction to turn.
 
 ## Lesson 62 — Restaurant and Food
 
@@ -3554,7 +3545,7 @@ Lesson 70 to Lesson 89. The Intermediate block is enough to build any sentence y
 
 Four things separate the two. Helper verbs that carry attitude rather than meaning, and there are five of them. Endings that carry the emphasis English carries with stress. A set of fixed moves for agreeing, refusing, guessing and complaining, which is most of what conversation actually is. And the listening habits that turn a wall of sound into a sentence.
 
-Two warnings. Lessons 85 and 86 are idioms and proverbs. Those vary by family and by district, and a learner who gets one word wrong lands badly, so treat them as recognition material first and speech material second. Lesson 88 names films and channels, which go out of date, so check what is current before you spend a month on any of them.
+The idioms and proverbs in Lessons 85 and 86 vary by family and district. Start by learning to recognise them when you hear them. Lesson 88 explains how to choose clips for listening practice.
 
 ## Lesson 70 — Compound Verbs with BiDu
 
@@ -4032,13 +4023,11 @@ Train on auto drivers and shopkeepers first, because that is where you will actu
 
 ## Lesson 88 — Where to Listen
 
-Any list of names goes stale. Check what is current before you commit a month to something here.
+Start with dialogue-heavy modern films for everyday speech. Try films with strong regional dialects once you can follow a conversation in the variety you’re learning.
 
-Films, dialogue-heavy and modern, because period films are written Kannada spoken aloud. Lucia, Ondu Motteya Kathe, Kirik Party, Rama Rama Re, Sapta Sagaradaache Ello. Thithi and Kantara are worth it later, not first, because both are heavy dialect. Aachar and Co, KGF and Gandhada Gudi come up on every recommendation list and are easier to find than they are to learn from.
+Television serials often use slower dialogue and repeat key lines, which makes them easier to follow.
 
-Television serials speak slowly and repeat themselves, which makes them good listening even when the story is not.
-
-On YouTube, the Danish Sait sketches are fast Bangalore Kannada with the code-mixing from Lesson 84 running at full tilt. Vickypedia, whose Naanu Nandini song went everywhere, and Tharle Box sit in the same register. Kannada news channels sit at the opposite end: slow, clear, and the written form. Kannada interview podcasts sit between the two, and that middle register is the one you actually want.
+Comedy sketches are good for fast Bangalore Kannada and the code-mixing from Lesson 84. News broadcasts offer clear speech in a formal register. Interview podcasts are a good place to practise following a longer conversation.
 
 A method that works better than watching more.
 

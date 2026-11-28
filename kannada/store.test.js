@@ -94,7 +94,9 @@ test('the streak is the days in a row up to today, or yesterday', () => {
 test('a saved copy reads back as it was', () => {
   begin({ cards: { [A.id]: [2, day + 3] }, lesson: 7, done: { 6: day - 1 }, active: [day - 1, day], started: true, reviewed: day, view: 'note' })
   const before = structuredClone(store.progress())
-  const copy = store.readSnapshot(store.snapshot())
+  const snapshot = store.snapshot()
+  assert.equal(JSON.parse(snapshot).kind, 'spoken-kannada-progress')
+  const copy = store.readSnapshot(snapshot)
   assert.deepEqual(copy.progress, before)
   assert.ok(!Number.isNaN(new Date(copy.saved).getTime()))
   assert.deepEqual(store.summary(copy.progress), { lesson: 7, cards: 1 })
@@ -103,13 +105,13 @@ test('a saved copy reads back as it was', () => {
 test('a file that is not a copy is turned away, and a damaged one is trimmed', () => {
   assert.equal(store.readSnapshot('not json'), null)
   assert.equal(store.readSnapshot('{"v":1,"cards":{}}'), null)
-  assert.equal(store.readSnapshot(JSON.stringify({ kind: 'kannada-gottilla-progress', progress: { v: 2, cards: {} } })), null)
+  assert.equal(store.readSnapshot(JSON.stringify({ kind: 'spoken-kannada-progress', progress: { v: 2, cards: {} } })), null)
   const damaged = { v: 1, cards: { [A.id]: [2, day], [B.id]: [9, day], short: [1, day], cccccccccc: 'x' }, lesson: 400, done: { 3: day, 999: day }, extra: true }
-  const copy = store.readSnapshot(JSON.stringify({ kind: 'kannada-gottilla-progress', saved: 'x', progress: damaged }))
+  const copy = store.readSnapshot(JSON.stringify({ kind: 'spoken-kannada-progress', saved: 'x', progress: damaged }))
   assert.deepEqual(copy.progress, { v: 1, cards: { [A.id]: [2, day] }, done: { 3: day } })
 })
 
-test('restoring replaces what was here and keeps it', () => {
+test('restoring a legacy backup replaces what was here and keeps it', () => {
   begin({ cards: { [A.id]: [1, day] } })
   const copy = store.readSnapshot(JSON.stringify({ kind: 'kannada-gottilla-progress', progress: { v: 1, cards: { [B.id]: [3, day + 2] }, lesson: 12 } }))
   assert.equal(store.restore(copy.progress), true)

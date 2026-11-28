@@ -1,7 +1,6 @@
 /* ============================================================
    SOURAV — /kannada, build-time renderer
-   Turns the lessons note (kannada/note.md, the note itself; the
-   hope vault's note only links to the page) into the page's HTML.
+   Turns the lessons in kannada/note.md into the page's HTML.
    vite.config.js imports this; the browser never loads it.
    It reads the Markdown the note uses — headings, paragraphs, pipe
    tables, lists, callouts, inline code, bold, italics, links and
@@ -10,11 +9,6 @@
 
 import { createHash } from 'node:crypto'
 import { toScript } from './script.js'
-
-// The Obsidian vault the note's wiki-links point into, the one the
-// page's "Open in Obsidian" link opens. A wiki-link to a note in it
-// opens that note in Obsidian.
-const VAULT = 'hope'
 
 // "## Lesson 12 — Numbers 1 to 100" is a lesson; its id is lesson-12.
 const LESSON_HEADING = /^Lesson (\d+) — (.+)$/
@@ -231,7 +225,7 @@ function dashAt(text) {
 /* ---------- Inline ---------- */
 
 const INLINE = /`([^`]+)`|\[\[([^\]|]+)(?:\|([^\]]+))?\]\]|\[([^\]]+)\]\(([^)\s]+)\)|\*\*(.+?)\*\*|\*([^*\s][^*]*?)\*/g
-const SAFE_URL = /^(?:https?:|mailto:|obsidian:|#)/i
+const SAFE_URL = /^(?:https?:|mailto:|#)/i
 
 // "Lesson 38" links to that lesson, as do the numbers after "Lessons"
 // ("Lessons 35 and 36", "Lessons 58 to 67").
@@ -272,15 +266,12 @@ function inline(text, ctx, { links = true } = {}) {
   return html + plain(text.slice(last), ctx, links)
 }
 
-// [[#Heading|alias]] links within the note; [[Folder/Note|alias]] opens
-// a note of the vault in Obsidian.
+// Wiki-links to headings in the note become links. Others display as text.
 function wikiLink(target, alias, ctx) {
   const label = escapeHtml(alias ?? target.replace(/^#/, ''))
-  if (target.startsWith('#')) {
-    const id = headingId(target.slice(1), ctx)
-    return id ? `<a href="#${id}">${label}</a>` : label
-  }
-  return `<a href="obsidian://open?vault=${VAULT}&amp;file=${encodeURIComponent(target)}">${label}</a>`
+  if (!target.startsWith('#')) return label
+  const id = headingId(target.slice(1), ctx)
+  return id ? `<a href="#${id}">${label}</a>` : label
 }
 
 function headingId(text, ctx) {
@@ -450,7 +441,7 @@ function cardData(ctx) {
    reads the # lines as its settings. Each lesson's own cards (not its
    For later ones) and the checkpoints', each card once, in the lesson
    it is first learned in, in order, so new cards come in as the page's
-   lessons do. A subdeck per lesson, Kannada Gottilla::01 Sounds That
+   lessons do. A subdeck per lesson, Spoken Kannada::01 Sounds That
    Change the Meaning, can be studied in step with the page. A lesson's
    line is Basic and reversed, both ways; a checkpoint's is Basic, its
    prompt to its answer. The back has the Kannada in the note's letters
@@ -471,8 +462,8 @@ function ankiDeck(ctx, data, titles) {
     const kn = c.pair ? c.kn.join(' / ') : c.kn
     const front = ankiField(en)
     const back = `${ankiField(kn)}<br>${ankiField(toScript(kn.split(' \u2014 ')[0]))}`
-    const deck = `Kannada Gottilla::${pad(n)} ${titles.get(n) ?? `Lesson ${n}`}`
-    const tags = ['kannada-gottilla', `lesson-${pad(n)}`, ctx.lessonCards.get(n)?.say.includes(id) && 'say', test && 'test'].filter(Boolean).join(' ')
+    const deck = `Spoken Kannada::${pad(n)} ${titles.get(n) ?? `Lesson ${n}`}`
+    const tags = ['spoken-kannada', `lesson-${pad(n)}`, ctx.lessonCards.get(n)?.say.includes(id) && 'say', test && 'test'].filter(Boolean).join(' ')
     const type = test ? 'Basic' : 'Basic (and reversed card)'
     rows.push([front, back, deck, tags, `kg-${id}`, type].join('\t'))
   }

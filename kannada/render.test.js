@@ -89,7 +89,7 @@ test('the Anki deck has each lesson card once, in script too, under its id', () 
   const { anki } = render(NOTE)
   const rows = anki.split('\n').filter((line) => line && !line.startsWith('#'))
   assert.equal(rows.length, 3)
-  assert.equal(rows[0], 'hello\tnamaskaara<br>ನಮಸ್ಕಾರ\tKannada Gottilla::01 Greetings\tkannada-gottilla lesson-01 say\tkg-37ec14b940\tBasic (and reversed card)')
+  assert.equal(rows[0], 'hello\tnamaskaara<br>ನಮಸ್ಕಾರ\tSpoken Kannada::01 Greetings\tspoken-kannada lesson-01 say\tkg-37ec14b940\tBasic (and reversed card)')
 })
 
 test('the note itself renders with nothing to warn about', () => {
