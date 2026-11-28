@@ -78,8 +78,8 @@ svg {
      (from 930px; below)
 
    With 2 columns every group is two keys wide. With 4, Daily is one
-   row of four and Hope two (seven keys, the last place empty), over
-   Learn (two by one) and Misc (two by two). With 6, Daily is two by
+   row of four and Hope two rows of four, over Learn (two by one)
+   and Misc (two by two). With 6, Daily is two by
    two and Hope four by two, over Learn's row of two and Misc's of
    four, so Learn's keys sit under Daily's and Misc's under Hope's.
    With 9, Daily is
@@ -88,7 +88,7 @@ svg {
    window (see below). 1:1 is where six columns start to give the
    larger keys; nine start later than where theirs would, on purpose
    (see Nine columns). The arrangements count on Daily's four links,
-   Hope's seven, Learn's two and Misc's four. */
+   Hope's eight, Learn's two and Misc's four. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
