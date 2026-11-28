@@ -35,10 +35,22 @@
       <form class="edit" id="edit" hidden>
         <p>Your link is saved in this browser. Change it later at <a href="#edit">souravas.com/hello-interview/#edit</a>.</p>
         <label class="field-label" for="url">Hello Interview link</label>
-        <input class="urls" id="url" type="url" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://" aria-describedby="status" />
-        <button class="retry" type="submit">Save and open</button>
+        <input class="urls" id="url" type="text" inputmode="url" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://… or file:///…" aria-describedby="status" />
+        <button class="retry" type="submit">Save</button>
         <p class="status" id="status" role="status"></p>
       </form>
+
+      <div class="edit" id="file-link" hidden>
+        <label class="field-label" for="file-url">Saved file URL</label>
+        <input class="urls" id="file-url" type="text" readonly aria-describedby="file-help" />
+        <div class="file-actions">
+          <a class="retry open-file" id="open-file">Open file</a>
+          <button class="retry" id="copy-file" type="button">Copy URL</button>
+        </div>
+        <p class="note" id="file-help">If your browser blocks the file link, copy the URL and paste it into the address bar.</p>
+        <p class="status" id="file-status" role="status"></p>
+        <p><a href="#edit">Change link</a></p>
+      </div>
     </div>
   </main>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40e800aeadd0416d922cd4df15f80f38"}'></script><!-- End Cloudflare Web Analytics -->

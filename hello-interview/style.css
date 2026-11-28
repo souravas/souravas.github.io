@@ -1,5 +1,15 @@
 @import '../shared/site-editor.css';
 
+.file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.edit .open-file {
+  text-decoration: none;
+}
+
 @media (width < 760px) {
   .urls {
     font-size: 16px;
