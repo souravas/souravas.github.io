@@ -131,10 +131,10 @@ h6 {
    clips a section to its box, so the box reaches over the page's side
    padding, where the code and the tables bleed. */
 .sec {
-  margin-top: 40px;
+  margin-top: 28px;
   margin-inline: calc(-1 * var(--side)) calc(-1 * var(--side-end));
   padding-inline: var(--side) var(--side-end);
-  padding-top: 32px;
+  padding-top: 24px;
   border-top: 1px solid var(--line);
   content-visibility: auto;
   contain-intrinsic-block-size: auto 1500px;
@@ -286,10 +286,10 @@ pre,
   }
 
   .sec {
-    margin-top: 56px;
+    margin-top: 36px;
     margin-inline: -12px;
     padding-inline: 12px;
-    padding-top: 40px;
+    padding-top: 32px;
   }
 
   .sec > h3,

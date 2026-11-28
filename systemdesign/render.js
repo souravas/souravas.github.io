@@ -14,6 +14,7 @@ function renderDiagram(source, topic, plain) {
   const data = Buffer.from(svg).toString('base64')
   const name = escapeHtml(topic)
   return `<figure class="diagram">
+    <div class="diagram-hint" hidden>Scroll sideways to see the full diagram</div>
     <div class="diagram-view" role="group" tabindex="0" aria-label="Diagram for ${name}">
       <img src="data:image/svg+xml;base64,${data}" alt="${name} diagram" width="${Math.ceil(Number(width))}" height="${Math.ceil(Number(height))}" loading="lazy" />
     </div>

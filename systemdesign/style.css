@@ -8,6 +8,14 @@
   margin: 4px 0 20px;
 }
 
+.diagram-hint {
+  margin-bottom: 4px;
+  color: var(--body);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: end;
+}
+
 .diagram-view {
   overflow-x: auto;
   border: 1px solid var(--line);
@@ -47,6 +55,7 @@
     max-width: 100%;
   }
 
+  .diagram-hint,
   .diagram-source {
     display: none;
   }
