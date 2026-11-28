@@ -1,0 +1,53 @@
+@import '../shared/document-reader.css';
+
+#modules {
+  margin-top: 40px;
+}
+
+.diagram {
+  margin: 4px 0 20px;
+}
+
+.diagram-view {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--code-bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.diagram-view:focus-visible,
+.diagram-source summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.diagram-view img {
+  display: block;
+  margin-inline: auto;
+}
+
+.diagram-source summary {
+  width: fit-content;
+  margin-top: 4px;
+  padding: 4px 0;
+  color: var(--body);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Keep wide diagrams within the printed page. */
+@media print {
+  .diagram {
+    break-inside: avoid;
+  }
+
+  .diagram-view img {
+    max-width: 100%;
+  }
+
+  .diagram-source {
+    display: none;
+  }
+}

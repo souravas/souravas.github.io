@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests" />
+
+  <title>System Design Mastery</title>
+  <meta name="description" content="System design study notes on architecture, scalability, distributed systems, and API design." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
+  <link rel="icon" href="/favicon-32x32.png?v=3" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight.woff2" crossorigin fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono.woff2" crossorigin fetchpriority="high" />
+
+  <link rel="stylesheet" href="/system/style.css" />
+  <script type="module" src="/system/main.js"></script>
+</head>
+<body>
+  <header class="masthead" id="top">
+    <a class="back" href="/start/"><span aria-hidden="true">‹ </span>Start</a>
+    <h1>System Design Mastery</h1>
+  </header>
+
+  <nav class="bar" aria-label="Note navigation">
+    <div class="bar-inner">
+      <ul class="bar-links">
+        <li><a href="#modules">Modules</a></li>
+      </ul>
+      <button class="bar-button bar-where" id="jump-button" type="button" popovertarget="jump">Sections</button>
+      <button class="bar-button" id="search-button" type="button" title="Search the note, or just start typing" hidden>Search</button>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <nav class="jump" id="jump" popover aria-label="Sections">
+      <div class="jump-head">
+        <p class="jump-label" id="jump-label">Sections</p>
+        <button class="bar-button" type="button" popovertarget="jump" popovertargetaction="hide">Close</button>
+      </div>
+      <!--sections-->
+    </nav>
+
+    <main class="page" id="content">
+      <nav class="contents" aria-labelledby="modules">
+        <h2 class="label" id="modules">Modules</h2>
+        <!--modules-->
+      </nav>
+      <!--docs-->
+    </main>
+  </div>
+
+  <footer class="foot">
+    <a href="#top">Top</a>
+  </footer>
+
+  <dialog class="find" id="find" aria-label="Search">
+    <div class="find-head">
+      <input class="find-input" id="find-input" type="search" placeholder="Search" aria-label="Search" aria-controls="find-results" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" />
+      <button class="bar-button" id="find-close" type="button">Close</button>
+    </div>
+    <p class="find-status" id="find-status" role="status">Headings, code and text. Try sharding, idempotency or rate limiter.</p>
+    <ol class="find-results" id="find-results"></ol>
+  </dialog>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40e800aeadd0416d922cd4df15f80f38"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

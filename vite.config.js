@@ -4,6 +4,7 @@ import { copyFileSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { renderNote } from './kannada/render.js'
 import { DOCS as CODE_DOCS, renderDocs } from './code/render.js'
+import { renderSystem } from './system/render.js'
 
 const SITE_ORIGIN = 'https://souravas.com'
 
@@ -11,7 +12,7 @@ const SITE_ORIGIN = 'https://souravas.com'
 // served at /<name>/. This list is the build's inputs (rolldownOptions)
 // and the routes the dev and preview servers answer (html-routes), so a
 // new page is added to this file by adding its name here.
-const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads']
+const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'system', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads']
 
 // public/'s redirect stubs (cv.html, resume.html), which GitHub Pages
 // also serves without the .html.
@@ -348,38 +349,38 @@ const kannadaNote = () => {
   }
 }
 
-// The code page's content is the Markdown in code/, the documents themselves.
-// code/render.js turns them into HTML at code/index.html's <!--docs--> marker,
-// and into the Sections sheet at <!--sections-->, in dev as well as the build;
-// dev reloads the page when one changes. A link that lands on no id, such as
-// one to a renamed heading, warns in dev and fails the build.
-const codeDocs = () => {
+// Render the Markdown for /code and /system into their pages and Sections
+// sheets. Dev reloads when a source file changes. A dead heading link
+// warns in dev and fails the build.
+const referenceDocs = (page, files, render) => {
   let root = process.cwd()
-  const found = problems('code-docs')
+  const name = `${page}-docs`
+  const found = problems(name)
   const { warn } = found
-  const path = (doc) => resolve(root, 'code', doc.file)
+  const path = (file) => resolve(root, page, file)
   return {
-    name: 'code-docs',
+    name,
     configResolved(config) {
       root = config.root
       found.configure(config)
     },
     configureServer(server) {
-      const files = new Set(CODE_DOCS.map(path))
-      for (const file of files) server.watcher.add(file)
+      const watched = new Set(files.map(path))
+      for (const file of watched) server.watcher.add(file)
       server.watcher.on('change', (file) => {
-        if (files.has(resolve(file))) server.ws.send({ type: 'full-reload' })
+        if (watched.has(resolve(file))) server.ws.send({ type: 'full-reload' })
       })
     },
     transformIndexHtml: {
       order: 'pre',
-      handler(html) {
-        if (!html.includes('<!--docs-->')) return html
-        const sources = Object.fromEntries(CODE_DOCS.map((doc) => [doc.file, readFileSync(path(doc), 'utf8')]))
-        const docs = renderDocs(sources, { warn })
+      handler(html, ctx) {
+        if (resolve(ctx.filename) !== path('index.html')) return html
+        const sources = Object.fromEntries(files.map((file) => [file, readFileSync(path(file), 'utf8')]))
+        const docs = render(sources, { warn })
         const out = html
           .replace('<!--docs-->', () => docs.html)
           .replace('<!--sections-->', () => docs.sections)
+          .replace('<!--modules-->', () => docs.contents)
         found.checkLinks(out)
         found.settle()
         return out
@@ -489,10 +490,8 @@ export default defineConfig({
     // Each page has its own stylesheet — keep them split so the pages' CSS
     // doesn't merge into one bundle.
     cssCodeSplit: true,
-    // One entry module per page, and the one dynamic import (/downloads
-    // loading shared/opener.js) has nothing of its own to preload: no
-    // page gets a modulepreload link, so the polyfill would never fire.
-    // Don't ship it.
+    // Let browsers that support modulepreload fetch shared chunks early.
+    // Browsers without it can follow the imports from the entry module.
     modulePreload: { polyfill: false },
     rolldownOptions: {
       input: Object.fromEntries(PAGES.map((page) => [page, `${page}/index.html`])),
@@ -510,7 +509,8 @@ export default defineConfig({
     htmlRoutes(),
     buildStamps(),
     kannadaNote(),
-    codeDocs(),
+    referenceDocs('code', CODE_DOCS.map(({ file }) => file), renderDocs),
+    referenceDocs('system', ['note.md'], renderSystem),
     openerSites(),
     jsonLdMinify(),
     inlineCss(),

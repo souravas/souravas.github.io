@@ -39,16 +39,18 @@ function buildIndex(root) {
   let doc = "";
   let sec = "";
   let sub = "";
+  let topic = "";
   let anchor = "";
   const add = (el, kind, text, name = null) => {
-    const path = [doc, sec, sub].filter(Boolean);
+    const path = [doc, sec, sub, topic].filter(Boolean);
     entries.push({ el, kind, text, name, anchor, path, norm: normalize(text), normName: name && normalize(name), normPath: normalize(path.join(" ")) });
   };
-  for (const el of root.querySelectorAll("h2[id], h3[id], h4[id], p, li, tbody tr, .l, .plain code")) {
+  for (const el of root.querySelectorAll("h2[id], h3[id], h4[id], h5[id], h6[id], p, li, tbody tr, .l, .plain code")) {
     if (el.closest(".contents, .sub-toc")) continue;
-    if (el.matches("h2, h3, h4")) {
+    if (el.matches("h2, h3, h4, h5, h6")) {
       const title = el.textContent.trim();
       anchor = el.id;
+      topic = "";
       if (el.matches("h2")) {
         [doc, sec, sub] = ["", "", ""];
         add(el, "heading", title);
@@ -57,10 +59,13 @@ function buildIndex(root) {
         [sec, sub] = ["", ""];
         add(el, "heading", title);
         sec = title;
-      } else {
+      } else if (el.matches("h4")) {
         sub = "";
         add(el, "heading", title);
         sub = title.split(" — ")[0];
+      } else {
+        add(el, "heading", title);
+        topic = title;
       }
       entries.at(-1).initials = initialsOf(title);
     } else if (el.matches(".l")) {
@@ -156,8 +161,7 @@ export function initSearch({ onJump }) {
   if (!dialog || !input || !list || !status || !open || !close || !root || typeof dialog.showModal !== "function") return;
   open.hidden = false;
 
-  const HINT = "Headings, code and text. Try lis, bisect_left or word ladder.";
-  status.textContent = HINT;
+  const hint = status.textContent;
 
   let index = null;
   let results = [];
@@ -182,7 +186,7 @@ export function initSearch({ onJump }) {
     results = [];
     active = 0;
     if (!query) {
-      status.textContent = HINT;
+      status.textContent = hint;
       return;
     }
     const words = query.split(" ");

@@ -1,8 +1,7 @@
 /* ============================================================
-   SOURAV — /code, build-time renderer
-   Turns the three documents in this folder (PATTERNS.md,
-   CHEATSHEET.md, README.md) into the page's HTML, with the Python
-   highlighted here so the browser runs nothing to draw it.
+   SOURAV — /code and /system, build-time Markdown renderer
+   Turns the reference documents and the system design note into
+   the pages' HTML, including Python highlighting.
    vite.config.js imports this; the browser never loads it.
    It reads the Markdown the documents use — headings, paragraphs,
    pipe tables, lists, fenced code, inline code, bold, italics and
@@ -19,7 +18,7 @@ export const DOCS = [
   { file: 'README.md', id: 'overview', name: 'Overview', title: 'Overview' },
 ]
 
-const escapeHtml = (s) =>
+export const escapeHtml = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 // "PATTERNS.md" and "PATTERNS" in the running text read as the page's name.
@@ -28,7 +27,7 @@ const docName = (s) => s.replace(DOC_NAME, (_, name) => name[0] + name.slice(1).
 
 // Running text: the page's names, and a bound that stays in one piece, as
 // in a narrow table's "≤ 1,000".
-const prose = (s) => escapeHtml(docName(s)).replace(/([≤≥]) (?=\S)/g, '$1\u00a0')
+const prose = (s, ctx) => escapeHtml(ctx.rename(s)).replace(/([≤≥]) (?=\S)/g, '$1\u00a0')
 
 // A heading's leading emoji belongs to the file, not the page.
 const LEADING_EMOJI = /^\p{Extended_Pictographic}️?\s*/u
@@ -109,7 +108,7 @@ const slug = (text) => text.trim().toLowerCase().replace(SLUG_STRIP, '').replace
 
 const isContents = (block) => block.type === 'heading' && block.level === 2 && /table of contents/i.test(block.text)
 
-function assignIds(docs) {
+function assignIds(docs, rename) {
   const used = new Set(docs.map((doc) => doc.id))
   for (const doc of docs) {
     doc.anchors = new Map()
@@ -124,21 +123,26 @@ function assignIds(docs) {
       let id = anchor
       if (block.level === 1) id = doc.id
       else if (isContents(block)) id = `${doc.id}-contents`
-      else if (used.has(id)) id = `${doc.id}-${id}`
+      else if (used.has(id)) {
+        const prefixed = `${doc.id}-${id}`
+        id = prefixed
+        for (let i = 1; used.has(id); i++) id = `${prefixed}-${i}`
+      }
       used.add(id)
       block.id = id
       doc.anchors.set(anchor, id)
-      if (!doc.headings.has(stripInline(block.text))) doc.headings.set(stripInline(block.text), id)
+      const title = stripInline(rename(block.text))
+      if (!doc.headings.has(title)) doc.headings.set(title, id)
     }
   }
 }
 
 /* ---------- Inline ---------- */
 
-const INLINE = /`([^`]+)`|\[([^\]]*)\]\(([^)\s]+)\)|\*\*(.+?)\*\*|\*([^*\s][^*]*?)\*/g
+const INLINE = /`([^`]+)`|\[\[#([^\]|]+)(?:\|([^\]]+))?\]\]|\[([^\]]*)\]\(([^)\s]+)\)|\*\*(.+?)\*\*|\*([^*\s][^*]*?)\*/g
 
 const stripInline = (s) =>
-  docName(s)
+  s
     .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/\*\*(.+?)\*\*/g, '$1')
     .replace(/\*([^*\s][^*]*?)\*/g, '$1')
@@ -159,10 +163,16 @@ function inline(text, ctx) {
   let html = ''
   let last = 0
   for (const m of text.matchAll(INLINE)) {
-    html += prose(text.slice(last, m.index))
+    html += prose(text.slice(last, m.index), ctx)
     last = m.index + m[0].length
-    const [, code, label, url, bold, italic] = m
+    const [, code, heading, alias, label, url, bold, italic] = m
     if (code !== undefined) html += `<code>${escapeHtml(code)}</code>`
+    else if (heading !== undefined) {
+      const title = ctx.rename(heading.trim())
+      const id = ctx.doc.headings.get(title) ?? ctx.docs.find((doc) => doc.headings.has(title))?.headings.get(title)
+      if (!id) ctx.warn(`${ctx.doc.file}: ${m[0]} links to nothing`)
+      html += id ? `<a href="#${id}">${prose(alias ?? heading, ctx)}</a>` : prose(alias ?? heading, ctx)
+    }
     else if (url !== undefined) {
       const href = resolve(url, ctx)
       if (!href) ctx.warn(`${ctx.doc.file}: ${url} links to nothing`)
@@ -170,7 +180,7 @@ function inline(text, ctx) {
     } else if (bold !== undefined) html += `<strong>${inline(bold, ctx)}</strong>`
     else html += `<em>${inline(italic, ctx)}</em>`
   }
-  return html + prose(text.slice(last))
+  return html + prose(text.slice(last), ctx)
 }
 
 /* ---------- Python ----------
@@ -225,14 +235,14 @@ function commentHtml(text, ctx) {
   let html = ''
   let last = 0
   for (const m of text.matchAll(CROSS_REF)) {
-    html += escapeHtml(docName(text.slice(last, m.index)))
+    html += escapeHtml(ctx.rename(text.slice(last, m.index)))
     last = m.index + m[0].length
     const id = ctx.byFile.get(`${m[1]}.md`)?.headings.get(m[2].trim())
     if (!id) ctx.warn(`${ctx.doc.file}: "${m[0]}" names no heading`)
-    const label = escapeHtml(docName(m[0]))
+    const label = escapeHtml(ctx.rename(m[0]))
     html += id ? `<a href="#${id}">${label}</a>` : label
   }
-  return html + escapeHtml(docName(text.slice(last)))
+  return html + escapeHtml(ctx.rename(text.slice(last)))
 }
 
 // The indent, as a class: the hanging indent on a phone is set from it.
@@ -288,10 +298,14 @@ function renderConsole(lines) {
 // A block with no language is the README's listing of the trees, which lines
 // up as columns, so it never wraps. It scrolls sideways instead, which takes a
 // tabindex to reach by keyboard. The others wrap (.wrap in style.css).
-function renderCode(block, ctx) {
+function renderCode(block, ctx, topic) {
   if (block.lang === 'python') return `<div class="code py wrap"><pre><code>${renderPython(block.lines, ctx)}</code></pre></div>`
   if (block.lang === 'console') return `<div class="code wrap"><pre><code>${renderConsole(block.lines)}</code></pre></div>`
-  return `<div class="code plain"><pre tabindex="0"><code>${block.lines.map((raw) => `${escapeHtml(raw)}\n`).join('')}</code></pre></div>`
+  const plain = `<div class="code plain"><pre tabindex="0"><code>${block.lines.map((raw) => `${escapeHtml(raw)}\n`).join('')}</code></pre></div>`
+  if (block.lang === 'mermaid' && ctx.renderDiagram) {
+    return ctx.renderDiagram(block.lines.join('\n'), topic, plain)
+  }
+  return plain
 }
 
 /* ---------- Rendering ---------- */
@@ -313,12 +327,12 @@ function renderList(block, ctx, className = '') {
   return `<${tag}${cls}${start}>${block.items.map((item) => `<li>${inline(item, ctx)}</li>`).join('')}</${tag}>`
 }
 
-function renderBlock(block, ctx) {
+function renderBlock(block, ctx, topic) {
   switch (block.type) {
     case 'paragraph': return `<p>${inline(block.text, ctx)}</p>`
     case 'table': return renderTable(block, ctx)
     case 'list': return renderList(block, ctx)
-    case 'code': return renderCode(block, ctx)
+    case 'code': return renderCode(block, ctx, topic)
   }
 }
 
@@ -340,12 +354,13 @@ function estimate(blocks) {
 // A long section opens on the list of what is in it. The part of a heading
 // before its dash is its name ("Min Stack — Constant-time getMin").
 const SUB_TOC_MIN = 3
-const shortTitle = (text) => stripInline(text).split(' — ')[0]
-
-function subToc(blocks, title) {
+function subToc(blocks, title, ctx) {
   const subs = blocks.filter((b) => b.type === 'heading' && b.level === 3)
   if (subs.length < SUB_TOC_MIN) return ''
-  const items = subs.map((b) => `<li><a href="#${b.id}">${escapeHtml(shortTitle(b.text))}</a></li>`).join('')
+  const items = subs.map((b) => {
+    const short = stripInline(ctx.rename(b.text)).split(' — ')[0]
+    return `<li><a href="#${b.id}">${escapeHtml(short)}</a></li>`
+  }).join('')
   return `<nav class="sub-toc" aria-label="In ${escapeHtml(title)}"><ul>${items}</ul></nav>`
 }
 
@@ -360,16 +375,23 @@ function renderDoc(doc, ctx) {
   const flush = () => {
     if (!current) return
     const [heading, ...body] = current
-    const title = stripInline(heading.text)
+    const title = stripInline(ctx.rename(heading.text))
     groups.push({ id: heading.id, title })
-    html.push(`<section class="sec" data-id="${heading.id}" data-h="${estimate(current)}"><h3 id="${heading.id}">${inline(heading.text, ctx)}</h3>${subToc(body, title)}`)
+    html.push(`<section class="sec" data-id="${heading.id}" data-h="${estimate(current)}"><h3 id="${heading.id}">${inline(heading.text, ctx)}</h3>${subToc(body, title, ctx)}`)
+    let topic = title
     for (const block of body) {
-      html.push(block.type === 'heading' ? `<h4 id="${block.id}">${inline(block.text, ctx)}</h4>` : renderBlock(block, ctx))
+      if (block.type === 'heading') {
+        topic = stripInline(ctx.rename(block.text))
+        const tag = `h${Math.min(block.level + 1, 6)}`
+        html.push(`<${tag} id="${block.id}">${inline(block.text, ctx)}</${tag}>`)
+      } else {
+        html.push(renderBlock(block, ctx, topic))
+      }
     }
     html.push('</section>')
     current = null
   }
-  html.push(`<section class="doc" data-id="${doc.id}" data-name="${doc.name}">`)
+  html.push(`<section class="doc" data-id="${doc.id}" data-name="${escapeHtml(doc.name)}">`)
   for (let i = 0; i < doc.blocks.length; i++) {
     const block = doc.blocks[i]
     if (block.type === 'heading' && block.level === 1) {
@@ -377,14 +399,14 @@ function renderDoc(doc, ctx) {
     } else if (isContents(block)) {
       flush()
       const list = doc.blocks[++i]
-      html.push(`<nav class="contents" aria-label="${doc.name} contents"><h3 class="label" id="${block.id}">${inline(block.text, ctx)}</h3>${renderList(list, ctx, 'toc')}</nav>`)
+      html.push(`<nav class="contents" aria-label="${escapeHtml(doc.name)} contents"><h3 class="label" id="${block.id}">${inline(block.text, ctx)}</h3>${renderList(list, ctx, 'toc')}</nav>`)
     } else if (block.type === 'heading' && block.level === 2) {
       flush()
       current = [block]
     } else if (current) {
       current.push(block)
     } else {
-      html.push(block.type === 'heading' ? `<h3 id="${block.id}">${inline(block.text, ctx)}</h3>` : renderBlock(block, ctx))
+      html.push(block.type === 'heading' ? `<h3 id="${block.id}">${inline(block.text, ctx)}</h3>` : renderBlock(block, ctx, doc.name))
     }
   }
   flush()
@@ -401,13 +423,34 @@ function renderSections(docs) {
 }
 
 /* ---------- The page ---------- */
+function renderReferences(docs, { warn, rename, renderDiagram }) {
+  assignIds(docs, rename)
+  const ctx = { byFile: new Map(docs.map((doc) => [doc.file, doc])), docs, doc: null, warn, rename, renderDiagram }
+  const rendered = docs.map((doc) => ({ doc, ...renderDoc(doc, ctx) }))
+  return { html: rendered.map((r) => r.html).join('\n'), sections: renderSections(rendered) }
+}
+
 export function renderDocs(sources, { warn = () => {} } = {}) {
   const docs = DOCS.map((doc) => ({
     ...doc,
     blocks: parseBlocks(sources[doc.file].replace(/\r\n?/g, '\n').split('\n')),
   }))
-  assignIds(docs)
-  const ctx = { byFile: new Map(docs.map((doc) => [doc.file, doc])), doc: null, warn }
-  const rendered = docs.map((doc) => ({ doc, ...renderDoc(doc, ctx) }))
-  return { html: rendered.map((r) => r.html).join('\n'), sections: renderSections(rendered) }
+  return renderReferences(docs, { warn, rename: docName })
+}
+
+// In one note, each top-level heading is a module. Its topics use the
+// same layout as the sections of a /code document.
+export function renderNotebook(source, { file, warn = () => {}, renderDiagram }) {
+  const text = source.replace(/\r\n?/g, '\n').replace(/^\uFEFF?---\n[\s\S]*?\n---(?=\n|$)/, '')
+  const docs = []
+  for (const block of parseBlocks(text.split('\n'))) {
+    if (block.type === 'heading' && block.level === 1) {
+      docs.push({ file, id: slug(block.raw), name: stripInline(block.text), blocks: [] })
+    }
+    if (!docs.length) throw new Error(`${file}: the note must begin with a module heading`)
+    docs.at(-1).blocks.push(block)
+  }
+  const page = renderReferences(docs, { warn, rename: (s) => s, renderDiagram })
+  const items = docs.map(({ id, name }) => `<li><a href="#${id}">${escapeHtml(name)}</a></li>`)
+  return { ...page, contents: `<ul class="toc">${items.join('')}</ul>` }
 }
