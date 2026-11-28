@@ -4,7 +4,7 @@ import { copyFileSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { renderNote } from './kannada/render.js'
 import { DOCS as CODE_DOCS, renderDocs } from './code/render.js'
-import { renderSystem } from './system/render.js'
+import { renderSystem } from './systemdesign/render.js'
 
 const SITE_ORIGIN = 'https://souravas.com'
 
@@ -12,11 +12,14 @@ const SITE_ORIGIN = 'https://souravas.com'
 // served at /<name>/. This list is the build's inputs (rolldownOptions)
 // and the routes the dev and preview servers answer (html-routes), so a
 // new page is added to this file by adding its name here.
-const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'system', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads']
+const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'systemdesign', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads']
 
-// public/'s redirect stubs (cv.html, resume.html), which GitHub Pages
-// also serves without the .html.
-const STUBS = ['cv', 'resume']
+// public/'s redirect stubs and their extensionless routes.
+const STUBS = new Map([
+  ['cv', '/cv.html'],
+  ['resume', '/resume.html'],
+  ['system', '/system/index.html'],
+])
 
 // Only / is listed. The design versions (/v1/–/v3/) show the same
 // résumé, so each names / as its canonical rather than competing with
@@ -155,8 +158,7 @@ const fileFor = (path, { defaults = false } = {}) => {
   }
   const name = bare.slice(1)
   if (PAGES.includes(name)) return `${bare}/index.html`
-  if (STUBS.includes(name)) return `${bare}.html`
-  return undefined
+  return STUBS.get(name)
 }
 
 const htmlRoutes = () => {
@@ -349,7 +351,7 @@ const kannadaNote = () => {
   }
 }
 
-// Render the Markdown for /code and /system into their pages and Sections
+// Render the Markdown for /code and /systemdesign into their pages and Sections
 // sheets. Dev reloads when a source file changes. A dead heading link
 // warns in dev and fails the build.
 const referenceDocs = (page, files, render) => {
@@ -510,7 +512,7 @@ export default defineConfig({
     buildStamps(),
     kannadaNote(),
     referenceDocs('code', CODE_DOCS.map(({ file }) => file), renderDocs),
-    referenceDocs('system', ['note.md'], renderSystem),
+    referenceDocs('systemdesign', ['note.md'], renderSystem),
     openerSites(),
     jsonLdMinify(),
     inlineCss(),

@@ -1,5 +1,5 @@
 /* ============================================================
-   SOURAV — shared by /kannada, /code and /system
+   SOURAV — shared by /kannada, /code and /systemdesign
    The long reading pages are built alike: a masthead, a bar
    that sticks to the top, one column of text and tables, a sheet
    of places to jump to, and a footer. This is what they share;
@@ -32,7 +32,7 @@ body {
 /* ---------- Layout ----------
    One column: the full width less 16px each side (and any notch) on
    phones, and at most 840px wide above that. The column itself is
-   /kannada's main and .layout on /code and /system, which holds the rail. */
+   /kannada's main and .layout on /code and /systemdesign, which holds the rail. */
 .masthead,
 .bar-inner,
 .layout,

@@ -1,5 +1,5 @@
 /* ============================================================
-   SOURAV — /code and /system, build-time Markdown renderer
+   SOURAV — /code and /systemdesign, build-time Markdown renderer
    Turns the reference documents and the system design note into
    the pages' HTML, including Python highlighting.
    vite.config.js imports this; the browser never loads it.

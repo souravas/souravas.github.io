@@ -1,5 +1,5 @@
 /* Service worker for the pages that should open without a network:
-   /start, the browser homepage, /pomodoro, /kannada, /code and /system. Each
+   /start, the browser homepage, /pomodoro, /kannada, /code and /systemdesign. Each
    page registers this file with its own scope, and each registration
    is a worker of its own that keeps one page, with the script and
    fonts it loads, in a cache named after it.

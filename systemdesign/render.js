@@ -22,5 +22,5 @@ function renderDiagram(source, topic, plain) {
 }
 
 export function renderSystem(sources, { warn } = {}) {
-  return renderNotebook(sources['note.md'], { file: 'system/note.md', warn, renderDiagram })
+  return renderNotebook(sources['note.md'], { file: 'systemdesign/note.md', warn, renderDiagram })
 }
