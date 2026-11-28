@@ -1,8 +1,8 @@
 /* ============================================================
    SOURAV — /start, Keypad
    The browser homepage: every bookmark a key, each group a block
-   of keys under its name, the blocks closing into one rectangle
-   under the prompt, shaped and sized to fill the window. The
+   of keys under its name, arranged under the prompt and sized to
+   fit the window. The
    markup's hooks are in CLAUDE.md.
    ============================================================ */
 
@@ -17,7 +17,7 @@
    and between the rows, --cols is how many columns of keys the
    page has, and --four, --six and --eight how many of them a group
    of up to four links, of five or six, and of seven or eight set
-   their keys in. */
+   their keys in. Learn uses --six to share a row with Misc. */
 :root {
   --face: #0b0b0b;
   --face-hover: #121212;
@@ -67,8 +67,8 @@ svg {
 /* ---------- Layout ----------
    One grid, --cols columns of keys wide. The prompt spans it, and a
    group takes as many columns as it sets keys to a row: --four for a
-   group of up to four links (Daily), --six for one with a fifth
-   (Learn, Misc), --eight for one with a seventh (Hope). Which
+   group of up to four links (Daily), --six for Learn and a group
+   with a fifth (Misc), --eight for one with a seventh (Hope). Which
    arrangement depends on the window's shape:
 
      under 360px            2 columns   each group a row of its own
@@ -79,17 +79,14 @@ svg {
      (from 1160px; below)
 
    With 2 columns every group is two keys wide. With 4, Daily is one
-   row of four and Hope two, over Learn and Misc two wide and three
-   deep. With 6 and 12, Daily is two by two, Hope four by two, and
-   Learn and Misc three by two. Under 760px the page scrolls; from
+   row of four and Hope two, over Learn and Misc two wide. With 6 and
+   12, Daily is two by two, Hope four by two, Learn three by one, and
+   Misc three by two. Under 760px the page scrolls; from
    there it is fitted to the window (see below). 4:5 is where six
    columns start to give the larger keys; twelve start later than
-   where theirs would, on purpose (see Twelve columns). All of it
-   counts on Daily's four, Hope's eight, Learn's six and Misc's six,
-   which fill 4, 8, 6 and 6 places: 24, which is 2 × 12, 4 × 6, 6 × 4
-   and 12 × 2, so the groups close into a rectangle with no place
-   empty. A group growing past its places, or another group, leaves
-   holes, and so would eight columns or sixteen. */
+   where theirs would, on purpose (see Twelve columns). The group
+   widths count on Daily, Hope, Learn and Misc taking 4, 8, 6 and 6
+   places respectively in the full grid. */
 .page {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -273,7 +270,8 @@ svg {
 /* ---------- Groups ----------
    A group: its name, then its keys, --span to a row, which is also
    how many of the page's columns it takes. A group with a fifth link
-   is a group of six, and one with a seventh a group of eight. The
+   is a group of six, and one with a seventh a group of eight. Learn
+   uses the same width as Misc so the two fit side by side. The
    name is a button (prompt.js puts it in the h2) that opens the whole
    group.
 
@@ -293,6 +291,7 @@ svg {
   min-width: 0;
 }
 
+.group-learn,
 .group:has(li:nth-child(5)) {
   --span: var(--six);
 }
@@ -358,17 +357,17 @@ svg {
 
 /* Four columns (360px to 760px, and from there windows narrower than
    4:5) set Daily and Hope, each alone in its row of groups, four keys
-   across, over Learn's and Misc's pairs: every group but one of five or
-   six. A spacer between the second and third keys of each row splits
+   across, over Learn's and Misc's pairs. A spacer between the second
+   and third keys of each row splits
    it into two pairs too: with a key gap either side, it makes up the
    gap between two groups. */
 @media (360px <= width < 760px), (width >= 760px) and (aspect-ratio < 4/5) {
-  .group:not(:has(li:nth-child(5))) .links,
+  .group:not(.group-learn, :has(li:nth-child(5))) .links,
   .group:has(li:nth-child(7)) .links {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) calc(var(--group-gap) - 2 * var(--key-gap)) minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  .group:not(:has(li:nth-child(5))) li:nth-child(4n + 3),
+  .group:not(.group-learn, :has(li:nth-child(5))) li:nth-child(4n + 3),
   .group:has(li:nth-child(7)) li:nth-child(4n + 3) {
     grid-column: 4;
   }
@@ -435,6 +434,21 @@ svg {
   max-width: 100%;
   overflow: hidden;
   overflow-wrap: break-word;
+}
+
+/* The school name can need three lines in the narrow four-column grid. */
+@media (360px <= width < 400px) {
+  .links a:has(.name-school) {
+    --mark: 22px;
+
+    gap: 5px;
+    padding-top: 12px;
+  }
+
+  .name-school {
+    line-height: 1.05;
+    -webkit-line-clamp: 3;
+  }
 }
 
 .name mark {
