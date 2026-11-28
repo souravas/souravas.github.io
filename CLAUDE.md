@@ -22,7 +22,6 @@ npm test          # the *.test.js files beside the modules they test (node --tes
 | `/kannada` | [`kannada/`](kannada/CLAUDE.md) | *Spoken Kannada*, a course rendered from `kannada/note.md` with an Anki export at `/kannada/anki.txt` |
 | `/code` | [`code/`](code/CLAUDE.md) | Python interview references rendered from the Markdown in `code/` |
 | `/systemdesign` | [`systemdesign/`](systemdesign/CLAUDE.md) | *System Design Mastery*, a reference rendered from `systemdesign/note.md` |
-| `/system` | `public/system/index.html` | redirects to `/systemdesign/` |
 | `/fit` | [`fit/`](fit/CLAUDE.md) | warm-up and exercise videos as grids of thumbnails; `index.html` and `style.css`, no script |
 | `/pomodoro` | [`pomodoro/`](pomodoro/CLAUDE.md) | focus and break timers on a dial |
 | `/cloud` | [`cloud/`](cloud/CLAUDE.md) | opens the cloud drives, all at once: the first in this tab, the rest in new ones (once souravas.com is allowed pop-ups); the list is in its `index.html` |
@@ -61,7 +60,7 @@ The build inlines the imports into each page with the rest of its CSS, so sharin
 
 Plugins, in order:
 
-- `html-routes`: the dev and preview servers mirror GitHub Pages' routing for the pages in `PAGES` (`/x` → `/x/index.html`) and map old URLs to the redirect stubs in `STUBS`. Dev also serves the default design at `/`, read from `DEFAULT_PAGES`, so a change of default is made only there.
+- `html-routes`: the dev and preview servers mirror GitHub Pages' routing for the pages in `PAGES` (`/x` → `/x/index.html`) and the stubs in `STUBS` (`/cv` → `/cv.html`). Dev also serves the default design at `/`, read from `DEFAULT_PAGES`, so a change of default is made only there.
 - `build-stamps` (dev too): fills `__BUILD_DATE__`, `__BUILD_YEAR__`, and the whole years since `CAREER_START` (June 2019) as `__YEARS__`, `__YEARS_00__`, `__YEARS_WORD__`, `__YEARS_WORD_CAP__` and `__YEARS_ORDINAL_CAP__`. **Write these tokens, never the number**, wherever copy states the years. The one exception is the social card (`public/assets/og-cover.jpg`/`.webp`), which has the count drawn into it ("7 years") and has to be redrawn when the count changes each June.
 - `kannada-note`, `code-docs` and `systemdesign-docs` (dev too) render the Markdown pages. See [kannada/CLAUDE.md](kannada/CLAUDE.md), [code/CLAUDE.md](code/CLAUDE.md) and [systemdesign/CLAUDE.md](systemdesign/CLAUDE.md). A link that lands nowhere, such as one to a renamed heading, warns in dev and **fails the build**.
 - `opener-sites` (dev too): writes the hosts /cloud and /invest open (each page's `ol.sites`) onto /start's links to those pages, as `data-opens`, so /start's prompt finds Invest by "kite". The sites stay listed in their own page alone.

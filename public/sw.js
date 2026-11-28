@@ -18,6 +18,8 @@ const SCOPE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const PAGE = `${SCOPE}/`;
 const CACHE = SCOPE.slice(1);
 const INSTANT = SCOPE === "/start";
+// Retire registrations from before the move to /systemdesign.
+const RETIRED = SCOPE === "/system";
 
 // How long the others wait for the network before opening from cache.
 const PATIENCE = 3000;
@@ -118,10 +120,15 @@ async function openFresh(event) {
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();
-  event.waitUntil(caches.open(CACHE).then((cache) => refresh(cache)));
+  if (!RETIRED) event.waitUntil(caches.open(CACHE).then((cache) => refresh(cache)));
+});
+
+self.addEventListener("activate", (event) => {
+  if (RETIRED) event.waitUntil(Promise.all([caches.delete(CACHE), self.registration.unregister()]));
 });
 
 self.addEventListener("fetch", (event) => {
+  if (RETIRED) return;
   const { request } = event;
   const url = new URL(request.url);
   if (request.method !== "GET" || url.origin !== location.origin) return;

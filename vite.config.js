@@ -14,12 +14,9 @@ const SITE_ORIGIN = 'https://souravas.com'
 // new page is added to this file by adding its name here.
 const PAGES = ['v1', 'v2', 'v3', 'start', 'kannada', 'code', 'systemdesign', 'fit', 'pomodoro', 'cloud', 'invest', 'downloads']
 
-// public/'s redirect stubs and their extensionless routes.
-const STUBS = new Map([
-  ['cv', '/cv.html'],
-  ['resume', '/resume.html'],
-  ['system', '/system/index.html'],
-])
+// public/'s redirect stubs (cv.html, resume.html), which GitHub Pages
+// also serves without the .html.
+const STUBS = ['cv', 'resume']
 
 // Only / is listed. The design versions (/v1/–/v3/) show the same
 // résumé, so each names / as its canonical rather than competing with
@@ -158,7 +155,8 @@ const fileFor = (path, { defaults = false } = {}) => {
   }
   const name = bare.slice(1)
   if (PAGES.includes(name)) return `${bare}/index.html`
-  return STUBS.get(name)
+  if (STUBS.includes(name)) return `${bare}.html`
+  return undefined
 }
 
 const htmlRoutes = () => {
